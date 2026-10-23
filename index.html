@@ -62,6 +62,16 @@
   .tile .noimg { height: 72px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--muted); }
   .tile i { display: block; height: 3px; border-radius: 2px; margin: 6px 10px; }
   .tile b { font-size: 15px; font-variant-numeric: tabular-nums; }
+  #result[data-kind=sound] .tile { cursor: pointer; }
+  #result[data-kind=sound] .tile:hover { border-color: var(--accent); }
+  #result .mine { font-size: 12px; margin-top: 10px; }
+
+  /* Покупки */
+  .buy { display: flex; align-items: center; gap: 8px; padding: 4px 0; border-bottom: 1px solid #ffffff0a; font-size: 13px; }
+  .buy img { width: 32px; height: 32px; object-fit: contain; background: #0b0c0f; border-radius: 4px; flex: none; }
+  .buy .grow { flex: 1; min-width: 0; }
+  .buy .grow div { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .buy .meta { color: var(--muted); font-size: 12px; }
   .lang { margin-left: auto; }
   .update { margin-left: auto; padding: 6px 12px; border-radius: 8px; border: 1px solid #3b82f6; color: #93c5fd; text-decoration: none; font-size: 13px; }
   .update:hover { background: rgba(59, 130, 246, .15); }
@@ -127,7 +137,7 @@
       <span class="title" id="stageTitle"></span>
       <span class="grow muted" id="stageHint"></span>
       <button id="btnDone" class="primary" hidden data-i18n="btn.done">Готово</button>
-      <button id="btnRescan" hidden data-i18n="btn.rescan">Скинути схему</button>
+      <button id="btnRescan" hidden data-i18n="btn.rescan">Шукати заново</button>
     </div>
     <div class="map-wrap"><canvas id="map" width="360" height="200"></canvas></div>
     <p class="muted" style="margin:8px 0 0" data-i18n="map.hint"></p>
@@ -153,6 +163,16 @@
     <section>
       <h2 data-i18n="h.log">Журнал</h2>
       <div id="log"></div>
+    </section>
+
+    <section>
+      <h2><span data-i18n="h.buys">Покупки</span> <span id="buysSummary" class="muted" style="text-transform:none;letter-spacing:0"></span></h2>
+      <div class="row">
+        <input type="text" id="nick" data-i18n-ph="buys.nick" data-i18n-title="buys.nickTip" style="flex:1">
+        <button id="btnBuysExport" data-i18n="btn.export">Експорт</button>
+        <button id="btnBuysClear" class="danger" data-i18n="buys.clear">Очистити</button>
+      </div>
+      <div id="buys"></div>
     </section>
   </div>
 
@@ -188,6 +208,7 @@
         <li data-i18n-html="help.4"></li>
         <li data-i18n-html="help.5"></li>
         <li data-i18n-html="help.6"></li>
+        <li data-i18n-html="help.7"></li>
       </ol>
       <p class="muted" data-i18n="help.note"></p>
     </section>
@@ -217,10 +238,8 @@ const MAP_U = 56;            // розмір одиниці на схемі
 const SCAN_MS = 250;         // як часто розбирати сітку, коли схема готова
 const SCAN_FAST_MS = 100;    // і під час скану: кожен вантаж має встигнути набрати голоси, поки його видно
 const QUIET_MS = 1500;       // стільки після звуку картинка вважається «брудною» (вантаж тягнуть)
-const REOPEN_MS = 5000;      // сітки не видно довше — торговця закрили, наступного разу нова схема
+const REOPEN_MS = 5000;      // під час скану сітки не видно довше — торговця закрили, скан наново
 const FREEZE_STABLE = 4;     // стільки розборів без нових вантажів — і схема готова
-const CHANGED_SHARE = 0.4;   // така частка видимих вантажів зникла —
-const CHANGED_STREAK = 6;    // стільки розборів поспіль (~1.5 с) — значить, список переставили
 const REVEAL_STREAK = 4;     // колір розвідданих має триматися стільки розборів
 const MERCHANT_FRESH_MS = 1500; // сітку торговця бачили так недавно — значить, він відкритий
 const NO_BAR_LIMIT = 8;      // стільки розборів без смуги прокрутки — список короткий, рахуємо без неї
@@ -265,6 +284,13 @@ const REDETECT_AFTER = 8;    // раз на стільки кадрів (пок�
 const PROFILES_KEY = 'abi-ear-profiles-v1';
 const PROFILE_KEY = 'abi-ear-profile-v1';
 const BLUE_KEY = 'abi-ear-blue-v1';
+const PURCHASES_KEY = 'abi-kaluvan-purchases-v1';
+const NICK_KEY = 'abi-kaluvan-nick-v1';
+const PRIOR_N = 20;          // дані торговця важать як стільки своїх покупок (більше — повільніше вчиться)
+const FEED_MS = 1000;        // як часто дивитись на рядок «… obtained [предмет]» над сіткою
+const FEED_TOP = 1.15, FEED_BOTTOM = 0.6; // де він: смуга над верхом списку, у клітинках
+const BUY_MATCH = 0.01;      // сума з рядка й ціна з рамки збігаються з такою точністю
+const BUY_SHOWN = 30;        // стільки останніх покупок показувати в списку
 
 // ---------- DOM ----------
 const $ = id => document.getElementById(id);
@@ -274,6 +300,7 @@ const ui = {
   sens: $('sens'), sensVal: $('sensVal'), thr: $('thr'), thrVal: $('thrVal'), beep: $('beep'),
   map: $('map'), imgFile: $('imgFile'), profile: $('profile'), libDir: $('libDir'),
   stageTitle: $('stageTitle'), stageHint: $('stageHint'), rescan: $('btnRescan'), done: $('btnDone'),
+  nick: $('nick'),
 };
 const specCtx = ui.spec.getContext('2d');
 const mapCtx = ui.map.getContext('2d');
@@ -292,6 +319,10 @@ let sounds = loadSounds();
 let profiles = loadJson(PROFILES_KEY, []);   // карти з бібліотеки: [{ id, name }]
 let profile = loadJson(PROFILE_KEY, '');     // вибрана карта ('' — середнє по всіх)
 let includeBlue = loadJson(BLUE_KEY, false); // чи рахувати сині предмети
+let purchases = loadJson(PURCHASES_KEY, []); // свої покупки: [{ t, soundId, size, label, price, itemId, item, q }]
+let myNick = loadJson(NICK_KEY, '');         // нік у грі: рядки стрічки інших гравців пропускаємо
+let feedBusy = false, feedAt = 0, feedSig = null, feedKey = ''; // читання рядка стрічки
+let cardCtx = null;          // що показує картка результату: { soundId, size, label, key } — для запису покупки
 let libPools = [], itemQ = {}, itemById = new Map(); // пули торговця й предмети з бібліотеки
 let hover = null;            // вантаж, на який щойно навели: { key, t }
 let hoverBusy = false, hoverSig = ''; // читання рамки з ціною: зайнято / які вантажі вона закриває
@@ -316,7 +347,6 @@ let phase = 'scan';          // 'scan' — збираємо схему, 'frozen'
 let frozenPlaced = null;     // готова схема: зафіксований список вантажів
 let sawTop = false, sawEnd = false; // чи бачили під час скану верх і низ списку
 let stableCount = 0;         // скільки розборів поспіль не зʼявлялось нових вантажів
-let changeCount = 0;         // скільки розборів поспіль заморожена схема не збігається з екраном
 let sbKnown = null;          // знайдена доріжка смуги прокрутки { x, trackTop, trackLen }
 let noBarCount = 0;          // скільки розборів сітку видно, а смуги прокрутки нема
 let thumbOddLen = 0, thumbOddCount = 0; // повзунок іншої довжини: яка і скільки кадрів поспіль
@@ -582,7 +612,7 @@ function classify(win, onset) {
 
   lastHitId = best.id;
   renderSounds();
-  lastResult = { soundId: best.id, score };
+  lastResult = { soundId: best.id, score, t: Date.now() };
   // вантаж шукаємо лише коли торговець зараз на екрані: інакше (сховище, рейд) схема стара,
   // і розмір чужого вантажу зіпсував би шанси
   const merchantOpen = cargo.size && performance.now() - gridSeenAt < MERCHANT_FRESH_MS;
@@ -593,6 +623,7 @@ function classify(win, onset) {
   const rec = key && cargo.get(key);
   const size = rec ? `${rec.w}x${rec.h}` : '';
   const label = cargoInfo(rec);
+  lastResult.key = key;
   showResult(best, score, ranked[1], size, label);
   const red = qualityOdds(best, size, label).red || 0;
   if (ui.beep.checked) beep(red);
@@ -653,8 +684,21 @@ function itemOdds(sound, size, label) {
   if (!total && label && label.priceW) return itemOdds(sound, size, { ...label, priceW: null });
   const uniform = !total;
   if (uniform) total = list.length || 1;
-  return list.map(it => ({ it, p: (uniform ? 1 : weightOf(it, label)) / total }))
-    .sort((a, b) => order(a.it.q) - order(b.it.q) || b.p - a.p);
+  // Свої покупки з цим звуком уточнюють шанси: дані торговця — як PRIOR_N «уявних» покупок,
+  // до яких додаються справжні (середнє апостеріорне Діріхле). Що більше покупок, то більше їм віри.
+  const seen = boughtCounts(sound.id);
+  const n = list.reduce((a, it) => a + (seen.get(it.id) || 0), 0);
+  return list.map(it => {
+    const prior = (uniform ? 1 : weightOf(it, label)) / total;
+    return { it, p: n ? (PRIOR_N * prior + (seen.get(it.id) || 0)) / (PRIOR_N + n) : prior };
+  }).sort((a, b) => order(a.it.q) - order(b.it.q) || b.p - a.p);
+}
+
+// Скільки разів кожен предмет випадав зі звуком: id → кількість
+function boughtCounts(soundId) {
+  const out = new Map();
+  for (const b of purchases) if (b.soundId === soundId && b.itemId != null) out.set(b.itemId, (out.get(b.itemId) || 0) + 1);
+  return out;
 }
 
 function qualityOdds(sound, size, label) {
@@ -693,12 +737,17 @@ function showResult(sound, score, second, size, label) {
     : '';
 
   const parts = [tr('card.sub', { name: soundName(sound), p: pct(score) })];
+  const mine = purchases.filter(b => b.soundId === sound.id && b.itemId != null).length;
+  // плитки цієї картки клікабельні: «випало оце» — записати покупку вручну
+  cardCtx = { soundId: sound.id, size: normSize(size), label, key: lastResult && lastResult.soundId === sound.id ? lastResult.key : null };
+  ui.result.dataset.kind = 'sound';
   ui.result.innerHTML = `
     <div class="big" style="color:${color}">${red >= 0.995 ? tr('card.red') : red > 0 ? tr('card.redP', { p: pct(red) }) : tr('card.notRed')}</div>
     <div class="sub">${esc(parts[0] + (size ? tr('card.cargo', { size: normSize(size) }) : ''))}${label && (label.mystery || label.category) ? `, ${esc(labelName(label))}` : ''}${label && label.price ? `, ${fmtPrice(label.price)}` : ''}</div>
     ${sizes ? `<div class="sizes">${sizes}</div>` : ''}
     ${chanceRow(red)}
     ${itemTiles(itemOdds(sound, size, label))}
+    <div class="muted mine">${esc(mine ? tr('card.mine', { n: mine }) : tr('card.recordHint'))}</div>
     ${alt}`;
   document.title = tr('doc.title', { p: pct(red), app: tr('app') });
 }
@@ -713,7 +762,7 @@ function chanceRow(red) {
 function itemTiles(list, max = 12) {
   const shown = (list.some(x => x.p > 0) ? list.filter(x => x.p >= 0.005) : list).slice(0, max);
   return `<div class="tiles">${shown.map(({ it, p }) => `
-    <div class="tile" title="${esc(itemName(it))} · ${normSize(it.size)}${it.price ? ' · ~' + money(it.price) : ''}">
+    <div class="tile" data-id="${esc(it.id)}" title="${esc(itemName(it))} · ${normSize(it.size)}${it.price ? ' · ~' + money(it.price) : ''}">
       ${it.img ? `<img src="${it.img}" alt="">` : `<div class="noimg">${esc(itemName(it))}</div>`}
       <i style="background:${qById[it.q].color}"></i>
       <b>${pctFine(p)}</b>
@@ -724,7 +773,7 @@ function itemTiles(list, max = 12) {
 function resetScan() {
   P = 0; checkFrames = 0; offset = 0; viewport = null; prevSig = null; ring = []; listTopR = null;
   cargo = new Map(); results = new Map(); lastKey = null; lastSeen = null; gridSeenAt = 0;
-  phase = 'scan'; sawTop = false; sawEnd = false; stableCount = 0; changeCount = 0;
+  phase = 'scan'; sawTop = false; sawEnd = false; stableCount = 0;
   sbKnown = null; noBarCount = 0; frozenPlaced = null;
   updateStage();
   drawMap();
@@ -811,7 +860,7 @@ function analyze(src, rp) {
   // Розмір клітинки могли взяти з кадру без торговця (інвентар, рейд), якщо ловлю почали раніше:
   // з ним справжню сітку не знайти, а випадкові «вантажі» трапляються. Поки схема не готова (чи сітки
   // нема), час від часу перевіряємо розмір наново і беремо той, з яким вантажі займають більшу площу.
-  if (++checkFrames >= REDETECT_AFTER && (!found || phase === 'scan')) {
+  if (phase !== 'frozen' && ++checkFrames >= REDETECT_AFTER) {
     checkFrames = 0;
     const P2 = Vision.detectPeriod(rp.w, rp.h, maps);
     if (P2 && Math.abs(P2 - P) > P * 0.1) {
@@ -820,8 +869,10 @@ function analyze(src, rp) {
     }
   }
   if (!found) { lostGrid(now); return; }
-  // уточнення на частки пікселя приймаємо тихо; інший масштаб (×2) — це вже інша сітка
+  // уточнення на частки пікселя приймаємо тихо; інший масштаб (×2) — це вже інша сітка.
+  // Готову схему не чіпає ніщо, крім кнопки «Шукати заново»: такий кадр просто пропускаємо.
   if (Math.abs(found.P - P) > P * 0.1) {
+    if (phase === 'frozen') { lostGrid(now); return; }
     viewport = null; prevSig = null; ring = []; cargo = new Map(); results = new Map(); listTopR = null;
     sbKnown = null; noBarCount = 0; phase = 'scan'; frozenPlaced = null; sawTop = sawEnd = false; stableCount = 0;
   }
@@ -830,8 +881,8 @@ function analyze(src, rp) {
   // вантаж у грі завжди сірий, порожній слот — чорний (інколи з крапкою)
   let items = found.items.filter(it => it.occ >= OCC_GREY);
   if (!items.length) { lostGrid(now); return; }
-  // торговця закрили й відкрили знову: це вже інший список
-  if (gridSeenAt && now - gridSeenAt > REOPEN_MS && cargo.size) { log(tr('log.reopen')); resetScan(); }
+  // торговця закрили й відкрили знову посеред скану: це вже інший список
+  if (phase !== 'frozen' && gridSeenAt && now - gridSeenAt > REOPEN_MS && cargo.size) { log(tr('log.reopen')); resetScan(); }
   gridSeenAt = now;
 
   // Видима частина списку. Найточніше її дає смуга прокрутки праворуч: доріжка — від верху до низу
@@ -893,6 +944,7 @@ function analyze(src, rp) {
   // заголовка тоді грає роль його верхньої межі. Віримо такому лише в першому рядку списку.
   items = items.filter(it => Math.abs(grid.y0 + it.r * P - viewport.y) > P * 0.3 || n + it.r === listTopR);
   lastSeen = { grid, items };
+  readFeed(G, grid, now);
 
   // поки вантаж тягнуть, картинка «брудна»: схему й еталони не чіпаємо
   const quiet = now - captureOnset > QUIET_MS;
@@ -917,19 +969,9 @@ function analyze(src, rp) {
     stableCount = unsure ? 0 : stableCount + 1;
     if (sawTop && sawEnd && cargo.size && stableCount >= FREEZE_STABLE) freeze(tr('log.frozen', { n: placedCargo().length }));
   } else if (phase === 'frozen' && quiet) {
-    // Заморожена схема не реагує на мишку й перетягування. Але якщо більша частина видимих вантажів
-    // зникла, а на їхньому місці стабільно інші, торговець переставив список (купівля): скануємо заново.
+    // Заморожена схема не реагує ні на мишку, ні на рамки з ціною, ні на купівлю: після покупки
+    // гравець сам тисне «Шукати заново». Інакше рамка, що висить над вантажами, зривала схему.
     const frozenKeys = new Set(frozenPlaced.map(([k]) => k));
-    const visible = frozenPlaced.map(([, rec]) => rec).filter(rec => fullyVisible(rec, grid, colOf));
-    const lost = visible.filter(rec => !seen.has(`${rec.C},${rec.R},${rec.w},${rec.h}`)).length;
-    const unknown = items.filter(i => !frozenKeys.has(`${colOf(i.c)},${n + i.r},${i.w},${i.h}`)).length;
-    const changed = visible.length >= 4 && lost / visible.length >= CHANGED_SHARE && unknown >= 2;
-    changeCount = changed ? changeCount + 1 : 0;
-    if (changeCount >= CHANGED_STREAK) {
-      log(tr('log.reflow'));
-      rescan(scrollIsTop(sb));
-      return;
-    }
     // Дозаповнення: вантаж, якого бракувало (скажімо, верхній ряд не встиг підтвердитись до заморозки),
     // додаємо, коли його впевнено бачили кілька разів і він не перекриває жодного відомого.
     // Наявні вантажі готової схеми не змінюються ніколи.
@@ -978,27 +1020,12 @@ function overlapsFrozen(rec) {
   return frozenPlaced.some(([, r]) => rec.C < r.C + r.w && r.C < rec.C + rec.w && rec.R < r.R + r.h && r.R < rec.R + rec.h);
 }
 
-function scrollIsTop(sb) {
-  return !sb || sb.thumbTop - sb.trackTop < 2;
-}
-
 function freeze(message) {
   if (phase === 'frozen') return;
   frozenPlaced = placedCargo();
   phase = 'frozen';
-  changeCount = 0;
   log(message);
   updateStage();
-}
-
-// Новий скан тієї самої сітки (після купівлі): розмір клітинки й межі списку лишаються
-function rescan(atTop) {
-  phase = 'scan';
-  frozenPlaced = null;
-  cargo = new Map(); results = new Map(); lastKey = null;
-  sawTop = atTop; sawEnd = false; stableCount = 0; changeCount = 0;
-  updateStage();
-  drawMap();
 }
 
 // Розвіддані: гра фарбує розкритий вантаж у колір якості предмета. Колір має триматися кілька
@@ -1271,6 +1298,7 @@ function showHover(rec) {
   ui.result.style.borderColor = color;
   ui.result.style.background = color + '1a';
   const title = red === null ? tr('hover.title') : red >= 0.995 ? tr('card.red') : red > 0 ? tr('hover.maybe', { p: pct(red) }) : tr('hover.none');
+  ui.result.dataset.kind = 'hover';
   ui.result.innerHTML = `
     <div class="big" style="color:${color}">${title}</div>
     <div class="sub">${esc(cargoHead(rec))}. ${esc(tr('hover.drag'))}</div>
@@ -1297,6 +1325,103 @@ function readLabel(rec, x, y, w, h) {
     })
     .catch(e => { rec.labelTries = LABEL_TRIES; if (!readLabel.failed) log(tr('log.ocrFail', { msg: e.message || e })); readLabel.failed = true; })
     .finally(() => { rec.labelBusy = false; });
+}
+
+// ---------- Покупки ----------
+// Після купівлі гра пише над сіткою: «нік spent 200,000 Koen on a mystery cargo and obtained [предмет]».
+// Читаємо цей рядок, коли він змінюється, і шукаємо вантаж, звук якого чули і чия ціна з рамки
+// збігається з сумою, — тоді знаємо і звук, і що з нього випало.
+function readFeed(G, grid, now) {
+  if (feedBusy || now - feedAt < FEED_MS || typeof Ocr === 'undefined' || !viewport) return;
+  feedAt = now;
+  const x = Math.max(0, Math.round(grid.x0)), w = Math.round(Math.min(grid.cols * P, G.w - x));
+  const y = Math.max(0, Math.round(viewport.y - P * FEED_TOP)), h = Math.round(viewport.y - P * FEED_BOTTOM) - y;
+  if (w < P * 3 || h < P * 0.25) return;
+  const sig = Vision.crop(G, x, y, w, h);
+  if (feedSig && feedSig.length === sig.length && Vision.patchDiff(sig, feedSig) < 2) return; // рядок той самий
+  feedSig = sig;
+  feedBusy = true;
+  Ocr.readData(Ocr.tipCanvas(fullCanvas, x, y, w, h), 'label')
+    .then(data => {
+      const feed = Ocr.parseFeed(data.text);
+      const key = feed ? `${feed.nick}|${feed.price}|${feed.item}` : '';
+      if (key && key !== feedKey) onFeed(feed);
+      feedKey = key;
+    })
+    .catch(() => { feedSig = null; })
+    .finally(() => { feedBusy = false; });
+}
+
+function sameNick(a, b) {
+  return !!(a && b && Ocr.matchName(a, [{ name: b }]));
+}
+
+function onFeed({ nick, price, item }) {
+  if (myNick && !sameNick(nick, myNick)) return; // купив хтось інший
+  // вантаж зі звуком, чия ціна з рамки збігається з сумою; з кількох — той, що чули останнім
+  const byPrice = [...results].filter(([key]) => {
+    const rec = cargo.get(key);
+    return rec && rec.price && !rec.bought && Math.abs(rec.price - price) <= price * BUY_MATCH;
+  }).sort((a, b) => (b[1].t || 0) - (a[1].t || 0))[0];
+  let key = byPrice ? byPrice[0] : null, res = byPrice ? byPrice[1] : null;
+  if (!byPrice) {
+    // Ціни не знали (не наводили). Якщо нік точно наш — беремо останній почутий звук (за 3 хв),
+    // а без звуку лише записуємо в історію.
+    if (!myNick) return;
+    if (lastResult && Date.now() - lastResult.t < 180e3) { key = lastResult.key; res = lastResult; }
+  } else if (!myNick) {
+    myNick = nick;
+    try { localStorage.setItem(NICK_KEY, JSON.stringify(myNick)); } catch {}
+    ui.nick.value = myNick;
+    log(tr('log.nick', { nick }));
+  }
+  const rec = key && cargo.get(key);
+  recordPurchase({ soundId: res && res.soundId, size: rec ? normSize(`${rec.w}x${rec.h}`) : '', label: cargoInfo(rec), price, itemText: item, key });
+}
+
+// Записати покупку. itemId — якщо предмет уже відомий (клік по плитці), інакше шукаємо за назвою.
+function recordPurchase({ soundId, size, label, price, itemText, itemId, key }) {
+  const sound = soundId && soundById(soundId);
+  let it = itemId != null ? itemById.get(itemId) || (sound && sound.items.find(x => String(x.id) === String(itemId))) : null;
+  if (!it && itemText) {
+    const named = list => list.map(x => ({ name: x.nameEn || x.name, it: x }));
+    const m = (sound && Ocr.matchName(itemText, named(sound.items))) || Ocr.matchName(itemText, named([...itemById.values()]));
+    it = m && m.it;
+  }
+  const rec = key && cargo.get(key);
+  purchases.push({
+    t: Date.now(), soundId: soundId || null, size: size || '',
+    label: label && (label.mystery || label.category) ? labelName(label) : '',
+    price: price || (rec && rec.price) || 0,
+    itemId: it ? it.id : null, item: it ? it.nameEn || it.name : itemText || '', q: it ? it.q : '',
+  });
+  savePurchases();
+  if (rec) rec.bought = it || true;
+  log(tr('log.bought', { sound: sound ? soundName(sound) : tr('buys.noSound'), price: price ? fmtPrice(price) : '—', item: it ? itemName(it) : itemText }));
+  renderPurchases();
+  drawMap();
+}
+
+function savePurchases() {
+  try { localStorage.setItem(PURCHASES_KEY, JSON.stringify(purchases)); } catch {}
+}
+
+function renderPurchases() {
+  const el = $('buys');
+  const red = purchases.filter(b => b.q === 'red').length;
+  $('buysSummary').textContent = purchases.length ? tr('buys.summary', { n: purchases.length, red }) : '';
+  if (!purchases.length) { el.innerHTML = `<p class="muted">${esc(tr('buys.empty'))}</p>`; return; }
+  el.innerHTML = purchases.slice(-BUY_SHOWN).reverse().map(b => {
+    const it = b.itemId != null ? itemById.get(b.itemId) : null;
+    const s = b.soundId && soundById(b.soundId);
+    const time = new Date(b.t).toLocaleString(I18n.locale, { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
+    const meta = [time, s ? soundName(s) : tr('buys.noSound'), b.size, b.label, b.price ? fmtPrice(b.price) : ''].filter(Boolean).join(' · ');
+    return `<div class="buy">
+      ${it && it.img ? `<img src="${it.img}" alt="">` : '<img alt="">'}
+      <div class="grow"><div style="color:${b.q && qById[b.q] ? qById[b.q].color : 'inherit'}">${esc(it ? itemName(it) : b.item || '?')}</div><div class="meta">${esc(meta)}</div></div>
+      <button class="small danger" data-del="${b.t}" title="${esc(tr('buys.del'))}">✕</button>
+    </div>`;
+  }).join('');
 }
 
 function cargoName(key) {
@@ -1360,6 +1485,18 @@ function drawMapInner() {
     c.fillStyle = '#15181d';
     c.fillRect(x + 2, y + 2, w - 4, h - 4);
     if (rec.thumb) { c.globalAlpha = 0.35; c.drawImage(rec.thumb, x + 2, y + 2, w - 4, h - 4); c.globalAlpha = 1; }
+
+    if (rec.bought) {
+      // уже куплений: притушений, з тим, що випало
+      c.fillStyle = 'rgba(11,12,15,.7)';
+      c.fillRect(x + 2, y + 2, w - 4, h - 4);
+      if (rec.bought.img) { c.globalAlpha = 0.6; drawItemIcon(c, rec.bought, x + 8, y + 8, w - 16, h - 16); c.globalAlpha = 1; }
+      c.strokeStyle = '#3a414d'; c.lineWidth = 1;
+      c.strokeRect(x + 2.5, y + 2.5, w - 5, h - 5);
+      c.fillStyle = '#22c55e'; c.font = 'bold 14px system-ui, sans-serif'; c.textAlign = 'left'; c.textBaseline = 'top';
+      c.fillText('✓', x + 6, y + 4);
+      continue;
+    }
 
     const r = results.get(key);
     const sound = r && soundById(r.soundId);
@@ -1684,6 +1821,7 @@ async function importLibrary(files) {
     profiles = lib.profiles;
     try { localStorage.setItem(PROFILES_KEY, JSON.stringify(profiles)); } catch {}
     renderProfiles();
+    renderPurchases();
     saveSounds();
     log(tr('log.libDone', { s: lib.sounds.length, i: lib.sounds.reduce((a, s) => a + s.items.length, 0) }));
     setStatus(tr(stream ? 'status.listening' : 'status.libDone'));
@@ -1747,6 +1885,42 @@ ui.start.onclick = start;
 ui.stop.onclick = stop;
 ui.rescan.onclick = resetScan;
 ui.done.onclick = () => freeze(tr('log.manualFreeze', { n: placedCargo().length }));
+
+// Покупки: клік по плитці в картці звуку — «випало оце»; нік; видалення й експорт
+ui.result.addEventListener('click', e => {
+  const tile = e.target.closest('.tile[data-id]');
+  if (!tile || ui.result.dataset.kind !== 'sound' || !cardCtx) return;
+  const s = soundById(cardCtx.soundId);
+  const it = s && s.items.find(x => String(x.id) === tile.dataset.id);
+  if (!it || !confirm(tr('buys.confirm', { item: itemName(it) }))) return;
+  recordPurchase({ soundId: cardCtx.soundId, size: cardCtx.size, label: cardCtx.label, price: cardCtx.label && cardCtx.label.price, itemId: it.id, key: cardCtx.key });
+  showResult(s, lastResult && lastResult.soundId === s.id ? lastResult.score : 1, null, cardCtx.size, cardCtx.label);
+});
+ui.nick.value = myNick;
+ui.nick.onchange = () => {
+  myNick = ui.nick.value.trim();
+  try { localStorage.setItem(NICK_KEY, JSON.stringify(myNick)); } catch {}
+};
+$('buys').addEventListener('click', e => {
+  const btn = e.target.closest('[data-del]');
+  if (!btn) return;
+  purchases = purchases.filter(b => String(b.t) !== btn.dataset.del);
+  savePurchases();
+  renderPurchases();
+});
+$('btnBuysClear').onclick = () => {
+  if (!purchases.length || !confirm(tr('buys.clearAsk'))) return;
+  purchases = [];
+  savePurchases();
+  renderPurchases();
+};
+$('btnBuysExport').onclick = () => {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([JSON.stringify(purchases, null, 1)], { type: 'application/json' }));
+  a.download = 'abi-kaluvan-purchases.json';
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+};
 
 $('btnLib').onclick = () => ui.libDir.click();
 ui.libDir.onchange = e => {
@@ -1849,7 +2023,7 @@ langSelect.value = I18n.lang;
 langSelect.onchange = () => {
   I18n.setLang(langSelect.value);
   if (stream) showGameStatus(gameStatus);
-  syncLabels(); renderProfiles(); renderSounds(); updateStage(); drawMap(); renderUpdate();
+  syncLabels(); renderProfiles(); renderSounds(); updateStage(); drawMap(); renderUpdate(); renderPurchases();
 };
 
 // Новий реліз на GitHub: сама заміна файлів — у update.ps1 при запуску start.bat, тут лише підказка
@@ -1878,6 +2052,7 @@ I18n.apply();
 syncLabels();
 renderProfiles();
 renderSounds();
+renderPurchases();
 autoLoadLibrary();
 updateStage();
 drawMap();

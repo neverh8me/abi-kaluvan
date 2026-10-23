@@ -15,9 +15,10 @@ The app listens to the game's sound when you drag a cargo, and it watches the me
 - **Red chance.** The probability combines four inputs: the sound, the cargo size, the cargo label (Common / Uncommon / Rare Mystery Cargo or a category like *Tools*) and the price. Red items appear only in Mystery Cargo of size 1×2, 2×2 or 2×3, and the app takes this into account.
 - **Automatic merchant map.**
   - Open the merchant and scroll through the list. The app finds the grid by itself, reads the cargo labels and draws its own map.
-  - The map stays frozen while you hover or drag items.
-  - The map rebuilds automatically after a purchase.
+  - Once ready, the map stays frozen: hovering, dragging and price tooltips do not change it.
+  - After a purchase, press **Scan again** to rebuild it.
 - **Price from the tooltip.** Hover a cargo and the app reads the price from the in-game tooltip. It then estimates the red chance before you even drag the cargo.
+- **Purchase memory.** After a purchase, the game writes “*nick* spent 200,000 Koen on a mystery cargo and obtained [item]” above the grid. The app reads this line and matches the amount with the price of the cargo it heard. It then records the sound, size, label, price and the item you got. These records refine the odds for that sound, which helps most with sounds shared by several items. You can also record a purchase by clicking the item tile in the result card.
 - **Item cards.** The result panel, the map cells and the hover popup all show item icons with per-item odds. Red items are listed first.
 - **Game-only capture.** No browser screen sharing is used. The local helper captures:
   - audio from the game process only (WASAPI process loopback);
@@ -43,7 +44,7 @@ Nothing needs to be installed. The helper is compiled on the fly by the built-in
 5. Use one of two ways to check a cargo:
    - hover a cargo to see its price-based red chance;
    - drag a cargo to hear the sound and get the item breakdown.
-6. After you buy something, the map rebuilds by itself.
+6. Buy the cargo. The purchase is recorded automatically, and then press **Scan again** to rebuild the map.
 
 Close the `start.bat` window to stop the server.
 

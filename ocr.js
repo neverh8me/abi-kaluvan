@@ -187,6 +187,36 @@ const Ocr = (() => {
     return bestScore <= 0.4 ? best : null;
   }
 
+  // Рядок стрічки над сіткою: «neverh8me spent 200,000 Koen on a mystery cargo and obtained [Studio Monitor]».
+  // Назва предмета може бути обрізана краєм панелі. Повертає { nick, price, item } або null.
+  function parseFeed(text) {
+    const s = text.replace(/\s+/g, ' ');
+    const m = s.match(/(\S+)\s+spent\s+([\d][\d ,.oO]*\d)\s*K\w*\s+on\b.*?obtain\w*\s*[\[({|]?\s*([^\]\)}|]+)/i);
+    if (!m) return null;
+    const price = +m[2].replace(/[oO]/g, '0').replace(/\D/g, '');
+    const item = m[3].replace(/[^A-Za-z0-9 .\-'&]/g, '').trim();
+    if (!price || item.length < 3) return null;
+    return { nick: m[1], price, item };
+  }
+
+  // Найближча назва зі списку { name } (назва з рядка може бути обрізаною — тоді порівнюємо з початком).
+  // Повертає елемент списку або null.
+  function matchName(text, list) {
+    const norm = x => x.toLowerCase().replace(/[^a-z0-9]/g, '');
+    const s = norm(text);
+    if (s.length < 3) return null;
+    let best = null, bestScore = Infinity;
+    for (const el of list) {
+      const n = norm(el.name);
+      if (!n) continue;
+      // обрізана назва: лише початок; повна — уся, щоб «Gold» не збігся з «Gold Bar»
+      const target = s.length < n.length ? n.slice(0, s.length) : n;
+      const d = distance(s, target) / Math.max(s.length, target.length) + (s.length < n.length ? 0.01 : 0);
+      if (d < bestScore) { bestScore = d; best = el; }
+    }
+    return bestScore <= 0.25 ? best : null;
+  }
+
   function distance(a, b) {
     const dp = Array.from({ length: a.length + 1 }, (_, i) => [i]);
     for (let j = 1; j <= b.length; j++) dp[0][j] = j;
@@ -198,5 +228,5 @@ const Ocr = (() => {
     return dp[a.length][b.length];
   }
 
-  return { start, read, readData, labelCanvas, parseLabel, tipCanvas, findTipBox, parseTip };
+  return { start, read, readData, labelCanvas, parseLabel, tipCanvas, findTipBox, parseTip, parseFeed, matchName };
 })();
