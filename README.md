@@ -47,10 +47,19 @@ Nothing needs to be installed. The helper is compiled on the fly by the built-in
 
 Close the `start.bat` window to stop the server.
 
+## Updating
+
+Every time you run `start.bat`, it checks GitHub for a newer release. If there is one, it asks `Update now? [Y/n]`. On yes, it downloads the release, unpacks it over the app folder and restarts. Your sounds and settings are kept, because they live in the browser, not in the app folder.
+
+If a new release comes out while the app is running, a banner appears at the top of the page. Restart `start.bat` to update.
+
+With no internet connection, the check is skipped silently.
+
 ## How it works
 
 | Part | File | What it does |
 |---|---|---|
+| Updater | `update.ps1`, `version.json` | Compares the local version with the latest GitHub release and installs it. |
 | Local server | `start.bat`, `server.ps1`, `helper.cs` | Compiles the C# helper with PowerShell `Add-Type`. It serves the page over HTTP and streams two things over WebSockets: game audio (`/audio`) and frames of the game window (`/screen`, ~30 fps). |
 | Sound matching | `audio.js` | Uses band-limited normalized cross-correlation (5 frequency bands, 0.2 s template) against the game's reference sounds, with per-band onset detection. |
 | Sound library | `library.js`, `library/` | Contains the reference sounds, sound → item groups, Field Merchant pools with weights, and item icons. |

@@ -63,6 +63,9 @@
   .tile i { display: block; height: 3px; border-radius: 2px; margin: 6px 10px; }
   .tile b { font-size: 15px; font-variant-numeric: tabular-nums; }
   .lang { margin-left: auto; }
+  .update { margin-left: auto; padding: 6px 12px; border-radius: 8px; border: 1px solid #3b82f6; color: #93c5fd; text-decoration: none; font-size: 13px; }
+  .update:hover { background: rgba(59, 130, 246, .15); }
+  .update:not([hidden]) + .lang { margin-left: 0; }
   .credits { text-align: center; color: var(--muted); font-size: 12px; padding: 8px 20px 20px; }
   .map-pop { position: fixed; z-index: 10; width: 340px; background: #15181d; border: 1px solid #3a414d; border-radius: 10px; padding: 12px; box-shadow: 0 8px 30px #000a; pointer-events: none; }
   .map-pop .head { color: var(--muted); font-size: 13px; }
@@ -107,6 +110,7 @@
   <button id="btnStart" class="primary" data-i18n="btn.start">Почати ловлю</button>
   <button id="btnStop" disabled data-i18n="btn.stop">Зупинити</button>
   <span class="status" id="status" data-i18n="status.idle">Не запущено</span>
+  <a id="update" class="update" target="_blank" rel="noopener" hidden></a>
   <select id="lang" class="lang" title="Мова · Language · Язык">
     <option value="uk">UA</option><option value="en">ENG</option><option value="ru">RU</option>
   </select>
@@ -1826,8 +1830,31 @@ langSelect.value = I18n.lang;
 langSelect.onchange = () => {
   I18n.setLang(langSelect.value);
   if (stream) showGameStatus(gameStatus);
-  syncLabels(); renderProfiles(); renderSounds(); updateStage(); drawMap();
+  syncLabels(); renderProfiles(); renderSounds(); updateStage(); drawMap(); renderUpdate();
 };
+
+// Новий реліз на GitHub: сама заміна файлів — у update.ps1 при запуску start.bat, тут лише підказка
+const REPO = 'neverh8me/abi-kaluvan';
+let latestRelease = null;
+async function checkUpdate() {
+  try {
+    const local = (await (await fetch('version.json', { cache: 'no-cache' })).json()).version;
+    const rel = await (await fetch(`https://api.github.com/repos/${REPO}/releases/latest`)).json();
+    const v = String(rel.tag_name || '').replace(/^v/, '');
+    const num = s => s.split('.').map(Number);
+    const newer = (a, b) => { const x = num(a), y = num(b); for (let i = 0; i < 3; i++) if ((x[i] || 0) !== (y[i] || 0)) return (x[i] || 0) > (y[i] || 0); return false; };
+    if (v && newer(v, local)) { latestRelease = { v, url: rel.html_url }; renderUpdate(); }
+  } catch {} // офлайн або сайт відкрито не через start.bat — мовчимо
+}
+function renderUpdate() {
+  const a = $('update');
+  if (!latestRelease) return;
+  a.textContent = tr('update.available', { v: latestRelease.v });
+  a.href = latestRelease.url;
+  a.hidden = false;
+}
+checkUpdate();
+setInterval(checkUpdate, 6 * 3600e3);
 I18n.apply();
 syncLabels();
 renderProfiles();

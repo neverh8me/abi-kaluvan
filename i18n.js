@@ -6,6 +6,7 @@ const I18n = (() => {
     uk: {
       'app': 'ABI Kaluvan',
       'btn.start': 'Почати ловлю', 'btn.stop': 'Зупинити', 'status.idle': 'Не запущено',
+      'update.available': 'Вийшла v{v} — перезапусти start.bat, щоб оновитись',
       'h.result': 'Результат', 'result.wait': 'Чекаю на звук…',
       'btn.done': 'Готово', 'btn.rescan': 'Скинути схему',
       'map.hint': 'Наведи мишку на вантаж на схемі, щоб побачити подробиці. Клік призначає йому останній звук, правий клік очищає.',
@@ -74,6 +75,7 @@ const I18n = (() => {
     en: {
       'app': 'ABI Kaluvan',
       'btn.start': 'Start catching', 'btn.stop': 'Stop', 'status.idle': 'Not running',
+      'update.available': 'v{v} is out — restart start.bat to update',
       'h.result': 'Result', 'result.wait': 'Waiting for a sound…',
       'btn.done': 'Done', 'btn.rescan': 'Reset map',
       'map.hint': 'Hover a cargo on the map for details. Click assigns the last sound to it, right-click clears.',
@@ -142,6 +144,7 @@ const I18n = (() => {
     ru: {
       'app': 'ABI Kaluvan',
       'btn.start': 'Начать ловлю', 'btn.stop': 'Остановить', 'status.idle': 'Не запущено',
+      'update.available': 'Вышла v{v} — перезапусти start.bat, чтобы обновиться',
       'h.result': 'Результат', 'result.wait': 'Жду звук…',
       'btn.done': 'Готово', 'btn.rescan': 'Сбросить схему',
       'map.hint': 'Наведи мышку на груз на схеме, чтобы увидеть подробности. Клик назначает ему последний звук, правый клик очищает.',

@@ -1,6 +1,6 @@
 ﻿# Локальний сервер ABI Kaluvan (без встановлення нічого): роздає сайт і передає йому звук лише гри.
 # Сам сервер — у helper.cs, тут лише компіляція й запуск.
-param([string]$Exe = 'UAGame', [int]$Port = 8777)
+param([string]$Exe = 'UAGame', [int]$Port = 8777, [switch]$NoUpdate)
 [Console]::OutputEncoding = [Text.Encoding]::UTF8
 $port = $Port
 $url  = "http://localhost:$port/"
@@ -12,6 +12,12 @@ try {
   Start-Process $url
   exit 0
 } catch { }
+
+# Новий реліз на GitHub — оновлюємось і запускаємо вже оновлений server.ps1
+if (-not $NoUpdate -and (& (Join-Path $PSScriptRoot 'update.ps1') -Root $PSScriptRoot)) {
+  & (Join-Path $PSScriptRoot 'server.ps1') -Exe $Exe -Port $Port -NoUpdate
+  exit
+}
 
 try {
   Add-Type -TypeDefinition ([IO.File]::ReadAllText((Join-Path $PSScriptRoot 'helper.cs'), [Text.Encoding]::UTF8)) -ReferencedAssemblies System.Drawing -ErrorAction Stop
