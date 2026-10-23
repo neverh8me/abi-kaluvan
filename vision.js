@@ -8,6 +8,7 @@ const Vision = (() => {
   const EDGE_FILL = 0.55;   // частка межі, яку має покривати лінія (можна шматками)
   const EDGE_RUN = 0.25;    // і хоча б один суцільний шматок такої довжини
   const OCC_T = 40;         // яскравість, з якої піксель вважається «вмістом»
+  const EDGE_REL = 0.7;     // межа вантажу — не слабша за таку частку від типової межі на кадрі
 
   function toGray(data, w, h) {
     const g = new Uint8Array(w * h);
@@ -25,17 +26,22 @@ const Vision = (() => {
   // Карти тонких світлих ліній: hr — горизонтальні, vr — вертикальні.
   // Сусідів беремо на відстані 2–4 px: на великій роздільності чи після масштабування лінія товща.
   // Лінія світліша за обидва боки; просто перепад (сірий вантаж → темний фон під списком) — не лінія.
+  // У карті — контраст лінії (0 — не лінія): відкритий через Intel вантаж має кольоровий фон, і на ньому
+  // видно лінії між клітинками всередині вантажу, але вдвічі слабші за справжні межі.
   function lineMaps({ w, h, g }) {
     const hr = new Uint8Array(w * h), vr = new Uint8Array(w * h);
     const D = 4;
-    const isLine = (v, a, b) => v - ((a + b) >> 1) > LINE_T && v - Math.max(a, b) > LINE_T / 3;
+    const contrast = (v, a, b) => Math.min(v - ((a + b) >> 1), 3 * (v - Math.max(a, b)));
     for (let y = D; y < h - D; y++) {
       for (let x = D; x < w - D; x++) {
         const i = y * w + x, v = g[i];
+        let ch = 0, cv = 0;
         for (let d = 2; d <= D; d++) {
-          if (!hr[i] && isLine(v, g[i - d * w], g[i + d * w])) hr[i] = 1;
-          if (!vr[i] && isLine(v, g[i - d], g[i + d])) vr[i] = 1;
+          ch = Math.max(ch, contrast(v, g[i - d * w], g[i + d * w]));
+          cv = Math.max(cv, contrast(v, g[i - d], g[i + d]));
         }
+        if (ch > LINE_T) hr[i] = Math.min(255, ch);
+        if (cv > LINE_T) vr[i] = Math.min(255, cv);
       }
     }
     return { hr, vr };
@@ -175,13 +181,14 @@ const Vision = (() => {
 
   // Чи є лінія вздовж межі. Довгий напис («Uncommon Mystery Cargo» у 4 рядки) перекриває рамку
   // й рве її на шматки, тож дивимось на сумарне покриття, а не лише на найдовший шматок.
-  function edgeFill(map, w, x, y, len, horizontal) {
+  // minC — найменший контраст, що рахується.
+  function edgeFill(map, w, x, y, len, horizontal, minC = 1) {
     let best = 0, run = 0, hits = 0;
     for (let i = 0; i < len; i++) {
       let hit = false;
       for (let d = -2; d <= 2 && !hit; d++) {
         const idx = horizontal ? (y + d) * w + (x + i) : (y + i) * w + (x + d);
-        if (map[idx]) hit = true;
+        if (map[idx] >= minC) hit = true;
       }
       if (hit) hits++;
       run = hit ? run + 1 : 0;
@@ -190,14 +197,34 @@ const Vision = (() => {
     return best >= len * EDGE_RUN ? hits / len : 0;
   }
 
+  // Сила лінії вздовж межі: медіана найсильнішого контрасту поперек лінії в кожній точці, де вона є
+  function edgeStrength(map, w, x, y, len, horizontal) {
+    const vals = [];
+    for (let i = 0; i < len; i++) {
+      let m = 0;
+      for (let d = -2; d <= 2; d++) m = Math.max(m, map[horizontal ? (y + d) * w + (x + i) : (y + i) * w + (x + d)]);
+      if (m) vals.push(m);
+    }
+    if (vals.length < len * EDGE_FILL) return 0;
+    vals.sort((a, b) => a - b);
+    return vals[vals.length >> 1];
+  }
+
   // Предмети на кадрі: [{ c, r, w, h, occ }] в одиницях сітки (r від верхньої видимої лінії)
   function segment(G, maps, grid) {
     const { w } = G;
     const { P, x0, y0, cols, rows } = grid;
     const X = c => Math.round(x0 + c * P), Y = r => Math.round(y0 + r * P);
     const pad = Math.round(P * 0.12), len = Math.round(P) - 2 * pad;
-    const vLine = (k, r) => edgeFill(maps.vr, w, X(k), Y(r) + pad, len, false) >= EDGE_FILL;
-    const hLine = (c, k) => edgeFill(maps.hr, w, X(c) + pad, Y(k), len, true) >= EDGE_FILL;
+    // Типова межа — медіана сили всіх ліній сітки (переважно це межі вантажів і порожніх клітинок).
+    // Слабші за EDGE_REL від неї — лінії всередині відкритого вантажу, а не його межі.
+    const strengths = [];
+    for (let r = 0; r < rows; r++) for (let k = 0; k <= cols; k++) strengths.push(edgeStrength(maps.vr, w, X(k), Y(r) + pad, len, false));
+    for (let c = 0; c < cols; c++) for (let k = 0; k <= rows; k++) strengths.push(edgeStrength(maps.hr, w, X(c) + pad, Y(k), len, true));
+    const strong = strengths.filter(Boolean).sort((a, b) => a - b);
+    const minC = strong.length ? Math.max(1, strong[strong.length >> 1] * EDGE_REL) : 1;
+    const vLine = (k, r) => edgeFill(maps.vr, w, X(k), Y(r) + pad, len, false, minC) >= EDGE_FILL;
+    const hLine = (c, k) => edgeFill(maps.hr, w, X(c) + pad, Y(k), len, true, minC) >= EDGE_FILL;
 
     // об'єднуємо сусідні одиниці без лінії між ними
     const parent = Array.from({ length: cols * rows }, (_, i) => i);
