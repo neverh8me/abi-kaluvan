@@ -19,6 +19,9 @@ if (-not $NoUpdate -and (& (Join-Path $PSScriptRoot 'update.ps1') -Root $PSScrip
   exit
 }
 
+# Спільна база покупок: злити свою з GitHub, свої нові — у спільну (див. sync.ps1)
+& (Join-Path $PSScriptRoot 'sync.ps1') -Root $PSScriptRoot
+
 try {
   Add-Type -TypeDefinition ([IO.File]::ReadAllText((Join-Path $PSScriptRoot 'helper.cs'), [Text.Encoding]::UTF8)) -ReferencedAssemblies System.Drawing -ErrorAction Stop
 } catch {

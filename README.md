@@ -19,7 +19,11 @@ The app listens to the game's sound when you drag a cargo, and it watches the me
   - After a purchase, press **Scan again** to rebuild it.
 - **Price from the tooltip.** Hover a cargo and the app reads the price from the in-game tooltip. It then estimates the red chance before you even drag the cargo.
 - **Purchase memory.** After a purchase, the game writes “*nick* spent 200,000 Koen on a mystery cargo and obtained [item]” above the grid. The app reads this line and matches the amount with the price of the cargo it heard. It then records the sound, size, label, price and the item you got. You can also record a purchase by clicking the item tile in the result card.
-- **Shared purchase base.** Every recorded purchase goes into `library/purchases.json`, which ships with the app. The page also downloads the latest base from GitHub each time it opens, so everyone gets new data without a new release. The odds start from the merchant data and are then corrected by the base, which counts as much as 20 purchases. The more purchases with a sound, the more accurate the guess, especially for sounds shared by several items. On the author's machine (where the app folder is a git clone) the server commits and pushes the base to GitHub by itself, at most once every 5 minutes.
+- **Shared purchase base.** Every recorded purchase goes into `library/purchases.json`, which ships with the app. The page also downloads the latest base from GitHub each time it opens, so everyone gets new data without a new release. The odds start from the merchant data, which counts as much as 20 purchases, and are then corrected by the base. The more purchases with a sound, the more accurate the guess, especially for sounds shared by several items.
+- **Base sync on launch.** Every launch of `start.bat` first checks for an update and then syncs the base:
+  - the GitHub copy is merged with the local one;
+  - new purchases are sent anonymously to a Google Form (no nickname is stored);
+  - on the author's machine (where the app folder is a git clone), the launch also pulls the form answers and drops anything invalid: unknown items or sounds, impossible prices or dates. The rest is merged, and the server pushes the base to GitHub, at most once every 5 minutes.
 - **Item cards.** The result panel, the map cells and the hover popup all show item icons with per-item odds. Red items are listed first.
 - **Game-only capture.** No browser screen sharing is used. The local helper captures:
   - audio from the game process only (WASAPI process loopback);
@@ -62,6 +66,7 @@ With no internet connection, the check is skipped silently.
 | Part | File | What it does |
 |---|---|---|
 | Purchase base | `library/purchases.json` | Shared purchase records. Loaded from the app folder and from GitHub, then merged with your own purchases. |
+| Base sync | `sync.ps1` | On launch: merges the local base with GitHub and sends new purchases to the Google Form. On the author's machine it also pulls and validates the form answers. |
 | Updater | `update.ps1`, `version.json` | Compares the local version with the latest GitHub release and installs it. |
 | Local server | `start.bat`, `server.ps1`, `helper.cs` | Compiles the C# helper with PowerShell `Add-Type`. It serves the page over HTTP and streams two things over WebSockets: game audio (`/audio`) and frames of the game window (`/screen`, ~30 fps). |
 | Sound matching | `audio.js` | Uses band-limited normalized cross-correlation (5 frequency bands, 0.2 s template) against the game's reference sounds, with per-band onset detection. |
