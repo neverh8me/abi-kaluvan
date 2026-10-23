@@ -1,0 +1,25318 @@
+{
+"source": "https://abibuilder.com/merchant",
+"fetched": "2026-10-01",
+"about": "пулы полевого торговца: цена груза, вес пула в профиле (карта+режим), предметы и их веса; ref — примерная цена на рынке, contact — цена при сдаче торговцу",
+"profiles": [
+{
+"id": 1,
+"maps": [
+[
+"Farm",
+"Lockdown"
+],
+[
+"Valley",
+"Lockdown"
+],
+[
+"Armory",
+"Lockdown"
+],
+[
+"Distorted Valley",
+"Anomaly"
+]
+]
+},
+{
+"id": 2,
+"maps": [
+[
+"Farm",
+"Forbidden"
+],
+[
+"Valley",
+"Forbidden"
+],
+[
+"Armory",
+"Forbidden"
+],
+[
+"Distorted Valley",
+"DeepAnomaly"
+]
+]
+},
+{
+"id": 3,
+"maps": [
+[
+"Farm",
+"Normal"
+],
+[
+"Valley",
+"Normal"
+]
+]
+},
+{
+"id": 4,
+"maps": [
+[
+"Northridge",
+"Normal"
+],
+[
+"Northridge",
+"Lockdown"
+],
+[
+"TV Station",
+"Lockdown"
+],
+[
+"Airport",
+"Lockdown"
+]
+]
+},
+{
+"id": 5,
+"maps": [
+[
+"Northridge",
+"Forbidden"
+],
+[
+"TV Station",
+"Forbidden"
+],
+[
+"Airport",
+"Forbidden"
+]
+]
+},
+{
+"id": 6,
+"maps": []
+},
+{
+"id": 7,
+"maps": [
+[
+"Valley",
+"Infection"
+]
+]
+},
+{
+"id": 8,
+"maps": [
+[
+"Farm",
+"SevereInfection"
+]
+]
+},
+{
+"id": 9,
+"maps": []
+},
+{
+"id": 10,
+"maps": [
+[
+"Airport",
+"SevereInfection"
+]
+]
+}
+],
+"items": [
+{
+"id": 408010005,
+"en": "Oil",
+"rarity": 4,
+"size": "1x2",
+"ref": 15223,
+"contact": 6089,
+"sound": "Item_Misc_Med_Comp_Up",
+"drop": "Item_Misc_Med_Comp_Down",
+"category": "Flammables"
+},
+{
+"id": 408010006,
+"en": "Oil Drum",
+"rarity": 4,
+"size": "2x2",
+"ref": 16269,
+"contact": 6507,
+"sound": "Item_Container_Big_Metal_Up",
+"drop": "Item_Container_Big_Metal_Down",
+"category": "Flammables"
+},
+{
+"id": 408010008,
+"en": "Propane Tank",
+"rarity": 4,
+"size": "2x2",
+"ref": 30902,
+"contact": 12360,
+"sound": "Item_Container_Big_Metal_Up",
+"drop": "Item_Container_Big_Metal_Down",
+"category": "Flammables"
+},
+{
+"id": 408010009,
+"en": "Fuel Tank",
+"rarity": 5,
+"size": "2x3",
+"ref": 125904,
+"contact": 75542,
+"sound": "Item_Container_Big_Metal_Up",
+"drop": "Item_Container_Big_Metal_Down",
+"category": "Flammables"
+},
+{
+"id": 408010012,
+"en": "Kerosene Lamp",
+"rarity": 4,
+"size": "1x2",
+"ref": 30738,
+"contact": 12295,
+"sound": "Item_Misc_Med_Comp_Up",
+"drop": "Item_Misc_Med_Comp_Down",
+"category": "Flammables"
+},
+{
+"id": 408010014,
+"en": "High Energy Fuel",
+"rarity": 5,
+"size": "2x2",
+"ref": 103684,
+"contact": 62210,
+"sound": "Item_Container_Big_Metal_Up",
+"drop": "Item_Container_Big_Metal_Down",
+"category": "Flammables"
+},
+{
+"id": 408010015,
+"en": "Nitrocellulose",
+"rarity": 4,
+"size": "2x2",
+"ref": 28853,
+"contact": 11541,
+"sound": "Item_Misc_Med_Fabric_Up",
+"drop": "Item_Misc_Med_Fabric_Down",
+"category": "Flammables"
+},
+{
+"id": 408010016,
+"en": "Large-Caliber Artillery Gunpowder Pack",
+"rarity": 5,
+"size": "3x2",
+"ref": 320891,
+"contact": 192534,
+"sound": "Item_Misc_Med_Fabric_Up",
+"drop": "Item_Misc_Med_Fabric_Down",
+"category": "Flammables"
+},
+{
+"id": 408020015,
+"en": "Impact-resistant Hard Rubber",
+"rarity": 4,
+"size": "2x2",
+"ref": 31169,
+"contact": 12467,
+"sound": "Prop_Acc_Fuel_UP",
+"drop": "Prop_Acc_Fuel_Down",
+"category": "Building Materials"
+},
+{
+"id": 408020017,
+"en": "Bag of Cement",
+"rarity": 4,
+"size": "2x2",
+"ref": 16365,
+"contact": 6546,
+"sound": "Prop_Acc_Concrete_UP",
+"drop": "Prop_Acc_Concrete_Down",
+"category": "Building Materials"
+},
+{
+"id": 408020019,
+"en": "Titanium Alloy Plate",
+"rarity": 5,
+"size": "2x3",
+"ref": 126903,
+"contact": 76141,
+"sound": "Item_Misc_Med_Metal_Crisp_Up",
+"drop": "Item_Misc_Med_Metal_Crisp_Down",
+"category": "Building Materials"
+},
+{
+"id": 408020021,
+"en": "Rubber Pad",
+"rarity": 3,
+"size": "2x2",
+"ref": 9788,
+"contact": 1957,
+"sound": "Prop_Acc_Plastic_Large_UP_01",
+"drop": "Prop_Acc_Plastic_Large_Down_02",
+"category": "Building Materials"
+},
+{
+"id": 408020022,
+"en": "Acoustic Panel",
+"rarity": 3,
+"size": "2x2",
+"ref": 9889,
+"contact": 1977,
+"sound": "Item_Misc_Med_Wood_Up",
+"drop": "Item_Misc_Med_Wood_Down",
+"category": "Building Materials"
+},
+{
+"id": 408020024,
+"en": "Wood Board",
+"rarity": 3,
+"size": "2x1",
+"ref": 8174,
+"contact": 1634,
+"sound": "Item_Misc_Med_Wood_Up",
+"drop": "Item_Misc_Med_Wood_Down",
+"category": "Building Materials"
+},
+{
+"id": 408020025,
+"en": "Sound-Muffling Cotton",
+"rarity": 5,
+"size": "3x2",
+"ref": 127902,
+"contact": 76741,
+"sound": "Item_Misc_Small_Comp_Up",
+"drop": "Item_Misc_Small_Comp_Down",
+"category": "Building Materials"
+},
+{
+"id": 408020026,
+"en": "Palladium Wire",
+"rarity": 5,
+"size": "2x2",
+"ref": 284160,
+"contact": 170496,
+"sound": "Item_Misc_ElectronicDevice_Up",
+"drop": "Item_Misc_ElectronicDevice_Down",
+"category": "Building Materials"
+},
+{
+"id": 408030003,
+"en": "Power Cable",
+"rarity": 3,
+"size": "2x1",
+"ref": 4394,
+"contact": 878,
+"sound": "Prop_Acc_Plastic_Small_UP",
+"drop": "Prop_Acc_Plastic_Small_Down",
+"category": "Computer Parts"
+},
+{
+"id": 408030004,
+"en": "Graphics Card",
+"rarity": 5,
+"size": "2x1",
+"ref": 125914,
+"contact": 75548,
+"sound": "Prop_Acc_Tech_Small_UP",
+"drop": "Prop_Acc_Tech_Small_Down",
+"category": "Computer Parts"
+},
+{
+"id": 408030007,
+"en": "Broken LCD",
+"rarity": 3,
+"size": "2x1",
+"ref": 8275,
+"contact": 1655,
+"sound": "Prop_Acc_PC_UP",
+"drop": "Prop_Acc_PC_Down",
+"category": "Computer Parts"
+},
+{
+"id": 408030008,
+"en": "Working LCD",
+"rarity": 4,
+"size": "2x1",
+"ref": 28505,
+"contact": 11402,
+"sound": "Prop_Acc_PC_UP",
+"drop": "Prop_Acc_PC_Down",
+"category": "Computer Parts"
+},
+{
+"id": 408030009,
+"en": "PSU",
+"rarity": 4,
+"size": "2x2",
+"ref": 31435,
+"contact": 12574,
+"sound": "Prop_Acc_Tech_Small_UP",
+"drop": "Prop_Acc_Tech_Small_Down",
+"category": "Computer Parts"
+},
+{
+"id": 408030013,
+"en": "SSD",
+"rarity": 4,
+"size": "1x1",
+"ref": 26906,
+"contact": 10762,
+"sound": "Prop_Acc_Tech_Small_UP",
+"drop": "Prop_Acc_Tech_Small_Down",
+"category": "Computer Parts"
+},
+{
+"id": 408030014,
+"en": "Chip Processor",
+"rarity": 4,
+"size": "1x1",
+"ref": 13510,
+"contact": 5404,
+"sound": "Item_Misc_ElectronicDevice_Up",
+"drop": "Item_Misc_ElectronicDevice_Down",
+"category": "Computer Parts"
+},
+{
+"id": 408030016,
+"en": "RAM",
+"rarity": 4,
+"size": "1x1",
+"ref": 13605,
+"contact": 5442,
+"sound": "Item_Misc_ElectronicDevice_Up",
+"drop": "Item_Misc_ElectronicDevice_Down",
+"category": "Computer Parts"
+},
+{
+"id": 408030023,
+"en": "Floppy Drive",
+"rarity": 3,
+"size": "2x1",
+"ref": 8375,
+"contact": 1675,
+"sound": "Item_Misc_ElectronicDevice_Up",
+"drop": "Item_Misc_ElectronicDevice_Down",
+"category": "Computer Parts"
+},
+{
+"id": 408030024,
+"en": "VGA Display Cable",
+"rarity": 3,
+"size": "2x1",
+"ref": 4440,
+"contact": 888,
+"sound": "Item_Misc_ElectronicDevice_Up",
+"drop": "Item_Misc_ElectronicDevice_Down",
+"category": "Computer Parts"
+},
+{
+"id": 408030025,
+"en": "UPS Unit",
+"rarity": 5,
+"size": "3x2",
+"ref": 319680,
+"contact": 191808,
+"sound": "Item_Misc_ElectronicDevice_Up",
+"drop": "Item_Misc_ElectronicDevice_Down",
+"category": "Computer Parts"
+},
+{
+"id": 408030026,
+"en": "Studio Monitor",
+"rarity": 5,
+"size": "2x2",
+"ref": 102159,
+"contact": 61295,
+"sound": "Item_Misc_Big_Wood_Up",
+"drop": "Item_Misc_Big_Wood_Down",
+"category": "Computer Parts"
+},
+{
+"id": 408030028,
+"en": "Vector Processor",
+"rarity": 5,
+"size": "3x2",
+"ref": 322754,
+"contact": 193652,
+"sound": "Item_Misc_ElectronicDevice_Up",
+"drop": "Item_Misc_ElectronicDevice_Down",
+"category": "Computer Parts"
+},
+{
+"id": 408040001,
+"en": "Battery",
+"rarity": 1,
+"size": "1x1",
+"ref": 1265,
+"contact": 253,
+"sound": "Prop_Acc_Battery_Small_UP_01",
+"drop": "Prop_Acc_Battery_Small_Down_01",
+"category": "Energy Items"
+},
+{
+"id": 408040002,
+"en": "D-size Battery",
+"rarity": 1,
+"size": "1x1",
+"ref": 2158,
+"contact": 431,
+"sound": "Prop_Acc_Battery_Small_UP_01",
+"drop": "Prop_Acc_Battery_Small_Down_01",
+"category": "Energy Items"
+},
+{
+"id": 408040004,
+"en": "Car Battery",
+"rarity": 5,
+"size": "3x2",
+"ref": 128901,
+"contact": 77340,
+"sound": "Item_Misc_Med_Metal_Crisp_Up",
+"drop": "Item_Misc_Med_Metal_Crisp_Down",
+"category": "Energy Items"
+},
+{
+"id": 408040006,
+"en": "Solar Panel",
+"rarity": 4,
+"size": "1x1",
+"ref": 27439,
+"contact": 10975,
+"sound": "Item_Acc_Med_Comp_Up",
+"drop": "Item_Acc_Med_Comp_Down",
+"category": "Energy Items"
+},
+{
+"id": 408040008,
+"en": "Battery-Powered Positive Electrode Module",
+"rarity": 5,
+"size": "3x2",
+"ref": 320192,
+"contact": 192115,
+"sound": "Item_Misc_Med_Metal_Blunt_Up",
+"drop": "Item_Misc_Med_Metal_Blunt_Down",
+"category": "Energy Items"
+},
+{
+"id": 408050001,
+"en": "Electric Drill",
+"rarity": 4,
+"size": "2x2",
+"ref": 31702,
+"contact": 12680,
+"sound": "Item_Misc_Small_Metal_Blunt_Up",
+"drop": "Item_Misc_Small_Metal_Blunt_Down",
+"category": "Tools"
+},
+{
+"id": 408050006,
+"en": "Toolkit",
+"rarity": 4,
+"size": "2x2",
+"ref": 31968,
+"contact": 12787,
+"sound": "Item_Misc_Small_Metal_Blunt_Up",
+"drop": "Item_Misc_Small_Metal_Blunt_Down",
+"category": "Tools"
+},
+{
+"id": 408050009,
+"en": "Hydraulic Rebar Cutter",
+"rarity": 4,
+"size": "3x2",
+"ref": 32767,
+"contact": 13106,
+"sound": "Item_Misc_Small_Metal_Blunt_Up",
+"drop": "Item_Misc_Small_Metal_Blunt_Down",
+"category": "Tools"
+},
+{
+"id": 408050011,
+"en": "Pipe Wrench",
+"rarity": 3,
+"size": "2x1",
+"ref": 4486,
+"contact": 897,
+"sound": "Item_Misc_Small_Metal_Blunt_Up",
+"drop": "Item_Misc_Small_Metal_Blunt_Down",
+"category": "Tools"
+},
+{
+"id": 408050013,
+"en": "Toolbox",
+"rarity": 3,
+"size": "2x1",
+"ref": 8476,
+"contact": 1695,
+"sound": "Item_Container_Small_Metal_Up",
+"drop": "Item_Container_Small_Metal_Down",
+"category": "Tools"
+},
+{
+"id": 408050019,
+"en": "Blower",
+"rarity": 4,
+"size": "2x2",
+"ref": 32234,
+"contact": 12893,
+"sound": "Item_Misc_Small_Metal_Blunt_Up",
+"drop": "Item_Misc_Small_Metal_Blunt_Down",
+"category": "Tools"
+},
+{
+"id": 408050022,
+"en": "Flashlight",
+"rarity": 1,
+"size": "2x1",
+"ref": 2757,
+"contact": 551,
+"sound": "Item_Misc_ElectronicDevice_Up",
+"drop": "Item_Misc_ElectronicDevice_Down",
+"category": "Tools"
+},
+{
+"id": 408050023,
+"en": "High Power Flashlight",
+"rarity": 3,
+"size": "2x1",
+"ref": 8577,
+"contact": 1715,
+"sound": "Item_Misc_Small_Comp_Up",
+"drop": "Item_Misc_Small_Comp_Down",
+"category": "Tools"
+},
+{
+"id": 408050026,
+"en": "Hydraulic Wrench",
+"rarity": 5,
+"size": "2x1",
+"ref": 86913,
+"contact": 52147,
+"sound": "Item_Misc_Small_Metal_Blunt_Up",
+"drop": "Item_Misc_Small_Metal_Blunt_Down",
+"category": "Tools"
+},
+{
+"id": 408050028,
+"en": "Safety Hammer",
+"rarity": 3,
+"size": "1x1",
+"ref": 6862,
+"contact": 1372,
+"sound": "Item_Misc_Small_Comp_Up",
+"drop": "Item_Misc_Small_Comp_Down",
+"category": "Tools"
+},
+{
+"id": 408050029,
+"en": "Portable Jack",
+"rarity": 4,
+"size": "2x1",
+"ref": 28771,
+"contact": 11508,
+"sound": "Item_Misc_Med_Metal_Blunt_Up",
+"drop": "Item_Misc_Med_Metal_Blunt_Down",
+"category": "Tools"
+},
+{
+"id": 408050030,
+"en": "Pipe Cleaning Kit",
+"rarity": 4,
+"size": "1x2",
+"ref": 15318,
+"contact": 6127,
+"sound": "Item_Misc_Med_Metal_Blunt_Up",
+"drop": "Item_Misc_Med_Metal_Blunt_Down",
+"category": "Tools"
+},
+{
+"id": 408050031,
+"en": "Oil Bottle",
+"rarity": 4,
+"size": "2x1",
+"ref": 15413,
+"contact": 6165,
+"sound": "Item_Misc_Med_Metal_Blunt_Up",
+"drop": "Item_Misc_Med_Metal_Blunt_Down",
+"category": "Tools"
+},
+{
+"id": 408050032,
+"en": "Glue Gun",
+"rarity": 3,
+"size": "2x1",
+"ref": 4533,
+"contact": 906,
+"sound": "Item_Misc_Med_Metal_Blunt_Up",
+"drop": "Item_Misc_Med_Metal_Blunt_Down",
+"category": "Tools"
+},
+{
+"id": 408050033,
+"en": "Hydraulic Expander",
+"rarity": 5,
+"size": "2x3",
+"ref": 324120,
+"contact": 194472,
+"sound": "Item_Misc_Med_Metal_Blunt_Up",
+"drop": "Item_Misc_Med_Metal_Blunt_Down",
+"category": "Tools"
+},
+{
+"id": 408050039,
+"en": "Blowtorch",
+"rarity": 5,
+"size": "1x2",
+"ref": 90576,
+"contact": 72460,
+"sound": "Item_Misc_Big_Blunt_Up",
+"drop": "Item_Misc_Big_Blunt_Down",
+"category": "Tools"
+},
+{
+"id": 408060021,
+"en": "Photo Frame",
+"rarity": 3,
+"size": "2x1",
+"ref": 4671,
+"contact": 934,
+"sound": "Item_Misc_Small_Wood_Up",
+"drop": "Item_Misc_Small_Wood_Down",
+"category": "Household Items"
+},
+{
+"id": 408060030,
+"en": "Game Cartridge",
+"rarity": 4,
+"size": "1x1",
+"ref": 13891,
+"contact": 5556,
+"sound": "Item_Misc_ElectronicDevice_Up",
+"drop": "Item_Misc_ElectronicDevice_Down",
+"category": "Household Items"
+},
+{
+"id": 408060037,
+"en": "Hearing Aid",
+"rarity": 4,
+"size": "1x1",
+"ref": 27706,
+"contact": 11082,
+"sound": "Item_Misc_Small_Comp_Up",
+"drop": "Item_Misc_Small_Comp_Down",
+"category": "Household Items"
+},
+{
+"id": 408060039,
+"en": "Watch",
+"rarity": 4,
+"size": "1x1",
+"ref": 14081,
+"contact": 5632,
+"sound": "Item_Misc_Small_Metal_Crisp_Up",
+"drop": "Item_Misc_Small_Metal_Crisp_Down",
+"category": "Household Items"
+},
+{
+"id": 408060041,
+"en": "Bag of Fertilizer",
+"rarity": 4,
+"size": "2x2",
+"ref": 16460,
+"contact": 6584,
+"sound": "Item_Misc_Small_Fabric_Up",
+"drop": "Item_Misc_Small_Fabric_Down",
+"category": "Household Items"
+},
+{
+"id": 408060042,
+"en": "Camping Tarp",
+"rarity": 3,
+"size": "2x1",
+"ref": 8880,
+"contact": 1776,
+"sound": "Item_Misc_Med_Fabric_Up",
+"drop": "Item_Misc_Med_Fabric_Down",
+"category": "Household Items"
+},
+{
+"id": 408060043,
+"en": "Film Stock",
+"rarity": 5,
+"size": "2x2",
+"ref": 101908,
+"contact": 61144,
+"sound": "Item_Misc_Med_Comp_Up",
+"drop": "Item_Misc_Med_Comp_Down",
+"category": "Household Items"
+},
+{
+"id": 408060044,
+"en": "Handheld Fill Light",
+"rarity": 4,
+"size": "1x2",
+"ref": 29038,
+"contact": 11615,
+"sound": "Item_Misc_Med_Metal_Blunt_Up",
+"drop": "Item_Misc_Med_Metal_Blunt_Down",
+"category": "Household Items"
+},
+{
+"id": 408060046,
+"en": "Camping Stove",
+"rarity": 4,
+"size": "2x2",
+"ref": 32501,
+"contact": 13000,
+"sound": "Item_Misc_Med_Metal_Blunt_Up",
+"drop": "Item_Misc_Med_Metal_Blunt_Down",
+"category": "Household Items"
+},
+{
+"id": 408060052,
+"en": "Deluxe Tea Set",
+"rarity": 5,
+"size": "2x2",
+"ref": 105208,
+"contact": 63124,
+"sound": "Item_Misc_Small_Glass_Up",
+"drop": "Item_Misc_Small_Glass_Down",
+"category": "Household Items"
+},
+{
+"id": 408060054,
+"en": "Lute",
+"rarity": 4,
+"size": "2x2",
+"ref": 28660,
+"contact": 11464,
+"sound": "Item_Misc_Med_Wood_Clock_Up",
+"drop": "Item_Misc_Med_Wood_Clock_Down",
+"category": "Household Items"
+},
+{
+"id": 408070001,
+"en": "Glucose Injection",
+"rarity": 3,
+"size": "1x1",
+"ref": 3978,
+"contact": 795,
+"sound": "Item_Misc_Small_Comp_Up",
+"drop": "Item_Misc_Small_Comp_Down",
+"category": "Miscellaneous Medical Item"
+},
+{
+"id": 408070002,
+"en": "Syringe",
+"rarity": 3,
+"size": "1x1",
+"ref": 4024,
+"contact": 804,
+"sound": "Item_Glass_Up",
+"drop": "Item_Glass_Down",
+"category": "Miscellaneous Medical Item"
+},
+{
+"id": 408070003,
+"en": "Thermometer",
+"rarity": 4,
+"size": "1x1",
+"ref": 14271,
+"contact": 5708,
+"sound": "Item_Misc_ElectronicDevice_Up",
+"drop": "Item_Misc_ElectronicDevice_Down",
+"category": "Miscellaneous Medical Item"
+},
+{
+"id": 408070008,
+"en": "Medical Sponge",
+"rarity": 1,
+"size": "1x1",
+"ref": 1449,
+"contact": 289,
+"sound": "Item_Food_Bag_Up",
+"drop": "Item_Food_Bag_Down",
+"category": "Miscellaneous Medical Item"
+},
+{
+"id": 408070009,
+"en": "Medical Scissors",
+"rarity": 1,
+"size": "1x1",
+"ref": 2478,
+"contact": 495,
+"sound": "Item_Misc_Small_Metal_Crisp_Up",
+"drop": "Item_Misc_Small_Metal_Crisp_Down",
+"category": "Miscellaneous Medical Item"
+},
+{
+"id": 408070010,
+"en": "Bios.",
+"rarity": 4,
+"size": "1x1",
+"ref": 14367,
+"contact": 5746,
+"sound": "Item_Misc_Small_Comp_Up",
+"drop": "Item_Misc_Small_Comp_Down",
+"category": "Miscellaneous Medical Item"
+},
+{
+"id": 408070011,
+"en": "Disinfectant",
+"rarity": 1,
+"size": "1x1",
+"ref": 2517,
+"contact": 503,
+"sound": "Item_Misc_Small_Comp_Up",
+"drop": "Item_Misc_Small_Comp_Down",
+"category": "Miscellaneous Medical Item"
+},
+{
+"id": 408070012,
+"en": "Automated External Defibrillator",
+"rarity": 5,
+"size": "2x2",
+"ref": 288600,
+"contact": 173160,
+"sound": "Item_Misc_ElectronicDevice_Up",
+"drop": "Item_Misc_ElectronicDevice_Down",
+"category": "Miscellaneous Medical Item"
+},
+{
+"id": 408070013,
+"en": "Insulin Pump",
+"rarity": 5,
+"size": "1x1",
+"ref": 79920,
+"contact": 47952,
+"sound": "Item_Misc_ElectronicDevice_Up",
+"drop": "Item_Misc_ElectronicDevice_Down",
+"category": "Miscellaneous Medical Item"
+},
+{
+"id": 408070016,
+"en": "Metal Heart",
+"rarity": 5,
+"size": "2x2",
+"ref": 308463,
+"contact": 185077,
+"sound": "Item_Misc_Small_Metal_Crisp_Up",
+"drop": "Item_Misc_Small_Metal_Crisp_Down",
+"category": "Miscellaneous Medical Item"
+},
+{
+"id": 408080001,
+"en": "Gold Cheetah Statue",
+"rarity": 5,
+"size": "2x1",
+"ref": 87912,
+"contact": 87912,
+"sound": "Prop_Acc_Statue_UP",
+"drop": "Prop_Acc_Statue_Down",
+"category": "Collectibles"
+},
+{
+"id": 408080002,
+"en": "Commemorative Coin",
+"rarity": 4,
+"size": "1x1",
+"ref": 14462,
+"contact": 14462,
+"sound": "Item_Coin_Up",
+"drop": "Item_Coin_Down",
+"category": "Collectibles"
+},
+{
+"id": 408080003,
+"en": "Vase",
+"rarity": 6,
+"size": "2x2",
+"ref": 1373625,
+"contact": 1373625,
+"sound": "Item_Misc_Med_Glass_Up",
+"drop": "Item_Misc_Med_Glass_Down",
+"category": "Collectibles"
+},
+{
+"id": 408080004,
+"en": "Gold Watch",
+"rarity": 5,
+"size": "1x1",
+"ref": 80919,
+"contact": 80919,
+"sound": "Item_Misc_Small_Metal_Crisp_Up",
+"drop": "Item_Misc_Small_Metal_Crisp_Down",
+"category": "Collectibles"
+},
+{
+"id": 408080008,
+"en": "Gold Lion Statue",
+"rarity": 6,
+"size": "3x2",
+"ref": 1540125,
+"contact": 1540125,
+"sound": "Prop_Acc_Statue_UP",
+"drop": "Prop_Acc_Statue_Down",
+"category": "Collectibles"
+},
+{
+"id": 408080009,
+"en": "Desk Clock",
+"rarity": 4,
+"size": "1x2",
+"ref": 29304,
+"contact": 29304,
+"sound": "Prop_Acc_Clock_UP",
+"drop": "Prop_Acc_Clock_Down",
+"category": "Collectibles"
+},
+{
+"id": 408080010,
+"en": "Antique Teapot",
+"rarity": 6,
+"size": "2x2",
+"ref": 1415250,
+"contact": 1415250,
+"sound": "Prop_Acc_Teapot_UP",
+"drop": "Prop_Acc_Teapot_Down",
+"category": "Collectibles"
+},
+{
+"id": 408080011,
+"en": "Silver Badge",
+"rarity": 3,
+"size": "1x1",
+"ref": 7064,
+"contact": 7064,
+"sound": "Item_Misc_Small_Metal_Blunt_Up",
+"drop": "Item_Misc_Small_Metal_Blunt_Down",
+"category": "Collectibles"
+},
+{
+"id": 408080012,
+"en": "Silver Chain",
+"rarity": 4,
+"size": "1x1",
+"ref": 14557,
+"contact": 14557,
+"sound": "Item_GoldChain_Up",
+"drop": "Item_GoldChain_Down",
+"category": "Collectibles"
+},
+{
+"id": 408080013,
+"en": "Gold Bracelet",
+"rarity": 5,
+"size": "1x1",
+"ref": 81918,
+"contact": 81918,
+"sound": "Item_Coin_Up",
+"drop": "Item_Coin_Down",
+"category": "Collectibles"
+},
+{
+"id": 408080014,
+"en": "Porcelain",
+"rarity": 5,
+"size": "2x2",
+"ref": 293040,
+"contact": 293040,
+"sound": "Item_Misc_Small_Metal_Blunt_Up",
+"drop": "Item_Misc_Small_Metal_Blunt_Down",
+"category": "Collectibles"
+},
+{
+"id": 408080015,
+"en": "Gold-rimmed Glasses",
+"rarity": 4,
+"size": "2x1",
+"ref": 29570,
+"contact": 29570,
+"sound": "Item_Glass_Up",
+"drop": "Item_Glass_Down",
+"category": "Collectibles"
+},
+{
+"id": 408080016,
+"en": "Stamp Album",
+"rarity": 5,
+"size": "2x2",
+"ref": 92907,
+"contact": 92907,
+"sound": "Item_Misc_Med_Paper_Up",
+"drop": "Item_Misc_Med_Paper_Down",
+"category": "Collectibles"
+},
+{
+"id": 408080019,
+"en": "Record Player",
+"rarity": 5,
+"size": "2x2",
+"ref": 297480,
+"contact": 297480,
+"sound": "Item_Misc_Med_Wood_Up",
+"drop": "Item_Misc_Med_Wood_Down",
+"category": "Collectibles"
+},
+{
+"id": 408080020,
+"en": "Pocket Watch",
+"rarity": 4,
+"size": "1x1",
+"ref": 14652,
+"contact": 14652,
+"sound": "Item_GoldChain_Up",
+"drop": "Item_GoldChain_Down",
+"category": "Collectibles"
+},
+{
+"id": 408080021,
+"en": "Stamp",
+"rarity": 3,
+"size": "1x1",
+"ref": 7165,
+"contact": 7165,
+"sound": "Item_Misc_Small_Paper_Up",
+"drop": "Item_Misc_Small_Paper_Down",
+"category": "Collectibles"
+},
+{
+"id": 408080022,
+"en": "Spur",
+"rarity": 3,
+"size": "2x1",
+"ref": 4764,
+"contact": 4764,
+"sound": "Item_Misc_Small_Metal_Blunt_Up",
+"drop": "Item_Misc_Small_Metal_Blunt_Down",
+"category": "Collectibles"
+},
+{
+"id": 408080024,
+"en": "Gold Block",
+"rarity": 5,
+"size": "2x1",
+"ref": 270840,
+"contact": 270840,
+"sound": "Item_Misc_Small_Metal_Blunt_Up",
+"drop": "Item_Misc_Small_Metal_Blunt_Down",
+"category": "Collectibles"
+},
+{
+"id": 408080025,
+"en": "Diamond Ring",
+"rarity": 5,
+"size": "1x1",
+"ref": 82917,
+"contact": 82917,
+"sound": "Item_GoldChain_Up",
+"drop": "Item_GoldChain_Down",
+"category": "Collectibles"
+},
+{
+"id": 408080026,
+"en": "Brooch",
+"rarity": 5,
+"size": "1x1",
+"ref": 83916,
+"contact": 83916,
+"sound": "Item_GoldChain_Up",
+"drop": "Item_GoldChain_Down",
+"category": "Collectibles"
+},
+{
+"id": 408080028,
+"en": "Gold Cube",
+"rarity": 5,
+"size": "1x1",
+"ref": 266400,
+"contact": 266400,
+"sound": "Item_Misc_Med_Statue_Up",
+"drop": "Item_Misc_Med_Statue_Down",
+"category": "Collectibles"
+},
+{
+"id": 408080029,
+"en": "Gem Necklace",
+"rarity": 6,
+"size": "2x2",
+"ref": 1456875,
+"contact": 1456875,
+"sound": "Item_GoldChain_Up",
+"drop": "Item_GoldChain_Down",
+"category": "Collectibles"
+},
+{
+"id": 408080030,
+"en": "Gold Cup",
+"rarity": 5,
+"size": "1x2",
+"ref": 275280,
+"contact": 275280,
+"sound": "Item_Misc_Med_Statue_Up",
+"drop": "Item_Misc_Med_Statue_Down",
+"category": "Collectibles"
+},
+{
+"id": 408080033,
+"en": "Vintage Typewriter",
+"rarity": 5,
+"size": "2x2",
+"ref": 301920,
+"contact": 301920,
+"sound": "Item_Misc_Med_Wood_Up",
+"drop": "Item_Misc_Med_Wood_Down",
+"category": "Collectibles"
+},
+{
+"id": 408080038,
+"en": "Plaster Sculpture",
+"rarity": 4,
+"size": "2x3",
+"ref": 33034,
+"contact": 33034,
+"sound": "Item_Misc_Med_Statue_Up",
+"drop": "Item_Misc_Med_Statue_Down",
+"category": "Collectibles"
+},
+{
+"id": 408080039,
+"en": "Majestic Sculpture",
+"rarity": 6,
+"size": "2x3",
+"ref": 1581750,
+"contact": 1581750,
+"sound": "Item_Misc_Med_Statue_Up",
+"drop": "Item_Misc_Med_Statue_Down",
+"category": "Collectibles"
+},
+{
+"id": 408080041,
+"en": "Gold Snake",
+"rarity": 6,
+"size": "2x2",
+"ref": 1429080,
+"contact": 1429080,
+"sound": "Item_Misc_Med_Statue_Up",
+"drop": "Item_Misc_Med_Statue_Down",
+"category": "Collectibles"
+},
+{
+"id": 408080047,
+"en": "Skyhook Synchronized Array Mirror",
+"rarity": 6,
+"size": "1x2",
+"ref": 1532375,
+"contact": 1532375,
+"sound": "Item_Misc_Small_Metal_Blunt_Up",
+"drop": "Item_Misc_Small_Metal_Blunt_Down",
+"category": "Collectibles"
+},
+{
+"id": 408080048,
+"en": "Sergey 1 Satellite Model",
+"rarity": 5,
+"size": "2x1",
+"ref": 469248,
+"contact": 469248,
+"sound": "Item_Misc_Small_Metal_Blunt_Up",
+"drop": "Item_Misc_Small_Metal_Blunt_Down",
+"category": "Collectibles"
+},
+{
+"id": 408080049,
+"en": "Raw Diamond Ore",
+"rarity": 5,
+"size": "1x2",
+"ref": 498375,
+"contact": 498375,
+"sound": "Item_Misc_Small_Metal_Blunt_Up",
+"drop": "Item_Misc_Small_Metal_Blunt_Down",
+"category": "Collectibles"
+},
+{
+"id": 408080050,
+"en": "Jade Bracelet",
+"rarity": 5,
+"size": "1x1",
+"ref": 456619,
+"contact": 456619,
+"sound": "Item_Misc_Small_Metal_Crisp_Up",
+"drop": "Item_Misc_Small_Metal_Crisp_Down",
+"category": "Collectibles"
+},
+{
+"id": 408080054,
+"en": "Gold Pen",
+"rarity": 5,
+"size": "1x1",
+"ref": 458373,
+"contact": 458373,
+"sound": "Item_Misc_Small_Metal_Crisp_Up",
+"drop": "Item_Misc_Small_Metal_Crisp_Down",
+"category": "Collectibles"
+},
+{
+"id": 408090001,
+"en": "Document",
+"rarity": 3,
+"size": "2x1",
+"ref": 9183,
+"contact": 1836,
+"sound": "Item_Misc_Small_Paper_Up",
+"drop": "Item_Misc_Small_Paper_Down",
+"category": "Paper"
+},
+{
+"id": 408090002,
+"en": "Hardcover",
+"rarity": 3,
+"size": "1x2",
+"ref": 4810,
+"contact": 962,
+"sound": "Item_Misc_Big_Paper_Up",
+"drop": "Item_Misc_Big_Paper_Down",
+"category": "Paper"
+},
+{
+"id": 408090004,
+"en": "Folder",
+"rarity": 5,
+"size": "2x1",
+"ref": 88911,
+"contact": 53346,
+"sound": "Item_Misc_Big_Paper_Up",
+"drop": "Item_Misc_Big_Paper_Down",
+"category": "Paper"
+},
+{
+"id": 408090019,
+"en": "Gungnir Blueprint Fragments",
+"rarity": 5,
+"size": "2x2",
+"ref": 305755,
+"contact": 183453,
+"sound": "Item_Misc_Small_Metal_Crisp_Up",
+"drop": "Item_Misc_Small_Metal_Crisp_Down",
+"category": "Paper"
+},
+{
+"id": 408100001,
+"en": "Gas Analyzer",
+"rarity": 4,
+"size": "1x2",
+"ref": 15508,
+"contact": 6203,
+"sound": "Item_Misc_ElectronicDevice_Up",
+"drop": "Item_Misc_ElectronicDevice_Down",
+"category": "Instruments"
+},
+{
+"id": 408100002,
+"en": "Air Tightness Tester",
+"rarity": 4,
+"size": "2x1",
+"ref": 15603,
+"contact": 6241,
+"sound": "Item_Misc_ElectronicDevice_Up",
+"drop": "Item_Misc_ElectronicDevice_Down",
+"category": "Instruments"
+},
+{
+"id": 408100005,
+"en": "Wave Filter",
+"rarity": 3,
+"size": "1x1",
+"ref": 7265,
+"contact": 1453,
+"sound": "Item_Misc_ElectronicDevice_Up",
+"drop": "Item_Misc_ElectronicDevice_Down",
+"category": "Instruments"
+},
+{
+"id": 408100007,
+"en": "Oscilloscope",
+"rarity": 4,
+"size": "2x1",
+"ref": 29837,
+"contact": 11934,
+"sound": "Item_Misc_ElectronicDevice_Up",
+"drop": "Item_Misc_ElectronicDevice_Down",
+"category": "Instruments"
+},
+{
+"id": 408100011,
+"en": "Antenna",
+"rarity": 5,
+"size": "2x2",
+"ref": 103906,
+"contact": 62343,
+"sound": "Item_Misc_ElectronicDevice_Up",
+"drop": "Item_Misc_ElectronicDevice_Down",
+"category": "Instruments"
+},
+{
+"id": 408100012,
+"en": "Gimbal",
+"rarity": 4,
+"size": "1x1",
+"ref": 27972,
+"contact": 11188,
+"sound": "Item_Misc_ElectronicDevice_Up",
+"drop": "Item_Misc_ElectronicDevice_Down",
+"category": "Instruments"
+},
+{
+"id": 408100013,
+"en": "Light Meter",
+"rarity": 4,
+"size": "1x1",
+"ref": 14747,
+"contact": 5898,
+"sound": "Item_Misc_ElectronicDevice_Up",
+"drop": "Item_Misc_ElectronicDevice_Down",
+"category": "Instruments"
+},
+{
+"id": 408120001,
+"en": "Weapon Parts",
+"rarity": 3,
+"size": "2x1",
+"ref": 9385,
+"contact": 1877,
+"sound": "Item_Misc_Small_Comp_Up",
+"drop": "Item_Misc_Small_Comp_Down",
+"category": "Miscellaneous Military Item"
+},
+{
+"id": 408120002,
+"en": "Cannon Shell",
+"rarity": 4,
+"size": "1x2",
+"ref": 30103,
+"contact": 12041,
+"sound": "Item_Misc_Small_Metal_Blunt_Up",
+"drop": "Item_Misc_Small_Metal_Blunt_Down",
+"category": "Miscellaneous Military Item"
+},
+{
+"id": 408120003,
+"en": "Paracord",
+"rarity": 4,
+"size": "2x2",
+"ref": 16555,
+"contact": 6622,
+"sound": "Item_Misc_Med_Fabric_Up",
+"drop": "Item_Misc_Med_Fabric_Down",
+"category": "Miscellaneous Military Item"
+},
+{
+"id": 408120005,
+"en": "Military Canteen",
+"rarity": 3,
+"size": "2x1",
+"ref": 4903,
+"contact": 980,
+"sound": "Item_Misc_Med_Statue_Up",
+"drop": "Item_Misc_Med_Statue_Down",
+"category": "Miscellaneous Military Item"
+},
+{
+"id": 408120008,
+"en": "Rangefinder Binoculars",
+"rarity": 4,
+"size": "2x1",
+"ref": 15699,
+"contact": 6279,
+"sound": "Item_Misc_Small_Comp_Up",
+"drop": "Item_Misc_Small_Comp_Down",
+"category": "Miscellaneous Military Item"
+},
+{
+"id": 408120009,
+"en": "Portable Transceiver",
+"rarity": 4,
+"size": "1x2",
+"ref": 15794,
+"contact": 6317,
+"sound": "Item_Misc_Small_Comp_Up",
+"drop": "Item_Misc_Small_Comp_Down",
+"category": "Miscellaneous Military Item"
+},
+{
+"id": 408120010,
+"en": "Military Radio",
+"rarity": 5,
+"size": "2x2",
+"ref": 104905,
+"contact": 62943,
+"sound": "Prop_Acc_Radio_UP",
+"drop": "Prop_Acc_Radio_Down",
+"category": "Miscellaneous Military Item"
+},
+{
+"id": 408120011,
+"en": "Receiver",
+"rarity": 3,
+"size": "1x2",
+"ref": 9485,
+"contact": 1897,
+"sound": "Item_Misc_ElectronicDevice_Up",
+"drop": "Item_Misc_ElectronicDevice_Down",
+"category": "Miscellaneous Military Item"
+},
+{
+"id": 408120012,
+"en": "Signal Jammer",
+"rarity": 3,
+"size": "1x2",
+"ref": 9586,
+"contact": 1917,
+"sound": "Item_Misc_ElectronicDevice_Up",
+"drop": "Item_Misc_ElectronicDevice_Down",
+"category": "Miscellaneous Military Item"
+},
+{
+"id": 408120013,
+"en": "TI Module",
+"rarity": 6,
+"size": "2x1",
+"ref": 1332000,
+"contact": 1332000,
+"sound": "Item_Misc_ElectronicDevice_Up",
+"drop": "Item_Misc_ElectronicDevice_Down",
+"category": "Miscellaneous Military Item"
+},
+{
+"id": 408120014,
+"en": "Radio",
+"rarity": 4,
+"size": "2x1",
+"ref": 30370,
+"contact": 12148,
+"sound": "Item_Misc_ElectronicDevice_Up",
+"drop": "Item_Misc_ElectronicDevice_Down",
+"category": "Miscellaneous Military Item"
+},
+{
+"id": 408120017,
+"en": "Leveler",
+"rarity": 5,
+"size": "2x1",
+"ref": 279720,
+"contact": 167832,
+"sound": "Item_Misc_ElectronicDevice_Up",
+"drop": "Item_Misc_ElectronicDevice_Down",
+"category": "Miscellaneous Military Item"
+},
+{
+"id": 408120019,
+"en": "Target Positioning Module",
+"rarity": 6,
+"size": "2x2",
+"ref": 1498500,
+"contact": 1498500,
+"sound": "Item_Misc_ElectronicDevice_Up",
+"drop": "Item_Misc_ElectronicDevice_Down",
+"category": "Miscellaneous Military Item"
+},
+{
+"id": 408120020,
+"en": "Laser Pointer Module",
+"rarity": 5,
+"size": "2x2",
+"ref": 306360,
+"contact": 183816,
+"sound": "Item_Misc_ElectronicDevice_Up",
+"drop": "Item_Misc_ElectronicDevice_Down",
+"category": "Miscellaneous Military Item"
+},
+{
+"id": 408140001,
+"en": "Game Console",
+"rarity": 5,
+"size": "1x2",
+"ref": 89910,
+"contact": 53946,
+"sound": "Item_Misc_ElectronicDevice_Up",
+"drop": "Item_Misc_ElectronicDevice_Down",
+"category": "Electronics"
+},
+{
+"id": 408140005,
+"en": "DVD",
+"rarity": 3,
+"size": "2x1",
+"ref": 9687,
+"contact": 1937,
+"sound": "Item_Misc_ElectronicDevice_Up",
+"drop": "Item_Misc_ElectronicDevice_Down",
+"category": "Electronics"
+},
+{
+"id": 408140014,
+"en": "Classic Radio",
+"rarity": 3,
+"size": "2x1",
+"ref": 4949,
+"contact": 989,
+"sound": "Prop_Acc_Radio_UP",
+"drop": "Prop_Acc_Radio_Down",
+"category": "Electronics"
+},
+{
+"id": 408140015,
+"en": "Lens",
+"rarity": 4,
+"size": "1x1",
+"ref": 14842,
+"contact": 5936,
+"sound": "Item_Misc_Small_Comp_Up",
+"drop": "Item_Misc_Small_Comp_Down",
+"category": "Electronics"
+},
+{
+"id": 408140016,
+"en": "Camera",
+"rarity": 4,
+"size": "1x1",
+"ref": 28238,
+"contact": 11295,
+"sound": "Item_Misc_ElectronicDevice_Up",
+"drop": "Item_Misc_ElectronicDevice_Down",
+"category": "Electronics"
+},
+{
+"id": 408140019,
+"en": "Gold Phone",
+"rarity": 5,
+"size": "1x1",
+"ref": 84915,
+"contact": 50949,
+"sound": "Item_Misc_ElectronicDevice_Up",
+"drop": "Item_Misc_ElectronicDevice_Down",
+"category": "Electronics"
+},
+{
+"id": 408140021,
+"en": "Data Cable",
+"rarity": 4,
+"size": "2x1",
+"ref": 15889,
+"contact": 6355,
+"sound": "Item_Misc_ElectronicDevice_Up",
+"drop": "Item_Misc_ElectronicDevice_Down",
+"category": "Electronics"
+},
+{
+"id": 408140022,
+"en": "Video Camera",
+"rarity": 5,
+"size": "2x2",
+"ref": 310800,
+"contact": 186480,
+"sound": "Item_Misc_ElectronicDevice_Up",
+"drop": "Item_Misc_ElectronicDevice_Down",
+"category": "Electronics"
+},
+{
+"id": 408140024,
+"en": "Laptop Computer",
+"rarity": 5,
+"size": "2x2",
+"ref": 315240,
+"contact": 189144,
+"sound": "Item_Misc_ElectronicDevice_Up",
+"drop": "Item_Misc_ElectronicDevice_Down",
+"category": "Electronics"
+},
+{
+"id": 498010001,
+"en": "Portable Fuel Canister",
+"rarity": 4,
+"size": "1x2",
+"ref": 29714,
+"contact": 11885,
+"sound": "Item_Container_Big_Metal_Up",
+"drop": "Item_Container_Big_Metal_Down",
+"category": "Flammables"
+},
+{
+"id": 498010003,
+"en": "Magnesium Flint",
+"rarity": 5,
+"size": "1x1",
+"ref": 51889,
+"contact": 41511,
+"sound": "Item_Misc_Small_Metal_Crisp_Up",
+"drop": "Item_Misc_Small_Metal_Crisp_Down",
+"category": "Flammables"
+},
+{
+"id": 498020001,
+"en": "Arched Corrugated Steel Plate",
+"rarity": 5,
+"size": "2x2",
+"ref": 304823,
+"contact": 182893,
+"sound": "Item_Misc_Med_Metal_Blunt_Up",
+"drop": "Item_Misc_Med_Metal_Blunt_Down",
+"category": "Building Materials"
+},
+{
+"id": 498040001,
+"en": "Solar Charger",
+"rarity": 5,
+"size": "1x1",
+"ref": 48778,
+"contact": 39022,
+"sound": "Item_Misc_Small_Metal_Blunt_Up",
+"drop": "Item_Misc_Small_Metal_Blunt_Down",
+"category": "Energy Items"
+},
+{
+"id": 498040002,
+"en": "Ni-Cd Battery Pack",
+"rarity": 5,
+"size": "1x1",
+"ref": 50333,
+"contact": 40266,
+"sound": "Item_Misc_Small_Metal_Blunt_Up",
+"drop": "Item_Misc_Small_Metal_Blunt_Down",
+"category": "Energy Items"
+},
+{
+"id": 498040003,
+"en": "Capacitance Analyzer",
+"rarity": 4,
+"size": "1x2",
+"ref": 30404,
+"contact": 12161,
+"sound": "Item_Misc_Small_Metal_Crisp_Up",
+"drop": "Item_Misc_Small_Metal_Crisp_Down",
+"category": "Energy Items"
+},
+{
+"id": 498060001,
+"en": "Space Lab Toybox",
+"rarity": 5,
+"size": "3x2",
+"ref": 318979,
+"contact": 191387,
+"sound": "Item_Misc_Small_Metal_Crisp_Up",
+"drop": "Item_Misc_Small_Metal_Crisp_Down",
+"category": "Household Items"
+},
+{
+"id": 498060003,
+"en": "Quantum 2000 Toy Robot",
+"rarity": 6,
+"size": "2x3",
+"ref": 1394769,
+"contact": 1394769,
+"sound": "Item_Misc_Small_Metal_Blunt_Up",
+"drop": "Item_Misc_Small_Metal_Blunt_Down",
+"category": "Household Items"
+},
+{
+"id": 498060004,
+"en": "Voice of Civilization Gold Record",
+"rarity": 6,
+"size": "2x2",
+"ref": 1369290,
+"contact": 1369290,
+"sound": "Item_Misc_Small_Metal_Crisp_Up",
+"drop": "Item_Misc_Small_Metal_Crisp_Down",
+"category": "Household Items"
+},
+{
+"id": 498060005,
+"en": "Northern Stars Amber Drink",
+"rarity": 6,
+"size": "2x2",
+"ref": 1548111,
+"contact": 1548111,
+"sound": "Item_Misc_Med_Glass_Up",
+"drop": "Item_Misc_Med_Glass_Down",
+"category": "Household Items"
+},
+{
+"id": 498060006,
+"en": "Toland Access Card",
+"rarity": 5,
+"size": "1x1",
+"ref": 53444,
+"contact": 42755,
+"sound": "Item_Misc_Small_Metal_Crisp_Up",
+"drop": "Item_Misc_Small_Metal_Crisp_Down",
+"category": "Household Items"
+},
+{
+"id": 498070001,
+"en": "Handheld Tester",
+"rarity": 4,
+"size": "1x2",
+"ref": 30414,
+"contact": 12165,
+"sound": "Item_Misc_Small_Metal_Crisp_Up",
+"drop": "Item_Misc_Small_Metal_Crisp_Down",
+"category": "Miscellaneous Medical Item"
+},
+{
+"id": 498070002,
+"en": "EEG",
+"rarity": 6,
+"size": "2x2",
+"ref": 1524789,
+"contact": 1524789,
+"sound": "Item_Misc_Small_Metal_Crisp_Up",
+"drop": "Item_Misc_Small_Metal_Crisp_Down",
+"category": "Miscellaneous Medical Item"
+},
+{
+"id": 498070003,
+"en": "Blood Glucose Meter Set",
+"rarity": 5,
+"size": "2x1",
+"ref": 88800,
+"contact": 53280,
+"sound": "Item_Misc_Small_Metal_Crisp_Up",
+"drop": "Item_Misc_Small_Metal_Crisp_Down",
+"category": "Miscellaneous Medical Item"
+},
+{
+"id": 498070004,
+"en": "Electronic Stethoscope",
+"rarity": 4,
+"size": "1x2",
+"ref": 29885,
+"contact": 11954,
+"sound": "Item_Misc_Small_Metal_Crisp_Up",
+"drop": "Item_Misc_Small_Metal_Crisp_Down",
+"category": "Miscellaneous Medical Item"
+},
+{
+"id": 498070009,
+"en": "Infrared Therapy Lamp",
+"rarity": 5,
+"size": "2x2",
+"ref": 306360,
+"contact": 122544,
+"sound": "Item_Misc_Small_Metal_Blunt_Up",
+"drop": "Item_Misc_Small_Metal_Blunt_Down",
+"category": "Miscellaneous Medical Item"
+},
+{
+"id": 498070010,
+"en": "Mutant Heart Sample",
+"rarity": 5,
+"size": "2x3",
+"ref": 321900,
+"contact": 257520,
+"sound": "Item_Misc_Med_Glass_Up",
+"drop": "Item_Misc_Med_Glass_Down",
+"category": "Miscellaneous Medical Item"
+},
+{
+"id": 498070011,
+"en": "Pheromone Test Kit",
+"rarity": 5,
+"size": "3x2",
+"ref": 324120,
+"contact": 259296,
+"sound": "Item_Misc_Small_Glass_Up",
+"drop": "Item_Misc_Small_Glass_Down",
+"category": "Miscellaneous Medical Item"
+},
+{
+"id": 498070012,
+"en": "Blocker Injector",
+"rarity": 5,
+"size": "1x1",
+"ref": 52667,
+"contact": 42133,
+"sound": "Item_Misc_Small_Glass_Up",
+"drop": "Item_Misc_Small_Glass_Down",
+"category": "Miscellaneous Medical Item"
+},
+{
+"id": 498070013,
+"en": "Mutated Tissue Mass",
+"rarity": 5,
+"size": "1x1",
+"ref": 54222,
+"contact": 43377,
+"sound": "Item_Misc_Med_Statue_Up",
+"drop": "Item_Misc_Med_Statue_Down",
+"category": "Miscellaneous Medical Item"
+},
+{
+"id": 498080001,
+"en": "Gilded Cage Music Box",
+"rarity": 6,
+"size": "2x3",
+"ref": 1620600,
+"contact": 1620600,
+"sound": "Item_Misc_Small_Metal_Crisp_Up",
+"drop": "Item_Misc_Small_Metal_Crisp_Down",
+"category": "Collectibles"
+},
+{
+"id": 498080002,
+"en": "Phaethon's Clock",
+"rarity": 6,
+"size": "2x2",
+"ref": 1531800,
+"contact": 1531800,
+"sound": "Item_Misc_Small_Metal_Crisp_Up",
+"drop": "Item_Misc_Small_Metal_Crisp_Down",
+"category": "Collectibles"
+},
+{
+"id": 498080003,
+"en": "\"Dawn\"",
+"rarity": 6,
+"size": "3x2",
+"ref": 1642800,
+"contact": 1642800,
+"sound": "Item_Misc_Small_Metal_Crisp_Up",
+"drop": "Item_Misc_Small_Metal_Crisp_Down",
+"category": "Collectibles"
+},
+{
+"id": 498080005,
+"en": "Real Matrix",
+"rarity": 6,
+"size": "2x2",
+"ref": 1507263,
+"contact": 1507263,
+"sound": "Item_Misc_Small_Metal_Crisp_Up",
+"drop": "Item_Misc_Small_Metal_Crisp_Down",
+"category": "Collectibles"
+},
+{
+"id": 498080006,
+"en": "Ancient Golden Mask Replica",
+"rarity": 6,
+"size": "2x3",
+"ref": 1647474,
+"contact": 1647474,
+"sound": "Item_Misc_Small_Metal_Crisp_Up",
+"drop": "Item_Misc_Small_Metal_Crisp_Down",
+"category": "Collectibles"
+},
+{
+"id": 498080008,
+"en": "Hefra Egg",
+"rarity": 6,
+"size": "2x2",
+"ref": 1363385,
+"contact": 1363385,
+"sound": "Item_Misc_Small_Metal_Blunt_Up",
+"drop": "Item_Misc_Small_Metal_Blunt_Down",
+"category": "Collectibles"
+},
+{
+"id": 498080009,
+"en": "Lyre",
+"rarity": 6,
+"size": "2x2",
+"ref": 1366000,
+"contact": 1366000,
+"sound": "Item_Misc_Small_Metal_Blunt_Up",
+"drop": "Item_Misc_Small_Metal_Blunt_Down",
+"category": "Collectibles"
+},
+{
+"id": 498080010,
+"en": "Heavenly Sphere",
+"rarity": 6,
+"size": "2x2",
+"ref": 1368615,
+"contact": 1368615,
+"sound": "Item_Misc_Small_Metal_Blunt_Up",
+"drop": "Item_Misc_Small_Metal_Blunt_Down",
+"category": "Collectibles"
+},
+{
+"id": 498080011,
+"en": "Peacock Fan",
+"rarity": 6,
+"size": "2x2",
+"ref": 1371231,
+"contact": 1371231,
+"sound": "Item_Misc_Small_Metal_Crisp_Up",
+"drop": "Item_Misc_Small_Metal_Crisp_Down",
+"category": "Collectibles"
+},
+{
+"id": 498080016,
+"en": "Amber Heart of Heaven",
+"rarity": 6,
+"size": "2x3",
+"ref": 1395613,
+"contact": 1395613,
+"sound": "Item_Misc_Small_Metal_Blunt_Up",
+"drop": "Item_Misc_Small_Metal_Blunt_Down",
+"category": "Collectibles"
+},
+{
+"id": 498080017,
+"en": "Optoelectronic Hyperspace Model",
+"rarity": 6,
+"size": "2x2",
+"ref": 1371484,
+"contact": 1371484,
+"sound": "Item_Misc_Med_Statue_Up",
+"drop": "Item_Misc_Med_Statue_Down",
+"category": "Collectibles"
+},
+{
+"id": 498080018,
+"en": "\"Destiny\" Gold Clay Tablet",
+"rarity": 6,
+"size": "3x2",
+"ref": 1397806,
+"contact": 1397806,
+"sound": "Item_Misc_Med_Metal_Crisp_Up",
+"drop": "Item_Misc_Med_Metal_Crisp_Down",
+"category": "Collectibles"
+},
+{
+"id": 498080019,
+"en": "Star of Kamona Pendant",
+"rarity": 6,
+"size": "2x2",
+"ref": 1386839,
+"contact": 1386839,
+"sound": "Item_GoldChain_Up",
+"drop": "Item_GoldChain_Down",
+"category": "Collectibles"
+},
+{
+"id": 498080025,
+"en": "Double-Neck Lute",
+"rarity": 6,
+"size": "2x3",
+"ref": 1544333,
+"contact": 1544333,
+"sound": "Item_Misc_Big_Wood_Up",
+"drop": "Item_Misc_Big_Wood_Down",
+"category": "Collectibles"
+},
+{
+"id": 498090001,
+"en": "Voss' Journal",
+"rarity": 5,
+"size": "1x2",
+"ref": 89078,
+"contact": 53446,
+"sound": "Item_Misc_Small_Metal_Crisp_Up",
+"drop": "Item_Misc_Small_Metal_Crisp_Down",
+"category": "Paper"
+},
+{
+"id": 498090002,
+"en": "Space Boy Comic",
+"rarity": 4,
+"size": "1x2",
+"ref": 15769,
+"contact": 6307,
+"sound": "Item_Misc_Small_Metal_Crisp_Up",
+"drop": "Item_Misc_Small_Metal_Crisp_Down",
+"category": "Paper"
+},
+{
+"id": 498090008,
+"en": "Dried Flower Bookmark",
+"rarity": 5,
+"size": "1x1",
+"ref": 51111,
+"contact": 40888,
+"sound": "Item_Misc_Small_Paper_Up",
+"drop": "Item_Misc_Small_Paper_Down",
+"category": "Paper"
+},
+{
+"id": 498090009,
+"en": "Bundle of Rice Paper",
+"rarity": 4,
+"size": "1x2",
+"ref": 30549,
+"contact": 12219,
+"sound": "Item_Misc_Big_Paper_Up",
+"drop": "Item_Misc_Big_Paper_Down",
+"category": "Paper"
+},
+{
+"id": 498090010,
+"en": "Mutant Evolution Sketch",
+"rarity": 5,
+"size": "2x2",
+"ref": 304140,
+"contact": 243312,
+"sound": "Item_Misc_Small_Paper_Up",
+"drop": "Item_Misc_Small_Paper_Down",
+"category": "Paper"
+},
+{
+"id": 498100001,
+"en": "Aerospace Navigator",
+"rarity": 6,
+"size": "3x2",
+"ref": 1598400,
+"contact": 1598400,
+"sound": "Item_Misc_Small_Metal_Crisp_Up",
+"drop": "Item_Misc_Small_Metal_Crisp_Down",
+"category": "Instruments"
+},
+{
+"id": 498100002,
+"en": "K7-L Cipher Machine",
+"rarity": 5,
+"size": "2x2",
+"ref": 308782,
+"contact": 185269,
+"sound": "Item_Misc_Med_Statue_Up",
+"drop": "Item_Misc_Med_Statue_Down",
+"category": "Instruments"
+},
+{
+"id": 498100003,
+"en": "Three-Axis Gyro Controller Prototype",
+"rarity": 6,
+"size": "3x2",
+"ref": 1397385,
+"contact": 1397385,
+"sound": "Item_Misc_Small_Metal_Blunt_Up",
+"drop": "Item_Misc_Small_Metal_Blunt_Down",
+"category": "Instruments"
+},
+{
+"id": 498100004,
+"en": "Handheld Receiver",
+"rarity": 4,
+"size": "1x2",
+"ref": 30055,
+"contact": 12022,
+"sound": "Item_Misc_Small_Metal_Blunt_Up",
+"drop": "Item_Misc_Small_Metal_Blunt_Down",
+"category": "Instruments"
+},
+{
+"id": 498100005,
+"en": "Handheld Salinity Meter",
+"rarity": 5,
+"size": "1x1",
+"ref": 49556,
+"contact": 39644,
+"sound": "Item_Misc_Small_Metal_Blunt_Up",
+"drop": "Item_Misc_Small_Metal_Blunt_Down",
+"category": "Instruments"
+},
+{
+"id": 498100006,
+"en": "Handheld Calculator",
+"rarity": 4,
+"size": "1x2",
+"ref": 30260,
+"contact": 12104,
+"sound": "Item_Misc_Small_Metal_Blunt_Up",
+"drop": "Item_Misc_Small_Metal_Blunt_Down",
+"category": "Instruments"
+},
+{
+"id": 498120001,
+"en": "Military Tool Kit",
+"rarity": 4,
+"size": "2x1",
+"ref": 30568,
+"contact": 12227,
+"sound": "Item_Misc_Small_Metal_Crisp_Up",
+"drop": "Item_Misc_Small_Metal_Crisp_Down",
+"category": "Miscellaneous Military Item"
+},
+{
+"id": 498120003,
+"en": "T-147 Individual Communication Device",
+"rarity": 5,
+"size": "1x2",
+"ref": 89540,
+"contact": 53724,
+"sound": "Item_Misc_Small_Metal_Crisp_Up",
+"drop": "Item_Misc_Small_Metal_Crisp_Down",
+"category": "Miscellaneous Military Item"
+},
+{
+"id": 498140001,
+"en": "Prototype Calculation Module",
+"rarity": 6,
+"size": "2x2",
+"ref": 1509600,
+"contact": 1509600,
+"sound": "Item_Misc_Small_Metal_Blunt_Up",
+"drop": "Item_Misc_Small_Metal_Blunt_Down",
+"category": "Electronics"
+},
+{
+"id": 498140003,
+"en": "Capsule TV",
+"rarity": 6,
+"size": "2x3",
+"ref": 1629947,
+"contact": 1629947,
+"sound": "Item_Misc_Small_Metal_Blunt_Up",
+"drop": "Item_Misc_Small_Metal_Blunt_Down",
+"category": "Electronics"
+},
+{
+"id": 498140004,
+"en": "Personal Digital Assistant",
+"rarity": 4,
+"size": "1x2",
+"ref": 30226,
+"contact": 12090,
+"sound": "Item_Misc_Small_Metal_Crisp_Up",
+"drop": "Item_Misc_Small_Metal_Crisp_Down",
+"category": "Electronics"
+},
+{
+"id": 498140005,
+"en": "MRID Clamshell Laptop",
+"rarity": 6,
+"size": "2x2",
+"ref": 1512222,
+"contact": 1512222,
+"sound": "Item_Misc_Small_Metal_Blunt_Up",
+"drop": "Item_Misc_Small_Metal_Blunt_Down",
+"category": "Electronics"
+},
+{
+"id": 498140006,
+"en": "GU-470 Portable Recorder",
+"rarity": 4,
+"size": "1x2",
+"ref": 15818,
+"contact": 6327,
+"sound": "Item_Misc_Small_Metal_Crisp_Up",
+"drop": "Item_Misc_Small_Metal_Crisp_Down",
+"category": "Electronics"
+}
+],
+"pools": [
+{
+"id": 100002,
+"profile": 1,
+"price": 20000,
+"weight": 633,
+"items": [
+[
+408010006,
+200
+],
+[
+408010008,
+5000
+],
+[
+408010014,
+1000
+],
+[
+408010015,
+200
+]
+]
+},
+{
+"id": 100003,
+"profile": 1,
+"price": 30000,
+"weight": 633,
+"items": [
+[
+408020015,
+5000
+],
+[
+408020017,
+300
+],
+[
+408020021,
+300
+],
+[
+408020022,
+300
+],
+[
+408020026,
+500
+]
+]
+},
+{
+"id": 100006,
+"profile": 1,
+"price": 100000,
+"weight": 417,
+"items": [
+[
+408040004,
+9500
+],
+[
+408040008,
+500
+]
+]
+},
+{
+"id": 100007,
+"profile": 1,
+"price": 27000,
+"weight": 633,
+"items": [
+[
+408040001,
+300
+],
+[
+408040002,
+300
+],
+[
+408040006,
+7400
+],
+[
+498040002,
+1000
+],
+[
+498040001,
+1000
+]
+]
+},
+{
+"id": 100008,
+"profile": 1,
+"price": 15000,
+"weight": 633,
+"items": [
+[
+408050011,
+100
+],
+[
+408050013,
+100
+],
+[
+408050022,
+100
+],
+[
+408050023,
+100
+],
+[
+408050026,
+1000
+],
+[
+408050029,
+7000
+],
+[
+408050031,
+7000
+],
+[
+408050032,
+100
+]
+]
+},
+{
+"id": 100009,
+"profile": 1,
+"price": 100000,
+"weight": 417,
+"items": [
+[
+408060041,
+100
+],
+[
+408060043,
+3300
+],
+[
+408060046,
+100
+],
+[
+408060052,
+3300
+],
+[
+408060054,
+100
+],
+[
+498060004,
+5
+],
+[
+498060005,
+5
+]
+]
+},
+{
+"id": 100016,
+"profile": 1,
+"price": 15000,
+"weight": 633,
+"items": [
+[
+408090002,
+500
+],
+[
+498090001,
+3000
+],
+[
+498090002,
+6500
+]
+]
+},
+{
+"id": 100022,
+"profile": 1,
+"price": 40000,
+"weight": 633,
+"items": [
+[
+408030014,
+100
+],
+[
+408060030,
+100
+],
+[
+408030013,
+100
+],
+[
+408040006,
+100
+],
+[
+408050028,
+100
+],
+[
+498040001,
+1420
+],
+[
+498100005,
+1420
+],
+[
+498040002,
+1420
+],
+[
+498090008,
+1420
+],
+[
+498010003,
+1520
+],
+[
+408070013,
+800
+],
+[
+408080013,
+800
+],
+[
+408140019,
+700
+]
+]
+},
+{
+"id": 100023,
+"profile": 1,
+"price": 210000,
+"weight": 417,
+"items": [
+[
+408030016,
+400
+],
+[
+408060039,
+300
+],
+[
+408060037,
+300
+],
+[
+408140016,
+300
+],
+[
+498040001,
+100
+],
+[
+498100005,
+100
+],
+[
+498040002,
+100
+],
+[
+498090008,
+100
+],
+[
+498010003,
+100
+],
+[
+408080004,
+200
+],
+[
+408080025,
+200
+],
+[
+408080026,
+200
+],
+[
+408080028,
+7200
+],
+[
+408080050,
+200
+],
+[
+408080054,
+200
+]
+]
+},
+{
+"id": 100024,
+"profile": 1,
+"price": 70000,
+"weight": 417,
+"items": [
+[
+408080047,
+10
+],
+[
+408080049,
+10
+],
+[
+408080030,
+280
+],
+[
+408140001,
+2000
+],
+[
+498090001,
+2000
+],
+[
+498120003,
+2000
+],
+[
+408050039,
+2800
+],
+[
+408060044,
+50
+],
+[
+408080009,
+50
+],
+[
+408120002,
+50
+],
+[
+498070001,
+50
+],
+[
+498010001,
+50
+],
+[
+498070004,
+50
+],
+[
+498100004,
+50
+],
+[
+498140004,
+50
+],
+[
+498100006,
+50
+],
+[
+498040003,
+50
+],
+[
+498090009,
+50
+],
+[
+408010005,
+50
+],
+[
+408050030,
+50
+],
+[
+408100001,
+50
+],
+[
+408120009,
+50
+],
+[
+498090002,
+50
+],
+[
+498140006,
+50
+],
+[
+408010012,
+50
+]
+]
+},
+{
+"id": 100025,
+"profile": 1,
+"price": 250000,
+"weight": 533,
+"items": [
+[
+408080047,
+400
+],
+[
+408080049,
+100
+],
+[
+408080030,
+6500
+],
+[
+408140001,
+50
+],
+[
+498090001,
+50
+],
+[
+498120003,
+50
+],
+[
+408050039,
+50
+],
+[
+408060044,
+50
+],
+[
+408080009,
+155
+],
+[
+408120002,
+155
+],
+[
+498070001,
+155
+],
+[
+498010001,
+155
+],
+[
+498070004,
+155
+],
+[
+498100004,
+155
+],
+[
+498140004,
+155
+],
+[
+498100006,
+155
+],
+[
+498040003,
+155
+],
+[
+498090009,
+155
+],
+[
+408010005,
+155
+],
+[
+408050030,
+155
+],
+[
+408100001,
+155
+],
+[
+408120009,
+155
+],
+[
+498090002,
+155
+],
+[
+498140006,
+155
+],
+[
+408010012,
+170
+]
+]
+},
+{
+"id": 100026,
+"profile": 1,
+"price": 470000,
+"weight": 28,
+"items": [
+[
+408080047,
+1000
+],
+[
+408080049,
+1000
+],
+[
+408080030,
+6400
+],
+[
+408140001,
+400
+],
+[
+498090001,
+400
+],
+[
+498120003,
+400
+],
+[
+408050039,
+400
+]
+]
+},
+{
+"id": 100027,
+"profile": 1,
+"price": 70000,
+"weight": 417,
+"items": [
+[
+408120013,
+10
+],
+[
+408080048,
+10
+],
+[
+408080024,
+140
+],
+[
+408120017,
+140
+],
+[
+408030004,
+2000
+],
+[
+408050026,
+2000
+],
+[
+408080001,
+2000
+],
+[
+408090004,
+2000
+],
+[
+498070003,
+800
+],
+[
+408030008,
+33
+],
+[
+408050029,
+33
+],
+[
+408080015,
+33
+],
+[
+408100007,
+33
+],
+[
+408120014,
+33
+],
+[
+408050031,
+33
+],
+[
+408100002,
+33
+],
+[
+408120008,
+33
+],
+[
+408140021,
+33
+],
+[
+498120001,
+33
+],
+[
+408020024,
+33
+],
+[
+408030007,
+33
+],
+[
+408030023,
+33
+],
+[
+408050013,
+33
+],
+[
+408050023,
+33
+],
+[
+408060042,
+33
+],
+[
+408090001,
+33
+],
+[
+408120001,
+33
+],
+[
+408140005,
+33
+],
+[
+408030003,
+33
+],
+[
+408030024,
+33
+],
+[
+408050011,
+33
+],
+[
+408050032,
+33
+],
+[
+408060021,
+33
+],
+[
+408080022,
+33
+],
+[
+408120005,
+33
+],
+[
+408140014,
+42
+]
+]
+},
+{
+"id": 100028,
+"profile": 1,
+"price": 250000,
+"weight": 533,
+"items": [
+[
+408120013,
+400
+],
+[
+408080048,
+100
+],
+[
+408080024,
+3250
+],
+[
+408120017,
+3250
+],
+[
+408030004,
+300
+],
+[
+408050026,
+300
+],
+[
+408080001,
+300
+],
+[
+408090004,
+300
+],
+[
+498070003,
+300
+],
+[
+408030008,
+150
+],
+[
+408050029,
+150
+],
+[
+408080015,
+150
+],
+[
+408100007,
+150
+],
+[
+408120014,
+150
+],
+[
+408050031,
+150
+],
+[
+408100002,
+150
+],
+[
+408120008,
+150
+],
+[
+408140021,
+150
+],
+[
+498120001,
+150
+]
+]
+},
+{
+"id": 100029,
+"profile": 1,
+"price": 450000,
+"weight": 28,
+"items": [
+[
+408120013,
+1000
+],
+[
+408080048,
+1000
+],
+[
+408080024,
+3000
+],
+[
+408120017,
+3000
+],
+[
+408030004,
+400
+],
+[
+408050026,
+400
+],
+[
+408080001,
+400
+],
+[
+408090004,
+400
+],
+[
+498070003,
+400
+]
+]
+},
+{
+"id": 100030,
+"profile": 1,
+"price": 70000,
+"weight": 417,
+"items": [
+[
+408080003,
+1
+],
+[
+408080010,
+1
+],
+[
+408120019,
+1
+],
+[
+408080041,
+1
+],
+[
+498140001,
+1
+],
+[
+498080002,
+1
+],
+[
+498080005,
+1
+],
+[
+498070002,
+1
+],
+[
+498080008,
+1
+],
+[
+498080009,
+1
+],
+[
+408020026,
+80
+],
+[
+408070012,
+80
+],
+[
+408080014,
+80
+],
+[
+408080019,
+80
+],
+[
+408080033,
+80
+],
+[
+408120020,
+80
+],
+[
+408140022,
+80
+],
+[
+408140024,
+80
+],
+[
+408070016,
+80
+],
+[
+408090019,
+80
+],
+[
+498100002,
+80
+],
+[
+498020001,
+80
+],
+[
+408060043,
+1000
+],
+[
+408080016,
+1000
+],
+[
+408100011,
+1000
+],
+[
+408120010,
+1000
+],
+[
+408010014,
+1000
+],
+[
+408030026,
+1168
+],
+[
+408060052,
+1782
+],
+[
+408010008,
+62
+],
+[
+408020015,
+62
+],
+[
+408030009,
+62
+],
+[
+408050001,
+62
+],
+[
+408050006,
+62
+],
+[
+408050019,
+62
+],
+[
+408060046,
+62
+],
+[
+408060054,
+62
+],
+[
+408010015,
+62
+],
+[
+498070009,
+80
+],
+[
+408010006,
+62
+],
+[
+408020017,
+62
+],
+[
+408060041,
+62
+],
+[
+408120003,
+62
+],
+[
+408020021,
+124
+],
+[
+408020022,
+70
+]
+]
+},
+{
+"id": 100031,
+"profile": 1,
+"price": 250000,
+"weight": 533,
+"items": [
+[
+408080003,
+30
+],
+[
+408080010,
+30
+],
+[
+408080029,
+30
+],
+[
+408120019,
+40
+],
+[
+408080041,
+40
+],
+[
+498140001,
+40
+],
+[
+498080002,
+40
+],
+[
+498080005,
+40
+],
+[
+498070002,
+40
+],
+[
+498080008,
+30
+],
+[
+498080009,
+20
+],
+[
+498080010,
+20
+],
+[
+408020026,
+500
+],
+[
+408070012,
+500
+],
+[
+408080014,
+500
+],
+[
+408080019,
+500
+],
+[
+408080033,
+500
+],
+[
+408120020,
+500
+],
+[
+408140022,
+500
+],
+[
+408140024,
+500
+],
+[
+408070016,
+500
+],
+[
+408090019,
+500
+],
+[
+498100002,
+500
+],
+[
+498020001,
+500
+],
+[
+408060043,
+50
+],
+[
+408080016,
+50
+],
+[
+408100011,
+50
+],
+[
+408120010,
+50
+],
+[
+408010014,
+50
+],
+[
+408030026,
+50
+],
+[
+408060052,
+50
+],
+[
+408010008,
+100
+],
+[
+408020015,
+100
+],
+[
+408030009,
+100
+],
+[
+408050001,
+100
+],
+[
+408050006,
+100
+],
+[
+408050019,
+200
+],
+[
+408060046,
+250
+],
+[
+408060054,
+200
+],
+[
+408010015,
+300
+],
+[
+498070009,
+600
+],
+[
+408010006,
+300
+],
+[
+408020017,
+300
+],
+[
+408060041,
+300
+],
+[
+408120003,
+300
+]
+]
+},
+{
+"id": 100032,
+"profile": 1,
+"price": 470000,
+"weight": 28,
+"items": [
+[
+408080003,
+40
+],
+[
+408080010,
+40
+],
+[
+408080029,
+40
+],
+[
+408120019,
+55
+],
+[
+408080041,
+55
+],
+[
+498140001,
+75
+],
+[
+498080002,
+55
+],
+[
+498080005,
+55
+],
+[
+498070002,
+55
+],
+[
+498080008,
+75
+],
+[
+498080009,
+75
+],
+[
+498080010,
+65
+],
+[
+498080011,
+55
+],
+[
+498060004,
+55
+],
+[
+498080017,
+55
+],
+[
+498080019,
+40
+],
+[
+498140005,
+55
+],
+[
+498060005,
+55
+],
+[
+408020026,
+666
+],
+[
+408070012,
+666
+],
+[
+408080014,
+666
+],
+[
+408080019,
+666
+],
+[
+408080033,
+666
+],
+[
+408120020,
+666
+],
+[
+408140022,
+666
+],
+[
+408140024,
+666
+],
+[
+408070016,
+666
+],
+[
+408090019,
+666
+],
+[
+498100002,
+666
+],
+[
+498020001,
+674
+],
+[
+408060043,
+144
+],
+[
+408080016,
+144
+],
+[
+408100011,
+144
+],
+[
+408120010,
+144
+],
+[
+408010014,
+144
+],
+[
+408030026,
+144
+],
+[
+408060052,
+136
+]
+]
+},
+{
+"id": 100033,
+"profile": 1,
+"price": 70000,
+"weight": 417,
+"items": [
+[
+408080008,
+1
+],
+[
+498100001,
+2
+],
+[
+498080003,
+2
+],
+[
+498100003,
+3
+],
+[
+498080018,
+2
+],
+[
+408030025,
+90
+],
+[
+498060001,
+100
+],
+[
+408010016,
+100
+],
+[
+408040008,
+100
+],
+[
+408030028,
+100
+],
+[
+408020025,
+4500
+],
+[
+408040004,
+4000
+],
+[
+408050009,
+1000
+]
+]
+},
+{
+"id": 100034,
+"profile": 1,
+"price": 270000,
+"weight": 533,
+"items": [
+[
+408080008,
+50
+],
+[
+498100001,
+80
+],
+[
+498080003,
+80
+],
+[
+498100003,
+110
+],
+[
+498080018,
+80
+],
+[
+408030025,
+1320
+],
+[
+498060001,
+1320
+],
+[
+408010016,
+1320
+],
+[
+408040008,
+1320
+],
+[
+408030028,
+1320
+],
+[
+408020025,
+250
+],
+[
+408040004,
+250
+],
+[
+408050009,
+2500
+]
+]
+},
+{
+"id": 100035,
+"profile": 1,
+"price": 70000,
+"weight": 417,
+"items": [
+[
+408080039,
+2
+],
+[
+498080001,
+2
+],
+[
+498140003,
+2
+],
+[
+498080006,
+1
+],
+[
+498060003,
+1
+],
+[
+498080016,
+1
+],
+[
+498080025,
+1
+],
+[
+408050033,
+100
+],
+[
+408010009,
+4445
+],
+[
+408020019,
+4445
+],
+[
+408080038,
+1000
+]
+]
+},
+{
+"id": 100036,
+"profile": 1,
+"price": 270000,
+"weight": 533,
+"items": [
+[
+408080039,
+50
+],
+[
+498080001,
+50
+],
+[
+498140003,
+50
+],
+[
+498080006,
+50
+],
+[
+498060003,
+50
+],
+[
+498080016,
+50
+],
+[
+498080025,
+100
+],
+[
+408050033,
+6600
+],
+[
+408010009,
+1000
+],
+[
+408020019,
+1000
+],
+[
+408080038,
+1000
+]
+]
+},
+{
+"id": 100037,
+"profile": 1,
+"price": 470000,
+"weight": 28,
+"items": [
+[
+408080039,
+130
+],
+[
+498080001,
+130
+],
+[
+498140003,
+130
+],
+[
+498080006,
+130
+],
+[
+498060003,
+130
+],
+[
+498080016,
+130
+],
+[
+498080025,
+220
+],
+[
+408050033,
+7000
+],
+[
+408010009,
+1000
+],
+[
+408020019,
+1000
+]
+]
+},
+{
+"id": 100038,
+"profile": 1,
+"price": 470000,
+"weight": 28,
+"items": [
+[
+408080008,
+140
+],
+[
+498100001,
+200
+],
+[
+498080003,
+200
+],
+[
+498100003,
+260
+],
+[
+498080018,
+200
+],
+[
+408030025,
+1400
+],
+[
+498060001,
+1400
+],
+[
+408010016,
+1400
+],
+[
+408040008,
+1400
+],
+[
+408030028,
+1400
+],
+[
+408020025,
+1000
+],
+[
+408040004,
+1000
+]
+]
+},
+{
+"id": 100039,
+"profile": 1,
+"price": 350000,
+"weight": 28,
+"items": [
+[
+408080003,
+40
+],
+[
+408080010,
+40
+],
+[
+408080029,
+40
+],
+[
+408120019,
+60
+],
+[
+408080041,
+60
+],
+[
+498140001,
+60
+],
+[
+498080002,
+60
+],
+[
+498080005,
+60
+],
+[
+498070002,
+60
+],
+[
+498080008,
+40
+],
+[
+498080009,
+40
+],
+[
+498080010,
+40
+],
+[
+408020026,
+500
+],
+[
+408070012,
+500
+],
+[
+408080014,
+500
+],
+[
+408080019,
+500
+],
+[
+408080033,
+500
+],
+[
+408120020,
+500
+],
+[
+408140022,
+500
+],
+[
+408140024,
+500
+],
+[
+408070016,
+500
+],
+[
+408090019,
+500
+],
+[
+498100002,
+500
+],
+[
+498020001,
+700
+],
+[
+408060043,
+400
+],
+[
+408080016,
+400
+],
+[
+408100011,
+400
+],
+[
+408120010,
+400
+],
+[
+408010014,
+400
+],
+[
+408030026,
+400
+],
+[
+408060052,
+300
+],
+[
+498070009,
+500
+]
+]
+},
+{
+"id": 100040,
+"profile": 1,
+"price": 550000,
+"weight": 11,
+"items": [
+[
+408080003,
+70
+],
+[
+408080010,
+70
+],
+[
+408080029,
+70
+],
+[
+408120019,
+100
+],
+[
+408080041,
+100
+],
+[
+498140001,
+100
+],
+[
+498080002,
+100
+],
+[
+498080005,
+100
+],
+[
+498070002,
+100
+],
+[
+498080008,
+130
+],
+[
+498080009,
+130
+],
+[
+498080010,
+130
+],
+[
+498080011,
+100
+],
+[
+498060004,
+100
+],
+[
+498080017,
+100
+],
+[
+408020026,
+200
+],
+[
+408070012,
+300
+],
+[
+408080014,
+400
+],
+[
+408080019,
+400
+],
+[
+408080033,
+400
+],
+[
+408120020,
+400
+],
+[
+408140022,
+400
+],
+[
+408140024,
+400
+],
+[
+408070016,
+400
+],
+[
+408090019,
+400
+],
+[
+498100002,
+400
+],
+[
+498020001,
+400
+],
+[
+408060043,
+300
+],
+[
+408080016,
+350
+],
+[
+408100011,
+400
+],
+[
+408120010,
+400
+],
+[
+408010014,
+400
+],
+[
+408030026,
+400
+],
+[
+408060052,
+400
+],
+[
+408010008,
+50
+],
+[
+408020015,
+50
+],
+[
+408030009,
+50
+],
+[
+408050001,
+50
+],
+[
+408050006,
+50
+],
+[
+408050019,
+50
+],
+[
+408060046,
+50
+],
+[
+408060054,
+50
+],
+[
+408010015,
+50
+],
+[
+498070009,
+600
+],
+[
+408010006,
+50
+],
+[
+408020017,
+50
+],
+[
+408060041,
+50
+],
+[
+408120003,
+50
+],
+[
+408020021,
+50
+],
+[
+408020022,
+50
+]
+]
+},
+{
+"id": 100041,
+"profile": 1,
+"price": 550000,
+"weight": 11,
+"items": [
+[
+408080008,
+210
+],
+[
+498100001,
+300
+],
+[
+498080003,
+300
+],
+[
+498100003,
+390
+],
+[
+498080018,
+300
+],
+[
+408030025,
+900
+],
+[
+498060001,
+900
+],
+[
+408010016,
+900
+],
+[
+408040008,
+900
+],
+[
+408030028,
+900
+],
+[
+408020025,
+1500
+],
+[
+408040004,
+1500
+],
+[
+408050009,
+1000
+]
+]
+},
+{
+"id": 100042,
+"profile": 1,
+"price": 550000,
+"weight": 11,
+"items": [
+[
+408080039,
+200
+],
+[
+498080001,
+200
+],
+[
+498140003,
+200
+],
+[
+498080006,
+200
+],
+[
+498060003,
+200
+],
+[
+498080016,
+200
+],
+[
+498080025,
+300
+],
+[
+408050033,
+4500
+],
+[
+408010009,
+1500
+],
+[
+408020019,
+1500
+],
+[
+408080038,
+1000
+]
+]
+},
+{
+"id": 200002,
+"profile": 2,
+"price": 20000,
+"weight": 548,
+"items": [
+[
+408010006,
+200
+],
+[
+408010008,
+5000
+],
+[
+408010014,
+1000
+],
+[
+408010015,
+200
+]
+]
+},
+{
+"id": 200003,
+"profile": 2,
+"price": 30000,
+"weight": 548,
+"items": [
+[
+408020015,
+5000
+],
+[
+408020017,
+300
+],
+[
+408020021,
+300
+],
+[
+408020022,
+300
+],
+[
+408020026,
+500
+]
+]
+},
+{
+"id": 200006,
+"profile": 2,
+"price": 100000,
+"weight": 357,
+"items": [
+[
+408040004,
+9500
+],
+[
+408040008,
+500
+]
+]
+},
+{
+"id": 200007,
+"profile": 2,
+"price": 27000,
+"weight": 548,
+"items": [
+[
+408040001,
+300
+],
+[
+408040002,
+300
+],
+[
+408040006,
+7400
+],
+[
+498040002,
+1000
+],
+[
+498040001,
+1000
+]
+]
+},
+{
+"id": 200008,
+"profile": 2,
+"price": 15000,
+"weight": 548,
+"items": [
+[
+408050011,
+100
+],
+[
+408050013,
+100
+],
+[
+408050022,
+100
+],
+[
+408050023,
+100
+],
+[
+408050026,
+1000
+],
+[
+408050029,
+7000
+],
+[
+408050031,
+7000
+],
+[
+408050032,
+100
+]
+]
+},
+{
+"id": 200009,
+"profile": 2,
+"price": 100000,
+"weight": 357,
+"items": [
+[
+408060041,
+100
+],
+[
+408060043,
+3300
+],
+[
+408060046,
+100
+],
+[
+408060052,
+3300
+],
+[
+408060054,
+100
+],
+[
+498060004,
+5
+],
+[
+498060005,
+5
+]
+]
+},
+{
+"id": 200016,
+"profile": 2,
+"price": 15000,
+"weight": 548,
+"items": [
+[
+408090002,
+500
+],
+[
+498090001,
+3000
+],
+[
+498090002,
+6500
+]
+]
+},
+{
+"id": 200022,
+"profile": 2,
+"price": 40000,
+"weight": 548,
+"items": [
+[
+408030014,
+100
+],
+[
+408060030,
+100
+],
+[
+408030013,
+100
+],
+[
+408040006,
+100
+],
+[
+408050028,
+100
+],
+[
+498040001,
+1420
+],
+[
+498100005,
+1420
+],
+[
+498040002,
+1420
+],
+[
+498090008,
+1420
+],
+[
+498010003,
+1520
+],
+[
+408070013,
+800
+],
+[
+408080013,
+800
+],
+[
+408140019,
+700
+]
+]
+},
+{
+"id": 200023,
+"profile": 2,
+"price": 210000,
+"weight": 357,
+"items": [
+[
+408030016,
+400
+],
+[
+408060039,
+300
+],
+[
+408060037,
+300
+],
+[
+408140016,
+300
+],
+[
+498040001,
+100
+],
+[
+498100005,
+100
+],
+[
+498040002,
+100
+],
+[
+498090008,
+100
+],
+[
+498010003,
+100
+],
+[
+408080004,
+200
+],
+[
+408080025,
+200
+],
+[
+408080026,
+200
+],
+[
+408080028,
+7200
+],
+[
+408080050,
+200
+],
+[
+408080054,
+200
+]
+]
+},
+{
+"id": 200024,
+"profile": 2,
+"price": 70000,
+"weight": 357,
+"items": [
+[
+408080047,
+10
+],
+[
+408080049,
+10
+],
+[
+408080030,
+280
+],
+[
+408140001,
+2000
+],
+[
+498090001,
+2000
+],
+[
+498120003,
+2000
+],
+[
+408050039,
+2800
+],
+[
+408060044,
+50
+],
+[
+408080009,
+50
+],
+[
+408120002,
+50
+],
+[
+498070001,
+50
+],
+[
+498010001,
+50
+],
+[
+498070004,
+50
+],
+[
+498100004,
+50
+],
+[
+498140004,
+50
+],
+[
+498100006,
+50
+],
+[
+498040003,
+50
+],
+[
+498090009,
+50
+],
+[
+408010005,
+50
+],
+[
+408050030,
+50
+],
+[
+408100001,
+50
+],
+[
+408120009,
+50
+],
+[
+498090002,
+50
+],
+[
+498140006,
+50
+],
+[
+408010012,
+50
+]
+]
+},
+{
+"id": 200025,
+"profile": 2,
+"price": 250000,
+"weight": 629,
+"items": [
+[
+408080047,
+400
+],
+[
+408080049,
+100
+],
+[
+408080030,
+6500
+],
+[
+408140001,
+50
+],
+[
+498090001,
+50
+],
+[
+498120003,
+50
+],
+[
+408050039,
+50
+],
+[
+408060044,
+50
+],
+[
+408080009,
+155
+],
+[
+408120002,
+155
+],
+[
+498070001,
+155
+],
+[
+498010001,
+155
+],
+[
+498070004,
+155
+],
+[
+498100004,
+155
+],
+[
+498140004,
+155
+],
+[
+498100006,
+155
+],
+[
+498040003,
+155
+],
+[
+498090009,
+155
+],
+[
+408010005,
+155
+],
+[
+408050030,
+155
+],
+[
+408100001,
+155
+],
+[
+408120009,
+155
+],
+[
+498090002,
+155
+],
+[
+498140006,
+155
+],
+[
+408010012,
+170
+]
+]
+},
+{
+"id": 200026,
+"profile": 2,
+"price": 470000,
+"weight": 95,
+"items": [
+[
+408080047,
+1000
+],
+[
+408080049,
+1000
+],
+[
+408080030,
+6400
+],
+[
+408140001,
+400
+],
+[
+498090001,
+400
+],
+[
+498120003,
+400
+],
+[
+408050039,
+400
+]
+]
+},
+{
+"id": 200027,
+"profile": 2,
+"price": 70000,
+"weight": 357,
+"items": [
+[
+408120013,
+10
+],
+[
+408080048,
+10
+],
+[
+408080024,
+140
+],
+[
+408120017,
+140
+],
+[
+408030004,
+2000
+],
+[
+408050026,
+2000
+],
+[
+408080001,
+2000
+],
+[
+408090004,
+2000
+],
+[
+498070003,
+800
+],
+[
+408030008,
+33
+],
+[
+408050029,
+33
+],
+[
+408080015,
+33
+],
+[
+408100007,
+33
+],
+[
+408120014,
+33
+],
+[
+408050031,
+33
+],
+[
+408100002,
+33
+],
+[
+408120008,
+33
+],
+[
+408140021,
+33
+],
+[
+498120001,
+33
+],
+[
+408020024,
+33
+],
+[
+408030007,
+33
+],
+[
+408030023,
+33
+],
+[
+408050013,
+33
+],
+[
+408050023,
+33
+],
+[
+408060042,
+33
+],
+[
+408090001,
+33
+],
+[
+408120001,
+33
+],
+[
+408140005,
+33
+],
+[
+408030003,
+33
+],
+[
+408030024,
+33
+],
+[
+408050011,
+33
+],
+[
+408050032,
+33
+],
+[
+408060021,
+33
+],
+[
+408080022,
+33
+],
+[
+408120005,
+33
+],
+[
+408140014,
+42
+]
+]
+},
+{
+"id": 200028,
+"profile": 2,
+"price": 250000,
+"weight": 629,
+"items": [
+[
+408120013,
+400
+],
+[
+408080048,
+100
+],
+[
+408080024,
+3250
+],
+[
+408120017,
+3250
+],
+[
+408030004,
+300
+],
+[
+408050026,
+300
+],
+[
+408080001,
+300
+],
+[
+408090004,
+300
+],
+[
+498070003,
+300
+],
+[
+408030008,
+150
+],
+[
+408050029,
+150
+],
+[
+408080015,
+150
+],
+[
+408100007,
+150
+],
+[
+408120014,
+150
+],
+[
+408050031,
+150
+],
+[
+408100002,
+150
+],
+[
+408120008,
+150
+],
+[
+408140021,
+150
+],
+[
+498120001,
+150
+]
+]
+},
+{
+"id": 200029,
+"profile": 2,
+"price": 450000,
+"weight": 95,
+"items": [
+[
+408120013,
+1000
+],
+[
+408080048,
+1000
+],
+[
+408080024,
+3000
+],
+[
+408120017,
+3000
+],
+[
+408030004,
+400
+],
+[
+408050026,
+400
+],
+[
+408080001,
+400
+],
+[
+408090004,
+400
+],
+[
+498070003,
+400
+]
+]
+},
+{
+"id": 200030,
+"profile": 2,
+"price": 70000,
+"weight": 357,
+"items": [
+[
+408080003,
+1
+],
+[
+408080010,
+1
+],
+[
+408120019,
+1
+],
+[
+408080041,
+1
+],
+[
+498140001,
+1
+],
+[
+498080002,
+1
+],
+[
+498080005,
+1
+],
+[
+498070002,
+1
+],
+[
+498080008,
+1
+],
+[
+498080009,
+1
+],
+[
+408020026,
+80
+],
+[
+408070012,
+80
+],
+[
+408080014,
+80
+],
+[
+408080019,
+80
+],
+[
+408080033,
+80
+],
+[
+408120020,
+80
+],
+[
+408140022,
+80
+],
+[
+408140024,
+80
+],
+[
+408070016,
+80
+],
+[
+408090019,
+80
+],
+[
+498100002,
+80
+],
+[
+498020001,
+80
+],
+[
+408060043,
+1000
+],
+[
+408080016,
+1000
+],
+[
+408100011,
+1000
+],
+[
+408120010,
+1000
+],
+[
+408010014,
+1000
+],
+[
+408030026,
+1168
+],
+[
+408060052,
+1782
+],
+[
+408010008,
+62
+],
+[
+408020015,
+62
+],
+[
+408030009,
+62
+],
+[
+408050001,
+62
+],
+[
+408050006,
+62
+],
+[
+408050019,
+62
+],
+[
+408060046,
+62
+],
+[
+408060054,
+62
+],
+[
+408010015,
+62
+],
+[
+498070009,
+80
+],
+[
+408010006,
+62
+],
+[
+408020017,
+62
+],
+[
+408060041,
+62
+],
+[
+408120003,
+62
+],
+[
+408020021,
+124
+],
+[
+408020022,
+70
+]
+]
+},
+{
+"id": 200031,
+"profile": 2,
+"price": 250000,
+"weight": 629,
+"items": [
+[
+408080003,
+30
+],
+[
+408080010,
+30
+],
+[
+408080029,
+30
+],
+[
+408120019,
+40
+],
+[
+408080041,
+40
+],
+[
+498140001,
+40
+],
+[
+498080002,
+40
+],
+[
+498080005,
+40
+],
+[
+498070002,
+40
+],
+[
+498080008,
+30
+],
+[
+498080009,
+20
+],
+[
+498080010,
+20
+],
+[
+408020026,
+500
+],
+[
+408070012,
+500
+],
+[
+408080014,
+500
+],
+[
+408080019,
+500
+],
+[
+408080033,
+500
+],
+[
+408120020,
+500
+],
+[
+408140022,
+500
+],
+[
+408140024,
+500
+],
+[
+408070016,
+500
+],
+[
+408090019,
+500
+],
+[
+498100002,
+500
+],
+[
+498020001,
+500
+],
+[
+408060043,
+50
+],
+[
+408080016,
+50
+],
+[
+408100011,
+50
+],
+[
+408120010,
+50
+],
+[
+408010014,
+50
+],
+[
+408030026,
+50
+],
+[
+408060052,
+50
+],
+[
+408010008,
+100
+],
+[
+408020015,
+100
+],
+[
+408030009,
+100
+],
+[
+408050001,
+100
+],
+[
+408050006,
+100
+],
+[
+408050019,
+200
+],
+[
+408060046,
+250
+],
+[
+408060054,
+200
+],
+[
+408010015,
+300
+],
+[
+498070009,
+600
+],
+[
+408010006,
+300
+],
+[
+408020017,
+300
+],
+[
+408060041,
+300
+],
+[
+408120003,
+300
+]
+]
+},
+{
+"id": 200032,
+"profile": 2,
+"price": 470000,
+"weight": 95,
+"items": [
+[
+408080003,
+40
+],
+[
+408080010,
+40
+],
+[
+408080029,
+40
+],
+[
+408120019,
+55
+],
+[
+408080041,
+55
+],
+[
+498140001,
+75
+],
+[
+498080002,
+55
+],
+[
+498080005,
+55
+],
+[
+498070002,
+55
+],
+[
+498080008,
+75
+],
+[
+498080009,
+75
+],
+[
+498080010,
+65
+],
+[
+498080011,
+55
+],
+[
+498060004,
+55
+],
+[
+498080017,
+55
+],
+[
+498080019,
+40
+],
+[
+498140005,
+55
+],
+[
+498060005,
+55
+],
+[
+408020026,
+666
+],
+[
+408070012,
+666
+],
+[
+408080014,
+666
+],
+[
+408080019,
+666
+],
+[
+408080033,
+666
+],
+[
+408120020,
+666
+],
+[
+408140022,
+666
+],
+[
+408140024,
+666
+],
+[
+408070016,
+666
+],
+[
+408090019,
+666
+],
+[
+498100002,
+666
+],
+[
+498020001,
+674
+],
+[
+408060043,
+144
+],
+[
+408080016,
+144
+],
+[
+408100011,
+144
+],
+[
+408120010,
+144
+],
+[
+408010014,
+144
+],
+[
+408030026,
+144
+],
+[
+408060052,
+136
+]
+]
+},
+{
+"id": 200033,
+"profile": 2,
+"price": 70000,
+"weight": 357,
+"items": [
+[
+408080008,
+1
+],
+[
+498100001,
+2
+],
+[
+498080003,
+2
+],
+[
+498100003,
+3
+],
+[
+498080018,
+2
+],
+[
+408030025,
+90
+],
+[
+498060001,
+100
+],
+[
+408010016,
+100
+],
+[
+408040008,
+100
+],
+[
+408030028,
+100
+],
+[
+408020025,
+4500
+],
+[
+408040004,
+4000
+],
+[
+408050009,
+1000
+]
+]
+},
+{
+"id": 200034,
+"profile": 2,
+"price": 270000,
+"weight": 629,
+"items": [
+[
+408080008,
+50
+],
+[
+498100001,
+80
+],
+[
+498080003,
+80
+],
+[
+498100003,
+110
+],
+[
+498080018,
+80
+],
+[
+408030025,
+1320
+],
+[
+498060001,
+1320
+],
+[
+408010016,
+1320
+],
+[
+408040008,
+1320
+],
+[
+408030028,
+1320
+],
+[
+408020025,
+250
+],
+[
+408040004,
+250
+],
+[
+408050009,
+2500
+]
+]
+},
+{
+"id": 200035,
+"profile": 2,
+"price": 70000,
+"weight": 357,
+"items": [
+[
+408080039,
+2
+],
+[
+498080001,
+2
+],
+[
+498140003,
+2
+],
+[
+498080006,
+1
+],
+[
+498060003,
+1
+],
+[
+498080016,
+1
+],
+[
+498080025,
+1
+],
+[
+408050033,
+100
+],
+[
+408010009,
+4445
+],
+[
+408020019,
+4445
+],
+[
+408080038,
+1000
+]
+]
+},
+{
+"id": 200036,
+"profile": 2,
+"price": 270000,
+"weight": 629,
+"items": [
+[
+408080039,
+50
+],
+[
+498080001,
+50
+],
+[
+498140003,
+50
+],
+[
+498080006,
+50
+],
+[
+498060003,
+50
+],
+[
+498080016,
+50
+],
+[
+498080025,
+100
+],
+[
+408050033,
+6600
+],
+[
+408010009,
+1000
+],
+[
+408020019,
+1000
+],
+[
+408080038,
+1000
+]
+]
+},
+{
+"id": 200037,
+"profile": 2,
+"price": 470000,
+"weight": 95,
+"items": [
+[
+408080039,
+130
+],
+[
+498080001,
+130
+],
+[
+498140003,
+130
+],
+[
+498080006,
+130
+],
+[
+498060003,
+130
+],
+[
+498080016,
+130
+],
+[
+498080025,
+220
+],
+[
+408050033,
+7000
+],
+[
+408010009,
+1000
+],
+[
+408020019,
+1000
+]
+]
+},
+{
+"id": 200038,
+"profile": 2,
+"price": 470000,
+"weight": 95,
+"items": [
+[
+408080008,
+140
+],
+[
+498100001,
+200
+],
+[
+498080003,
+200
+],
+[
+498100003,
+260
+],
+[
+498080018,
+200
+],
+[
+408030025,
+1400
+],
+[
+498060001,
+1400
+],
+[
+408010016,
+1400
+],
+[
+408040008,
+1400
+],
+[
+408030028,
+1400
+],
+[
+408020025,
+1000
+],
+[
+408040004,
+1000
+]
+]
+},
+{
+"id": 200039,
+"profile": 2,
+"price": 350000,
+"weight": 95,
+"items": [
+[
+408080003,
+40
+],
+[
+408080010,
+40
+],
+[
+408080029,
+40
+],
+[
+408120019,
+60
+],
+[
+408080041,
+60
+],
+[
+498140001,
+60
+],
+[
+498080002,
+60
+],
+[
+498080005,
+60
+],
+[
+498070002,
+60
+],
+[
+498080008,
+40
+],
+[
+498080009,
+40
+],
+[
+498080010,
+40
+],
+[
+408020026,
+500
+],
+[
+408070012,
+500
+],
+[
+408080014,
+500
+],
+[
+408080019,
+500
+],
+[
+408080033,
+500
+],
+[
+408120020,
+500
+],
+[
+408140022,
+500
+],
+[
+408140024,
+500
+],
+[
+408070016,
+500
+],
+[
+408090019,
+500
+],
+[
+498100002,
+500
+],
+[
+498020001,
+700
+],
+[
+408060043,
+400
+],
+[
+408080016,
+400
+],
+[
+408100011,
+400
+],
+[
+408120010,
+400
+],
+[
+408010014,
+400
+],
+[
+408030026,
+400
+],
+[
+408060052,
+300
+],
+[
+498070009,
+500
+]
+]
+},
+{
+"id": 200040,
+"profile": 2,
+"price": 550000,
+"weight": 48,
+"items": [
+[
+408080003,
+70
+],
+[
+408080010,
+70
+],
+[
+408080029,
+70
+],
+[
+408120019,
+100
+],
+[
+408080041,
+100
+],
+[
+498140001,
+100
+],
+[
+498080002,
+100
+],
+[
+498080005,
+100
+],
+[
+498070002,
+100
+],
+[
+498080008,
+130
+],
+[
+498080009,
+130
+],
+[
+498080010,
+130
+],
+[
+498080011,
+100
+],
+[
+498060004,
+100
+],
+[
+498080017,
+100
+],
+[
+408020026,
+200
+],
+[
+408070012,
+300
+],
+[
+408080014,
+400
+],
+[
+408080019,
+400
+],
+[
+408080033,
+400
+],
+[
+408120020,
+400
+],
+[
+408140022,
+400
+],
+[
+408140024,
+400
+],
+[
+408070016,
+400
+],
+[
+408090019,
+400
+],
+[
+498100002,
+400
+],
+[
+498020001,
+400
+],
+[
+408060043,
+300
+],
+[
+408080016,
+350
+],
+[
+408100011,
+400
+],
+[
+408120010,
+400
+],
+[
+408010014,
+400
+],
+[
+408030026,
+400
+],
+[
+408060052,
+400
+],
+[
+408010008,
+50
+],
+[
+408020015,
+50
+],
+[
+408030009,
+50
+],
+[
+408050001,
+50
+],
+[
+408050006,
+50
+],
+[
+408050019,
+50
+],
+[
+408060046,
+50
+],
+[
+408060054,
+50
+],
+[
+408010015,
+50
+],
+[
+498070009,
+600
+],
+[
+408010006,
+50
+],
+[
+408020017,
+50
+],
+[
+408060041,
+50
+],
+[
+408120003,
+50
+],
+[
+408020021,
+50
+],
+[
+408020022,
+50
+]
+]
+},
+{
+"id": 200041,
+"profile": 2,
+"price": 550000,
+"weight": 48,
+"items": [
+[
+408080008,
+210
+],
+[
+498100001,
+300
+],
+[
+498080003,
+300
+],
+[
+498100003,
+390
+],
+[
+498080018,
+300
+],
+[
+408030025,
+900
+],
+[
+498060001,
+900
+],
+[
+408010016,
+900
+],
+[
+408040008,
+900
+],
+[
+408030028,
+900
+],
+[
+408020025,
+1500
+],
+[
+408040004,
+1500
+],
+[
+408050009,
+1000
+]
+]
+},
+{
+"id": 200042,
+"profile": 2,
+"price": 550000,
+"weight": 48,
+"items": [
+[
+408080039,
+200
+],
+[
+498080001,
+200
+],
+[
+498140003,
+200
+],
+[
+498080006,
+200
+],
+[
+498060003,
+200
+],
+[
+498080016,
+200
+],
+[
+498080025,
+300
+],
+[
+408050033,
+4500
+],
+[
+408010009,
+1500
+],
+[
+408020019,
+1500
+],
+[
+408080038,
+1000
+]
+]
+},
+{
+"id": 300002,
+"profile": 3,
+"price": 20000,
+"weight": 729,
+"items": [
+[
+408010006,
+200
+],
+[
+408010008,
+5000
+],
+[
+408010014,
+1000
+],
+[
+408010015,
+200
+]
+]
+},
+{
+"id": 300003,
+"profile": 3,
+"price": 30000,
+"weight": 729,
+"items": [
+[
+408020015,
+5000
+],
+[
+408020017,
+300
+],
+[
+408020021,
+300
+],
+[
+408020022,
+300
+],
+[
+408020026,
+500
+]
+]
+},
+{
+"id": 300006,
+"profile": 3,
+"price": 100000,
+"weight": 500,
+"items": [
+[
+408040004,
+9500
+],
+[
+408040008,
+500
+]
+]
+},
+{
+"id": 300007,
+"profile": 3,
+"price": 27000,
+"weight": 729,
+"items": [
+[
+408040001,
+300
+],
+[
+408040002,
+300
+],
+[
+408040006,
+7400
+],
+[
+498040002,
+1000
+],
+[
+498040001,
+1000
+]
+]
+},
+{
+"id": 300008,
+"profile": 3,
+"price": 15000,
+"weight": 729,
+"items": [
+[
+408050011,
+100
+],
+[
+408050013,
+100
+],
+[
+408050022,
+100
+],
+[
+408050023,
+100
+],
+[
+408050026,
+1000
+],
+[
+408050029,
+7000
+],
+[
+408050031,
+7000
+],
+[
+408050032,
+100
+]
+]
+},
+{
+"id": 300009,
+"profile": 3,
+"price": 100000,
+"weight": 500,
+"items": [
+[
+408060041,
+100
+],
+[
+408060043,
+3300
+],
+[
+408060046,
+100
+],
+[
+408060052,
+3300
+],
+[
+408060054,
+100
+],
+[
+498060004,
+5
+],
+[
+498060005,
+5
+]
+]
+},
+{
+"id": 300016,
+"profile": 3,
+"price": 15000,
+"weight": 729,
+"items": [
+[
+408090002,
+500
+],
+[
+498090001,
+3000
+],
+[
+498090002,
+6500
+]
+]
+},
+{
+"id": 300022,
+"profile": 3,
+"price": 40000,
+"weight": 729,
+"items": [
+[
+408030014,
+100
+],
+[
+408060030,
+100
+],
+[
+408030013,
+100
+],
+[
+408040006,
+100
+],
+[
+408050028,
+100
+],
+[
+498040001,
+1420
+],
+[
+498100005,
+1420
+],
+[
+498040002,
+1420
+],
+[
+498090008,
+1420
+],
+[
+498010003,
+1520
+],
+[
+408070013,
+800
+],
+[
+408080013,
+800
+],
+[
+408140019,
+700
+]
+]
+},
+{
+"id": 300023,
+"profile": 3,
+"price": 210000,
+"weight": 500,
+"items": [
+[
+408030016,
+400
+],
+[
+408060039,
+300
+],
+[
+408060037,
+300
+],
+[
+408140016,
+300
+],
+[
+498040001,
+100
+],
+[
+498100005,
+100
+],
+[
+498040002,
+100
+],
+[
+498090008,
+100
+],
+[
+498010003,
+100
+],
+[
+408080004,
+200
+],
+[
+408080025,
+200
+],
+[
+408080026,
+200
+],
+[
+408080028,
+7200
+],
+[
+408080050,
+200
+],
+[
+408080054,
+200
+]
+]
+},
+{
+"id": 300024,
+"profile": 3,
+"price": 70000,
+"weight": 500,
+"items": [
+[
+408080047,
+10
+],
+[
+408080049,
+10
+],
+[
+408080030,
+280
+],
+[
+408140001,
+2000
+],
+[
+498090001,
+2000
+],
+[
+498120003,
+2000
+],
+[
+408050039,
+2800
+],
+[
+408060044,
+50
+],
+[
+408080009,
+50
+],
+[
+408120002,
+50
+],
+[
+498070001,
+50
+],
+[
+498010001,
+50
+],
+[
+498070004,
+50
+],
+[
+498100004,
+50
+],
+[
+498140004,
+50
+],
+[
+498100006,
+50
+],
+[
+498040003,
+50
+],
+[
+498090009,
+50
+],
+[
+408010005,
+50
+],
+[
+408050030,
+50
+],
+[
+408100001,
+50
+],
+[
+408120009,
+50
+],
+[
+498090002,
+50
+],
+[
+498140006,
+50
+],
+[
+408010012,
+50
+]
+]
+},
+{
+"id": 300025,
+"profile": 3,
+"price": 250000,
+"weight": 320,
+"items": [
+[
+408080047,
+400
+],
+[
+408080049,
+100
+],
+[
+408080030,
+6500
+],
+[
+408140001,
+50
+],
+[
+498090001,
+50
+],
+[
+498120003,
+50
+],
+[
+408050039,
+50
+],
+[
+408060044,
+50
+],
+[
+408080009,
+155
+],
+[
+408120002,
+155
+],
+[
+498070001,
+155
+],
+[
+498010001,
+155
+],
+[
+498070004,
+155
+],
+[
+498100004,
+155
+],
+[
+498140004,
+155
+],
+[
+498100006,
+155
+],
+[
+498040003,
+155
+],
+[
+498090009,
+155
+],
+[
+408010005,
+155
+],
+[
+408050030,
+155
+],
+[
+408100001,
+155
+],
+[
+408120009,
+155
+],
+[
+498090002,
+155
+],
+[
+498140006,
+155
+],
+[
+408010012,
+170
+]
+]
+},
+{
+"id": 300026,
+"profile": 3,
+"price": 470000,
+"weight": 3,
+"items": [
+[
+408080047,
+1000
+],
+[
+408080049,
+1000
+],
+[
+408080030,
+6400
+],
+[
+408140001,
+400
+],
+[
+498090001,
+400
+],
+[
+498120003,
+400
+],
+[
+408050039,
+400
+]
+]
+},
+{
+"id": 300027,
+"profile": 3,
+"price": 70000,
+"weight": 500,
+"items": [
+[
+408120013,
+10
+],
+[
+408080048,
+10
+],
+[
+408080024,
+140
+],
+[
+408120017,
+140
+],
+[
+408030004,
+2000
+],
+[
+408050026,
+2000
+],
+[
+408080001,
+2000
+],
+[
+408090004,
+2000
+],
+[
+498070003,
+800
+],
+[
+408030008,
+33
+],
+[
+408050029,
+33
+],
+[
+408080015,
+33
+],
+[
+408100007,
+33
+],
+[
+408120014,
+33
+],
+[
+408050031,
+33
+],
+[
+408100002,
+33
+],
+[
+408120008,
+33
+],
+[
+408140021,
+33
+],
+[
+498120001,
+33
+],
+[
+408020024,
+33
+],
+[
+408030007,
+33
+],
+[
+408030023,
+33
+],
+[
+408050013,
+33
+],
+[
+408050023,
+33
+],
+[
+408060042,
+33
+],
+[
+408090001,
+33
+],
+[
+408120001,
+33
+],
+[
+408140005,
+33
+],
+[
+408030003,
+33
+],
+[
+408030024,
+33
+],
+[
+408050011,
+33
+],
+[
+408050032,
+33
+],
+[
+408060021,
+33
+],
+[
+408080022,
+33
+],
+[
+408120005,
+33
+],
+[
+408140014,
+42
+]
+]
+},
+{
+"id": 300028,
+"profile": 3,
+"price": 250000,
+"weight": 320,
+"items": [
+[
+408120013,
+400
+],
+[
+408080048,
+100
+],
+[
+408080024,
+3250
+],
+[
+408120017,
+3250
+],
+[
+408030004,
+300
+],
+[
+408050026,
+300
+],
+[
+408080001,
+300
+],
+[
+408090004,
+300
+],
+[
+498070003,
+300
+],
+[
+408030008,
+150
+],
+[
+408050029,
+150
+],
+[
+408080015,
+150
+],
+[
+408100007,
+150
+],
+[
+408120014,
+150
+],
+[
+408050031,
+150
+],
+[
+408100002,
+150
+],
+[
+408120008,
+150
+],
+[
+408140021,
+150
+],
+[
+498120001,
+150
+]
+]
+},
+{
+"id": 300029,
+"profile": 3,
+"price": 450000,
+"weight": 3,
+"items": [
+[
+408120013,
+1000
+],
+[
+408080048,
+1000
+],
+[
+408080024,
+3000
+],
+[
+408120017,
+3000
+],
+[
+408030004,
+400
+],
+[
+408050026,
+400
+],
+[
+408080001,
+400
+],
+[
+408090004,
+400
+],
+[
+498070003,
+400
+]
+]
+},
+{
+"id": 300030,
+"profile": 3,
+"price": 70000,
+"weight": 500,
+"items": [
+[
+408080003,
+1
+],
+[
+408080010,
+1
+],
+[
+408120019,
+1
+],
+[
+408080041,
+1
+],
+[
+498140001,
+1
+],
+[
+498080002,
+1
+],
+[
+498080005,
+1
+],
+[
+498070002,
+1
+],
+[
+498080008,
+1
+],
+[
+498080009,
+1
+],
+[
+408020026,
+80
+],
+[
+408070012,
+80
+],
+[
+408080014,
+80
+],
+[
+408080019,
+80
+],
+[
+408080033,
+80
+],
+[
+408120020,
+80
+],
+[
+408140022,
+80
+],
+[
+408140024,
+80
+],
+[
+408070016,
+80
+],
+[
+408090019,
+80
+],
+[
+498100002,
+80
+],
+[
+498020001,
+80
+],
+[
+408060043,
+1000
+],
+[
+408080016,
+1000
+],
+[
+408100011,
+1000
+],
+[
+408120010,
+1000
+],
+[
+408010014,
+1000
+],
+[
+408030026,
+1168
+],
+[
+408060052,
+1782
+],
+[
+408010008,
+62
+],
+[
+408020015,
+62
+],
+[
+408030009,
+62
+],
+[
+408050001,
+62
+],
+[
+408050006,
+62
+],
+[
+408050019,
+62
+],
+[
+408060046,
+62
+],
+[
+408060054,
+62
+],
+[
+408010015,
+62
+],
+[
+498070009,
+80
+],
+[
+408010006,
+62
+],
+[
+408020017,
+62
+],
+[
+408060041,
+62
+],
+[
+408120003,
+62
+],
+[
+408020021,
+124
+],
+[
+408020022,
+70
+]
+]
+},
+{
+"id": 300031,
+"profile": 3,
+"price": 250000,
+"weight": 320,
+"items": [
+[
+408080003,
+30
+],
+[
+408080010,
+30
+],
+[
+408080029,
+30
+],
+[
+408120019,
+40
+],
+[
+408080041,
+40
+],
+[
+498140001,
+40
+],
+[
+498080002,
+40
+],
+[
+498080005,
+40
+],
+[
+498070002,
+40
+],
+[
+498080008,
+30
+],
+[
+498080009,
+20
+],
+[
+498080010,
+20
+],
+[
+408020026,
+500
+],
+[
+408070012,
+500
+],
+[
+408080014,
+500
+],
+[
+408080019,
+500
+],
+[
+408080033,
+500
+],
+[
+408120020,
+500
+],
+[
+408140022,
+500
+],
+[
+408140024,
+500
+],
+[
+408070016,
+500
+],
+[
+408090019,
+500
+],
+[
+498100002,
+500
+],
+[
+498020001,
+500
+],
+[
+408060043,
+50
+],
+[
+408080016,
+50
+],
+[
+408100011,
+50
+],
+[
+408120010,
+50
+],
+[
+408010014,
+50
+],
+[
+408030026,
+50
+],
+[
+408060052,
+50
+],
+[
+408010008,
+100
+],
+[
+408020015,
+100
+],
+[
+408030009,
+100
+],
+[
+408050001,
+100
+],
+[
+408050006,
+100
+],
+[
+408050019,
+200
+],
+[
+408060046,
+250
+],
+[
+408060054,
+200
+],
+[
+408010015,
+300
+],
+[
+498070009,
+600
+],
+[
+408010006,
+300
+],
+[
+408020017,
+300
+],
+[
+408060041,
+300
+],
+[
+408120003,
+300
+]
+]
+},
+{
+"id": 300032,
+"profile": 3,
+"price": 470000,
+"weight": 3,
+"items": [
+[
+408080003,
+40
+],
+[
+408080010,
+40
+],
+[
+408080029,
+40
+],
+[
+408120019,
+55
+],
+[
+408080041,
+55
+],
+[
+498140001,
+75
+],
+[
+498080002,
+55
+],
+[
+498080005,
+55
+],
+[
+498070002,
+55
+],
+[
+498080008,
+75
+],
+[
+498080009,
+75
+],
+[
+498080010,
+65
+],
+[
+498080011,
+55
+],
+[
+498060004,
+55
+],
+[
+498080017,
+55
+],
+[
+498080019,
+40
+],
+[
+498140005,
+55
+],
+[
+498060005,
+55
+],
+[
+408020026,
+666
+],
+[
+408070012,
+666
+],
+[
+408080014,
+666
+],
+[
+408080019,
+666
+],
+[
+408080033,
+666
+],
+[
+408120020,
+666
+],
+[
+408140022,
+666
+],
+[
+408140024,
+666
+],
+[
+408070016,
+666
+],
+[
+408090019,
+666
+],
+[
+498100002,
+666
+],
+[
+498020001,
+674
+],
+[
+408060043,
+144
+],
+[
+408080016,
+144
+],
+[
+408100011,
+144
+],
+[
+408120010,
+144
+],
+[
+408010014,
+144
+],
+[
+408030026,
+144
+],
+[
+408060052,
+136
+]
+]
+},
+{
+"id": 300033,
+"profile": 3,
+"price": 70000,
+"weight": 500,
+"items": [
+[
+408080008,
+1
+],
+[
+498100001,
+2
+],
+[
+498080003,
+2
+],
+[
+498100003,
+3
+],
+[
+498080018,
+2
+],
+[
+408030025,
+90
+],
+[
+498060001,
+100
+],
+[
+408010016,
+100
+],
+[
+408040008,
+100
+],
+[
+408030028,
+100
+],
+[
+408020025,
+4500
+],
+[
+408040004,
+4000
+],
+[
+408050009,
+1000
+]
+]
+},
+{
+"id": 300034,
+"profile": 3,
+"price": 270000,
+"weight": 320,
+"items": [
+[
+408080008,
+50
+],
+[
+498100001,
+80
+],
+[
+498080003,
+80
+],
+[
+498100003,
+110
+],
+[
+498080018,
+80
+],
+[
+408030025,
+1320
+],
+[
+498060001,
+1320
+],
+[
+408010016,
+1320
+],
+[
+408040008,
+1320
+],
+[
+408030028,
+1320
+],
+[
+408020025,
+250
+],
+[
+408040004,
+250
+],
+[
+408050009,
+2500
+]
+]
+},
+{
+"id": 300035,
+"profile": 3,
+"price": 70000,
+"weight": 500,
+"items": [
+[
+408080039,
+2
+],
+[
+498080001,
+2
+],
+[
+498140003,
+2
+],
+[
+498080006,
+1
+],
+[
+498060003,
+1
+],
+[
+498080016,
+1
+],
+[
+498080025,
+1
+],
+[
+408050033,
+100
+],
+[
+408010009,
+4445
+],
+[
+408020019,
+4445
+],
+[
+408080038,
+1000
+]
+]
+},
+{
+"id": 300036,
+"profile": 3,
+"price": 270000,
+"weight": 320,
+"items": [
+[
+408080039,
+50
+],
+[
+498080001,
+50
+],
+[
+498140003,
+50
+],
+[
+498080006,
+50
+],
+[
+498060003,
+50
+],
+[
+498080016,
+50
+],
+[
+498080025,
+100
+],
+[
+408050033,
+6600
+],
+[
+408010009,
+1000
+],
+[
+408020019,
+1000
+],
+[
+408080038,
+1000
+]
+]
+},
+{
+"id": 300037,
+"profile": 3,
+"price": 470000,
+"weight": 3,
+"items": [
+[
+408080039,
+130
+],
+[
+498080001,
+130
+],
+[
+498140003,
+130
+],
+[
+498080006,
+130
+],
+[
+498060003,
+130
+],
+[
+498080016,
+130
+],
+[
+498080025,
+220
+],
+[
+408050033,
+7000
+],
+[
+408010009,
+1000
+],
+[
+408020019,
+1000
+]
+]
+},
+{
+"id": 300038,
+"profile": 3,
+"price": 470000,
+"weight": 3,
+"items": [
+[
+408080008,
+140
+],
+[
+498100001,
+200
+],
+[
+498080003,
+200
+],
+[
+498100003,
+260
+],
+[
+498080018,
+200
+],
+[
+408030025,
+1400
+],
+[
+498060001,
+1400
+],
+[
+408010016,
+1400
+],
+[
+408040008,
+1400
+],
+[
+408030028,
+1400
+],
+[
+408020025,
+1000
+],
+[
+408040004,
+1000
+]
+]
+},
+{
+"id": 300039,
+"profile": 3,
+"price": 350000,
+"weight": 3,
+"items": [
+[
+408080003,
+40
+],
+[
+408080010,
+40
+],
+[
+408080029,
+40
+],
+[
+408120019,
+60
+],
+[
+408080041,
+60
+],
+[
+498140001,
+60
+],
+[
+498080002,
+60
+],
+[
+498080005,
+60
+],
+[
+498070002,
+60
+],
+[
+498080008,
+40
+],
+[
+498080009,
+40
+],
+[
+498080010,
+40
+],
+[
+408020026,
+500
+],
+[
+408070012,
+500
+],
+[
+408080014,
+500
+],
+[
+408080019,
+500
+],
+[
+408080033,
+500
+],
+[
+408120020,
+500
+],
+[
+408140022,
+500
+],
+[
+408140024,
+500
+],
+[
+408070016,
+500
+],
+[
+408090019,
+500
+],
+[
+498100002,
+500
+],
+[
+498020001,
+700
+],
+[
+408060043,
+400
+],
+[
+408080016,
+400
+],
+[
+408100011,
+400
+],
+[
+408120010,
+400
+],
+[
+408010014,
+400
+],
+[
+408030026,
+400
+],
+[
+408060052,
+300
+],
+[
+498070009,
+500
+]
+]
+},
+{
+"id": 300040,
+"profile": 3,
+"price": 550000,
+"weight": 1,
+"items": [
+[
+408080003,
+70
+],
+[
+408080010,
+70
+],
+[
+408080029,
+70
+],
+[
+408120019,
+100
+],
+[
+408080041,
+100
+],
+[
+498140001,
+100
+],
+[
+498080002,
+100
+],
+[
+498080005,
+100
+],
+[
+498070002,
+100
+],
+[
+498080008,
+130
+],
+[
+498080009,
+130
+],
+[
+498080010,
+130
+],
+[
+498080011,
+100
+],
+[
+498060004,
+100
+],
+[
+498080017,
+100
+],
+[
+408020026,
+200
+],
+[
+408070012,
+300
+],
+[
+408080014,
+400
+],
+[
+408080019,
+400
+],
+[
+408080033,
+400
+],
+[
+408120020,
+400
+],
+[
+408140022,
+400
+],
+[
+408140024,
+400
+],
+[
+408070016,
+400
+],
+[
+408090019,
+400
+],
+[
+498100002,
+400
+],
+[
+498020001,
+400
+],
+[
+408060043,
+300
+],
+[
+408080016,
+350
+],
+[
+408100011,
+400
+],
+[
+408120010,
+400
+],
+[
+408010014,
+400
+],
+[
+408030026,
+400
+],
+[
+408060052,
+400
+],
+[
+408010008,
+50
+],
+[
+408020015,
+50
+],
+[
+408030009,
+50
+],
+[
+408050001,
+50
+],
+[
+408050006,
+50
+],
+[
+408050019,
+50
+],
+[
+408060046,
+50
+],
+[
+408060054,
+50
+],
+[
+408010015,
+50
+],
+[
+498070009,
+600
+],
+[
+408010006,
+50
+],
+[
+408020017,
+50
+],
+[
+408060041,
+50
+],
+[
+408120003,
+50
+],
+[
+408020021,
+50
+],
+[
+408020022,
+50
+]
+]
+},
+{
+"id": 300041,
+"profile": 3,
+"price": 550000,
+"weight": 1,
+"items": [
+[
+408080008,
+210
+],
+[
+498100001,
+300
+],
+[
+498080003,
+300
+],
+[
+498100003,
+390
+],
+[
+498080018,
+300
+],
+[
+408030025,
+900
+],
+[
+498060001,
+900
+],
+[
+408010016,
+900
+],
+[
+408040008,
+900
+],
+[
+408030028,
+900
+],
+[
+408020025,
+1500
+],
+[
+408040004,
+1500
+],
+[
+408050009,
+1000
+]
+]
+},
+{
+"id": 300042,
+"profile": 3,
+"price": 550000,
+"weight": 1,
+"items": [
+[
+408080039,
+200
+],
+[
+498080001,
+200
+],
+[
+498140003,
+200
+],
+[
+498080006,
+200
+],
+[
+498060003,
+200
+],
+[
+498080016,
+200
+],
+[
+498080025,
+300
+],
+[
+408050033,
+4500
+],
+[
+408010009,
+1500
+],
+[
+408020019,
+1500
+],
+[
+408080038,
+1000
+]
+]
+},
+{
+"id": 400004,
+"profile": 4,
+"price": 20000,
+"weight": 475,
+"items": [
+[
+408030003,
+100
+],
+[
+408030004,
+500
+],
+[
+408030008,
+8000
+],
+[
+408030007,
+100
+],
+[
+408030023,
+100
+],
+[
+408030024,
+100
+]
+]
+},
+{
+"id": 400005,
+"profile": 4,
+"price": 30000,
+"weight": 475,
+"items": [
+[
+408030009,
+8000
+],
+[
+408030026,
+2000
+]
+]
+},
+{
+"id": 400010,
+"profile": 4,
+"price": 6000,
+"weight": 475,
+"items": [
+[
+408070001,
+100
+],
+[
+408070002,
+100
+],
+[
+408070003,
+10000
+],
+[
+408070008,
+100
+],
+[
+408070009,
+100
+],
+[
+408070010,
+10000
+],
+[
+408070011,
+100
+],
+[
+408070013,
+1000
+]
+]
+},
+{
+"id": 400011,
+"profile": 4,
+"price": 480000,
+"weight": 21,
+"items": [
+[
+408070012,
+4500
+],
+[
+408070016,
+4500
+],
+[
+498070002,
+1000
+]
+]
+},
+{
+"id": 400012,
+"profile": 4,
+"price": 70000,
+"weight": 475,
+"items": [
+[
+408080002,
+150
+],
+[
+408080004,
+2200
+],
+[
+408080011,
+150
+],
+[
+408080012,
+150
+],
+[
+408080013,
+2200
+],
+[
+408080020,
+150
+],
+[
+408080021,
+150
+],
+[
+408080025,
+2200
+],
+[
+408080026,
+2200
+],
+[
+408080028,
+200
+],
+[
+408080050,
+150
+],
+[
+408080054,
+150
+]
+]
+},
+{
+"id": 400013,
+"profile": 4,
+"price": 250000,
+"weight": 333,
+"items": [
+[
+408080009,
+3000
+],
+[
+408080030,
+6300
+],
+[
+408080047,
+400
+],
+[
+408080049,
+300
+]
+]
+},
+{
+"id": 400014,
+"profile": 4,
+"price": 200000,
+"weight": 333,
+"items": [
+[
+408080001,
+100
+],
+[
+408080015,
+1500
+],
+[
+408080022,
+500
+],
+[
+408080024,
+7000
+],
+[
+408080048,
+300
+]
+]
+},
+{
+"id": 400015,
+"profile": 4,
+"price": 450000,
+"weight": 21,
+"items": [
+[
+408080003,
+50
+],
+[
+408080010,
+50
+],
+[
+408080029,
+50
+],
+[
+408080041,
+80
+],
+[
+498080002,
+80
+],
+[
+498080005,
+80
+],
+[
+498080008,
+130
+],
+[
+498080009,
+130
+],
+[
+498080010,
+140
+],
+[
+498080011,
+80
+],
+[
+498080017,
+80
+],
+[
+498080019,
+50
+],
+[
+408080014,
+3000
+],
+[
+408080019,
+3000
+],
+[
+408080033,
+2000
+],
+[
+408080016,
+1000
+]
+]
+},
+{
+"id": 400017,
+"profile": 4,
+"price": 15000,
+"weight": 475,
+"items": [
+[
+408100005,
+250
+],
+[
+498100005,
+1500
+],
+[
+408100012,
+8000
+],
+[
+408100013,
+250
+]
+]
+},
+{
+"id": 400018,
+"profile": 4,
+"price": 30000,
+"weight": 475,
+"items": [
+[
+408120002,
+6000
+],
+[
+408120009,
+250
+],
+[
+408120011,
+250
+],
+[
+408120012,
+250
+],
+[
+498120003,
+3250
+]
+]
+},
+{
+"id": 400019,
+"profile": 4,
+"price": 50000,
+"weight": 476,
+"items": [
+[
+408120001,
+3400
+],
+[
+408120005,
+3400
+],
+[
+408120013,
+100
+],
+[
+408120014,
+2000
+],
+[
+408120017,
+1100
+]
+]
+},
+{
+"id": 400020,
+"profile": 4,
+"price": 250000,
+"weight": 333,
+"items": [
+[
+408120003,
+2900
+],
+[
+408120010,
+100
+],
+[
+408120019,
+400
+],
+[
+408120020,
+6600
+]
+]
+},
+{
+"id": 400021,
+"profile": 4,
+"price": 28000,
+"weight": 475,
+"items": [
+[
+408140015,
+500
+],
+[
+408140016,
+8000
+],
+[
+408140019,
+1500
+]
+]
+},
+{
+"id": 400022,
+"profile": 4,
+"price": 40000,
+"weight": 475,
+"items": [
+[
+408030014,
+100
+],
+[
+408060030,
+100
+],
+[
+408030013,
+100
+],
+[
+408040006,
+100
+],
+[
+408050028,
+100
+],
+[
+498040001,
+1420
+],
+[
+498100005,
+1420
+],
+[
+498040002,
+1420
+],
+[
+498090008,
+1420
+],
+[
+498010003,
+1520
+],
+[
+408070013,
+800
+],
+[
+408080013,
+800
+],
+[
+408140019,
+700
+]
+]
+},
+{
+"id": 400023,
+"profile": 4,
+"price": 210000,
+"weight": 476,
+"items": [
+[
+408030016,
+400
+],
+[
+408060039,
+300
+],
+[
+408060037,
+300
+],
+[
+408140016,
+300
+],
+[
+498040001,
+100
+],
+[
+498100005,
+100
+],
+[
+498040002,
+100
+],
+[
+498090008,
+100
+],
+[
+498010003,
+100
+],
+[
+408080004,
+200
+],
+[
+408080025,
+200
+],
+[
+408080026,
+200
+],
+[
+408080028,
+7200
+],
+[
+408080050,
+200
+],
+[
+408080054,
+200
+]
+]
+},
+{
+"id": 400024,
+"profile": 4,
+"price": 70000,
+"weight": 476,
+"items": [
+[
+408080047,
+10
+],
+[
+408080049,
+10
+],
+[
+408080030,
+280
+],
+[
+408140001,
+2000
+],
+[
+498090001,
+2000
+],
+[
+498120003,
+2000
+],
+[
+408050039,
+2800
+],
+[
+408060044,
+50
+],
+[
+408080009,
+50
+],
+[
+408120002,
+50
+],
+[
+498070001,
+50
+],
+[
+498010001,
+50
+],
+[
+498070004,
+50
+],
+[
+498100004,
+50
+],
+[
+498140004,
+50
+],
+[
+498100006,
+50
+],
+[
+498040003,
+50
+],
+[
+498090009,
+50
+],
+[
+408010005,
+50
+],
+[
+408050030,
+50
+],
+[
+408100001,
+50
+],
+[
+408120009,
+50
+],
+[
+498090002,
+50
+],
+[
+498140006,
+50
+],
+[
+408010012,
+50
+]
+]
+},
+{
+"id": 400025,
+"profile": 4,
+"price": 250000,
+"weight": 333,
+"items": [
+[
+408080047,
+400
+],
+[
+408080049,
+100
+],
+[
+408080030,
+6500
+],
+[
+408140001,
+50
+],
+[
+498090001,
+50
+],
+[
+498120003,
+50
+],
+[
+408050039,
+50
+],
+[
+408060044,
+50
+],
+[
+408080009,
+155
+],
+[
+408120002,
+155
+],
+[
+498070001,
+155
+],
+[
+498010001,
+155
+],
+[
+498070004,
+155
+],
+[
+498100004,
+155
+],
+[
+498140004,
+155
+],
+[
+498100006,
+155
+],
+[
+498040003,
+155
+],
+[
+498090009,
+155
+],
+[
+408010005,
+155
+],
+[
+408050030,
+155
+],
+[
+408100001,
+155
+],
+[
+408120009,
+155
+],
+[
+498090002,
+155
+],
+[
+498140006,
+155
+],
+[
+408010012,
+170
+]
+]
+},
+{
+"id": 400026,
+"profile": 4,
+"price": 470000,
+"weight": 21,
+"items": [
+[
+408080047,
+1000
+],
+[
+408080049,
+1000
+],
+[
+408080030,
+6400
+],
+[
+408140001,
+400
+],
+[
+498090001,
+400
+],
+[
+498120003,
+400
+],
+[
+408050039,
+400
+]
+]
+},
+{
+"id": 400027,
+"profile": 4,
+"price": 70000,
+"weight": 476,
+"items": [
+[
+408120013,
+10
+],
+[
+408080048,
+10
+],
+[
+408080024,
+140
+],
+[
+408120017,
+140
+],
+[
+408030004,
+2000
+],
+[
+408050026,
+2000
+],
+[
+408080001,
+2000
+],
+[
+408090004,
+2000
+],
+[
+498070003,
+800
+],
+[
+408030008,
+33
+],
+[
+408050029,
+33
+],
+[
+408080015,
+33
+],
+[
+408100007,
+33
+],
+[
+408120014,
+33
+],
+[
+408050031,
+33
+],
+[
+408100002,
+33
+],
+[
+408120008,
+33
+],
+[
+408140021,
+33
+],
+[
+498120001,
+33
+],
+[
+408020024,
+33
+],
+[
+408030007,
+33
+],
+[
+408030023,
+33
+],
+[
+408050013,
+33
+],
+[
+408050023,
+33
+],
+[
+408060042,
+33
+],
+[
+408090001,
+33
+],
+[
+408120001,
+33
+],
+[
+408140005,
+33
+],
+[
+408030003,
+33
+],
+[
+408030024,
+33
+],
+[
+408050011,
+33
+],
+[
+408050032,
+33
+],
+[
+408060021,
+33
+],
+[
+408080022,
+33
+],
+[
+408120005,
+33
+],
+[
+408140014,
+42
+]
+]
+},
+{
+"id": 400028,
+"profile": 4,
+"price": 250000,
+"weight": 333,
+"items": [
+[
+408120013,
+400
+],
+[
+408080048,
+100
+],
+[
+408080024,
+3250
+],
+[
+408120017,
+3250
+],
+[
+408030004,
+300
+],
+[
+408050026,
+300
+],
+[
+408080001,
+300
+],
+[
+408090004,
+300
+],
+[
+498070003,
+300
+],
+[
+408030008,
+150
+],
+[
+408050029,
+150
+],
+[
+408080015,
+150
+],
+[
+408100007,
+150
+],
+[
+408120014,
+150
+],
+[
+408050031,
+150
+],
+[
+408100002,
+150
+],
+[
+408120008,
+150
+],
+[
+408140021,
+150
+],
+[
+498120001,
+150
+]
+]
+},
+{
+"id": 400029,
+"profile": 4,
+"price": 450000,
+"weight": 21,
+"items": [
+[
+408120013,
+1000
+],
+[
+408080048,
+1000
+],
+[
+408080024,
+3000
+],
+[
+408120017,
+3000
+],
+[
+408030004,
+400
+],
+[
+408050026,
+400
+],
+[
+408080001,
+400
+],
+[
+408090004,
+400
+],
+[
+498070003,
+400
+]
+]
+},
+{
+"id": 400030,
+"profile": 4,
+"price": 70000,
+"weight": 476,
+"items": [
+[
+408080003,
+1
+],
+[
+408080010,
+1
+],
+[
+408120019,
+1
+],
+[
+408080041,
+1
+],
+[
+498140001,
+1
+],
+[
+498080002,
+1
+],
+[
+498080005,
+1
+],
+[
+498070002,
+1
+],
+[
+498080008,
+1
+],
+[
+498080009,
+1
+],
+[
+408020026,
+80
+],
+[
+408070012,
+80
+],
+[
+408080014,
+80
+],
+[
+408080019,
+80
+],
+[
+408080033,
+80
+],
+[
+408120020,
+80
+],
+[
+408140022,
+80
+],
+[
+408140024,
+80
+],
+[
+408070016,
+80
+],
+[
+408090019,
+80
+],
+[
+498100002,
+80
+],
+[
+498020001,
+80
+],
+[
+408060043,
+1000
+],
+[
+408080016,
+1000
+],
+[
+408100011,
+1000
+],
+[
+408120010,
+1000
+],
+[
+408010014,
+1000
+],
+[
+408030026,
+1168
+],
+[
+408060052,
+1782
+],
+[
+408010008,
+62
+],
+[
+408020015,
+62
+],
+[
+408030009,
+62
+],
+[
+408050001,
+62
+],
+[
+408050006,
+62
+],
+[
+408050019,
+62
+],
+[
+408060046,
+62
+],
+[
+408060054,
+62
+],
+[
+408010015,
+62
+],
+[
+498070009,
+80
+],
+[
+408010006,
+62
+],
+[
+408020017,
+62
+],
+[
+408060041,
+62
+],
+[
+408120003,
+62
+],
+[
+408020021,
+124
+],
+[
+408020022,
+70
+]
+]
+},
+{
+"id": 400031,
+"profile": 4,
+"price": 250000,
+"weight": 333,
+"items": [
+[
+408080003,
+30
+],
+[
+408080010,
+30
+],
+[
+408080029,
+30
+],
+[
+408120019,
+40
+],
+[
+408080041,
+40
+],
+[
+498140001,
+40
+],
+[
+498080002,
+40
+],
+[
+498080005,
+40
+],
+[
+498070002,
+40
+],
+[
+498080008,
+30
+],
+[
+498080009,
+20
+],
+[
+498080010,
+20
+],
+[
+408020026,
+500
+],
+[
+408070012,
+500
+],
+[
+408080014,
+500
+],
+[
+408080019,
+500
+],
+[
+408080033,
+500
+],
+[
+408120020,
+500
+],
+[
+408140022,
+500
+],
+[
+408140024,
+500
+],
+[
+408070016,
+500
+],
+[
+408090019,
+500
+],
+[
+498100002,
+500
+],
+[
+498020001,
+500
+],
+[
+408060043,
+50
+],
+[
+408080016,
+50
+],
+[
+408100011,
+50
+],
+[
+408120010,
+50
+],
+[
+408010014,
+50
+],
+[
+408030026,
+50
+],
+[
+408060052,
+50
+],
+[
+408010008,
+100
+],
+[
+408020015,
+100
+],
+[
+408030009,
+100
+],
+[
+408050001,
+100
+],
+[
+408050006,
+100
+],
+[
+408050019,
+200
+],
+[
+408060046,
+250
+],
+[
+408060054,
+200
+],
+[
+408010015,
+300
+],
+[
+498070009,
+600
+],
+[
+408010006,
+300
+],
+[
+408020017,
+300
+],
+[
+408060041,
+300
+],
+[
+408120003,
+300
+]
+]
+},
+{
+"id": 400032,
+"profile": 4,
+"price": 470000,
+"weight": 21,
+"items": [
+[
+408080003,
+40
+],
+[
+408080010,
+40
+],
+[
+408080029,
+40
+],
+[
+408120019,
+55
+],
+[
+408080041,
+55
+],
+[
+498140001,
+75
+],
+[
+498080002,
+55
+],
+[
+498080005,
+55
+],
+[
+498070002,
+55
+],
+[
+498080008,
+75
+],
+[
+498080009,
+75
+],
+[
+498080010,
+65
+],
+[
+498080011,
+55
+],
+[
+498060004,
+55
+],
+[
+498080017,
+55
+],
+[
+498080019,
+40
+],
+[
+498140005,
+55
+],
+[
+498060005,
+55
+],
+[
+408020026,
+666
+],
+[
+408070012,
+666
+],
+[
+408080014,
+666
+],
+[
+408080019,
+666
+],
+[
+408080033,
+666
+],
+[
+408120020,
+666
+],
+[
+408140022,
+666
+],
+[
+408140024,
+666
+],
+[
+408070016,
+666
+],
+[
+408090019,
+666
+],
+[
+498100002,
+666
+],
+[
+498020001,
+674
+],
+[
+408060043,
+144
+],
+[
+408080016,
+144
+],
+[
+408100011,
+144
+],
+[
+408120010,
+144
+],
+[
+408010014,
+144
+],
+[
+408030026,
+144
+],
+[
+408060052,
+136
+]
+]
+},
+{
+"id": 400033,
+"profile": 4,
+"price": 70000,
+"weight": 476,
+"items": [
+[
+408080008,
+1
+],
+[
+498100001,
+2
+],
+[
+498080003,
+2
+],
+[
+498100003,
+3
+],
+[
+498080018,
+2
+],
+[
+408030025,
+90
+],
+[
+498060001,
+100
+],
+[
+408010016,
+100
+],
+[
+408040008,
+100
+],
+[
+408030028,
+100
+],
+[
+408020025,
+4500
+],
+[
+408040004,
+4000
+],
+[
+408050009,
+1000
+]
+]
+},
+{
+"id": 400034,
+"profile": 4,
+"price": 270000,
+"weight": 333,
+"items": [
+[
+408080008,
+50
+],
+[
+498100001,
+80
+],
+[
+498080003,
+80
+],
+[
+498100003,
+110
+],
+[
+498080018,
+80
+],
+[
+408030025,
+1320
+],
+[
+498060001,
+1320
+],
+[
+408010016,
+1320
+],
+[
+408040008,
+1320
+],
+[
+408030028,
+1320
+],
+[
+408020025,
+250
+],
+[
+408040004,
+250
+],
+[
+408050009,
+2500
+]
+]
+},
+{
+"id": 400035,
+"profile": 4,
+"price": 70000,
+"weight": 476,
+"items": [
+[
+408080039,
+2
+],
+[
+498080001,
+2
+],
+[
+498140003,
+2
+],
+[
+498080006,
+1
+],
+[
+498060003,
+1
+],
+[
+498080016,
+1
+],
+[
+498080025,
+1
+],
+[
+408050033,
+100
+],
+[
+408010009,
+4445
+],
+[
+408020019,
+4445
+],
+[
+408080038,
+1000
+]
+]
+},
+{
+"id": 400036,
+"profile": 4,
+"price": 270000,
+"weight": 333,
+"items": [
+[
+408080039,
+50
+],
+[
+498080001,
+50
+],
+[
+498140003,
+50
+],
+[
+498080006,
+50
+],
+[
+498060003,
+50
+],
+[
+498080016,
+50
+],
+[
+498080025,
+100
+],
+[
+408050033,
+6600
+],
+[
+408010009,
+1000
+],
+[
+408020019,
+1000
+],
+[
+408080038,
+1000
+]
+]
+},
+{
+"id": 400037,
+"profile": 4,
+"price": 470000,
+"weight": 21,
+"items": [
+[
+408080039,
+130
+],
+[
+498080001,
+130
+],
+[
+498140003,
+130
+],
+[
+498080006,
+130
+],
+[
+498060003,
+130
+],
+[
+498080016,
+130
+],
+[
+498080025,
+220
+],
+[
+408050033,
+7000
+],
+[
+408010009,
+1000
+],
+[
+408020019,
+1000
+]
+]
+},
+{
+"id": 400038,
+"profile": 4,
+"price": 470000,
+"weight": 21,
+"items": [
+[
+408080008,
+140
+],
+[
+498100001,
+200
+],
+[
+498080003,
+200
+],
+[
+498100003,
+260
+],
+[
+498080018,
+200
+],
+[
+408030025,
+1400
+],
+[
+498060001,
+1400
+],
+[
+408010016,
+1400
+],
+[
+408040008,
+1400
+],
+[
+408030028,
+1400
+],
+[
+408020025,
+1000
+],
+[
+408040004,
+1000
+]
+]
+},
+{
+"id": 400039,
+"profile": 4,
+"price": 350000,
+"weight": 21,
+"items": [
+[
+408080003,
+40
+],
+[
+408080010,
+40
+],
+[
+408080029,
+40
+],
+[
+408120019,
+60
+],
+[
+408080041,
+60
+],
+[
+498140001,
+60
+],
+[
+498080002,
+60
+],
+[
+498080005,
+60
+],
+[
+498070002,
+60
+],
+[
+498080008,
+40
+],
+[
+498080009,
+40
+],
+[
+498080010,
+40
+],
+[
+408020026,
+500
+],
+[
+408070012,
+500
+],
+[
+408080014,
+500
+],
+[
+408080019,
+500
+],
+[
+408080033,
+500
+],
+[
+408120020,
+500
+],
+[
+408140022,
+500
+],
+[
+408140024,
+500
+],
+[
+408070016,
+500
+],
+[
+408090019,
+500
+],
+[
+498100002,
+500
+],
+[
+498020001,
+700
+],
+[
+408060043,
+400
+],
+[
+408080016,
+400
+],
+[
+408100011,
+400
+],
+[
+408120010,
+400
+],
+[
+408010014,
+400
+],
+[
+408030026,
+400
+],
+[
+408060052,
+300
+],
+[
+498070009,
+500
+]
+]
+},
+{
+"id": 400040,
+"profile": 4,
+"price": 550000,
+"weight": 11,
+"items": [
+[
+408080003,
+70
+],
+[
+408080010,
+70
+],
+[
+408080029,
+70
+],
+[
+408120019,
+100
+],
+[
+408080041,
+100
+],
+[
+498140001,
+100
+],
+[
+498080002,
+100
+],
+[
+498080005,
+100
+],
+[
+498070002,
+100
+],
+[
+498080008,
+130
+],
+[
+498080009,
+130
+],
+[
+498080010,
+130
+],
+[
+498080011,
+100
+],
+[
+498060004,
+100
+],
+[
+498080017,
+100
+],
+[
+408020026,
+200
+],
+[
+408070012,
+300
+],
+[
+408080014,
+400
+],
+[
+408080019,
+400
+],
+[
+408080033,
+400
+],
+[
+408120020,
+400
+],
+[
+408140022,
+400
+],
+[
+408140024,
+400
+],
+[
+408070016,
+400
+],
+[
+408090019,
+400
+],
+[
+498100002,
+400
+],
+[
+498020001,
+400
+],
+[
+408060043,
+300
+],
+[
+408080016,
+350
+],
+[
+408100011,
+400
+],
+[
+408120010,
+400
+],
+[
+408010014,
+400
+],
+[
+408030026,
+400
+],
+[
+408060052,
+400
+],
+[
+408010008,
+50
+],
+[
+408020015,
+50
+],
+[
+408030009,
+50
+],
+[
+408050001,
+50
+],
+[
+408050006,
+50
+],
+[
+408050019,
+50
+],
+[
+408060046,
+50
+],
+[
+408060054,
+50
+],
+[
+408010015,
+50
+],
+[
+498070009,
+600
+],
+[
+408010006,
+50
+],
+[
+408020017,
+50
+],
+[
+408060041,
+50
+],
+[
+408120003,
+50
+],
+[
+408020021,
+50
+],
+[
+408020022,
+50
+]
+]
+},
+{
+"id": 400041,
+"profile": 4,
+"price": 550000,
+"weight": 11,
+"items": [
+[
+408080008,
+210
+],
+[
+498100001,
+300
+],
+[
+498080003,
+300
+],
+[
+498100003,
+390
+],
+[
+498080018,
+300
+],
+[
+408030025,
+900
+],
+[
+498060001,
+900
+],
+[
+408010016,
+900
+],
+[
+408040008,
+900
+],
+[
+408030028,
+900
+],
+[
+408020025,
+1500
+],
+[
+408040004,
+1500
+],
+[
+408050009,
+1000
+]
+]
+},
+{
+"id": 400042,
+"profile": 4,
+"price": 550000,
+"weight": 11,
+"items": [
+[
+408080039,
+200
+],
+[
+498080001,
+200
+],
+[
+498140003,
+200
+],
+[
+498080006,
+200
+],
+[
+498060003,
+200
+],
+[
+498080016,
+200
+],
+[
+498080025,
+300
+],
+[
+408050033,
+4500
+],
+[
+408010009,
+1500
+],
+[
+408020019,
+1500
+],
+[
+408080038,
+1000
+]
+]
+},
+{
+"id": 500004,
+"profile": 5,
+"price": 20000,
+"weight": 375,
+"items": [
+[
+408030003,
+100
+],
+[
+408030004,
+500
+],
+[
+408030008,
+8000
+],
+[
+408030007,
+100
+],
+[
+408030023,
+100
+],
+[
+408030024,
+100
+]
+]
+},
+{
+"id": 500005,
+"profile": 5,
+"price": 30000,
+"weight": 375,
+"items": [
+[
+408030009,
+8000
+],
+[
+408030026,
+2000
+]
+]
+},
+{
+"id": 500010,
+"profile": 5,
+"price": 6000,
+"weight": 375,
+"items": [
+[
+408070001,
+100
+],
+[
+408070002,
+100
+],
+[
+408070003,
+10000
+],
+[
+408070008,
+100
+],
+[
+408070009,
+100
+],
+[
+408070010,
+10000
+],
+[
+408070011,
+100
+],
+[
+408070013,
+1000
+]
+]
+},
+{
+"id": 500011,
+"profile": 5,
+"price": 480000,
+"weight": 71,
+"items": [
+[
+408070012,
+4500
+],
+[
+408070016,
+4500
+],
+[
+498070002,
+1000
+]
+]
+},
+{
+"id": 500012,
+"profile": 5,
+"price": 70000,
+"weight": 375,
+"items": [
+[
+408080002,
+150
+],
+[
+408080004,
+2200
+],
+[
+408080011,
+150
+],
+[
+408080012,
+150
+],
+[
+408080013,
+2200
+],
+[
+408080020,
+150
+],
+[
+408080021,
+150
+],
+[
+408080025,
+2200
+],
+[
+408080026,
+2200
+],
+[
+408080028,
+200
+],
+[
+408080050,
+150
+],
+[
+408080054,
+150
+]
+]
+},
+{
+"id": 500013,
+"profile": 5,
+"price": 250000,
+"weight": 429,
+"items": [
+[
+408080009,
+3000
+],
+[
+408080030,
+6300
+],
+[
+408080047,
+400
+],
+[
+408080049,
+300
+]
+]
+},
+{
+"id": 500014,
+"profile": 5,
+"price": 200000,
+"weight": 429,
+"items": [
+[
+408080001,
+100
+],
+[
+408080015,
+1500
+],
+[
+408080022,
+500
+],
+[
+408080024,
+7000
+],
+[
+408080048,
+300
+]
+]
+},
+{
+"id": 500015,
+"profile": 5,
+"price": 450000,
+"weight": 71,
+"items": [
+[
+408080003,
+50
+],
+[
+408080010,
+50
+],
+[
+408080029,
+50
+],
+[
+408080041,
+80
+],
+[
+498080002,
+80
+],
+[
+498080005,
+80
+],
+[
+498080008,
+130
+],
+[
+498080009,
+130
+],
+[
+498080010,
+140
+],
+[
+498080011,
+80
+],
+[
+498080017,
+80
+],
+[
+498080019,
+50
+],
+[
+408080014,
+3000
+],
+[
+408080019,
+3000
+],
+[
+408080033,
+2000
+],
+[
+408080016,
+1000
+]
+]
+},
+{
+"id": 500017,
+"profile": 5,
+"price": 15000,
+"weight": 375,
+"items": [
+[
+408100005,
+250
+],
+[
+498100005,
+1500
+],
+[
+408100012,
+8000
+],
+[
+408100013,
+250
+]
+]
+},
+{
+"id": 500018,
+"profile": 5,
+"price": 30000,
+"weight": 375,
+"items": [
+[
+408120002,
+6000
+],
+[
+408120009,
+250
+],
+[
+408120011,
+250
+],
+[
+408120012,
+250
+],
+[
+498120003,
+3250
+]
+]
+},
+{
+"id": 500019,
+"profile": 5,
+"price": 50000,
+"weight": 408,
+"items": [
+[
+408120001,
+3400
+],
+[
+408120005,
+3400
+],
+[
+408120013,
+100
+],
+[
+408120014,
+2000
+],
+[
+408120017,
+1100
+]
+]
+},
+{
+"id": 500020,
+"profile": 5,
+"price": 250000,
+"weight": 429,
+"items": [
+[
+408120003,
+2900
+],
+[
+408120010,
+100
+],
+[
+408120019,
+400
+],
+[
+408120020,
+6600
+]
+]
+},
+{
+"id": 500021,
+"profile": 5,
+"price": 28000,
+"weight": 375,
+"items": [
+[
+408140015,
+500
+],
+[
+408140016,
+8000
+],
+[
+408140019,
+1500
+]
+]
+},
+{
+"id": 500022,
+"profile": 5,
+"price": 40000,
+"weight": 375,
+"items": [
+[
+408030014,
+100
+],
+[
+408060030,
+100
+],
+[
+408030013,
+100
+],
+[
+408040006,
+100
+],
+[
+408050028,
+100
+],
+[
+498040001,
+1420
+],
+[
+498100005,
+1420
+],
+[
+498040002,
+1420
+],
+[
+498090008,
+1420
+],
+[
+498010003,
+1520
+],
+[
+408070013,
+800
+],
+[
+408080013,
+800
+],
+[
+408140019,
+700
+]
+]
+},
+{
+"id": 500023,
+"profile": 5,
+"price": 210000,
+"weight": 408,
+"items": [
+[
+408030016,
+400
+],
+[
+408060039,
+300
+],
+[
+408060037,
+300
+],
+[
+408140016,
+300
+],
+[
+498040001,
+100
+],
+[
+498100005,
+100
+],
+[
+498040002,
+100
+],
+[
+498090008,
+100
+],
+[
+498010003,
+100
+],
+[
+408080004,
+200
+],
+[
+408080025,
+200
+],
+[
+408080026,
+200
+],
+[
+408080028,
+7200
+],
+[
+408080050,
+200
+],
+[
+408080054,
+200
+]
+]
+},
+{
+"id": 500024,
+"profile": 5,
+"price": 70000,
+"weight": 408,
+"items": [
+[
+408080047,
+10
+],
+[
+408080049,
+10
+],
+[
+408080030,
+280
+],
+[
+408140001,
+2000
+],
+[
+498090001,
+2000
+],
+[
+498120003,
+2000
+],
+[
+408050039,
+2800
+],
+[
+408060044,
+50
+],
+[
+408080009,
+50
+],
+[
+408120002,
+50
+],
+[
+498070001,
+50
+],
+[
+498010001,
+50
+],
+[
+498070004,
+50
+],
+[
+498100004,
+50
+],
+[
+498140004,
+50
+],
+[
+498100006,
+50
+],
+[
+498040003,
+50
+],
+[
+498090009,
+50
+],
+[
+408010005,
+50
+],
+[
+408050030,
+50
+],
+[
+408100001,
+50
+],
+[
+408120009,
+50
+],
+[
+498090002,
+50
+],
+[
+498140006,
+50
+],
+[
+408010012,
+50
+]
+]
+},
+{
+"id": 500025,
+"profile": 5,
+"price": 250000,
+"weight": 429,
+"items": [
+[
+408080047,
+400
+],
+[
+408080049,
+100
+],
+[
+408080030,
+6500
+],
+[
+408140001,
+50
+],
+[
+498090001,
+50
+],
+[
+498120003,
+50
+],
+[
+408050039,
+50
+],
+[
+408060044,
+50
+],
+[
+408080009,
+155
+],
+[
+408120002,
+155
+],
+[
+498070001,
+155
+],
+[
+498010001,
+155
+],
+[
+498070004,
+155
+],
+[
+498100004,
+155
+],
+[
+498140004,
+155
+],
+[
+498100006,
+155
+],
+[
+498040003,
+155
+],
+[
+498090009,
+155
+],
+[
+408010005,
+155
+],
+[
+408050030,
+155
+],
+[
+408100001,
+155
+],
+[
+408120009,
+155
+],
+[
+498090002,
+155
+],
+[
+498140006,
+155
+],
+[
+408010012,
+170
+]
+]
+},
+{
+"id": 500026,
+"profile": 5,
+"price": 470000,
+"weight": 71,
+"items": [
+[
+408080047,
+1000
+],
+[
+408080049,
+1000
+],
+[
+408080030,
+6400
+],
+[
+408140001,
+400
+],
+[
+498090001,
+400
+],
+[
+498120003,
+400
+],
+[
+408050039,
+400
+]
+]
+},
+{
+"id": 500027,
+"profile": 5,
+"price": 70000,
+"weight": 408,
+"items": [
+[
+408120013,
+10
+],
+[
+408080048,
+10
+],
+[
+408080024,
+140
+],
+[
+408120017,
+140
+],
+[
+408030004,
+2000
+],
+[
+408050026,
+2000
+],
+[
+408080001,
+2000
+],
+[
+408090004,
+2000
+],
+[
+498070003,
+800
+],
+[
+408030008,
+33
+],
+[
+408050029,
+33
+],
+[
+408080015,
+33
+],
+[
+408100007,
+33
+],
+[
+408120014,
+33
+],
+[
+408050031,
+33
+],
+[
+408100002,
+33
+],
+[
+408120008,
+33
+],
+[
+408140021,
+33
+],
+[
+498120001,
+33
+],
+[
+408020024,
+33
+],
+[
+408030007,
+33
+],
+[
+408030023,
+33
+],
+[
+408050013,
+33
+],
+[
+408050023,
+33
+],
+[
+408060042,
+33
+],
+[
+408090001,
+33
+],
+[
+408120001,
+33
+],
+[
+408140005,
+33
+],
+[
+408030003,
+33
+],
+[
+408030024,
+33
+],
+[
+408050011,
+33
+],
+[
+408050032,
+33
+],
+[
+408060021,
+33
+],
+[
+408080022,
+33
+],
+[
+408120005,
+33
+],
+[
+408140014,
+42
+]
+]
+},
+{
+"id": 500028,
+"profile": 5,
+"price": 250000,
+"weight": 429,
+"items": [
+[
+408120013,
+400
+],
+[
+408080048,
+100
+],
+[
+408080024,
+3250
+],
+[
+408120017,
+3250
+],
+[
+408030004,
+300
+],
+[
+408050026,
+300
+],
+[
+408080001,
+300
+],
+[
+408090004,
+300
+],
+[
+498070003,
+300
+],
+[
+408030008,
+150
+],
+[
+408050029,
+150
+],
+[
+408080015,
+150
+],
+[
+408100007,
+150
+],
+[
+408120014,
+150
+],
+[
+408050031,
+150
+],
+[
+408100002,
+150
+],
+[
+408120008,
+150
+],
+[
+408140021,
+150
+],
+[
+498120001,
+150
+]
+]
+},
+{
+"id": 500029,
+"profile": 5,
+"price": 450000,
+"weight": 71,
+"items": [
+[
+408120013,
+1000
+],
+[
+408080048,
+1000
+],
+[
+408080024,
+3000
+],
+[
+408120017,
+3000
+],
+[
+408030004,
+400
+],
+[
+408050026,
+400
+],
+[
+408080001,
+400
+],
+[
+408090004,
+400
+],
+[
+498070003,
+400
+]
+]
+},
+{
+"id": 500030,
+"profile": 5,
+"price": 70000,
+"weight": 408,
+"items": [
+[
+408080003,
+1
+],
+[
+408080010,
+1
+],
+[
+408120019,
+1
+],
+[
+408080041,
+1
+],
+[
+498140001,
+1
+],
+[
+498080002,
+1
+],
+[
+498080005,
+1
+],
+[
+498070002,
+1
+],
+[
+498080008,
+1
+],
+[
+498080009,
+1
+],
+[
+408020026,
+80
+],
+[
+408070012,
+80
+],
+[
+408080014,
+80
+],
+[
+408080019,
+80
+],
+[
+408080033,
+80
+],
+[
+408120020,
+80
+],
+[
+408140022,
+80
+],
+[
+408140024,
+80
+],
+[
+408070016,
+80
+],
+[
+408090019,
+80
+],
+[
+498100002,
+80
+],
+[
+498020001,
+80
+],
+[
+408060043,
+1000
+],
+[
+408080016,
+1000
+],
+[
+408100011,
+1000
+],
+[
+408120010,
+1000
+],
+[
+408010014,
+1000
+],
+[
+408030026,
+1168
+],
+[
+408060052,
+1782
+],
+[
+408010008,
+62
+],
+[
+408020015,
+62
+],
+[
+408030009,
+62
+],
+[
+408050001,
+62
+],
+[
+408050006,
+62
+],
+[
+408050019,
+62
+],
+[
+408060046,
+62
+],
+[
+408060054,
+62
+],
+[
+408010015,
+62
+],
+[
+498070009,
+80
+],
+[
+408010006,
+62
+],
+[
+408020017,
+62
+],
+[
+408060041,
+62
+],
+[
+408120003,
+62
+],
+[
+408020021,
+124
+],
+[
+408020022,
+70
+]
+]
+},
+{
+"id": 500031,
+"profile": 5,
+"price": 250000,
+"weight": 429,
+"items": [
+[
+408080003,
+30
+],
+[
+408080010,
+30
+],
+[
+408080029,
+30
+],
+[
+408120019,
+40
+],
+[
+408080041,
+40
+],
+[
+498140001,
+40
+],
+[
+498080002,
+40
+],
+[
+498080005,
+40
+],
+[
+498070002,
+40
+],
+[
+498080008,
+30
+],
+[
+498080009,
+20
+],
+[
+498080010,
+20
+],
+[
+408020026,
+500
+],
+[
+408070012,
+500
+],
+[
+408080014,
+500
+],
+[
+408080019,
+500
+],
+[
+408080033,
+500
+],
+[
+408120020,
+500
+],
+[
+408140022,
+500
+],
+[
+408140024,
+500
+],
+[
+408070016,
+500
+],
+[
+408090019,
+500
+],
+[
+498100002,
+500
+],
+[
+498020001,
+500
+],
+[
+408060043,
+50
+],
+[
+408080016,
+50
+],
+[
+408100011,
+50
+],
+[
+408120010,
+50
+],
+[
+408010014,
+50
+],
+[
+408030026,
+50
+],
+[
+408060052,
+50
+],
+[
+408010008,
+100
+],
+[
+408020015,
+100
+],
+[
+408030009,
+100
+],
+[
+408050001,
+100
+],
+[
+408050006,
+100
+],
+[
+408050019,
+200
+],
+[
+408060046,
+250
+],
+[
+408060054,
+200
+],
+[
+408010015,
+300
+],
+[
+498070009,
+600
+],
+[
+408010006,
+300
+],
+[
+408020017,
+300
+],
+[
+408060041,
+300
+],
+[
+408120003,
+300
+]
+]
+},
+{
+"id": 500032,
+"profile": 5,
+"price": 470000,
+"weight": 71,
+"items": [
+[
+408080003,
+40
+],
+[
+408080010,
+40
+],
+[
+408080029,
+40
+],
+[
+408120019,
+55
+],
+[
+408080041,
+55
+],
+[
+498140001,
+75
+],
+[
+498080002,
+55
+],
+[
+498080005,
+55
+],
+[
+498070002,
+55
+],
+[
+498080008,
+75
+],
+[
+498080009,
+75
+],
+[
+498080010,
+65
+],
+[
+498080011,
+55
+],
+[
+498060004,
+55
+],
+[
+498080017,
+55
+],
+[
+498080019,
+40
+],
+[
+498140005,
+55
+],
+[
+498060005,
+55
+],
+[
+408020026,
+666
+],
+[
+408070012,
+666
+],
+[
+408080014,
+666
+],
+[
+408080019,
+666
+],
+[
+408080033,
+666
+],
+[
+408120020,
+666
+],
+[
+408140022,
+666
+],
+[
+408140024,
+666
+],
+[
+408070016,
+666
+],
+[
+408090019,
+666
+],
+[
+498100002,
+666
+],
+[
+498020001,
+674
+],
+[
+408060043,
+144
+],
+[
+408080016,
+144
+],
+[
+408100011,
+144
+],
+[
+408120010,
+144
+],
+[
+408010014,
+144
+],
+[
+408030026,
+144
+],
+[
+408060052,
+136
+]
+]
+},
+{
+"id": 500033,
+"profile": 5,
+"price": 70000,
+"weight": 408,
+"items": [
+[
+408080008,
+1
+],
+[
+498100001,
+2
+],
+[
+498080003,
+2
+],
+[
+498100003,
+3
+],
+[
+498080018,
+2
+],
+[
+408030025,
+90
+],
+[
+498060001,
+100
+],
+[
+408010016,
+100
+],
+[
+408040008,
+100
+],
+[
+408030028,
+100
+],
+[
+408020025,
+4500
+],
+[
+408040004,
+4000
+],
+[
+408050009,
+1000
+]
+]
+},
+{
+"id": 500034,
+"profile": 5,
+"price": 270000,
+"weight": 429,
+"items": [
+[
+408080008,
+50
+],
+[
+498100001,
+80
+],
+[
+498080003,
+80
+],
+[
+498100003,
+110
+],
+[
+498080018,
+80
+],
+[
+408030025,
+1320
+],
+[
+498060001,
+1320
+],
+[
+408010016,
+1320
+],
+[
+408040008,
+1320
+],
+[
+408030028,
+1320
+],
+[
+408020025,
+250
+],
+[
+408040004,
+250
+],
+[
+408050009,
+2500
+]
+]
+},
+{
+"id": 500035,
+"profile": 5,
+"price": 70000,
+"weight": 408,
+"items": [
+[
+408080039,
+2
+],
+[
+498080001,
+2
+],
+[
+498140003,
+2
+],
+[
+498080006,
+1
+],
+[
+498060003,
+1
+],
+[
+498080016,
+1
+],
+[
+498080025,
+1
+],
+[
+408050033,
+100
+],
+[
+408010009,
+4445
+],
+[
+408020019,
+4445
+],
+[
+408080038,
+1000
+]
+]
+},
+{
+"id": 500036,
+"profile": 5,
+"price": 270000,
+"weight": 429,
+"items": [
+[
+408080039,
+50
+],
+[
+498080001,
+50
+],
+[
+498140003,
+50
+],
+[
+498080006,
+50
+],
+[
+498060003,
+50
+],
+[
+498080016,
+50
+],
+[
+498080025,
+100
+],
+[
+408050033,
+6600
+],
+[
+408010009,
+1000
+],
+[
+408020019,
+1000
+],
+[
+408080038,
+1000
+]
+]
+},
+{
+"id": 500037,
+"profile": 5,
+"price": 470000,
+"weight": 71,
+"items": [
+[
+408080039,
+130
+],
+[
+498080001,
+130
+],
+[
+498140003,
+130
+],
+[
+498080006,
+130
+],
+[
+498060003,
+130
+],
+[
+498080016,
+130
+],
+[
+498080025,
+220
+],
+[
+408050033,
+7000
+],
+[
+408010009,
+1000
+],
+[
+408020019,
+1000
+]
+]
+},
+{
+"id": 500038,
+"profile": 5,
+"price": 470000,
+"weight": 71,
+"items": [
+[
+408080008,
+140
+],
+[
+498100001,
+200
+],
+[
+498080003,
+200
+],
+[
+498100003,
+260
+],
+[
+498080018,
+200
+],
+[
+408030025,
+1400
+],
+[
+498060001,
+1400
+],
+[
+408010016,
+1400
+],
+[
+408040008,
+1400
+],
+[
+408030028,
+1400
+],
+[
+408020025,
+1000
+],
+[
+408040004,
+1000
+]
+]
+},
+{
+"id": 500039,
+"profile": 5,
+"price": 350000,
+"weight": 71,
+"items": [
+[
+408080003,
+40
+],
+[
+408080010,
+40
+],
+[
+408080029,
+40
+],
+[
+408120019,
+60
+],
+[
+408080041,
+60
+],
+[
+498140001,
+60
+],
+[
+498080002,
+60
+],
+[
+498080005,
+60
+],
+[
+498070002,
+60
+],
+[
+498080008,
+40
+],
+[
+498080009,
+40
+],
+[
+498080010,
+40
+],
+[
+408020026,
+500
+],
+[
+408070012,
+500
+],
+[
+408080014,
+500
+],
+[
+408080019,
+500
+],
+[
+408080033,
+500
+],
+[
+408120020,
+500
+],
+[
+408140022,
+500
+],
+[
+408140024,
+500
+],
+[
+408070016,
+500
+],
+[
+408090019,
+500
+],
+[
+498100002,
+500
+],
+[
+498020001,
+700
+],
+[
+408060043,
+400
+],
+[
+408080016,
+400
+],
+[
+408100011,
+400
+],
+[
+408120010,
+400
+],
+[
+408010014,
+400
+],
+[
+408030026,
+400
+],
+[
+408060052,
+300
+],
+[
+498070009,
+500
+]
+]
+},
+{
+"id": 500040,
+"profile": 5,
+"price": 550000,
+"weight": 48,
+"items": [
+[
+408080003,
+70
+],
+[
+408080010,
+70
+],
+[
+408080029,
+70
+],
+[
+408120019,
+100
+],
+[
+408080041,
+100
+],
+[
+498140001,
+100
+],
+[
+498080002,
+100
+],
+[
+498080005,
+100
+],
+[
+498070002,
+100
+],
+[
+498080008,
+130
+],
+[
+498080009,
+130
+],
+[
+498080010,
+130
+],
+[
+498080011,
+100
+],
+[
+498060004,
+100
+],
+[
+498080017,
+100
+],
+[
+408020026,
+200
+],
+[
+408070012,
+300
+],
+[
+408080014,
+400
+],
+[
+408080019,
+400
+],
+[
+408080033,
+400
+],
+[
+408120020,
+400
+],
+[
+408140022,
+400
+],
+[
+408140024,
+400
+],
+[
+408070016,
+400
+],
+[
+408090019,
+400
+],
+[
+498100002,
+400
+],
+[
+498020001,
+400
+],
+[
+408060043,
+300
+],
+[
+408080016,
+350
+],
+[
+408100011,
+400
+],
+[
+408120010,
+400
+],
+[
+408010014,
+400
+],
+[
+408030026,
+400
+],
+[
+408060052,
+400
+],
+[
+408010008,
+50
+],
+[
+408020015,
+50
+],
+[
+408030009,
+50
+],
+[
+408050001,
+50
+],
+[
+408050006,
+50
+],
+[
+408050019,
+50
+],
+[
+408060046,
+50
+],
+[
+408060054,
+50
+],
+[
+408010015,
+50
+],
+[
+498070009,
+600
+],
+[
+408010006,
+50
+],
+[
+408020017,
+50
+],
+[
+408060041,
+50
+],
+[
+408120003,
+50
+],
+[
+408020021,
+50
+],
+[
+408020022,
+50
+]
+]
+},
+{
+"id": 500041,
+"profile": 5,
+"price": 550000,
+"weight": 48,
+"items": [
+[
+408080008,
+210
+],
+[
+498100001,
+300
+],
+[
+498080003,
+300
+],
+[
+498100003,
+390
+],
+[
+498080018,
+300
+],
+[
+408030025,
+900
+],
+[
+498060001,
+900
+],
+[
+408010016,
+900
+],
+[
+408040008,
+900
+],
+[
+408030028,
+900
+],
+[
+408020025,
+1500
+],
+[
+408040004,
+1500
+],
+[
+408050009,
+1000
+]
+]
+},
+{
+"id": 500042,
+"profile": 5,
+"price": 550000,
+"weight": 48,
+"items": [
+[
+408080039,
+200
+],
+[
+498080001,
+200
+],
+[
+498140003,
+200
+],
+[
+498080006,
+200
+],
+[
+498060003,
+200
+],
+[
+498080016,
+200
+],
+[
+498080025,
+300
+],
+[
+408050033,
+4500
+],
+[
+408010009,
+1500
+],
+[
+408020019,
+1500
+],
+[
+408080038,
+1000
+]
+]
+},
+{
+"id": 600004,
+"profile": 6,
+"price": 20000,
+"weight": 547,
+"items": [
+[
+408030003,
+100
+],
+[
+408030004,
+500
+],
+[
+408030008,
+8000
+],
+[
+408030007,
+100
+],
+[
+408030023,
+100
+],
+[
+408030024,
+100
+]
+]
+},
+{
+"id": 600005,
+"profile": 6,
+"price": 30000,
+"weight": 547,
+"items": [
+[
+408030009,
+8000
+],
+[
+408030026,
+2000
+]
+]
+},
+{
+"id": 600010,
+"profile": 6,
+"price": 6000,
+"weight": 547,
+"items": [
+[
+408070001,
+100
+],
+[
+408070002,
+100
+],
+[
+408070003,
+10000
+],
+[
+408070008,
+100
+],
+[
+408070009,
+100
+],
+[
+408070010,
+10000
+],
+[
+408070011,
+100
+],
+[
+408070013,
+1000
+]
+]
+},
+{
+"id": 600011,
+"profile": 6,
+"price": 480000,
+"weight": 3,
+"items": [
+[
+408070012,
+4500
+],
+[
+408070016,
+4500
+],
+[
+498070002,
+1000
+]
+]
+},
+{
+"id": 600012,
+"profile": 6,
+"price": 70000,
+"weight": 547,
+"items": [
+[
+408080002,
+150
+],
+[
+408080004,
+2200
+],
+[
+408080011,
+150
+],
+[
+408080012,
+150
+],
+[
+408080013,
+2200
+],
+[
+408080020,
+150
+],
+[
+408080021,
+150
+],
+[
+408080025,
+2200
+],
+[
+408080026,
+2200
+],
+[
+408080028,
+200
+],
+[
+408080050,
+150
+],
+[
+408080054,
+150
+]
+]
+},
+{
+"id": 600013,
+"profile": 6,
+"price": 250000,
+"weight": 200,
+"items": [
+[
+408080009,
+3000
+],
+[
+408080030,
+6300
+],
+[
+408080047,
+400
+],
+[
+408080049,
+300
+]
+]
+},
+{
+"id": 600014,
+"profile": 6,
+"price": 200000,
+"weight": 200,
+"items": [
+[
+408080001,
+100
+],
+[
+408080015,
+1500
+],
+[
+408080022,
+500
+],
+[
+408080024,
+7000
+],
+[
+408080048,
+300
+]
+]
+},
+{
+"id": 600015,
+"profile": 6,
+"price": 450000,
+"weight": 3,
+"items": [
+[
+408080003,
+50
+],
+[
+408080010,
+50
+],
+[
+408080029,
+50
+],
+[
+408080041,
+80
+],
+[
+498080002,
+80
+],
+[
+498080005,
+80
+],
+[
+498080008,
+130
+],
+[
+498080009,
+130
+],
+[
+498080010,
+140
+],
+[
+498080011,
+80
+],
+[
+498080017,
+80
+],
+[
+498080019,
+50
+],
+[
+408080014,
+3000
+],
+[
+408080019,
+3000
+],
+[
+408080033,
+2000
+],
+[
+408080016,
+1000
+]
+]
+},
+{
+"id": 600017,
+"profile": 6,
+"price": 15000,
+"weight": 547,
+"items": [
+[
+408100005,
+250
+],
+[
+498100005,
+1500
+],
+[
+408100012,
+8000
+],
+[
+408100013,
+250
+]
+]
+},
+{
+"id": 600018,
+"profile": 6,
+"price": 30000,
+"weight": 547,
+"items": [
+[
+408120002,
+6000
+],
+[
+408120009,
+250
+],
+[
+408120011,
+250
+],
+[
+408120012,
+250
+],
+[
+498120003,
+3250
+]
+]
+},
+{
+"id": 600019,
+"profile": 6,
+"price": 50000,
+"weight": 571,
+"items": [
+[
+408120001,
+3400
+],
+[
+408120005,
+3400
+],
+[
+408120013,
+100
+],
+[
+408120014,
+2000
+],
+[
+408120017,
+1100
+]
+]
+},
+{
+"id": 600020,
+"profile": 6,
+"price": 250000,
+"weight": 200,
+"items": [
+[
+408120003,
+2900
+],
+[
+408120010,
+100
+],
+[
+408120019,
+400
+],
+[
+408120020,
+6600
+]
+]
+},
+{
+"id": 600021,
+"profile": 6,
+"price": 28000,
+"weight": 547,
+"items": [
+[
+408140015,
+500
+],
+[
+408140016,
+8000
+],
+[
+408140019,
+1500
+]
+]
+},
+{
+"id": 600022,
+"profile": 6,
+"price": 40000,
+"weight": 547,
+"items": [
+[
+408030014,
+100
+],
+[
+408060030,
+100
+],
+[
+408030013,
+100
+],
+[
+408040006,
+100
+],
+[
+408050028,
+100
+],
+[
+498040001,
+1420
+],
+[
+498100005,
+1420
+],
+[
+498040002,
+1420
+],
+[
+498090008,
+1420
+],
+[
+498010003,
+1520
+],
+[
+408070013,
+800
+],
+[
+408080013,
+800
+],
+[
+408140019,
+700
+]
+]
+},
+{
+"id": 600023,
+"profile": 6,
+"price": 210000,
+"weight": 571,
+"items": [
+[
+408030016,
+400
+],
+[
+408060039,
+300
+],
+[
+408060037,
+300
+],
+[
+408140016,
+300
+],
+[
+498040001,
+100
+],
+[
+498100005,
+100
+],
+[
+498040002,
+100
+],
+[
+498090008,
+100
+],
+[
+498010003,
+100
+],
+[
+408080004,
+200
+],
+[
+408080025,
+200
+],
+[
+408080026,
+200
+],
+[
+408080028,
+7200
+],
+[
+408080050,
+200
+],
+[
+408080054,
+200
+]
+]
+},
+{
+"id": 600024,
+"profile": 6,
+"price": 70000,
+"weight": 571,
+"items": [
+[
+408080047,
+10
+],
+[
+408080049,
+10
+],
+[
+408080030,
+280
+],
+[
+408140001,
+2000
+],
+[
+498090001,
+2000
+],
+[
+498120003,
+2000
+],
+[
+408050039,
+2800
+],
+[
+408060044,
+50
+],
+[
+408080009,
+50
+],
+[
+408120002,
+50
+],
+[
+498070001,
+50
+],
+[
+498010001,
+50
+],
+[
+498070004,
+50
+],
+[
+498100004,
+50
+],
+[
+498140004,
+50
+],
+[
+498100006,
+50
+],
+[
+498040003,
+50
+],
+[
+498090009,
+50
+],
+[
+408010005,
+50
+],
+[
+408050030,
+50
+],
+[
+408100001,
+50
+],
+[
+408120009,
+50
+],
+[
+498090002,
+50
+],
+[
+498140006,
+50
+],
+[
+408010012,
+50
+]
+]
+},
+{
+"id": 600025,
+"profile": 6,
+"price": 250000,
+"weight": 200,
+"items": [
+[
+408080047,
+400
+],
+[
+408080049,
+100
+],
+[
+408080030,
+6500
+],
+[
+408140001,
+50
+],
+[
+498090001,
+50
+],
+[
+498120003,
+50
+],
+[
+408050039,
+50
+],
+[
+408060044,
+50
+],
+[
+408080009,
+155
+],
+[
+408120002,
+155
+],
+[
+498070001,
+155
+],
+[
+498010001,
+155
+],
+[
+498070004,
+155
+],
+[
+498100004,
+155
+],
+[
+498140004,
+155
+],
+[
+498100006,
+155
+],
+[
+498040003,
+155
+],
+[
+498090009,
+155
+],
+[
+408010005,
+155
+],
+[
+408050030,
+155
+],
+[
+408100001,
+155
+],
+[
+408120009,
+155
+],
+[
+498090002,
+155
+],
+[
+498140006,
+155
+],
+[
+408010012,
+170
+]
+]
+},
+{
+"id": 600026,
+"profile": 6,
+"price": 470000,
+"weight": 3,
+"items": [
+[
+408080047,
+1000
+],
+[
+408080049,
+1000
+],
+[
+408080030,
+6400
+],
+[
+408140001,
+400
+],
+[
+498090001,
+400
+],
+[
+498120003,
+400
+],
+[
+408050039,
+400
+]
+]
+},
+{
+"id": 600027,
+"profile": 6,
+"price": 70000,
+"weight": 571,
+"items": [
+[
+408120013,
+10
+],
+[
+408080048,
+10
+],
+[
+408080024,
+140
+],
+[
+408120017,
+140
+],
+[
+408030004,
+2000
+],
+[
+408050026,
+2000
+],
+[
+408080001,
+2000
+],
+[
+408090004,
+2000
+],
+[
+498070003,
+800
+],
+[
+408030008,
+33
+],
+[
+408050029,
+33
+],
+[
+408080015,
+33
+],
+[
+408100007,
+33
+],
+[
+408120014,
+33
+],
+[
+408050031,
+33
+],
+[
+408100002,
+33
+],
+[
+408120008,
+33
+],
+[
+408140021,
+33
+],
+[
+498120001,
+33
+],
+[
+408020024,
+33
+],
+[
+408030007,
+33
+],
+[
+408030023,
+33
+],
+[
+408050013,
+33
+],
+[
+408050023,
+33
+],
+[
+408060042,
+33
+],
+[
+408090001,
+33
+],
+[
+408120001,
+33
+],
+[
+408140005,
+33
+],
+[
+408030003,
+33
+],
+[
+408030024,
+33
+],
+[
+408050011,
+33
+],
+[
+408050032,
+33
+],
+[
+408060021,
+33
+],
+[
+408080022,
+33
+],
+[
+408120005,
+33
+],
+[
+408140014,
+42
+]
+]
+},
+{
+"id": 600028,
+"profile": 6,
+"price": 250000,
+"weight": 200,
+"items": [
+[
+408120013,
+400
+],
+[
+408080048,
+100
+],
+[
+408080024,
+3250
+],
+[
+408120017,
+3250
+],
+[
+408030004,
+300
+],
+[
+408050026,
+300
+],
+[
+408080001,
+300
+],
+[
+408090004,
+300
+],
+[
+498070003,
+300
+],
+[
+408030008,
+150
+],
+[
+408050029,
+150
+],
+[
+408080015,
+150
+],
+[
+408100007,
+150
+],
+[
+408120014,
+150
+],
+[
+408050031,
+150
+],
+[
+408100002,
+150
+],
+[
+408120008,
+150
+],
+[
+408140021,
+150
+],
+[
+498120001,
+150
+]
+]
+},
+{
+"id": 600029,
+"profile": 6,
+"price": 450000,
+"weight": 3,
+"items": [
+[
+408120013,
+1000
+],
+[
+408080048,
+1000
+],
+[
+408080024,
+3000
+],
+[
+408120017,
+3000
+],
+[
+408030004,
+400
+],
+[
+408050026,
+400
+],
+[
+408080001,
+400
+],
+[
+408090004,
+400
+],
+[
+498070003,
+400
+]
+]
+},
+{
+"id": 600030,
+"profile": 6,
+"price": 70000,
+"weight": 571,
+"items": [
+[
+408080003,
+1
+],
+[
+408080010,
+1
+],
+[
+408120019,
+1
+],
+[
+408080041,
+1
+],
+[
+498140001,
+1
+],
+[
+498080002,
+1
+],
+[
+498080005,
+1
+],
+[
+498070002,
+1
+],
+[
+498080008,
+1
+],
+[
+498080009,
+1
+],
+[
+408020026,
+80
+],
+[
+408070012,
+80
+],
+[
+408080014,
+80
+],
+[
+408080019,
+80
+],
+[
+408080033,
+80
+],
+[
+408120020,
+80
+],
+[
+408140022,
+80
+],
+[
+408140024,
+80
+],
+[
+408070016,
+80
+],
+[
+408090019,
+80
+],
+[
+498100002,
+80
+],
+[
+498020001,
+80
+],
+[
+408060043,
+1000
+],
+[
+408080016,
+1000
+],
+[
+408100011,
+1000
+],
+[
+408120010,
+1000
+],
+[
+408010014,
+1000
+],
+[
+408030026,
+1168
+],
+[
+408060052,
+1782
+],
+[
+408010008,
+62
+],
+[
+408020015,
+62
+],
+[
+408030009,
+62
+],
+[
+408050001,
+62
+],
+[
+408050006,
+62
+],
+[
+408050019,
+62
+],
+[
+408060046,
+62
+],
+[
+408060054,
+62
+],
+[
+408010015,
+62
+],
+[
+498070009,
+80
+],
+[
+408010006,
+62
+],
+[
+408020017,
+62
+],
+[
+408060041,
+62
+],
+[
+408120003,
+62
+],
+[
+408020021,
+124
+],
+[
+408020022,
+70
+]
+]
+},
+{
+"id": 600031,
+"profile": 6,
+"price": 250000,
+"weight": 200,
+"items": [
+[
+408080003,
+30
+],
+[
+408080010,
+30
+],
+[
+408080029,
+30
+],
+[
+408120019,
+40
+],
+[
+408080041,
+40
+],
+[
+498140001,
+40
+],
+[
+498080002,
+40
+],
+[
+498080005,
+40
+],
+[
+498070002,
+40
+],
+[
+498080008,
+30
+],
+[
+498080009,
+20
+],
+[
+498080010,
+20
+],
+[
+408020026,
+500
+],
+[
+408070012,
+500
+],
+[
+408080014,
+500
+],
+[
+408080019,
+500
+],
+[
+408080033,
+500
+],
+[
+408120020,
+500
+],
+[
+408140022,
+500
+],
+[
+408140024,
+500
+],
+[
+408070016,
+500
+],
+[
+408090019,
+500
+],
+[
+498100002,
+500
+],
+[
+498020001,
+500
+],
+[
+408060043,
+50
+],
+[
+408080016,
+50
+],
+[
+408100011,
+50
+],
+[
+408120010,
+50
+],
+[
+408010014,
+50
+],
+[
+408030026,
+50
+],
+[
+408060052,
+50
+],
+[
+408010008,
+100
+],
+[
+408020015,
+100
+],
+[
+408030009,
+100
+],
+[
+408050001,
+100
+],
+[
+408050006,
+100
+],
+[
+408050019,
+200
+],
+[
+408060046,
+250
+],
+[
+408060054,
+200
+],
+[
+408010015,
+300
+],
+[
+498070009,
+600
+],
+[
+408010006,
+300
+],
+[
+408020017,
+300
+],
+[
+408060041,
+300
+],
+[
+408120003,
+300
+]
+]
+},
+{
+"id": 600032,
+"profile": 6,
+"price": 470000,
+"weight": 3,
+"items": [
+[
+408080003,
+40
+],
+[
+408080010,
+40
+],
+[
+408080029,
+40
+],
+[
+408120019,
+55
+],
+[
+408080041,
+55
+],
+[
+498140001,
+75
+],
+[
+498080002,
+55
+],
+[
+498080005,
+55
+],
+[
+498070002,
+55
+],
+[
+498080008,
+75
+],
+[
+498080009,
+75
+],
+[
+498080010,
+65
+],
+[
+498080011,
+55
+],
+[
+498060004,
+55
+],
+[
+498080017,
+55
+],
+[
+498080019,
+40
+],
+[
+498140005,
+55
+],
+[
+498060005,
+55
+],
+[
+408020026,
+666
+],
+[
+408070012,
+666
+],
+[
+408080014,
+666
+],
+[
+408080019,
+666
+],
+[
+408080033,
+666
+],
+[
+408120020,
+666
+],
+[
+408140022,
+666
+],
+[
+408140024,
+666
+],
+[
+408070016,
+666
+],
+[
+408090019,
+666
+],
+[
+498100002,
+666
+],
+[
+498020001,
+674
+],
+[
+408060043,
+144
+],
+[
+408080016,
+144
+],
+[
+408100011,
+144
+],
+[
+408120010,
+144
+],
+[
+408010014,
+144
+],
+[
+408030026,
+144
+],
+[
+408060052,
+136
+]
+]
+},
+{
+"id": 600033,
+"profile": 6,
+"price": 70000,
+"weight": 571,
+"items": [
+[
+408080008,
+1
+],
+[
+498100001,
+2
+],
+[
+498080003,
+2
+],
+[
+498100003,
+3
+],
+[
+498080018,
+2
+],
+[
+408030025,
+90
+],
+[
+498060001,
+100
+],
+[
+408010016,
+100
+],
+[
+408040008,
+100
+],
+[
+408030028,
+100
+],
+[
+408020025,
+4500
+],
+[
+408040004,
+4000
+],
+[
+408050009,
+1000
+]
+]
+},
+{
+"id": 600034,
+"profile": 6,
+"price": 270000,
+"weight": 200,
+"items": [
+[
+408080008,
+50
+],
+[
+498100001,
+80
+],
+[
+498080003,
+80
+],
+[
+498100003,
+110
+],
+[
+498080018,
+80
+],
+[
+408030025,
+1320
+],
+[
+498060001,
+1320
+],
+[
+408010016,
+1320
+],
+[
+408040008,
+1320
+],
+[
+408030028,
+1320
+],
+[
+408020025,
+250
+],
+[
+408040004,
+250
+],
+[
+408050009,
+2500
+]
+]
+},
+{
+"id": 600035,
+"profile": 6,
+"price": 70000,
+"weight": 571,
+"items": [
+[
+408080039,
+2
+],
+[
+498080001,
+2
+],
+[
+498140003,
+2
+],
+[
+498080006,
+1
+],
+[
+498060003,
+1
+],
+[
+498080016,
+1
+],
+[
+498080025,
+1
+],
+[
+408050033,
+100
+],
+[
+408010009,
+4445
+],
+[
+408020019,
+4445
+],
+[
+408080038,
+1000
+]
+]
+},
+{
+"id": 600036,
+"profile": 6,
+"price": 270000,
+"weight": 200,
+"items": [
+[
+408080039,
+50
+],
+[
+498080001,
+50
+],
+[
+498140003,
+50
+],
+[
+498080006,
+50
+],
+[
+498060003,
+50
+],
+[
+498080016,
+50
+],
+[
+498080025,
+100
+],
+[
+408050033,
+6600
+],
+[
+408010009,
+1000
+],
+[
+408020019,
+1000
+],
+[
+408080038,
+1000
+]
+]
+},
+{
+"id": 600037,
+"profile": 6,
+"price": 470000,
+"weight": 3,
+"items": [
+[
+408080039,
+130
+],
+[
+498080001,
+130
+],
+[
+498140003,
+130
+],
+[
+498080006,
+130
+],
+[
+498060003,
+130
+],
+[
+498080016,
+130
+],
+[
+498080025,
+220
+],
+[
+408050033,
+7000
+],
+[
+408010009,
+1000
+],
+[
+408020019,
+1000
+]
+]
+},
+{
+"id": 600038,
+"profile": 6,
+"price": 470000,
+"weight": 3,
+"items": [
+[
+408080008,
+140
+],
+[
+498100001,
+200
+],
+[
+498080003,
+200
+],
+[
+498100003,
+260
+],
+[
+498080018,
+200
+],
+[
+408030025,
+1400
+],
+[
+498060001,
+1400
+],
+[
+408010016,
+1400
+],
+[
+408040008,
+1400
+],
+[
+408030028,
+1400
+],
+[
+408020025,
+1000
+],
+[
+408040004,
+1000
+]
+]
+},
+{
+"id": 600039,
+"profile": 6,
+"price": 350000,
+"weight": 3,
+"items": [
+[
+408080003,
+40
+],
+[
+408080010,
+40
+],
+[
+408080029,
+40
+],
+[
+408120019,
+60
+],
+[
+408080041,
+60
+],
+[
+498140001,
+60
+],
+[
+498080002,
+60
+],
+[
+498080005,
+60
+],
+[
+498070002,
+60
+],
+[
+498080008,
+40
+],
+[
+498080009,
+40
+],
+[
+498080010,
+40
+],
+[
+408020026,
+500
+],
+[
+408070012,
+500
+],
+[
+408080014,
+500
+],
+[
+408080019,
+500
+],
+[
+408080033,
+500
+],
+[
+408120020,
+500
+],
+[
+408140022,
+500
+],
+[
+408140024,
+500
+],
+[
+408070016,
+500
+],
+[
+408090019,
+500
+],
+[
+498100002,
+500
+],
+[
+498020001,
+700
+],
+[
+408060043,
+400
+],
+[
+408080016,
+400
+],
+[
+408100011,
+400
+],
+[
+408120010,
+400
+],
+[
+408010014,
+400
+],
+[
+408030026,
+400
+],
+[
+408060052,
+300
+],
+[
+498070009,
+500
+]
+]
+},
+{
+"id": 600040,
+"profile": 6,
+"price": 550000,
+"weight": 1,
+"items": [
+[
+408080003,
+70
+],
+[
+408080010,
+70
+],
+[
+408080029,
+70
+],
+[
+408120019,
+100
+],
+[
+408080041,
+100
+],
+[
+498140001,
+100
+],
+[
+498080002,
+100
+],
+[
+498080005,
+100
+],
+[
+498070002,
+100
+],
+[
+498080008,
+130
+],
+[
+498080009,
+130
+],
+[
+498080010,
+130
+],
+[
+498080011,
+100
+],
+[
+498060004,
+100
+],
+[
+498080017,
+100
+],
+[
+408020026,
+200
+],
+[
+408070012,
+300
+],
+[
+408080014,
+400
+],
+[
+408080019,
+400
+],
+[
+408080033,
+400
+],
+[
+408120020,
+400
+],
+[
+408140022,
+400
+],
+[
+408140024,
+400
+],
+[
+408070016,
+400
+],
+[
+408090019,
+400
+],
+[
+498100002,
+400
+],
+[
+498020001,
+400
+],
+[
+408060043,
+300
+],
+[
+408080016,
+350
+],
+[
+408100011,
+400
+],
+[
+408120010,
+400
+],
+[
+408010014,
+400
+],
+[
+408030026,
+400
+],
+[
+408060052,
+400
+],
+[
+408010008,
+50
+],
+[
+408020015,
+50
+],
+[
+408030009,
+50
+],
+[
+408050001,
+50
+],
+[
+408050006,
+50
+],
+[
+408050019,
+50
+],
+[
+408060046,
+50
+],
+[
+408060054,
+50
+],
+[
+408010015,
+50
+],
+[
+498070009,
+600
+],
+[
+408010006,
+50
+],
+[
+408020017,
+50
+],
+[
+408060041,
+50
+],
+[
+408120003,
+50
+],
+[
+408020021,
+50
+],
+[
+408020022,
+50
+]
+]
+},
+{
+"id": 600041,
+"profile": 6,
+"price": 550000,
+"weight": 1,
+"items": [
+[
+408080008,
+210
+],
+[
+498100001,
+300
+],
+[
+498080003,
+300
+],
+[
+498100003,
+390
+],
+[
+498080018,
+300
+],
+[
+408030025,
+900
+],
+[
+498060001,
+900
+],
+[
+408010016,
+900
+],
+[
+408040008,
+900
+],
+[
+408030028,
+900
+],
+[
+408020025,
+1500
+],
+[
+408040004,
+1500
+],
+[
+408050009,
+1000
+]
+]
+},
+{
+"id": 600042,
+"profile": 6,
+"price": 550000,
+"weight": 1,
+"items": [
+[
+408080039,
+200
+],
+[
+498080001,
+200
+],
+[
+498140003,
+200
+],
+[
+498080006,
+200
+],
+[
+498060003,
+200
+],
+[
+498080016,
+200
+],
+[
+498080025,
+300
+],
+[
+408050033,
+4500
+],
+[
+408010009,
+1500
+],
+[
+408020019,
+1500
+],
+[
+408080038,
+1000
+]
+]
+},
+{
+"id": 700044,
+"profile": 7,
+"price": 20000,
+"weight": 633,
+"items": [
+[
+408010006,
+200
+],
+[
+408010008,
+5000
+],
+[
+408010014,
+1000
+],
+[
+408010015,
+200
+]
+]
+},
+{
+"id": 700045,
+"profile": 7,
+"price": 30000,
+"weight": 633,
+"items": [
+[
+408020015,
+5000
+],
+[
+408020017,
+300
+],
+[
+408020021,
+300
+],
+[
+408020022,
+300
+],
+[
+408020026,
+500
+]
+]
+},
+{
+"id": 700048,
+"profile": 7,
+"price": 100000,
+"weight": 417,
+"items": [
+[
+408040004,
+9500
+],
+[
+408040008,
+500
+]
+]
+},
+{
+"id": 700049,
+"profile": 7,
+"price": 27000,
+"weight": 633,
+"items": [
+[
+408040001,
+300
+],
+[
+408040002,
+300
+],
+[
+408040006,
+7400
+],
+[
+498040002,
+1000
+],
+[
+498040001,
+1000
+]
+]
+},
+{
+"id": 700050,
+"profile": 7,
+"price": 15000,
+"weight": 633,
+"items": [
+[
+408050011,
+100
+],
+[
+408050013,
+100
+],
+[
+408050022,
+100
+],
+[
+408050023,
+100
+],
+[
+408050026,
+1000
+],
+[
+408050029,
+7000
+],
+[
+408050031,
+7000
+],
+[
+408050032,
+100
+]
+]
+},
+{
+"id": 700051,
+"profile": 7,
+"price": 100000,
+"weight": 417,
+"items": [
+[
+408060041,
+100
+],
+[
+408060043,
+3300
+],
+[
+408060046,
+100
+],
+[
+408060052,
+3300
+],
+[
+408060054,
+100
+],
+[
+498060004,
+5
+],
+[
+498060005,
+5
+]
+]
+},
+{
+"id": 700058,
+"profile": 7,
+"price": 15000,
+"weight": 633,
+"items": [
+[
+408090002,
+500
+],
+[
+498090001,
+3000
+],
+[
+498090002,
+6500
+]
+]
+},
+{
+"id": 700064,
+"profile": 7,
+"price": 40000,
+"weight": 633,
+"items": [
+[
+408030014,
+100
+],
+[
+408060030,
+100
+],
+[
+408030013,
+100
+],
+[
+408040006,
+100
+],
+[
+408050028,
+100
+],
+[
+498040001,
+900
+],
+[
+498100005,
+900
+],
+[
+498040002,
+900
+],
+[
+498090008,
+900
+],
+[
+498010003,
+900
+],
+[
+408070013,
+800
+],
+[
+408080013,
+800
+],
+[
+408140019,
+700
+],
+[
+498070012,
+900
+],
+[
+498060006,
+900
+],
+[
+498070013,
+900
+]
+]
+},
+{
+"id": 700065,
+"profile": 7,
+"price": 210000,
+"weight": 417,
+"items": [
+[
+408030016,
+400
+],
+[
+408060039,
+300
+],
+[
+408060037,
+300
+],
+[
+408140016,
+300
+],
+[
+498040001,
+40
+],
+[
+498100005,
+40
+],
+[
+498040002,
+40
+],
+[
+498090008,
+40
+],
+[
+498010003,
+40
+],
+[
+408080004,
+400
+],
+[
+408080025,
+400
+],
+[
+408080026,
+400
+],
+[
+408080028,
+6600
+],
+[
+408080050,
+200
+],
+[
+408080054,
+200
+],
+[
+498070012,
+100
+],
+[
+498060006,
+100
+],
+[
+498070013,
+100
+]
+]
+},
+{
+"id": 700066,
+"profile": 7,
+"price": 70000,
+"weight": 417,
+"items": [
+[
+408080047,
+10
+],
+[
+408080049,
+10
+],
+[
+408080030,
+280
+],
+[
+408140001,
+2000
+],
+[
+498090001,
+2000
+],
+[
+498120003,
+2000
+],
+[
+408050039,
+2800
+],
+[
+408060044,
+50
+],
+[
+408080009,
+50
+],
+[
+408120002,
+50
+],
+[
+498070001,
+50
+],
+[
+498010001,
+50
+],
+[
+498070004,
+50
+],
+[
+498100004,
+50
+],
+[
+498140004,
+50
+],
+[
+498100006,
+50
+],
+[
+498040003,
+50
+],
+[
+498090009,
+50
+],
+[
+408010005,
+50
+],
+[
+408050030,
+50
+],
+[
+408100001,
+50
+],
+[
+408120009,
+50
+],
+[
+498090002,
+50
+],
+[
+498140006,
+50
+],
+[
+408010012,
+50
+]
+]
+},
+{
+"id": 700067,
+"profile": 7,
+"price": 250000,
+"weight": 533,
+"items": [
+[
+408080047,
+400
+],
+[
+408080049,
+100
+],
+[
+408080030,
+5500
+],
+[
+408140001,
+350
+],
+[
+498090001,
+250
+],
+[
+498120003,
+250
+],
+[
+408050039,
+250
+],
+[
+408060044,
+250
+],
+[
+408080009,
+155
+],
+[
+408120002,
+155
+],
+[
+498070001,
+155
+],
+[
+498010001,
+155
+],
+[
+498070004,
+155
+],
+[
+498100004,
+155
+],
+[
+498140004,
+155
+],
+[
+498100006,
+155
+],
+[
+498040003,
+155
+],
+[
+498090009,
+155
+],
+[
+408010005,
+155
+],
+[
+408050030,
+155
+],
+[
+408100001,
+155
+],
+[
+408120009,
+155
+],
+[
+498090002,
+155
+],
+[
+498140006,
+155
+],
+[
+408010012,
+170
+]
+]
+},
+{
+"id": 700068,
+"profile": 7,
+"price": 470000,
+"weight": 28,
+"items": [
+[
+408080047,
+1000
+],
+[
+408080049,
+1000
+],
+[
+408080030,
+3000
+],
+[
+408140001,
+1250
+],
+[
+498090001,
+1250
+],
+[
+498120003,
+1250
+],
+[
+408050039,
+1250
+]
+]
+},
+{
+"id": 700069,
+"profile": 7,
+"price": 70000,
+"weight": 417,
+"items": [
+[
+408120013,
+10
+],
+[
+408080048,
+10
+],
+[
+408080024,
+140
+],
+[
+408120017,
+140
+],
+[
+408030004,
+2000
+],
+[
+408050026,
+2000
+],
+[
+408080001,
+2000
+],
+[
+408090004,
+2000
+],
+[
+498070003,
+800
+],
+[
+408030008,
+33
+],
+[
+408050029,
+33
+],
+[
+408080015,
+33
+],
+[
+408100007,
+33
+],
+[
+408120014,
+33
+],
+[
+408050031,
+33
+],
+[
+408100002,
+33
+],
+[
+408120008,
+33
+],
+[
+408140021,
+33
+],
+[
+498120001,
+33
+],
+[
+408020024,
+33
+],
+[
+408030007,
+33
+],
+[
+408030023,
+33
+],
+[
+408050013,
+33
+],
+[
+408050023,
+33
+],
+[
+408060042,
+33
+],
+[
+408090001,
+33
+],
+[
+408120001,
+33
+],
+[
+408140005,
+33
+],
+[
+408030003,
+33
+],
+[
+408030024,
+33
+],
+[
+408050011,
+33
+],
+[
+408050032,
+33
+],
+[
+408060021,
+33
+],
+[
+408080022,
+33
+],
+[
+408120005,
+33
+],
+[
+408140014,
+42
+]
+]
+},
+{
+"id": 700070,
+"profile": 7,
+"price": 250000,
+"weight": 533,
+"items": [
+[
+408120013,
+400
+],
+[
+408080048,
+100
+],
+[
+408080024,
+2750
+],
+[
+408120017,
+2750
+],
+[
+408030004,
+500
+],
+[
+408050026,
+500
+],
+[
+408080001,
+500
+],
+[
+408090004,
+500
+],
+[
+498070003,
+500
+],
+[
+408030008,
+150
+],
+[
+408050029,
+150
+],
+[
+408080015,
+150
+],
+[
+408100007,
+150
+],
+[
+408120014,
+150
+],
+[
+408050031,
+150
+],
+[
+408100002,
+150
+],
+[
+408120008,
+150
+],
+[
+408140021,
+150
+],
+[
+498120001,
+150
+]
+]
+},
+{
+"id": 700071,
+"profile": 7,
+"price": 450000,
+"weight": 28,
+"items": [
+[
+408120013,
+1000
+],
+[
+408080048,
+1000
+],
+[
+408080024,
+1500
+],
+[
+408120017,
+1500
+],
+[
+408030004,
+1000
+],
+[
+408050026,
+1000
+],
+[
+408080001,
+1000
+],
+[
+408090004,
+1000
+],
+[
+498070003,
+1000
+]
+]
+},
+{
+"id": 700072,
+"profile": 7,
+"price": 70000,
+"weight": 417,
+"items": [
+[
+408080003,
+1
+],
+[
+408080010,
+1
+],
+[
+408120019,
+1
+],
+[
+408080041,
+1
+],
+[
+498140001,
+1
+],
+[
+498080002,
+1
+],
+[
+498080005,
+1
+],
+[
+498070002,
+1
+],
+[
+498080008,
+1
+],
+[
+498080009,
+1
+],
+[
+408020026,
+70
+],
+[
+408070012,
+70
+],
+[
+408080014,
+70
+],
+[
+408080019,
+70
+],
+[
+408080033,
+70
+],
+[
+408120020,
+70
+],
+[
+408140022,
+70
+],
+[
+408140024,
+70
+],
+[
+408070016,
+80
+],
+[
+408090019,
+80
+],
+[
+498100002,
+80
+],
+[
+498020001,
+80
+],
+[
+408060043,
+1000
+],
+[
+408080016,
+1000
+],
+[
+408100011,
+1000
+],
+[
+408120010,
+1000
+],
+[
+408010014,
+1000
+],
+[
+408030026,
+1168
+],
+[
+408060052,
+1782
+],
+[
+408010008,
+62
+],
+[
+408020015,
+62
+],
+[
+408030009,
+62
+],
+[
+408050001,
+62
+],
+[
+408050006,
+62
+],
+[
+408050019,
+62
+],
+[
+408060046,
+62
+],
+[
+408060054,
+62
+],
+[
+408010015,
+62
+],
+[
+498070009,
+80
+],
+[
+408010006,
+62
+],
+[
+408020017,
+62
+],
+[
+408060041,
+62
+],
+[
+408120003,
+62
+],
+[
+408020021,
+124
+],
+[
+408020022,
+70
+],
+[
+498090010,
+80
+]
+]
+},
+{
+"id": 700073,
+"profile": 7,
+"price": 250000,
+"weight": 533,
+"items": [
+[
+408080003,
+30
+],
+[
+408080010,
+30
+],
+[
+408080029,
+30
+],
+[
+408120019,
+40
+],
+[
+408080041,
+40
+],
+[
+498140001,
+40
+],
+[
+498080002,
+40
+],
+[
+498080005,
+40
+],
+[
+498070002,
+40
+],
+[
+498080008,
+30
+],
+[
+498080009,
+20
+],
+[
+498080010,
+20
+],
+[
+408020026,
+300
+],
+[
+408070012,
+300
+],
+[
+408080014,
+400
+],
+[
+408080019,
+400
+],
+[
+408080033,
+400
+],
+[
+408120020,
+400
+],
+[
+408140022,
+400
+],
+[
+408140024,
+400
+],
+[
+408070016,
+400
+],
+[
+408090019,
+400
+],
+[
+498100002,
+400
+],
+[
+498020001,
+400
+],
+[
+408060043,
+150
+],
+[
+408080016,
+150
+],
+[
+408100011,
+150
+],
+[
+408120010,
+150
+],
+[
+408010014,
+250
+],
+[
+408030026,
+250
+],
+[
+408060052,
+250
+],
+[
+408010008,
+100
+],
+[
+408020015,
+100
+],
+[
+408030009,
+100
+],
+[
+408050001,
+100
+],
+[
+408050006,
+100
+],
+[
+408050019,
+200
+],
+[
+408060046,
+250
+],
+[
+408060054,
+200
+],
+[
+408010015,
+300
+],
+[
+498070009,
+600
+],
+[
+408010006,
+300
+],
+[
+408020017,
+300
+],
+[
+408060041,
+300
+],
+[
+408120003,
+300
+],
+[
+498090010,
+400
+]
+]
+},
+{
+"id": 700074,
+"profile": 7,
+"price": 470000,
+"weight": 28,
+"items": [
+[
+408080003,
+40
+],
+[
+408080010,
+40
+],
+[
+408080029,
+40
+],
+[
+408120019,
+55
+],
+[
+408080041,
+55
+],
+[
+498140001,
+75
+],
+[
+498080002,
+55
+],
+[
+498080005,
+55
+],
+[
+498070002,
+55
+],
+[
+498080008,
+75
+],
+[
+498080009,
+75
+],
+[
+498080010,
+65
+],
+[
+498080011,
+55
+],
+[
+498060004,
+55
+],
+[
+498080017,
+55
+],
+[
+498080019,
+40
+],
+[
+498140005,
+55
+],
+[
+498060005,
+55
+],
+[
+408020026,
+300
+],
+[
+408070012,
+300
+],
+[
+408080014,
+300
+],
+[
+408080019,
+300
+],
+[
+408080033,
+300
+],
+[
+408120020,
+300
+],
+[
+408140022,
+300
+],
+[
+408140024,
+350
+],
+[
+408070016,
+350
+],
+[
+408090019,
+350
+],
+[
+498100002,
+350
+],
+[
+498020001,
+350
+],
+[
+408060043,
+700
+],
+[
+408080016,
+700
+],
+[
+408100011,
+700
+],
+[
+408120010,
+700
+],
+[
+408010014,
+700
+],
+[
+408030026,
+700
+],
+[
+408060052,
+600
+],
+[
+498090010,
+350
+]
+]
+},
+{
+"id": 700075,
+"profile": 7,
+"price": 70000,
+"weight": 417,
+"items": [
+[
+408080008,
+1
+],
+[
+498100001,
+2
+],
+[
+498080003,
+2
+],
+[
+498100003,
+3
+],
+[
+498080018,
+2
+],
+[
+408030025,
+70
+],
+[
+498060001,
+80
+],
+[
+408010016,
+80
+],
+[
+408040008,
+80
+],
+[
+408030028,
+80
+],
+[
+408020025,
+4500
+],
+[
+408040004,
+4000
+],
+[
+408050009,
+1000
+],
+[
+498070011,
+100
+]
+]
+},
+{
+"id": 700076,
+"profile": 7,
+"price": 270000,
+"weight": 533,
+"items": [
+[
+408080008,
+50
+],
+[
+498100001,
+80
+],
+[
+498080003,
+80
+],
+[
+498100003,
+110
+],
+[
+498080018,
+80
+],
+[
+408030025,
+900
+],
+[
+498060001,
+900
+],
+[
+408010016,
+900
+],
+[
+408040008,
+900
+],
+[
+408030028,
+900
+],
+[
+408020025,
+1500
+],
+[
+408040004,
+1500
+],
+[
+408050009,
+1000
+],
+[
+498070011,
+1100
+]
+]
+},
+{
+"id": 700077,
+"profile": 7,
+"price": 70000,
+"weight": 417,
+"items": [
+[
+408080039,
+2
+],
+[
+498080001,
+2
+],
+[
+498140003,
+2
+],
+[
+498080006,
+1
+],
+[
+498060003,
+1
+],
+[
+498080016,
+1
+],
+[
+498080025,
+1
+],
+[
+408050033,
+50
+],
+[
+408010009,
+4445
+],
+[
+408020019,
+4445
+],
+[
+408080038,
+1000
+],
+[
+498070010,
+50
+]
+]
+},
+{
+"id": 700078,
+"profile": 7,
+"price": 270000,
+"weight": 533,
+"items": [
+[
+408080039,
+50
+],
+[
+498080001,
+50
+],
+[
+498140003,
+50
+],
+[
+498080006,
+50
+],
+[
+498060003,
+50
+],
+[
+498080016,
+50
+],
+[
+498080025,
+100
+],
+[
+408050033,
+2800
+],
+[
+408010009,
+1500
+],
+[
+408020019,
+1500
+],
+[
+408080038,
+1000
+],
+[
+498070010,
+2800
+]
+]
+},
+{
+"id": 700079,
+"profile": 7,
+"price": 470000,
+"weight": 28,
+"items": [
+[
+408080039,
+130
+],
+[
+498080001,
+130
+],
+[
+498140003,
+130
+],
+[
+498080006,
+130
+],
+[
+498060003,
+130
+],
+[
+498080016,
+130
+],
+[
+498080025,
+220
+],
+[
+408050033,
+1500
+],
+[
+408010009,
+3000
+],
+[
+408020019,
+3000
+],
+[
+498070010,
+1500
+]
+]
+},
+{
+"id": 700080,
+"profile": 7,
+"price": 470000,
+"weight": 28,
+"items": [
+[
+408080008,
+140
+],
+[
+498100001,
+200
+],
+[
+498080003,
+200
+],
+[
+498100003,
+260
+],
+[
+498080018,
+200
+],
+[
+408030025,
+500
+],
+[
+498060001,
+500
+],
+[
+408010016,
+500
+],
+[
+408040008,
+500
+],
+[
+408030028,
+500
+],
+[
+408020025,
+3000
+],
+[
+408040004,
+3000
+],
+[
+498070011,
+500
+]
+]
+},
+{
+"id": 700081,
+"profile": 7,
+"price": 350000,
+"weight": 28,
+"items": [
+[
+408080003,
+40
+],
+[
+408080010,
+40
+],
+[
+408080029,
+40
+],
+[
+408120019,
+60
+],
+[
+408080041,
+60
+],
+[
+498140001,
+60
+],
+[
+498080002,
+60
+],
+[
+498080005,
+60
+],
+[
+498070002,
+60
+],
+[
+498080008,
+40
+],
+[
+498080009,
+40
+],
+[
+498080010,
+40
+],
+[
+408020026,
+200
+],
+[
+408070012,
+200
+],
+[
+408080014,
+200
+],
+[
+408080019,
+300
+],
+[
+408080033,
+300
+],
+[
+408120020,
+300
+],
+[
+408140022,
+300
+],
+[
+408140024,
+300
+],
+[
+408070016,
+300
+],
+[
+408090019,
+300
+],
+[
+498100002,
+300
+],
+[
+498020001,
+300
+],
+[
+408060043,
+800
+],
+[
+408080016,
+800
+],
+[
+408100011,
+800
+],
+[
+408120010,
+800
+],
+[
+408010014,
+800
+],
+[
+408030026,
+800
+],
+[
+408060052,
+700
+],
+[
+498070009,
+300
+],
+[
+498090010,
+300
+]
+]
+},
+{
+"id": 700082,
+"profile": 7,
+"price": 550000,
+"weight": 11,
+"items": [
+[
+408080003,
+70
+],
+[
+408080010,
+70
+],
+[
+408080029,
+70
+],
+[
+408120019,
+100
+],
+[
+408080041,
+100
+],
+[
+498140001,
+100
+],
+[
+498080002,
+100
+],
+[
+498080005,
+100
+],
+[
+498070002,
+100
+],
+[
+498080008,
+130
+],
+[
+498080009,
+130
+],
+[
+498080010,
+130
+],
+[
+498080011,
+100
+],
+[
+498060004,
+100
+],
+[
+498080017,
+100
+],
+[
+408020026,
+100
+],
+[
+408070012,
+100
+],
+[
+408080014,
+100
+],
+[
+408080019,
+150
+],
+[
+408080033,
+150
+],
+[
+408120020,
+150
+],
+[
+408140022,
+150
+],
+[
+408140024,
+150
+],
+[
+408070016,
+150
+],
+[
+408090019,
+150
+],
+[
+498100002,
+150
+],
+[
+498020001,
+150
+],
+[
+408060043,
+800
+],
+[
+408080016,
+800
+],
+[
+408100011,
+800
+],
+[
+408120010,
+800
+],
+[
+408010014,
+750
+],
+[
+408030026,
+700
+],
+[
+408060052,
+700
+],
+[
+408010008,
+50
+],
+[
+408020015,
+50
+],
+[
+408030009,
+50
+],
+[
+408050001,
+50
+],
+[
+408050006,
+50
+],
+[
+408050019,
+50
+],
+[
+408060046,
+50
+],
+[
+408060054,
+50
+],
+[
+408010015,
+50
+],
+[
+498070009,
+600
+],
+[
+408010006,
+50
+],
+[
+408020017,
+50
+],
+[
+408060041,
+50
+],
+[
+408120003,
+50
+],
+[
+408020021,
+50
+],
+[
+408020022,
+50
+],
+[
+498090010,
+150
+]
+]
+},
+{
+"id": 700083,
+"profile": 7,
+"price": 550000,
+"weight": 11,
+"items": [
+[
+408080008,
+210
+],
+[
+498100001,
+300
+],
+[
+498080003,
+300
+],
+[
+498100003,
+390
+],
+[
+498080018,
+300
+],
+[
+408030025,
+200
+],
+[
+498060001,
+200
+],
+[
+408010016,
+200
+],
+[
+408040008,
+300
+],
+[
+408030028,
+300
+],
+[
+408020025,
+3000
+],
+[
+408040004,
+3000
+],
+[
+408050009,
+1000
+],
+[
+498070011,
+300
+]
+]
+},
+{
+"id": 700084,
+"profile": 7,
+"price": 550000,
+"weight": 11,
+"items": [
+[
+408080039,
+200
+],
+[
+498080001,
+200
+],
+[
+498140003,
+200
+],
+[
+498080006,
+200
+],
+[
+498060003,
+200
+],
+[
+498080016,
+200
+],
+[
+498080025,
+300
+],
+[
+408050033,
+750
+],
+[
+408010009,
+3000
+],
+[
+408020019,
+3000
+],
+[
+408080038,
+1000
+],
+[
+498070010,
+750
+]
+]
+},
+{
+"id": 800044,
+"profile": 8,
+"price": 20000,
+"weight": 548,
+"items": [
+[
+408010006,
+200
+],
+[
+408010008,
+5000
+],
+[
+408010014,
+1000
+],
+[
+408010015,
+200
+]
+]
+},
+{
+"id": 800045,
+"profile": 8,
+"price": 30000,
+"weight": 548,
+"items": [
+[
+408020015,
+5000
+],
+[
+408020017,
+300
+],
+[
+408020021,
+300
+],
+[
+408020022,
+300
+],
+[
+408020026,
+500
+]
+]
+},
+{
+"id": 800048,
+"profile": 8,
+"price": 100000,
+"weight": 357,
+"items": [
+[
+408040004,
+9500
+],
+[
+408040008,
+500
+]
+]
+},
+{
+"id": 800049,
+"profile": 8,
+"price": 27000,
+"weight": 548,
+"items": [
+[
+408040001,
+300
+],
+[
+408040002,
+300
+],
+[
+408040006,
+7400
+],
+[
+498040002,
+1000
+],
+[
+498040001,
+1000
+]
+]
+},
+{
+"id": 800050,
+"profile": 8,
+"price": 15000,
+"weight": 548,
+"items": [
+[
+408050011,
+100
+],
+[
+408050013,
+100
+],
+[
+408050022,
+100
+],
+[
+408050023,
+100
+],
+[
+408050026,
+1000
+],
+[
+408050029,
+7000
+],
+[
+408050031,
+7000
+],
+[
+408050032,
+100
+]
+]
+},
+{
+"id": 800051,
+"profile": 8,
+"price": 100000,
+"weight": 357,
+"items": [
+[
+408060041,
+100
+],
+[
+408060043,
+3300
+],
+[
+408060046,
+100
+],
+[
+408060052,
+3300
+],
+[
+408060054,
+100
+],
+[
+498060004,
+5
+],
+[
+498060005,
+5
+]
+]
+},
+{
+"id": 800058,
+"profile": 8,
+"price": 15000,
+"weight": 548,
+"items": [
+[
+408090002,
+500
+],
+[
+498090001,
+3000
+],
+[
+498090002,
+6500
+]
+]
+},
+{
+"id": 800064,
+"profile": 8,
+"price": 40000,
+"weight": 548,
+"items": [
+[
+408030014,
+100
+],
+[
+408060030,
+100
+],
+[
+408030013,
+100
+],
+[
+408040006,
+100
+],
+[
+408050028,
+100
+],
+[
+498040001,
+900
+],
+[
+498100005,
+900
+],
+[
+498040002,
+900
+],
+[
+498090008,
+900
+],
+[
+498010003,
+900
+],
+[
+408070013,
+800
+],
+[
+408080013,
+800
+],
+[
+408140019,
+700
+],
+[
+498070012,
+900
+],
+[
+498060006,
+900
+],
+[
+498070013,
+900
+]
+]
+},
+{
+"id": 800065,
+"profile": 8,
+"price": 210000,
+"weight": 357,
+"items": [
+[
+408030016,
+400
+],
+[
+408060039,
+300
+],
+[
+408060037,
+300
+],
+[
+408140016,
+300
+],
+[
+498040001,
+40
+],
+[
+498100005,
+40
+],
+[
+498040002,
+40
+],
+[
+498090008,
+40
+],
+[
+498010003,
+40
+],
+[
+408080004,
+400
+],
+[
+408080025,
+400
+],
+[
+408080026,
+400
+],
+[
+408080028,
+6600
+],
+[
+408080050,
+200
+],
+[
+408080054,
+200
+],
+[
+498070012,
+100
+],
+[
+498060006,
+100
+],
+[
+498070013,
+100
+]
+]
+},
+{
+"id": 800066,
+"profile": 8,
+"price": 70000,
+"weight": 357,
+"items": [
+[
+408080047,
+10
+],
+[
+408080049,
+10
+],
+[
+408080030,
+280
+],
+[
+408140001,
+2000
+],
+[
+498090001,
+2000
+],
+[
+498120003,
+2000
+],
+[
+408050039,
+2800
+],
+[
+408060044,
+50
+],
+[
+408080009,
+50
+],
+[
+408120002,
+50
+],
+[
+498070001,
+50
+],
+[
+498010001,
+50
+],
+[
+498070004,
+50
+],
+[
+498100004,
+50
+],
+[
+498140004,
+50
+],
+[
+498100006,
+50
+],
+[
+498040003,
+50
+],
+[
+498090009,
+50
+],
+[
+408010005,
+50
+],
+[
+408050030,
+50
+],
+[
+408100001,
+50
+],
+[
+408120009,
+50
+],
+[
+498090002,
+50
+],
+[
+498140006,
+50
+],
+[
+408010012,
+50
+]
+]
+},
+{
+"id": 800067,
+"profile": 8,
+"price": 250000,
+"weight": 629,
+"items": [
+[
+408080047,
+400
+],
+[
+408080049,
+100
+],
+[
+408080030,
+5500
+],
+[
+408140001,
+350
+],
+[
+498090001,
+250
+],
+[
+498120003,
+250
+],
+[
+408050039,
+250
+],
+[
+408060044,
+250
+],
+[
+408080009,
+155
+],
+[
+408120002,
+155
+],
+[
+498070001,
+155
+],
+[
+498010001,
+155
+],
+[
+498070004,
+155
+],
+[
+498100004,
+155
+],
+[
+498140004,
+155
+],
+[
+498100006,
+155
+],
+[
+498040003,
+155
+],
+[
+498090009,
+155
+],
+[
+408010005,
+155
+],
+[
+408050030,
+155
+],
+[
+408100001,
+155
+],
+[
+408120009,
+155
+],
+[
+498090002,
+155
+],
+[
+498140006,
+155
+],
+[
+408010012,
+170
+]
+]
+},
+{
+"id": 800068,
+"profile": 8,
+"price": 470000,
+"weight": 95,
+"items": [
+[
+408080047,
+1000
+],
+[
+408080049,
+1000
+],
+[
+408080030,
+3000
+],
+[
+408140001,
+1250
+],
+[
+498090001,
+1250
+],
+[
+498120003,
+1250
+],
+[
+408050039,
+1250
+]
+]
+},
+{
+"id": 800069,
+"profile": 8,
+"price": 70000,
+"weight": 357,
+"items": [
+[
+408120013,
+10
+],
+[
+408080048,
+10
+],
+[
+408080024,
+140
+],
+[
+408120017,
+140
+],
+[
+408030004,
+2000
+],
+[
+408050026,
+2000
+],
+[
+408080001,
+2000
+],
+[
+408090004,
+2000
+],
+[
+498070003,
+800
+],
+[
+408030008,
+33
+],
+[
+408050029,
+33
+],
+[
+408080015,
+33
+],
+[
+408100007,
+33
+],
+[
+408120014,
+33
+],
+[
+408050031,
+33
+],
+[
+408100002,
+33
+],
+[
+408120008,
+33
+],
+[
+408140021,
+33
+],
+[
+498120001,
+33
+],
+[
+408020024,
+33
+],
+[
+408030007,
+33
+],
+[
+408030023,
+33
+],
+[
+408050013,
+33
+],
+[
+408050023,
+33
+],
+[
+408060042,
+33
+],
+[
+408090001,
+33
+],
+[
+408120001,
+33
+],
+[
+408140005,
+33
+],
+[
+408030003,
+33
+],
+[
+408030024,
+33
+],
+[
+408050011,
+33
+],
+[
+408050032,
+33
+],
+[
+408060021,
+33
+],
+[
+408080022,
+33
+],
+[
+408120005,
+33
+],
+[
+408140014,
+42
+]
+]
+},
+{
+"id": 800070,
+"profile": 8,
+"price": 250000,
+"weight": 629,
+"items": [
+[
+408120013,
+400
+],
+[
+408080048,
+100
+],
+[
+408080024,
+2750
+],
+[
+408120017,
+2750
+],
+[
+408030004,
+500
+],
+[
+408050026,
+500
+],
+[
+408080001,
+500
+],
+[
+408090004,
+500
+],
+[
+498070003,
+500
+],
+[
+408030008,
+150
+],
+[
+408050029,
+150
+],
+[
+408080015,
+150
+],
+[
+408100007,
+150
+],
+[
+408120014,
+150
+],
+[
+408050031,
+150
+],
+[
+408100002,
+150
+],
+[
+408120008,
+150
+],
+[
+408140021,
+150
+],
+[
+498120001,
+150
+]
+]
+},
+{
+"id": 800071,
+"profile": 8,
+"price": 450000,
+"weight": 95,
+"items": [
+[
+408120013,
+1000
+],
+[
+408080048,
+1000
+],
+[
+408080024,
+1500
+],
+[
+408120017,
+1500
+],
+[
+408030004,
+1000
+],
+[
+408050026,
+1000
+],
+[
+408080001,
+1000
+],
+[
+408090004,
+1000
+],
+[
+498070003,
+1000
+]
+]
+},
+{
+"id": 800072,
+"profile": 8,
+"price": 70000,
+"weight": 357,
+"items": [
+[
+408080003,
+1
+],
+[
+408080010,
+1
+],
+[
+408120019,
+1
+],
+[
+408080041,
+1
+],
+[
+498140001,
+1
+],
+[
+498080002,
+1
+],
+[
+498080005,
+1
+],
+[
+498070002,
+1
+],
+[
+498080008,
+1
+],
+[
+498080009,
+1
+],
+[
+408020026,
+70
+],
+[
+408070012,
+70
+],
+[
+408080014,
+70
+],
+[
+408080019,
+70
+],
+[
+408080033,
+70
+],
+[
+408120020,
+70
+],
+[
+408140022,
+70
+],
+[
+408140024,
+70
+],
+[
+408070016,
+80
+],
+[
+408090019,
+80
+],
+[
+498100002,
+80
+],
+[
+498020001,
+80
+],
+[
+408060043,
+1000
+],
+[
+408080016,
+1000
+],
+[
+408100011,
+1000
+],
+[
+408120010,
+1000
+],
+[
+408010014,
+1000
+],
+[
+408030026,
+1168
+],
+[
+408060052,
+1782
+],
+[
+408010008,
+62
+],
+[
+408020015,
+62
+],
+[
+408030009,
+62
+],
+[
+408050001,
+62
+],
+[
+408050006,
+62
+],
+[
+408050019,
+62
+],
+[
+408060046,
+62
+],
+[
+408060054,
+62
+],
+[
+408010015,
+62
+],
+[
+498070009,
+80
+],
+[
+408010006,
+62
+],
+[
+408020017,
+62
+],
+[
+408060041,
+62
+],
+[
+408120003,
+62
+],
+[
+408020021,
+124
+],
+[
+408020022,
+70
+],
+[
+498090010,
+80
+]
+]
+},
+{
+"id": 800073,
+"profile": 8,
+"price": 250000,
+"weight": 629,
+"items": [
+[
+408080003,
+30
+],
+[
+408080010,
+30
+],
+[
+408080029,
+30
+],
+[
+408120019,
+40
+],
+[
+408080041,
+40
+],
+[
+498140001,
+40
+],
+[
+498080002,
+40
+],
+[
+498080005,
+40
+],
+[
+498070002,
+40
+],
+[
+498080008,
+30
+],
+[
+498080009,
+20
+],
+[
+498080010,
+20
+],
+[
+408020026,
+300
+],
+[
+408070012,
+300
+],
+[
+408080014,
+400
+],
+[
+408080019,
+400
+],
+[
+408080033,
+400
+],
+[
+408120020,
+400
+],
+[
+408140022,
+400
+],
+[
+408140024,
+400
+],
+[
+408070016,
+400
+],
+[
+408090019,
+400
+],
+[
+498100002,
+400
+],
+[
+498020001,
+400
+],
+[
+408060043,
+150
+],
+[
+408080016,
+150
+],
+[
+408100011,
+150
+],
+[
+408120010,
+150
+],
+[
+408010014,
+250
+],
+[
+408030026,
+250
+],
+[
+408060052,
+250
+],
+[
+408010008,
+100
+],
+[
+408020015,
+100
+],
+[
+408030009,
+100
+],
+[
+408050001,
+100
+],
+[
+408050006,
+100
+],
+[
+408050019,
+200
+],
+[
+408060046,
+250
+],
+[
+408060054,
+200
+],
+[
+408010015,
+300
+],
+[
+498070009,
+600
+],
+[
+408010006,
+300
+],
+[
+408020017,
+300
+],
+[
+408060041,
+300
+],
+[
+408120003,
+300
+],
+[
+498090010,
+400
+]
+]
+},
+{
+"id": 800074,
+"profile": 8,
+"price": 470000,
+"weight": 95,
+"items": [
+[
+408080003,
+40
+],
+[
+408080010,
+40
+],
+[
+408080029,
+40
+],
+[
+408120019,
+55
+],
+[
+408080041,
+55
+],
+[
+498140001,
+75
+],
+[
+498080002,
+55
+],
+[
+498080005,
+55
+],
+[
+498070002,
+55
+],
+[
+498080008,
+75
+],
+[
+498080009,
+75
+],
+[
+498080010,
+65
+],
+[
+498080011,
+55
+],
+[
+498060004,
+55
+],
+[
+498080017,
+55
+],
+[
+498080019,
+40
+],
+[
+498140005,
+55
+],
+[
+498060005,
+55
+],
+[
+408020026,
+300
+],
+[
+408070012,
+300
+],
+[
+408080014,
+300
+],
+[
+408080019,
+300
+],
+[
+408080033,
+300
+],
+[
+408120020,
+300
+],
+[
+408140022,
+300
+],
+[
+408140024,
+350
+],
+[
+408070016,
+350
+],
+[
+408090019,
+350
+],
+[
+498100002,
+350
+],
+[
+498020001,
+350
+],
+[
+408060043,
+700
+],
+[
+408080016,
+700
+],
+[
+408100011,
+700
+],
+[
+408120010,
+700
+],
+[
+408010014,
+700
+],
+[
+408030026,
+700
+],
+[
+408060052,
+600
+],
+[
+498090010,
+350
+]
+]
+},
+{
+"id": 800075,
+"profile": 8,
+"price": 70000,
+"weight": 357,
+"items": [
+[
+408080008,
+1
+],
+[
+498100001,
+2
+],
+[
+498080003,
+2
+],
+[
+498100003,
+3
+],
+[
+498080018,
+2
+],
+[
+408030025,
+70
+],
+[
+498060001,
+80
+],
+[
+408010016,
+80
+],
+[
+408040008,
+80
+],
+[
+408030028,
+80
+],
+[
+408020025,
+4500
+],
+[
+408040004,
+4000
+],
+[
+408050009,
+1000
+],
+[
+498070011,
+100
+]
+]
+},
+{
+"id": 800076,
+"profile": 8,
+"price": 270000,
+"weight": 629,
+"items": [
+[
+408080008,
+50
+],
+[
+498100001,
+80
+],
+[
+498080003,
+80
+],
+[
+498100003,
+110
+],
+[
+498080018,
+80
+],
+[
+408030025,
+900
+],
+[
+498060001,
+900
+],
+[
+408010016,
+900
+],
+[
+408040008,
+900
+],
+[
+408030028,
+900
+],
+[
+408020025,
+1500
+],
+[
+408040004,
+1500
+],
+[
+408050009,
+1000
+],
+[
+498070011,
+1100
+]
+]
+},
+{
+"id": 800077,
+"profile": 8,
+"price": 70000,
+"weight": 357,
+"items": [
+[
+408080039,
+2
+],
+[
+498080001,
+2
+],
+[
+498140003,
+2
+],
+[
+498080006,
+1
+],
+[
+498060003,
+1
+],
+[
+498080016,
+1
+],
+[
+498080025,
+1
+],
+[
+408050033,
+50
+],
+[
+408010009,
+4445
+],
+[
+408020019,
+4445
+],
+[
+408080038,
+1000
+],
+[
+498070010,
+50
+]
+]
+},
+{
+"id": 800078,
+"profile": 8,
+"price": 270000,
+"weight": 629,
+"items": [
+[
+408080039,
+50
+],
+[
+498080001,
+50
+],
+[
+498140003,
+50
+],
+[
+498080006,
+50
+],
+[
+498060003,
+50
+],
+[
+498080016,
+50
+],
+[
+498080025,
+100
+],
+[
+408050033,
+2800
+],
+[
+408010009,
+1500
+],
+[
+408020019,
+1500
+],
+[
+408080038,
+1000
+],
+[
+498070010,
+2800
+]
+]
+},
+{
+"id": 800079,
+"profile": 8,
+"price": 470000,
+"weight": 95,
+"items": [
+[
+408080039,
+130
+],
+[
+498080001,
+130
+],
+[
+498140003,
+130
+],
+[
+498080006,
+130
+],
+[
+498060003,
+130
+],
+[
+498080016,
+130
+],
+[
+498080025,
+220
+],
+[
+408050033,
+1500
+],
+[
+408010009,
+3000
+],
+[
+408020019,
+3000
+],
+[
+498070010,
+1500
+]
+]
+},
+{
+"id": 800080,
+"profile": 8,
+"price": 470000,
+"weight": 95,
+"items": [
+[
+408080008,
+140
+],
+[
+498100001,
+200
+],
+[
+498080003,
+200
+],
+[
+498100003,
+260
+],
+[
+498080018,
+200
+],
+[
+408030025,
+500
+],
+[
+498060001,
+500
+],
+[
+408010016,
+500
+],
+[
+408040008,
+500
+],
+[
+408030028,
+500
+],
+[
+408020025,
+3000
+],
+[
+408040004,
+3000
+],
+[
+498070011,
+500
+]
+]
+},
+{
+"id": 800081,
+"profile": 8,
+"price": 350000,
+"weight": 95,
+"items": [
+[
+408080003,
+40
+],
+[
+408080010,
+40
+],
+[
+408080029,
+40
+],
+[
+408120019,
+60
+],
+[
+408080041,
+60
+],
+[
+498140001,
+60
+],
+[
+498080002,
+60
+],
+[
+498080005,
+60
+],
+[
+498070002,
+60
+],
+[
+498080008,
+40
+],
+[
+498080009,
+40
+],
+[
+498080010,
+40
+],
+[
+408020026,
+200
+],
+[
+408070012,
+200
+],
+[
+408080014,
+200
+],
+[
+408080019,
+300
+],
+[
+408080033,
+300
+],
+[
+408120020,
+300
+],
+[
+408140022,
+300
+],
+[
+408140024,
+300
+],
+[
+408070016,
+300
+],
+[
+408090019,
+300
+],
+[
+498100002,
+300
+],
+[
+498020001,
+300
+],
+[
+408060043,
+800
+],
+[
+408080016,
+800
+],
+[
+408100011,
+800
+],
+[
+408120010,
+800
+],
+[
+408010014,
+800
+],
+[
+408030026,
+800
+],
+[
+408060052,
+700
+],
+[
+498070009,
+300
+],
+[
+498090010,
+300
+]
+]
+},
+{
+"id": 800082,
+"profile": 8,
+"price": 550000,
+"weight": 48,
+"items": [
+[
+408080003,
+70
+],
+[
+408080010,
+70
+],
+[
+408080029,
+70
+],
+[
+408120019,
+100
+],
+[
+408080041,
+100
+],
+[
+498140001,
+100
+],
+[
+498080002,
+100
+],
+[
+498080005,
+100
+],
+[
+498070002,
+100
+],
+[
+498080008,
+130
+],
+[
+498080009,
+130
+],
+[
+498080010,
+130
+],
+[
+498080011,
+100
+],
+[
+498060004,
+100
+],
+[
+498080017,
+100
+],
+[
+408020026,
+100
+],
+[
+408070012,
+100
+],
+[
+408080014,
+100
+],
+[
+408080019,
+150
+],
+[
+408080033,
+150
+],
+[
+408120020,
+150
+],
+[
+408140022,
+150
+],
+[
+408140024,
+150
+],
+[
+408070016,
+150
+],
+[
+408090019,
+150
+],
+[
+498100002,
+150
+],
+[
+498020001,
+150
+],
+[
+408060043,
+800
+],
+[
+408080016,
+800
+],
+[
+408100011,
+800
+],
+[
+408120010,
+800
+],
+[
+408010014,
+750
+],
+[
+408030026,
+700
+],
+[
+408060052,
+700
+],
+[
+408010008,
+50
+],
+[
+408020015,
+50
+],
+[
+408030009,
+50
+],
+[
+408050001,
+50
+],
+[
+408050006,
+50
+],
+[
+408050019,
+50
+],
+[
+408060046,
+50
+],
+[
+408060054,
+50
+],
+[
+408010015,
+50
+],
+[
+498070009,
+600
+],
+[
+408010006,
+50
+],
+[
+408020017,
+50
+],
+[
+408060041,
+50
+],
+[
+408120003,
+50
+],
+[
+408020021,
+50
+],
+[
+408020022,
+50
+],
+[
+498090010,
+150
+]
+]
+},
+{
+"id": 800083,
+"profile": 8,
+"price": 550000,
+"weight": 48,
+"items": [
+[
+408080008,
+210
+],
+[
+498100001,
+300
+],
+[
+498080003,
+300
+],
+[
+498100003,
+390
+],
+[
+498080018,
+300
+],
+[
+408030025,
+200
+],
+[
+498060001,
+200
+],
+[
+408010016,
+200
+],
+[
+408040008,
+300
+],
+[
+408030028,
+300
+],
+[
+408020025,
+3000
+],
+[
+408040004,
+3000
+],
+[
+408050009,
+1000
+],
+[
+498070011,
+300
+]
+]
+},
+{
+"id": 800084,
+"profile": 8,
+"price": 550000,
+"weight": 48,
+"items": [
+[
+408080039,
+200
+],
+[
+498080001,
+200
+],
+[
+498140003,
+200
+],
+[
+498080006,
+200
+],
+[
+498060003,
+200
+],
+[
+498080016,
+200
+],
+[
+498080025,
+300
+],
+[
+408050033,
+750
+],
+[
+408010009,
+3000
+],
+[
+408020019,
+3000
+],
+[
+408080038,
+1000
+],
+[
+498070010,
+750
+]
+]
+},
+{
+"id": 900046,
+"profile": 9,
+"price": 20000,
+"weight": 475,
+"items": [
+[
+408030003,
+100
+],
+[
+408030004,
+500
+],
+[
+408030008,
+8000
+],
+[
+408030007,
+100
+],
+[
+408030023,
+100
+],
+[
+408030024,
+100
+]
+]
+},
+{
+"id": 900047,
+"profile": 9,
+"price": 30000,
+"weight": 475,
+"items": [
+[
+408030009,
+8000
+],
+[
+408030026,
+2000
+]
+]
+},
+{
+"id": 900052,
+"profile": 9,
+"price": 6000,
+"weight": 475,
+"items": [
+[
+408070001,
+100
+],
+[
+408070002,
+100
+],
+[
+408070003,
+10000
+],
+[
+408070008,
+100
+],
+[
+408070009,
+100
+],
+[
+408070010,
+10000
+],
+[
+408070011,
+100
+],
+[
+408070013,
+1000
+],
+[
+498070012,
+1500
+],
+[
+498070013,
+1500
+]
+]
+},
+{
+"id": 900053,
+"profile": 9,
+"price": 480000,
+"weight": 21,
+"items": [
+[
+408070012,
+4600
+],
+[
+408070016,
+4600
+],
+[
+498070002,
+800
+]
+]
+},
+{
+"id": 900054,
+"profile": 9,
+"price": 70000,
+"weight": 475,
+"items": [
+[
+408080002,
+150
+],
+[
+408080004,
+2200
+],
+[
+408080011,
+150
+],
+[
+408080012,
+150
+],
+[
+408080013,
+2200
+],
+[
+408080020,
+150
+],
+[
+408080021,
+150
+],
+[
+408080025,
+2200
+],
+[
+408080026,
+2200
+],
+[
+408080028,
+200
+],
+[
+408080050,
+150
+],
+[
+408080054,
+150
+]
+]
+},
+{
+"id": 900055,
+"profile": 9,
+"price": 250000,
+"weight": 333,
+"items": [
+[
+408080009,
+3000
+],
+[
+408080030,
+6300
+],
+[
+408080047,
+400
+],
+[
+408080049,
+300
+]
+]
+},
+{
+"id": 900056,
+"profile": 9,
+"price": 200000,
+"weight": 333,
+"items": [
+[
+408080001,
+1100
+],
+[
+408080015,
+1500
+],
+[
+408080022,
+500
+],
+[
+408080024,
+6000
+],
+[
+408080048,
+300
+]
+]
+},
+{
+"id": 900057,
+"profile": 9,
+"price": 450000,
+"weight": 21,
+"items": [
+[
+408080003,
+50
+],
+[
+408080010,
+50
+],
+[
+408080029,
+50
+],
+[
+408080041,
+80
+],
+[
+498080002,
+80
+],
+[
+498080005,
+80
+],
+[
+498080008,
+130
+],
+[
+498080009,
+130
+],
+[
+498080010,
+140
+],
+[
+498080011,
+80
+],
+[
+498080017,
+80
+],
+[
+498080019,
+50
+],
+[
+408080014,
+3000
+],
+[
+408080019,
+3000
+],
+[
+408080033,
+2000
+],
+[
+408080016,
+1000
+]
+]
+},
+{
+"id": 900059,
+"profile": 9,
+"price": 15000,
+"weight": 475,
+"items": [
+[
+408100005,
+250
+],
+[
+498100005,
+1500
+],
+[
+408100012,
+8000
+],
+[
+408100013,
+250
+]
+]
+},
+{
+"id": 900060,
+"profile": 9,
+"price": 30000,
+"weight": 475,
+"items": [
+[
+408120002,
+6000
+],
+[
+408120009,
+250
+],
+[
+408120011,
+250
+],
+[
+408120012,
+250
+],
+[
+498120003,
+3250
+]
+]
+},
+{
+"id": 900061,
+"profile": 9,
+"price": 50000,
+"weight": 476,
+"items": [
+[
+408120001,
+3400
+],
+[
+408120005,
+3400
+],
+[
+408120013,
+100
+],
+[
+408120014,
+2000
+],
+[
+408120017,
+1100
+]
+]
+},
+{
+"id": 900062,
+"profile": 9,
+"price": 250000,
+"weight": 333,
+"items": [
+[
+408120003,
+2900
+],
+[
+408120010,
+1100
+],
+[
+408120019,
+400
+],
+[
+408120020,
+5600
+]
+]
+},
+{
+"id": 900063,
+"profile": 9,
+"price": 28000,
+"weight": 475,
+"items": [
+[
+408140015,
+500
+],
+[
+408140016,
+8000
+],
+[
+408140019,
+1500
+]
+]
+},
+{
+"id": 900064,
+"profile": 9,
+"price": 40000,
+"weight": 475,
+"items": [
+[
+408030014,
+100
+],
+[
+408060030,
+100
+],
+[
+408030013,
+100
+],
+[
+408040006,
+100
+],
+[
+408050028,
+100
+],
+[
+498040001,
+900
+],
+[
+498100005,
+900
+],
+[
+498040002,
+900
+],
+[
+498090008,
+900
+],
+[
+498010003,
+900
+],
+[
+408070013,
+800
+],
+[
+408080013,
+800
+],
+[
+408140019,
+700
+],
+[
+498070012,
+900
+],
+[
+498060006,
+900
+],
+[
+498070013,
+900
+]
+]
+},
+{
+"id": 900065,
+"profile": 9,
+"price": 210000,
+"weight": 476,
+"items": [
+[
+408030016,
+400
+],
+[
+408060039,
+300
+],
+[
+408060037,
+300
+],
+[
+408140016,
+300
+],
+[
+498040001,
+40
+],
+[
+498100005,
+40
+],
+[
+498040002,
+40
+],
+[
+498090008,
+40
+],
+[
+498010003,
+40
+],
+[
+408080004,
+400
+],
+[
+408080025,
+400
+],
+[
+408080026,
+400
+],
+[
+408080028,
+6600
+],
+[
+408080050,
+200
+],
+[
+408080054,
+200
+],
+[
+498070012,
+100
+],
+[
+498060006,
+100
+],
+[
+498070013,
+100
+]
+]
+},
+{
+"id": 900066,
+"profile": 9,
+"price": 70000,
+"weight": 476,
+"items": [
+[
+408080047,
+10
+],
+[
+408080049,
+10
+],
+[
+408080030,
+280
+],
+[
+408140001,
+2000
+],
+[
+498090001,
+2000
+],
+[
+498120003,
+2000
+],
+[
+408050039,
+2800
+],
+[
+408060044,
+50
+],
+[
+408080009,
+50
+],
+[
+408120002,
+50
+],
+[
+498070001,
+50
+],
+[
+498010001,
+50
+],
+[
+498070004,
+50
+],
+[
+498100004,
+50
+],
+[
+498140004,
+50
+],
+[
+498100006,
+50
+],
+[
+498040003,
+50
+],
+[
+498090009,
+50
+],
+[
+408010005,
+50
+],
+[
+408050030,
+50
+],
+[
+408100001,
+50
+],
+[
+408120009,
+50
+],
+[
+498090002,
+50
+],
+[
+498140006,
+50
+],
+[
+408010012,
+50
+]
+]
+},
+{
+"id": 900067,
+"profile": 9,
+"price": 250000,
+"weight": 333,
+"items": [
+[
+408080047,
+400
+],
+[
+408080049,
+100
+],
+[
+408080030,
+5500
+],
+[
+408140001,
+350
+],
+[
+498090001,
+250
+],
+[
+498120003,
+250
+],
+[
+408050039,
+250
+],
+[
+408060044,
+250
+],
+[
+408080009,
+155
+],
+[
+408120002,
+155
+],
+[
+498070001,
+155
+],
+[
+498010001,
+155
+],
+[
+498070004,
+155
+],
+[
+498100004,
+155
+],
+[
+498140004,
+155
+],
+[
+498100006,
+155
+],
+[
+498040003,
+155
+],
+[
+498090009,
+155
+],
+[
+408010005,
+155
+],
+[
+408050030,
+155
+],
+[
+408100001,
+155
+],
+[
+408120009,
+155
+],
+[
+498090002,
+155
+],
+[
+498140006,
+155
+],
+[
+408010012,
+170
+]
+]
+},
+{
+"id": 900068,
+"profile": 9,
+"price": 470000,
+"weight": 21,
+"items": [
+[
+408080047,
+1000
+],
+[
+408080049,
+1000
+],
+[
+408080030,
+3000
+],
+[
+408140001,
+1250
+],
+[
+498090001,
+1250
+],
+[
+498120003,
+1250
+],
+[
+408050039,
+1250
+]
+]
+},
+{
+"id": 900069,
+"profile": 9,
+"price": 70000,
+"weight": 476,
+"items": [
+[
+408120013,
+10
+],
+[
+408080048,
+10
+],
+[
+408080024,
+140
+],
+[
+408120017,
+140
+],
+[
+408030004,
+2000
+],
+[
+408050026,
+2000
+],
+[
+408080001,
+2000
+],
+[
+408090004,
+2000
+],
+[
+498070003,
+800
+],
+[
+408030008,
+33
+],
+[
+408050029,
+33
+],
+[
+408080015,
+33
+],
+[
+408100007,
+33
+],
+[
+408120014,
+33
+],
+[
+408050031,
+33
+],
+[
+408100002,
+33
+],
+[
+408120008,
+33
+],
+[
+408140021,
+33
+],
+[
+498120001,
+33
+],
+[
+408020024,
+33
+],
+[
+408030007,
+33
+],
+[
+408030023,
+33
+],
+[
+408050013,
+33
+],
+[
+408050023,
+33
+],
+[
+408060042,
+33
+],
+[
+408090001,
+33
+],
+[
+408120001,
+33
+],
+[
+408140005,
+33
+],
+[
+408030003,
+33
+],
+[
+408030024,
+33
+],
+[
+408050011,
+33
+],
+[
+408050032,
+33
+],
+[
+408060021,
+33
+],
+[
+408080022,
+33
+],
+[
+408120005,
+33
+],
+[
+408140014,
+42
+]
+]
+},
+{
+"id": 900070,
+"profile": 9,
+"price": 250000,
+"weight": 333,
+"items": [
+[
+408120013,
+400
+],
+[
+408080048,
+100
+],
+[
+408080024,
+2750
+],
+[
+408120017,
+2750
+],
+[
+408030004,
+500
+],
+[
+408050026,
+500
+],
+[
+408080001,
+500
+],
+[
+408090004,
+500
+],
+[
+498070003,
+500
+],
+[
+408030008,
+150
+],
+[
+408050029,
+150
+],
+[
+408080015,
+150
+],
+[
+408100007,
+150
+],
+[
+408120014,
+150
+],
+[
+408050031,
+150
+],
+[
+408100002,
+150
+],
+[
+408120008,
+150
+],
+[
+408140021,
+150
+],
+[
+498120001,
+150
+]
+]
+},
+{
+"id": 900071,
+"profile": 9,
+"price": 450000,
+"weight": 21,
+"items": [
+[
+408120013,
+1000
+],
+[
+408080048,
+1000
+],
+[
+408080024,
+1500
+],
+[
+408120017,
+1500
+],
+[
+408030004,
+1000
+],
+[
+408050026,
+1000
+],
+[
+408080001,
+1000
+],
+[
+408090004,
+1000
+],
+[
+498070003,
+1000
+]
+]
+},
+{
+"id": 900072,
+"profile": 9,
+"price": 70000,
+"weight": 476,
+"items": [
+[
+408080003,
+1
+],
+[
+408080010,
+1
+],
+[
+408120019,
+1
+],
+[
+408080041,
+1
+],
+[
+498140001,
+1
+],
+[
+498080002,
+1
+],
+[
+498080005,
+1
+],
+[
+498070002,
+1
+],
+[
+498080008,
+1
+],
+[
+498080009,
+1
+],
+[
+408020026,
+70
+],
+[
+408070012,
+70
+],
+[
+408080014,
+70
+],
+[
+408080019,
+70
+],
+[
+408080033,
+70
+],
+[
+408120020,
+70
+],
+[
+408140022,
+70
+],
+[
+408140024,
+70
+],
+[
+408070016,
+80
+],
+[
+408090019,
+80
+],
+[
+498100002,
+80
+],
+[
+498020001,
+80
+],
+[
+408060043,
+1000
+],
+[
+408080016,
+1000
+],
+[
+408100011,
+1000
+],
+[
+408120010,
+1000
+],
+[
+408010014,
+1000
+],
+[
+408030026,
+1168
+],
+[
+408060052,
+1782
+],
+[
+408010008,
+62
+],
+[
+408020015,
+62
+],
+[
+408030009,
+62
+],
+[
+408050001,
+62
+],
+[
+408050006,
+62
+],
+[
+408050019,
+62
+],
+[
+408060046,
+62
+],
+[
+408060054,
+62
+],
+[
+408010015,
+62
+],
+[
+498070009,
+80
+],
+[
+408010006,
+62
+],
+[
+408020017,
+62
+],
+[
+408060041,
+62
+],
+[
+408120003,
+62
+],
+[
+408020021,
+124
+],
+[
+408020022,
+70
+],
+[
+498090010,
+80
+]
+]
+},
+{
+"id": 900073,
+"profile": 9,
+"price": 250000,
+"weight": 333,
+"items": [
+[
+408080003,
+30
+],
+[
+408080010,
+30
+],
+[
+408080029,
+30
+],
+[
+408120019,
+40
+],
+[
+408080041,
+40
+],
+[
+498140001,
+40
+],
+[
+498080002,
+40
+],
+[
+498080005,
+40
+],
+[
+498070002,
+40
+],
+[
+498080008,
+30
+],
+[
+498080009,
+20
+],
+[
+498080010,
+20
+],
+[
+408020026,
+300
+],
+[
+408070012,
+300
+],
+[
+408080014,
+400
+],
+[
+408080019,
+400
+],
+[
+408080033,
+400
+],
+[
+408120020,
+400
+],
+[
+408140022,
+400
+],
+[
+408140024,
+400
+],
+[
+408070016,
+400
+],
+[
+408090019,
+400
+],
+[
+498100002,
+400
+],
+[
+498020001,
+400
+],
+[
+408060043,
+150
+],
+[
+408080016,
+150
+],
+[
+408100011,
+150
+],
+[
+408120010,
+150
+],
+[
+408010014,
+250
+],
+[
+408030026,
+250
+],
+[
+408060052,
+250
+],
+[
+408010008,
+100
+],
+[
+408020015,
+100
+],
+[
+408030009,
+100
+],
+[
+408050001,
+100
+],
+[
+408050006,
+100
+],
+[
+408050019,
+200
+],
+[
+408060046,
+250
+],
+[
+408060054,
+200
+],
+[
+408010015,
+300
+],
+[
+498070009,
+600
+],
+[
+408010006,
+300
+],
+[
+408020017,
+300
+],
+[
+408060041,
+300
+],
+[
+408120003,
+300
+],
+[
+498090010,
+400
+]
+]
+},
+{
+"id": 900074,
+"profile": 9,
+"price": 470000,
+"weight": 21,
+"items": [
+[
+408080003,
+40
+],
+[
+408080010,
+40
+],
+[
+408080029,
+40
+],
+[
+408120019,
+55
+],
+[
+408080041,
+55
+],
+[
+498140001,
+75
+],
+[
+498080002,
+55
+],
+[
+498080005,
+55
+],
+[
+498070002,
+55
+],
+[
+498080008,
+75
+],
+[
+498080009,
+75
+],
+[
+498080010,
+65
+],
+[
+498080011,
+55
+],
+[
+498060004,
+55
+],
+[
+498080017,
+55
+],
+[
+498080019,
+40
+],
+[
+498140005,
+55
+],
+[
+498060005,
+55
+],
+[
+408020026,
+300
+],
+[
+408070012,
+300
+],
+[
+408080014,
+300
+],
+[
+408080019,
+300
+],
+[
+408080033,
+300
+],
+[
+408120020,
+300
+],
+[
+408140022,
+300
+],
+[
+408140024,
+350
+],
+[
+408070016,
+350
+],
+[
+408090019,
+350
+],
+[
+498100002,
+350
+],
+[
+498020001,
+350
+],
+[
+408060043,
+700
+],
+[
+408080016,
+700
+],
+[
+408100011,
+700
+],
+[
+408120010,
+700
+],
+[
+408010014,
+700
+],
+[
+408030026,
+700
+],
+[
+408060052,
+600
+],
+[
+498090010,
+350
+]
+]
+},
+{
+"id": 900075,
+"profile": 9,
+"price": 70000,
+"weight": 476,
+"items": [
+[
+408080008,
+1
+],
+[
+498100001,
+2
+],
+[
+498080003,
+2
+],
+[
+498100003,
+3
+],
+[
+498080018,
+2
+],
+[
+408030025,
+70
+],
+[
+498060001,
+80
+],
+[
+408010016,
+80
+],
+[
+408040008,
+80
+],
+[
+408030028,
+80
+],
+[
+408020025,
+4500
+],
+[
+408040004,
+4000
+],
+[
+408050009,
+1000
+],
+[
+498070011,
+100
+]
+]
+},
+{
+"id": 900076,
+"profile": 9,
+"price": 270000,
+"weight": 333,
+"items": [
+[
+408080008,
+50
+],
+[
+498100001,
+80
+],
+[
+498080003,
+80
+],
+[
+498100003,
+110
+],
+[
+498080018,
+80
+],
+[
+408030025,
+900
+],
+[
+498060001,
+900
+],
+[
+408010016,
+900
+],
+[
+408040008,
+900
+],
+[
+408030028,
+900
+],
+[
+408020025,
+1500
+],
+[
+408040004,
+1500
+],
+[
+408050009,
+1000
+],
+[
+498070011,
+1100
+]
+]
+},
+{
+"id": 900077,
+"profile": 9,
+"price": 70000,
+"weight": 476,
+"items": [
+[
+408080039,
+2
+],
+[
+498080001,
+2
+],
+[
+498140003,
+2
+],
+[
+498080006,
+1
+],
+[
+498060003,
+1
+],
+[
+498080016,
+1
+],
+[
+498080025,
+1
+],
+[
+408050033,
+50
+],
+[
+408010009,
+4445
+],
+[
+408020019,
+4445
+],
+[
+408080038,
+1000
+],
+[
+498070010,
+50
+]
+]
+},
+{
+"id": 900078,
+"profile": 9,
+"price": 270000,
+"weight": 333,
+"items": [
+[
+408080039,
+50
+],
+[
+498080001,
+50
+],
+[
+498140003,
+50
+],
+[
+498080006,
+50
+],
+[
+498060003,
+50
+],
+[
+498080016,
+50
+],
+[
+498080025,
+100
+],
+[
+408050033,
+2800
+],
+[
+408010009,
+1500
+],
+[
+408020019,
+1500
+],
+[
+408080038,
+1000
+],
+[
+498070010,
+2800
+]
+]
+},
+{
+"id": 900079,
+"profile": 9,
+"price": 470000,
+"weight": 21,
+"items": [
+[
+408080039,
+130
+],
+[
+498080001,
+130
+],
+[
+498140003,
+130
+],
+[
+498080006,
+130
+],
+[
+498060003,
+130
+],
+[
+498080016,
+130
+],
+[
+498080025,
+220
+],
+[
+408050033,
+1500
+],
+[
+408010009,
+3000
+],
+[
+408020019,
+3000
+],
+[
+498070010,
+1500
+]
+]
+},
+{
+"id": 900080,
+"profile": 9,
+"price": 470000,
+"weight": 21,
+"items": [
+[
+408080008,
+140
+],
+[
+498100001,
+200
+],
+[
+498080003,
+200
+],
+[
+498100003,
+260
+],
+[
+498080018,
+200
+],
+[
+408030025,
+500
+],
+[
+498060001,
+500
+],
+[
+408010016,
+500
+],
+[
+408040008,
+500
+],
+[
+408030028,
+500
+],
+[
+408020025,
+3000
+],
+[
+408040004,
+3000
+],
+[
+498070011,
+500
+]
+]
+},
+{
+"id": 900081,
+"profile": 9,
+"price": 350000,
+"weight": 21,
+"items": [
+[
+408080003,
+40
+],
+[
+408080010,
+40
+],
+[
+408080029,
+40
+],
+[
+408120019,
+60
+],
+[
+408080041,
+60
+],
+[
+498140001,
+60
+],
+[
+498080002,
+60
+],
+[
+498080005,
+60
+],
+[
+498070002,
+60
+],
+[
+498080008,
+40
+],
+[
+498080009,
+40
+],
+[
+498080010,
+40
+],
+[
+408020026,
+200
+],
+[
+408070012,
+200
+],
+[
+408080014,
+200
+],
+[
+408080019,
+300
+],
+[
+408080033,
+300
+],
+[
+408120020,
+300
+],
+[
+408140022,
+300
+],
+[
+408140024,
+300
+],
+[
+408070016,
+300
+],
+[
+408090019,
+300
+],
+[
+498100002,
+300
+],
+[
+498020001,
+300
+],
+[
+408060043,
+800
+],
+[
+408080016,
+800
+],
+[
+408100011,
+800
+],
+[
+408120010,
+800
+],
+[
+408010014,
+800
+],
+[
+408030026,
+800
+],
+[
+408060052,
+700
+],
+[
+498070009,
+300
+],
+[
+498090010,
+300
+]
+]
+},
+{
+"id": 900082,
+"profile": 9,
+"price": 550000,
+"weight": 11,
+"items": [
+[
+408080003,
+70
+],
+[
+408080010,
+70
+],
+[
+408080029,
+70
+],
+[
+408120019,
+100
+],
+[
+408080041,
+100
+],
+[
+498140001,
+100
+],
+[
+498080002,
+100
+],
+[
+498080005,
+100
+],
+[
+498070002,
+100
+],
+[
+498080008,
+130
+],
+[
+498080009,
+130
+],
+[
+498080010,
+130
+],
+[
+498080011,
+100
+],
+[
+498060004,
+100
+],
+[
+498080017,
+100
+],
+[
+408020026,
+100
+],
+[
+408070012,
+100
+],
+[
+408080014,
+100
+],
+[
+408080019,
+150
+],
+[
+408080033,
+150
+],
+[
+408120020,
+150
+],
+[
+408140022,
+150
+],
+[
+408140024,
+150
+],
+[
+408070016,
+150
+],
+[
+408090019,
+150
+],
+[
+498100002,
+150
+],
+[
+498020001,
+150
+],
+[
+408060043,
+800
+],
+[
+408080016,
+800
+],
+[
+408100011,
+800
+],
+[
+408120010,
+800
+],
+[
+408010014,
+750
+],
+[
+408030026,
+700
+],
+[
+408060052,
+700
+],
+[
+408010008,
+50
+],
+[
+408020015,
+50
+],
+[
+408030009,
+50
+],
+[
+408050001,
+50
+],
+[
+408050006,
+50
+],
+[
+408050019,
+50
+],
+[
+408060046,
+50
+],
+[
+408060054,
+50
+],
+[
+408010015,
+50
+],
+[
+498070009,
+600
+],
+[
+408010006,
+50
+],
+[
+408020017,
+50
+],
+[
+408060041,
+50
+],
+[
+408120003,
+50
+],
+[
+408020021,
+50
+],
+[
+408020022,
+50
+],
+[
+498090010,
+150
+]
+]
+},
+{
+"id": 900083,
+"profile": 9,
+"price": 550000,
+"weight": 11,
+"items": [
+[
+408080008,
+210
+],
+[
+498100001,
+300
+],
+[
+498080003,
+300
+],
+[
+498100003,
+390
+],
+[
+498080018,
+300
+],
+[
+408030025,
+200
+],
+[
+498060001,
+200
+],
+[
+408010016,
+200
+],
+[
+408040008,
+300
+],
+[
+408030028,
+300
+],
+[
+408020025,
+3000
+],
+[
+408040004,
+3000
+],
+[
+408050009,
+1000
+],
+[
+498070011,
+300
+]
+]
+},
+{
+"id": 900084,
+"profile": 9,
+"price": 550000,
+"weight": 11,
+"items": [
+[
+408080039,
+200
+],
+[
+498080001,
+200
+],
+[
+498140003,
+200
+],
+[
+498080006,
+200
+],
+[
+498060003,
+200
+],
+[
+498080016,
+200
+],
+[
+498080025,
+300
+],
+[
+408050033,
+750
+],
+[
+408010009,
+3000
+],
+[
+408020019,
+3000
+],
+[
+408080038,
+1000
+],
+[
+498070010,
+750
+]
+]
+},
+{
+"id": 1000046,
+"profile": 10,
+"price": 20000,
+"weight": 375,
+"items": [
+[
+408030003,
+100
+],
+[
+408030004,
+500
+],
+[
+408030008,
+8000
+],
+[
+408030007,
+100
+],
+[
+408030023,
+100
+],
+[
+408030024,
+100
+]
+]
+},
+{
+"id": 1000047,
+"profile": 10,
+"price": 30000,
+"weight": 375,
+"items": [
+[
+408030009,
+8000
+],
+[
+408030026,
+2000
+]
+]
+},
+{
+"id": 1000052,
+"profile": 10,
+"price": 6000,
+"weight": 375,
+"items": [
+[
+408070001,
+100
+],
+[
+408070002,
+100
+],
+[
+408070003,
+10000
+],
+[
+408070008,
+100
+],
+[
+408070009,
+100
+],
+[
+408070010,
+10000
+],
+[
+408070011,
+100
+],
+[
+408070013,
+1000
+],
+[
+498070012,
+1500
+],
+[
+498070013,
+1500
+]
+]
+},
+{
+"id": 1000053,
+"profile": 10,
+"price": 480000,
+"weight": 71,
+"items": [
+[
+408070012,
+4600
+],
+[
+408070016,
+4600
+],
+[
+498070002,
+800
+]
+]
+},
+{
+"id": 1000054,
+"profile": 10,
+"price": 70000,
+"weight": 375,
+"items": [
+[
+408080002,
+150
+],
+[
+408080004,
+2200
+],
+[
+408080011,
+150
+],
+[
+408080012,
+150
+],
+[
+408080013,
+2200
+],
+[
+408080020,
+150
+],
+[
+408080021,
+150
+],
+[
+408080025,
+2200
+],
+[
+408080026,
+2200
+],
+[
+408080028,
+200
+],
+[
+408080050,
+150
+],
+[
+408080054,
+150
+]
+]
+},
+{
+"id": 1000055,
+"profile": 10,
+"price": 250000,
+"weight": 429,
+"items": [
+[
+408080009,
+3000
+],
+[
+408080030,
+6300
+],
+[
+408080047,
+400
+],
+[
+408080049,
+300
+]
+]
+},
+{
+"id": 1000056,
+"profile": 10,
+"price": 200000,
+"weight": 429,
+"items": [
+[
+408080001,
+1100
+],
+[
+408080015,
+1500
+],
+[
+408080022,
+500
+],
+[
+408080024,
+6000
+],
+[
+408080048,
+300
+]
+]
+},
+{
+"id": 1000057,
+"profile": 10,
+"price": 450000,
+"weight": 71,
+"items": [
+[
+408080003,
+50
+],
+[
+408080010,
+50
+],
+[
+408080029,
+50
+],
+[
+408080041,
+80
+],
+[
+498080002,
+80
+],
+[
+498080005,
+80
+],
+[
+498080008,
+130
+],
+[
+498080009,
+130
+],
+[
+498080010,
+140
+],
+[
+498080011,
+80
+],
+[
+498080017,
+80
+],
+[
+498080019,
+50
+],
+[
+408080014,
+3000
+],
+[
+408080019,
+3000
+],
+[
+408080033,
+2000
+],
+[
+408080016,
+1000
+]
+]
+},
+{
+"id": 1000059,
+"profile": 10,
+"price": 15000,
+"weight": 375,
+"items": [
+[
+408100005,
+250
+],
+[
+498100005,
+1500
+],
+[
+408100012,
+8000
+],
+[
+408100013,
+250
+]
+]
+},
+{
+"id": 1000060,
+"profile": 10,
+"price": 30000,
+"weight": 375,
+"items": [
+[
+408120002,
+6000
+],
+[
+408120009,
+250
+],
+[
+408120011,
+250
+],
+[
+408120012,
+250
+],
+[
+498120003,
+3250
+]
+]
+},
+{
+"id": 1000061,
+"profile": 10,
+"price": 50000,
+"weight": 408,
+"items": [
+[
+408120001,
+3400
+],
+[
+408120005,
+3400
+],
+[
+408120013,
+100
+],
+[
+408120014,
+2000
+],
+[
+408120017,
+1100
+]
+]
+},
+{
+"id": 1000062,
+"profile": 10,
+"price": 250000,
+"weight": 429,
+"items": [
+[
+408120003,
+2900
+],
+[
+408120010,
+1100
+],
+[
+408120019,
+400
+],
+[
+408120020,
+5600
+]
+]
+},
+{
+"id": 1000063,
+"profile": 10,
+"price": 28000,
+"weight": 375,
+"items": [
+[
+408140015,
+500
+],
+[
+408140016,
+8000
+],
+[
+408140019,
+1500
+]
+]
+},
+{
+"id": 1000064,
+"profile": 10,
+"price": 40000,
+"weight": 375,
+"items": [
+[
+408030014,
+100
+],
+[
+408060030,
+100
+],
+[
+408030013,
+100
+],
+[
+408040006,
+100
+],
+[
+408050028,
+100
+],
+[
+498040001,
+900
+],
+[
+498100005,
+900
+],
+[
+498040002,
+900
+],
+[
+498090008,
+900
+],
+[
+498010003,
+900
+],
+[
+408070013,
+800
+],
+[
+408080013,
+800
+],
+[
+408140019,
+700
+],
+[
+498070012,
+900
+],
+[
+498060006,
+900
+],
+[
+498070013,
+900
+]
+]
+},
+{
+"id": 1000065,
+"profile": 10,
+"price": 210000,
+"weight": 408,
+"items": [
+[
+408030016,
+400
+],
+[
+408060039,
+300
+],
+[
+408060037,
+300
+],
+[
+408140016,
+300
+],
+[
+498040001,
+40
+],
+[
+498100005,
+40
+],
+[
+498040002,
+40
+],
+[
+498090008,
+40
+],
+[
+498010003,
+40
+],
+[
+408080004,
+400
+],
+[
+408080025,
+400
+],
+[
+408080026,
+400
+],
+[
+408080028,
+6600
+],
+[
+408080050,
+200
+],
+[
+408080054,
+200
+],
+[
+498070012,
+100
+],
+[
+498060006,
+100
+],
+[
+498070013,
+100
+]
+]
+},
+{
+"id": 1000066,
+"profile": 10,
+"price": 70000,
+"weight": 408,
+"items": [
+[
+408080047,
+10
+],
+[
+408080049,
+10
+],
+[
+408080030,
+280
+],
+[
+408140001,
+2000
+],
+[
+498090001,
+2000
+],
+[
+498120003,
+2000
+],
+[
+408050039,
+2800
+],
+[
+408060044,
+50
+],
+[
+408080009,
+50
+],
+[
+408120002,
+50
+],
+[
+498070001,
+50
+],
+[
+498010001,
+50
+],
+[
+498070004,
+50
+],
+[
+498100004,
+50
+],
+[
+498140004,
+50
+],
+[
+498100006,
+50
+],
+[
+498040003,
+50
+],
+[
+498090009,
+50
+],
+[
+408010005,
+50
+],
+[
+408050030,
+50
+],
+[
+408100001,
+50
+],
+[
+408120009,
+50
+],
+[
+498090002,
+50
+],
+[
+498140006,
+50
+],
+[
+408010012,
+50
+]
+]
+},
+{
+"id": 1000067,
+"profile": 10,
+"price": 250000,
+"weight": 429,
+"items": [
+[
+408080047,
+400
+],
+[
+408080049,
+100
+],
+[
+408080030,
+5500
+],
+[
+408140001,
+350
+],
+[
+498090001,
+250
+],
+[
+498120003,
+250
+],
+[
+408050039,
+250
+],
+[
+408060044,
+250
+],
+[
+408080009,
+155
+],
+[
+408120002,
+155
+],
+[
+498070001,
+155
+],
+[
+498010001,
+155
+],
+[
+498070004,
+155
+],
+[
+498100004,
+155
+],
+[
+498140004,
+155
+],
+[
+498100006,
+155
+],
+[
+498040003,
+155
+],
+[
+498090009,
+155
+],
+[
+408010005,
+155
+],
+[
+408050030,
+155
+],
+[
+408100001,
+155
+],
+[
+408120009,
+155
+],
+[
+498090002,
+155
+],
+[
+498140006,
+155
+],
+[
+408010012,
+170
+]
+]
+},
+{
+"id": 1000068,
+"profile": 10,
+"price": 470000,
+"weight": 71,
+"items": [
+[
+408080047,
+1000
+],
+[
+408080049,
+1000
+],
+[
+408080030,
+3000
+],
+[
+408140001,
+1250
+],
+[
+498090001,
+1250
+],
+[
+498120003,
+1250
+],
+[
+408050039,
+1250
+]
+]
+},
+{
+"id": 1000069,
+"profile": 10,
+"price": 70000,
+"weight": 408,
+"items": [
+[
+408120013,
+10
+],
+[
+408080048,
+10
+],
+[
+408080024,
+140
+],
+[
+408120017,
+140
+],
+[
+408030004,
+2000
+],
+[
+408050026,
+2000
+],
+[
+408080001,
+2000
+],
+[
+408090004,
+2000
+],
+[
+498070003,
+800
+],
+[
+408030008,
+33
+],
+[
+408050029,
+33
+],
+[
+408080015,
+33
+],
+[
+408100007,
+33
+],
+[
+408120014,
+33
+],
+[
+408050031,
+33
+],
+[
+408100002,
+33
+],
+[
+408120008,
+33
+],
+[
+408140021,
+33
+],
+[
+498120001,
+33
+],
+[
+408020024,
+33
+],
+[
+408030007,
+33
+],
+[
+408030023,
+33
+],
+[
+408050013,
+33
+],
+[
+408050023,
+33
+],
+[
+408060042,
+33
+],
+[
+408090001,
+33
+],
+[
+408120001,
+33
+],
+[
+408140005,
+33
+],
+[
+408030003,
+33
+],
+[
+408030024,
+33
+],
+[
+408050011,
+33
+],
+[
+408050032,
+33
+],
+[
+408060021,
+33
+],
+[
+408080022,
+33
+],
+[
+408120005,
+33
+],
+[
+408140014,
+42
+]
+]
+},
+{
+"id": 1000070,
+"profile": 10,
+"price": 250000,
+"weight": 429,
+"items": [
+[
+408120013,
+400
+],
+[
+408080048,
+100
+],
+[
+408080024,
+2750
+],
+[
+408120017,
+2750
+],
+[
+408030004,
+500
+],
+[
+408050026,
+500
+],
+[
+408080001,
+500
+],
+[
+408090004,
+500
+],
+[
+498070003,
+500
+],
+[
+408030008,
+150
+],
+[
+408050029,
+150
+],
+[
+408080015,
+150
+],
+[
+408100007,
+150
+],
+[
+408120014,
+150
+],
+[
+408050031,
+150
+],
+[
+408100002,
+150
+],
+[
+408120008,
+150
+],
+[
+408140021,
+150
+],
+[
+498120001,
+150
+]
+]
+},
+{
+"id": 1000071,
+"profile": 10,
+"price": 450000,
+"weight": 71,
+"items": [
+[
+408120013,
+1000
+],
+[
+408080048,
+1000
+],
+[
+408080024,
+1500
+],
+[
+408120017,
+1500
+],
+[
+408030004,
+1000
+],
+[
+408050026,
+1000
+],
+[
+408080001,
+1000
+],
+[
+408090004,
+1000
+],
+[
+498070003,
+1000
+]
+]
+},
+{
+"id": 1000072,
+"profile": 10,
+"price": 70000,
+"weight": 408,
+"items": [
+[
+408080003,
+1
+],
+[
+408080010,
+1
+],
+[
+408120019,
+1
+],
+[
+408080041,
+1
+],
+[
+498140001,
+1
+],
+[
+498080002,
+1
+],
+[
+498080005,
+1
+],
+[
+498070002,
+1
+],
+[
+498080008,
+1
+],
+[
+498080009,
+1
+],
+[
+408020026,
+70
+],
+[
+408070012,
+70
+],
+[
+408080014,
+70
+],
+[
+408080019,
+70
+],
+[
+408080033,
+70
+],
+[
+408120020,
+70
+],
+[
+408140022,
+70
+],
+[
+408140024,
+70
+],
+[
+408070016,
+80
+],
+[
+408090019,
+80
+],
+[
+498100002,
+80
+],
+[
+498020001,
+80
+],
+[
+408060043,
+1000
+],
+[
+408080016,
+1000
+],
+[
+408100011,
+1000
+],
+[
+408120010,
+1000
+],
+[
+408010014,
+1000
+],
+[
+408030026,
+1168
+],
+[
+408060052,
+1782
+],
+[
+408010008,
+62
+],
+[
+408020015,
+62
+],
+[
+408030009,
+62
+],
+[
+408050001,
+62
+],
+[
+408050006,
+62
+],
+[
+408050019,
+62
+],
+[
+408060046,
+62
+],
+[
+408060054,
+62
+],
+[
+408010015,
+62
+],
+[
+498070009,
+80
+],
+[
+408010006,
+62
+],
+[
+408020017,
+62
+],
+[
+408060041,
+62
+],
+[
+408120003,
+62
+],
+[
+408020021,
+124
+],
+[
+408020022,
+70
+],
+[
+498090010,
+80
+]
+]
+},
+{
+"id": 1000073,
+"profile": 10,
+"price": 250000,
+"weight": 429,
+"items": [
+[
+408080003,
+30
+],
+[
+408080010,
+30
+],
+[
+408080029,
+30
+],
+[
+408120019,
+40
+],
+[
+408080041,
+40
+],
+[
+498140001,
+40
+],
+[
+498080002,
+40
+],
+[
+498080005,
+40
+],
+[
+498070002,
+40
+],
+[
+498080008,
+30
+],
+[
+498080009,
+20
+],
+[
+498080010,
+20
+],
+[
+408020026,
+300
+],
+[
+408070012,
+300
+],
+[
+408080014,
+400
+],
+[
+408080019,
+400
+],
+[
+408080033,
+400
+],
+[
+408120020,
+400
+],
+[
+408140022,
+400
+],
+[
+408140024,
+400
+],
+[
+408070016,
+400
+],
+[
+408090019,
+400
+],
+[
+498100002,
+400
+],
+[
+498020001,
+400
+],
+[
+408060043,
+150
+],
+[
+408080016,
+150
+],
+[
+408100011,
+150
+],
+[
+408120010,
+150
+],
+[
+408010014,
+250
+],
+[
+408030026,
+250
+],
+[
+408060052,
+250
+],
+[
+408010008,
+100
+],
+[
+408020015,
+100
+],
+[
+408030009,
+100
+],
+[
+408050001,
+100
+],
+[
+408050006,
+100
+],
+[
+408050019,
+200
+],
+[
+408060046,
+250
+],
+[
+408060054,
+200
+],
+[
+408010015,
+300
+],
+[
+498070009,
+600
+],
+[
+408010006,
+300
+],
+[
+408020017,
+300
+],
+[
+408060041,
+300
+],
+[
+408120003,
+300
+],
+[
+498090010,
+400
+]
+]
+},
+{
+"id": 1000074,
+"profile": 10,
+"price": 470000,
+"weight": 71,
+"items": [
+[
+408080003,
+40
+],
+[
+408080010,
+40
+],
+[
+408080029,
+40
+],
+[
+408120019,
+55
+],
+[
+408080041,
+55
+],
+[
+498140001,
+75
+],
+[
+498080002,
+55
+],
+[
+498080005,
+55
+],
+[
+498070002,
+55
+],
+[
+498080008,
+75
+],
+[
+498080009,
+75
+],
+[
+498080010,
+65
+],
+[
+498080011,
+55
+],
+[
+498060004,
+55
+],
+[
+498080017,
+55
+],
+[
+498080019,
+40
+],
+[
+498140005,
+55
+],
+[
+498060005,
+55
+],
+[
+408020026,
+300
+],
+[
+408070012,
+300
+],
+[
+408080014,
+300
+],
+[
+408080019,
+300
+],
+[
+408080033,
+300
+],
+[
+408120020,
+300
+],
+[
+408140022,
+300
+],
+[
+408140024,
+350
+],
+[
+408070016,
+350
+],
+[
+408090019,
+350
+],
+[
+498100002,
+350
+],
+[
+498020001,
+350
+],
+[
+408060043,
+700
+],
+[
+408080016,
+700
+],
+[
+408100011,
+700
+],
+[
+408120010,
+700
+],
+[
+408010014,
+700
+],
+[
+408030026,
+700
+],
+[
+408060052,
+600
+],
+[
+498090010,
+350
+]
+]
+},
+{
+"id": 1000075,
+"profile": 10,
+"price": 70000,
+"weight": 408,
+"items": [
+[
+408080008,
+1
+],
+[
+498100001,
+2
+],
+[
+498080003,
+2
+],
+[
+498100003,
+3
+],
+[
+498080018,
+2
+],
+[
+408030025,
+70
+],
+[
+498060001,
+80
+],
+[
+408010016,
+80
+],
+[
+408040008,
+80
+],
+[
+408030028,
+80
+],
+[
+408020025,
+4500
+],
+[
+408040004,
+4000
+],
+[
+408050009,
+1000
+],
+[
+498070011,
+100
+]
+]
+},
+{
+"id": 1000076,
+"profile": 10,
+"price": 270000,
+"weight": 429,
+"items": [
+[
+408080008,
+50
+],
+[
+498100001,
+80
+],
+[
+498080003,
+80
+],
+[
+498100003,
+110
+],
+[
+498080018,
+80
+],
+[
+408030025,
+900
+],
+[
+498060001,
+900
+],
+[
+408010016,
+900
+],
+[
+408040008,
+900
+],
+[
+408030028,
+900
+],
+[
+408020025,
+1500
+],
+[
+408040004,
+1500
+],
+[
+408050009,
+1000
+],
+[
+498070011,
+1100
+]
+]
+},
+{
+"id": 1000077,
+"profile": 10,
+"price": 70000,
+"weight": 408,
+"items": [
+[
+408080039,
+2
+],
+[
+498080001,
+2
+],
+[
+498140003,
+2
+],
+[
+498080006,
+1
+],
+[
+498060003,
+1
+],
+[
+498080016,
+1
+],
+[
+498080025,
+1
+],
+[
+408050033,
+50
+],
+[
+408010009,
+4445
+],
+[
+408020019,
+4445
+],
+[
+408080038,
+1000
+],
+[
+498070010,
+50
+]
+]
+},
+{
+"id": 1000078,
+"profile": 10,
+"price": 270000,
+"weight": 429,
+"items": [
+[
+408080039,
+50
+],
+[
+498080001,
+50
+],
+[
+498140003,
+50
+],
+[
+498080006,
+50
+],
+[
+498060003,
+50
+],
+[
+498080016,
+50
+],
+[
+498080025,
+100
+],
+[
+408050033,
+2800
+],
+[
+408010009,
+1500
+],
+[
+408020019,
+1500
+],
+[
+408080038,
+1000
+],
+[
+498070010,
+2800
+]
+]
+},
+{
+"id": 1000079,
+"profile": 10,
+"price": 470000,
+"weight": 71,
+"items": [
+[
+408080039,
+130
+],
+[
+498080001,
+130
+],
+[
+498140003,
+130
+],
+[
+498080006,
+130
+],
+[
+498060003,
+130
+],
+[
+498080016,
+130
+],
+[
+498080025,
+220
+],
+[
+408050033,
+1500
+],
+[
+408010009,
+3000
+],
+[
+408020019,
+3000
+],
+[
+498070010,
+1500
+]
+]
+},
+{
+"id": 1000080,
+"profile": 10,
+"price": 470000,
+"weight": 71,
+"items": [
+[
+408080008,
+140
+],
+[
+498100001,
+200
+],
+[
+498080003,
+200
+],
+[
+498100003,
+260
+],
+[
+498080018,
+200
+],
+[
+408030025,
+500
+],
+[
+498060001,
+500
+],
+[
+408010016,
+500
+],
+[
+408040008,
+500
+],
+[
+408030028,
+500
+],
+[
+408020025,
+3000
+],
+[
+408040004,
+3000
+],
+[
+498070011,
+500
+]
+]
+},
+{
+"id": 1000081,
+"profile": 10,
+"price": 350000,
+"weight": 71,
+"items": [
+[
+408080003,
+40
+],
+[
+408080010,
+40
+],
+[
+408080029,
+40
+],
+[
+408120019,
+60
+],
+[
+408080041,
+60
+],
+[
+498140001,
+60
+],
+[
+498080002,
+60
+],
+[
+498080005,
+60
+],
+[
+498070002,
+60
+],
+[
+498080008,
+40
+],
+[
+498080009,
+40
+],
+[
+498080010,
+40
+],
+[
+408020026,
+200
+],
+[
+408070012,
+200
+],
+[
+408080014,
+200
+],
+[
+408080019,
+300
+],
+[
+408080033,
+300
+],
+[
+408120020,
+300
+],
+[
+408140022,
+300
+],
+[
+408140024,
+300
+],
+[
+408070016,
+300
+],
+[
+408090019,
+300
+],
+[
+498100002,
+300
+],
+[
+498020001,
+300
+],
+[
+408060043,
+800
+],
+[
+408080016,
+800
+],
+[
+408100011,
+800
+],
+[
+408120010,
+800
+],
+[
+408010014,
+800
+],
+[
+408030026,
+800
+],
+[
+408060052,
+700
+],
+[
+498070009,
+300
+],
+[
+498090010,
+300
+]
+]
+},
+{
+"id": 1000082,
+"profile": 10,
+"price": 550000,
+"weight": 48,
+"items": [
+[
+408080003,
+70
+],
+[
+408080010,
+70
+],
+[
+408080029,
+70
+],
+[
+408120019,
+100
+],
+[
+408080041,
+100
+],
+[
+498140001,
+100
+],
+[
+498080002,
+100
+],
+[
+498080005,
+100
+],
+[
+498070002,
+100
+],
+[
+498080008,
+130
+],
+[
+498080009,
+130
+],
+[
+498080010,
+130
+],
+[
+498080011,
+100
+],
+[
+498060004,
+100
+],
+[
+498080017,
+100
+],
+[
+408020026,
+100
+],
+[
+408070012,
+100
+],
+[
+408080014,
+100
+],
+[
+408080019,
+150
+],
+[
+408080033,
+150
+],
+[
+408120020,
+150
+],
+[
+408140022,
+150
+],
+[
+408140024,
+150
+],
+[
+408070016,
+150
+],
+[
+408090019,
+150
+],
+[
+498100002,
+150
+],
+[
+498020001,
+150
+],
+[
+408060043,
+800
+],
+[
+408080016,
+800
+],
+[
+408100011,
+800
+],
+[
+408120010,
+800
+],
+[
+408010014,
+750
+],
+[
+408030026,
+700
+],
+[
+408060052,
+700
+],
+[
+408010008,
+50
+],
+[
+408020015,
+50
+],
+[
+408030009,
+50
+],
+[
+408050001,
+50
+],
+[
+408050006,
+50
+],
+[
+408050019,
+50
+],
+[
+408060046,
+50
+],
+[
+408060054,
+50
+],
+[
+408010015,
+50
+],
+[
+498070009,
+600
+],
+[
+408010006,
+50
+],
+[
+408020017,
+50
+],
+[
+408060041,
+50
+],
+[
+408120003,
+50
+],
+[
+408020021,
+50
+],
+[
+408020022,
+50
+],
+[
+498090010,
+150
+]
+]
+},
+{
+"id": 1000083,
+"profile": 10,
+"price": 550000,
+"weight": 48,
+"items": [
+[
+408080008,
+210
+],
+[
+498100001,
+300
+],
+[
+498080003,
+300
+],
+[
+498100003,
+390
+],
+[
+498080018,
+300
+],
+[
+408030025,
+200
+],
+[
+498060001,
+200
+],
+[
+408010016,
+200
+],
+[
+408040008,
+300
+],
+[
+408030028,
+300
+],
+[
+408020025,
+3000
+],
+[
+408040004,
+3000
+],
+[
+408050009,
+1000
+],
+[
+498070011,
+300
+]
+]
+},
+{
+"id": 1000084,
+"profile": 10,
+"price": 550000,
+"weight": 48,
+"items": [
+[
+408080039,
+200
+],
+[
+498080001,
+200
+],
+[
+498140003,
+200
+],
+[
+498080006,
+200
+],
+[
+498060003,
+200
+],
+[
+498080016,
+200
+],
+[
+498080025,
+300
+],
+[
+408050033,
+750
+],
+[
+408010009,
+3000
+],
+[
+408020019,
+3000
+],
+[
+408080038,
+1000
+],
+[
+498070010,
+750
+]
+]
+}
+]
+}

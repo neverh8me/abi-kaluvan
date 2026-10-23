@@ -1,0 +1,1841 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ABI Kaluvan</title>
+<style>
+  :root {
+    --bg: #111317; --panel: #1a1d23; --line: #2a2f38; --text: #e6e8eb; --muted: #8b93a1;
+    --accent: #f0b429; --ok: #3ecf8e; --bad: #ef4444;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.45 system-ui, "Segoe UI", sans-serif; }
+  header { padding: 14px 20px; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  header h1 { margin: 0; font-size: 18px; }
+  header .status { color: var(--muted); }
+  main { display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: 16px; padding: 0 20px 16px; }
+  @media (max-width: 960px) { main { grid-template-columns: 1fr; } }
+  /* зверху: результат зліва (лишається на місці при гортанні), схема справа у своєму вікні */
+  .top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; padding: 16px 20px 0; align-items: start; }
+  .top .result-col { position: sticky; top: 8px; }
+  .map-wrap { max-height: calc(100vh - 150px); overflow: auto; }
+  @media (max-width: 960px) { .top { grid-template-columns: 1fr; } .top .result-col { position: static; } }
+  section { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px; margin-bottom: 16px; }
+  section h2 { margin: 0 0 10px; font-size: 14px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+  button { background: #2a2f38; color: var(--text); border: 1px solid #3a414d; border-radius: 6px; padding: 8px 12px; font: inherit; cursor: pointer; }
+  button:hover { background: #343a45; }
+  button.primary { background: var(--accent); color: #111; border-color: var(--accent); font-weight: 600; }
+  button.danger { color: var(--bad); }
+  button.small { padding: 3px 8px; font-size: 12px; }
+  button:disabled { opacity: .45; cursor: default; }
+  select, input[type=text], input[type=number] { background: #111317; color: var(--text); border: 1px solid #3a414d; border-radius: 6px; padding: 6px 8px; font: inherit; min-width: 0; }
+  label { color: var(--muted); }
+  .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 10px; }
+  canvas { width: 100%; display: block; background: #0b0c0f; border-radius: 6px; }
+  #screen { cursor: crosshair; }
+  #map { cursor: pointer; width: auto; max-width: 100%; margin: 0 auto; }
+  .muted { color: var(--muted); }
+  .help li { margin-bottom: 6px; }
+  input[type=range] { width: 140px; }
+  #log { max-height: 180px; overflow: auto; font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+  /* Кроки */
+  .steps { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+  .step { border: 1px solid var(--line); border-radius: 6px; padding: 6px 10px; color: var(--muted); font-size: 13px; }
+  .step b { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; border-radius: 50%; background: #2a2f38; margin-right: 6px; }
+  .step.active { border-color: var(--accent); color: var(--text); }
+  .step.active b { background: var(--accent); color: #111; }
+  .step.done b { background: var(--ok); color: #111; }
+  .stage { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; padding: 10px 12px; border: 1px solid var(--accent); border-radius: 8px; background: #f0b4290f; margin-bottom: 12px; }
+  .stage .title { font-size: 18px; font-weight: 700; color: var(--accent); }
+  .stage .grow { flex: 1; }
+
+  /* Результат */
+  #result { border-radius: 8px; padding: 16px; background: #0b0c0f; border: 1px solid var(--line); min-height: 150px; transition: border-color .15s, background .15s; }
+  #result .big { font-size: 40px; font-weight: 800; line-height: 1.1; }
+  .chance { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; border: 1px solid; border-radius: 8px; margin: 12px 0; }
+  .chance b { font-size: 18px; }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 8px; }
+  .tile { background: #1a1d23; border: 1px solid var(--line); border-radius: 8px; padding: 8px 6px 6px; text-align: center; }
+  .tile img { width: 72px; height: 72px; object-fit: contain; display: block; margin: 0 auto; }
+  .tile .noimg { height: 72px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--muted); }
+  .tile i { display: block; height: 3px; border-radius: 2px; margin: 6px 10px; }
+  .tile b { font-size: 15px; font-variant-numeric: tabular-nums; }
+  .lang { margin-left: auto; }
+  .credits { text-align: center; color: var(--muted); font-size: 12px; padding: 8px 20px 20px; }
+  .map-pop { position: fixed; z-index: 10; width: 340px; background: #15181d; border: 1px solid #3a414d; border-radius: 10px; padding: 12px; box-shadow: 0 8px 30px #000a; pointer-events: none; }
+  .map-pop .head { color: var(--muted); font-size: 13px; }
+  .map-pop .tiles { grid-template-columns: repeat(3, 1fr); }
+  .map-pop .tile img { width: 56px; height: 56px; }
+  #result .sub { color: var(--muted); margin: 4px 0 12px; }
+  .bars div { display: flex; align-items: center; gap: 8px; margin: 4px 0; }
+  .bars .bar { flex: 1; height: 10px; background: #1a1d23; border-radius: 5px; overflow: hidden; }
+  .bars .bar i { display: block; height: 100%; }
+  .bars .name { width: 100px; }
+  .bars .val { width: 48px; text-align: right; font-variant-numeric: tabular-nums; }
+  .items { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { display: inline-flex; align-items: center; gap: 6px; padding: 3px 8px; border-radius: 12px; background: #1a1d23; border: 1px solid var(--line); font-size: 13px; }
+  .chip img { width: 28px; height: 28px; object-fit: contain; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; flex: none; }
+
+  /* Звуки */
+  .sound { border: 1px solid var(--line); border-radius: 8px; padding: 10px; margin-bottom: 10px; }
+  .sound.recording { border-color: var(--bad); box-shadow: 0 0 0 1px var(--bad); }
+  .sound.hit { border-color: var(--accent); }
+  .sound-head { display: flex; align-items: center; gap: 8px; }
+  .sound-head .grow { flex: 1; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .sound .meta { color: var(--muted); font-size: 12px; margin: 4px 0 8px; }
+  .item-row { display: flex; align-items: center; gap: 6px; margin: 4px 0; font-size: 13px; }
+  .item-row .grow { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .item-row img { width: 24px; height: 24px; object-fit: contain; background: #0b0c0f; border-radius: 4px; }
+  .add-item { display: grid; grid-template-columns: 1fr 96px 74px 50px auto; gap: 6px; margin-top: 8px; }
+  details summary { cursor: pointer; font-size: 12px; }
+  .sizes { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+  .size { border: 1px solid var(--line); border-radius: 6px; padding: 2px 8px; font-size: 13px; font-variant-numeric: tabular-nums; }
+  .size.on { background: #ffffff14; outline: 2px solid var(--text); }
+  .odds { margin-top: 12px; }
+  .odds-row { display: flex; align-items: center; gap: 8px; padding: 3px 0; font-size: 13px; border-bottom: 1px solid #ffffff0a; }
+  .odds-row .grow { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .odds-row img { width: 24px; height: 24px; object-fit: contain; }
+  .odds-row b { width: 44px; text-align: right; font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+<header>
+  <h1 data-i18n="app">ABI Kaluvan</h1>
+  <button id="btnStart" class="primary" data-i18n="btn.start">Почати ловлю</button>
+  <button id="btnStop" disabled data-i18n="btn.stop">Зупинити</button>
+  <span class="status" id="status" data-i18n="status.idle">Не запущено</span>
+  <select id="lang" class="lang" title="Мова · Language · Язык">
+    <option value="uk">UA</option><option value="en">ENG</option><option value="ru">RU</option>
+  </select>
+</header>
+
+<div class="top">
+  <section class="result-col">
+    <h2 data-i18n="h.result">Результат</h2>
+    <div id="result"><span class="muted" data-i18n="result.wait">Чекаю на звук…</span></div>
+  </section>
+
+  <section class="map-col">
+    <div class="stage">
+      <span class="title" id="stageTitle"></span>
+      <span class="grow muted" id="stageHint"></span>
+      <button id="btnDone" class="primary" hidden data-i18n="btn.done">Готово</button>
+      <button id="btnRescan" hidden data-i18n="btn.rescan">Скинути схему</button>
+    </div>
+    <div class="map-wrap"><canvas id="map" width="360" height="200"></canvas></div>
+    <p class="muted" style="margin:8px 0 0" data-i18n="map.hint"></p>
+  </section>
+</div>
+<div id="mapPop" class="map-pop" hidden></div>
+
+<main>
+  <div>
+
+    <section>
+      <h2 data-i18n="h.level">Рівень звуку</h2>
+      <canvas id="spec" width="800" height="160"></canvas>
+      <div class="row" style="margin-top:10px">
+        <label><span data-i18n="lbl.sens">Чутливість</span> <input type="range" id="sens" min="4" max="30" value="12"></label>
+        <span id="sensVal" class="muted"></span>
+        <label><span data-i18n="lbl.thr">Поріг збігу</span> <input type="range" id="thr" min="30" max="95" value="50"></label>
+        <span id="thrVal" class="muted"></span>
+        <label><input type="checkbox" id="beep" checked> <span data-i18n="lbl.beep">Сигнал</span></label>
+      </div>
+    </section>
+
+    <section>
+      <h2 data-i18n="h.log">Журнал</h2>
+      <div id="log"></div>
+    </section>
+  </div>
+
+  <div>
+    <section>
+      <h2 data-i18n="h.sounds">Звуки</h2>
+      <div class="row">
+        <button id="btnLib" class="primary" data-i18n="btn.lib">Імпорт бібліотеки</button>
+        <select id="profile" hidden data-i18n-title="tip.profile"></select>
+        <label data-i18n-title="tip.blue"><input type="checkbox" id="blue"> <span data-i18n="lbl.blue">Сині</span></label>
+        <input type="file" id="libDir" webkitdirectory hidden>
+      </div>
+      <div class="row">
+        <input type="text" id="newName" data-i18n-ph="ph.newName" style="flex:1">
+        <button id="btnAdd" data-i18n="btn.add">Додати</button>
+      </div>
+      <div id="sounds"></div>
+      <div class="row" style="margin-top:12px">
+        <button id="btnExport" data-i18n="btn.export">Експорт</button>
+        <button id="btnImport" data-i18n="btn.import">Імпорт</button>
+        <button id="btnClear" class="danger" data-i18n="btn.clear">Очистити все</button>
+        <input type="file" id="file" accept=".json" hidden>
+        <input type="file" id="imgFile" accept="image/*" hidden>
+      </div>
+    </section>
+
+    <section>
+      <h2 data-i18n="h.help">Як користуватись</h2>
+      <ol class="help">
+        <li data-i18n-html="help.1"></li>
+        <li data-i18n-html="help.2"></li>
+        <li data-i18n-html="help.3"></li>
+        <li data-i18n-html="help.4"></li>
+        <li data-i18n-html="help.5"></li>
+        <li data-i18n-html="help.6"></li>
+      </ol>
+      <p class="muted" data-i18n="help.note"></p>
+    </section>
+  </div>
+</main>
+
+<footer class="credits">Created by neverh8me and Claude Code</footer>
+
+<video id="video" autoplay muted playsinline hidden></video>
+
+<script src="i18n.js"></script>
+<script src="audio.js"></script>
+<script src="library.js"></script>
+<script src="vision.js"></script>
+<script src="lib/tesseract/tesseract.min.js"></script>
+<script src="ocr.js"></script>
+<script>
+'use strict';
+
+// ---------- Константи ----------
+const TRACK_SX = 4, TRACK_SY = 2;  // зменшення кадру для стеження за прокруткою
+const RING_MS = 3000;        // скільки історії кадрів тримати
+const OCC_GREY = 0.3;        // частка «сірого» в комірці, щоб вважати її вантажем (порожні слоти чорні)
+const PICK_MIN_DIFF = 4;     // мінімальна зміна вантажу (0–255), щоб вважати його потягнутим
+const RED_MIN = 3;           // мінімальна «червоність» сліду на місці потягнутого вантажу
+const MAP_U = 56;            // розмір одиниці на схемі
+const SCAN_MS = 250;         // як часто розбирати сітку, коли схема готова
+const SCAN_FAST_MS = 100;    // і під час скану: кожен вантаж має встигнути набрати голоси, поки його видно
+const QUIET_MS = 1500;       // стільки після звуку картинка вважається «брудною» (вантаж тягнуть)
+const REOPEN_MS = 5000;      // сітки не видно довше — торговця закрили, наступного разу нова схема
+const FREEZE_STABLE = 4;     // стільки розборів без нових вантажів — і схема готова
+const CHANGED_SHARE = 0.4;   // така частка видимих вантажів зникла —
+const CHANGED_STREAK = 6;    // стільки розборів поспіль (~1.5 с) — значить, список переставили
+const REVEAL_STREAK = 4;     // колір розвідданих має триматися стільки розборів
+const MERCHANT_FRESH_MS = 1500; // сітку торговця бачили так недавно — значить, він відкритий
+const NO_BAR_LIMIT = 8;      // стільки розборів без смуги прокрутки — список короткий, рахуємо без неї
+const THUMB_TOLERANCE = 0.12; // повзунок довший/коротший за запамʼятований більше ніж на стільки — підозріло
+const THUMB_NEW_STREAK = 8;  // стільки розборів поспіль нова довжина — значить, список справді змінився
+const MAP_MAX_ROWS = 80;     // більше рядків у торговця не буває; більше на схемі — помилка
+const MIN_VOTES = 2;         // стільки кадрів має підтвердити вантаж, щоб він зʼявився на схемі
+const SPLIT_SHARE = 0.35;    // менші вантажі перемагають великий, якщо кожного бачили хоч у стільки разів рідше
+const UP_BIAS = 0.03;        // «поклав» перемагає «взяв» лише з таким запасом
+const TAP_BLOCK = 512;       // скільки відліків звуку передавати з аудіопотоку за раз
+
+const QUALITIES = [
+  // назви — qName() поточною мовою
+  { id: 'red', color: '#ef4444' },
+  { id: 'gold', color: '#f0b429' },
+  { id: 'purple', color: '#a855f7' },
+  { id: 'blue', color: '#3b82f6' },
+  { id: 'green', color: '#22c55e' },
+  { id: 'white', color: '#d1d5db' },
+];
+const qById = Object.fromEntries(QUALITIES.map(q => [q.id, q]));
+const SIZES = ['1x1', '1x2', '2x1', '2x2', '2x3', '3x2'];
+const SIZE_KEYS = ['1x1', '1x2', '2x2', '1x3', '2x3', '3x3']; // розміри без повороту, для показу
+const MYSTERY_TIERS = {
+  rare: { short: 'Rare', tiny: 'Rare', name: 'Rare Mystery Cargo', color: '#a855f7' },
+  uncommon: { short: 'Uncommon', tiny: 'Unc', name: 'Uncommon Mystery Cargo', color: '#3b82f6' },
+  common: { short: 'Mystery', tiny: 'Myst', name: 'Mystery Cargo', color: '#d1d5db' },
+};
+const LABEL_TRIES = 4;       // стільки спроб прочитати напис вантажу
+const PRICE_MARKUP = 1.1;    // торговець накидає ~10% до ціни пулу (100 000 у таблиці — 110 000 у грі)
+const PRICE_MATCH_LOG = 0.25; // ціна з рамки має бути близько до ціни пулу (у логарифмі, ≈ ±28%)
+const HOVER_DIFF = 12;       // вантаж змінився сильніше — його накрила рамка з ціною
+const HOVER_KEEP_MS = 6000;  // стільки після наведення звук «взяв» належить наведеному вантажу
+const HOVER_MAX_CARGO = 16;  // рамка закриває не більше стількох вантажів; більше — це вже не рамка
+const TIP_W = 3.2, TIP_H = 1.8; // розмір рамки з ціною в клітинках (із запасом)
+const BASE_UPDATE_MAX = 6;   // еталон вигляду оновлюємо лише на дрібні зміни (не на рамку з ціною)
+const STORE_KEY = 'abi-ear-sounds-v4';       // v4: свої записи — сирий звук, а не відбиток
+const OLD_STORE_KEYS = ['abi-ear-sounds-v3', 'abi-ear-sounds-v2'];
+const OLD_REGION_KEY = 'abi-ear-region-v1'; // ручна рамка зі старих версій — більше не потрібна
+const MERCHANT_SIDE = 0.5;   // сітку торговця шукаємо правіше від цієї частки ширини вікна гри
+const PROFILES_KEY = 'abi-ear-profiles-v1';
+const PROFILE_KEY = 'abi-ear-profile-v1';
+const BLUE_KEY = 'abi-ear-blue-v1';
+
+// ---------- DOM ----------
+const $ = id => document.getElementById(id);
+const ui = {
+  start: $('btnStart'), stop: $('btnStop'), status: $('status'), result: $('result'),
+  spec: $('spec'), video: $('video'), log: $('log'), sounds: $('sounds'), newName: $('newName'),
+  sens: $('sens'), sensVal: $('sensVal'), thr: $('thr'), thrVal: $('thrVal'), beep: $('beep'),
+  map: $('map'), imgFile: $('imgFile'), profile: $('profile'), libDir: $('libDir'),
+  stageTitle: $('stageTitle'), stageHint: $('stageHint'), rescan: $('btnRescan'), done: $('btnDone'),
+};
+const specCtx = ui.spec.getContext('2d');
+const mapCtx = ui.map.getContext('2d');
+
+// ---------- Стан ----------
+let stream = null, audioCtx = null, workletNode = null, srcNode = null, beepCtx = null;
+let detector = null;
+let gameWs = null, gameStatus = null; // звук лише гри від локального сервера
+let screenWs = null;         // кадри екрана від локального сервера
+const tplCache = new Map();  // id звуку → { up: [еталон], down: [еталон] }
+let captureOnset = -Infinity; // коли почався звук (performance.now)
+let recordingId = null;      // id звуку, для якого пишемо зразок
+let lastHitId = null;
+let muteUntil = 0;
+let sounds = loadSounds();
+let profiles = loadJson(PROFILES_KEY, []);   // карти з бібліотеки: [{ id, name }]
+let profile = loadJson(PROFILE_KEY, '');     // вибрана карта ('' — середнє по всіх)
+let includeBlue = loadJson(BLUE_KEY, false); // чи рахувати сині предмети
+let libPools = [], itemQ = {}, itemById = new Map(); // пули торговця й предмети з бібліотеки
+let hover = null;            // вантаж, на який щойно навели: { key, t }
+let hoverBusy = false, hoverSig = ''; // читання рамки з ціною: зайнято / які вантажі вона закриває
+
+// Сітка торговця. Координати «регіону» — пікселі кадру відносно лівого верхнього кута регіону.
+// Абсолютний рядок R має верхню лінію на y = R*P - offset (offset росте, коли гортаєш вниз).
+let P = 0;                   // розмір одиниці сітки, px кадру
+let phaseX = 0;              // зсув ліній по x (0..P)
+let offset = 0;              // прокрутка
+let viewport = null;         // видима частина сітки { x, y, w, h } у px регіону
+let prevSig = null;          // підписи рядків попереднього маленького кадру
+let ring = [];               // [{ t, small, red, offset }]
+let cargo = new Map();       // ключ "C,R,w,h" → { C, R, w, h, votes, base, baseRed, thumb }
+let results = new Map();     // ключ вантажу → { soundId, score }
+let lastKey = null;          // вантаж, якому щойно призначили звук
+let lastResult = null;
+let lastSeen = null;         // останнє розпізнавання для превʼю: { grid, items }
+let gridSeenAt = 0;          // коли востаннє бачили сітку торговця
+let listTopR = null;         // абсолютний рядок першого рядка списку (верх при першому виявленні)
+let phase = 'scan';          // 'scan' — збираємо схему, 'frozen' — схема готова й не змінюється
+let frozenPlaced = null;     // готова схема: зафіксований список вантажів
+let sawTop = false, sawEnd = false; // чи бачили під час скану верх і низ списку
+let stableCount = 0;         // скільки розборів поспіль не зʼявлялось нових вантажів
+let changeCount = 0;         // скільки розборів поспіль заморожена схема не збігається з екраном
+let sbKnown = null;          // знайдена доріжка смуги прокрутки { x, trackTop, trackLen }
+let noBarCount = 0;          // скільки розборів сітку видно, а смуги прокрутки нема
+let thumbOddLen = 0, thumbOddCount = 0; // повзунок іншої довжини: яка і скільки кадрів поспіль
+let videoReader = null, videoTimer = null;
+let lastScan = 0;
+let imgTarget = null;        // { sound, index } предмет, якому вибираємо картинку
+
+const fullCanvas = document.createElement('canvas');
+const fullCtx = fullCanvas.getContext('2d', { willReadFrequently: true });
+const smallCanvas = document.createElement('canvas');
+const smallCtx = smallCanvas.getContext('2d', { willReadFrequently: true });
+
+// ---------- Захоплення ----------
+const WORKLET_SRC = `
+class Tap extends AudioWorkletProcessor {
+  constructor() { super(); this.buf = new Float32Array(${TAP_BLOCK}); this.n = 0; }
+  process(inputs) {
+    const inp = inputs[0];
+    if (!inp || !inp.length) return true;
+    const ch0 = inp[0], ch1 = inp[1] || inp[0];
+    for (let i = 0; i < ch0.length; i++) {
+      this.buf[this.n++] = (ch0[i] + ch1[i]) * 0.5;
+      if (this.n === ${TAP_BLOCK}) { this.port.postMessage(this.buf.slice()); this.n = 0; }
+    }
+    return true;
+  }
+}
+registerProcessor('tap', Tap);`;
+
+async function start() {
+  beepCtx = beepCtx || new AudioContext(); // створюємо під час кліку, щоб браузер не блокував звук
+  // Звук лише гри і знімок екрана дає локальний сервер (start.bat), без шарингу в браузері.
+  // Без нього — шаринг екрана браузером і весь звук ПК.
+  gameWs = await connectGameAudio();
+  screenWs = gameWs ? await connectScreen() : null;
+  if (screenWs) {
+    stream = { getTracks: () => [] }; // екран іде від сервера, браузерного потоку нема
+    startNativeScreen();
+  } else {
+    try {
+      stream = await navigator.mediaDevices.getDisplayMedia(gameWs
+        ? { video: { frameRate: 15 }, audio: false }
+        : {
+          video: { frameRate: 15 },
+          audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false },
+          systemAudio: 'include',
+        });
+    } catch (e) {
+      closeGameAudio();
+      setStatus(tr('status.cancelled', { msg: e.message }));
+      return;
+    }
+    if (!gameWs && !stream.getAudioTracks().length) {
+      setStatus(tr('status.noAudio'));
+      stream.getTracks().forEach(t => t.stop());
+      stream = null;
+      return;
+    }
+    stream.getTracks().forEach(t => t.addEventListener('ended', stop));
+    startVideo(stream.getVideoTracks()[0]);
+  }
+
+  detector = Ear.makeStream({
+    sens: () => +ui.sens.value,
+    muted: () => performance.now() < muteUntil,
+    onWindow,
+    onRaw,
+    onLevel: (db, trig) => {
+      if (trig) captureOnset = performance.now();
+      if (document.visibilityState === 'visible') drawLevel(db, trig);
+    },
+  });
+
+  if (gameWs) {
+    gameWs.onmessage = e => {
+      if (typeof e.data === 'string') showGameStatus(JSON.parse(e.data));
+      else if (detector) detector.push(new Float32Array(e.data));
+    };
+    gameWs.onclose = () => { if (stream) { gameWs = null; setStatus(tr('status.audioClosed')); } };
+    showGameStatus(gameStatus);
+  } else {
+    // та сама частота, що й у бібліотеки, щоб сэмпли збігались точно
+    audioCtx = new AudioContext({ latencyHint: 'interactive', sampleRate: Ear.SAMPLE_RATE });
+    const url = URL.createObjectURL(new Blob([WORKLET_SRC], { type: 'application/javascript' }));
+    await audioCtx.audioWorklet.addModule(url);
+    URL.revokeObjectURL(url);
+    srcNode = audioCtx.createMediaStreamSource(new MediaStream(stream.getAudioTracks()));
+    workletNode = new AudioWorkletNode(audioCtx, 'tap', { numberOfOutputs: 0 });
+    workletNode.port.onmessage = e => detector.push(e.data);
+    srcNode.connect(workletNode);
+    setStatus(tr('status.listenAll', { rate: audioCtx.sampleRate }));
+  }
+
+  ui.start.disabled = true; ui.stop.disabled = false;
+  log(tr('log.started', { audio: tr(gameWs ? 'log.audioGame' : 'log.audioAll'), screen: tr(screenWs ? 'log.screenServer' : 'log.screenBrowser') }));
+  resetScan();
+}
+
+// Підʼєднання до звуку гри від локального сервера. Повертає WebSocket або null, якщо сервера нема.
+function connectGameAudio() {
+  if (!/^https?:$/.test(location.protocol)) return Promise.resolve(null);
+  return new Promise(resolve => {
+    let ws;
+    try { ws = new WebSocket(`ws://${location.host}/audio`); } catch { resolve(null); return; }
+    ws.binaryType = 'arraybuffer';
+    const timer = setTimeout(() => { ws.close(); resolve(null); }, 1500);
+    ws.onmessage = e => {
+      if (typeof e.data !== 'string') return;
+      clearTimeout(timer);
+      gameStatus = JSON.parse(e.data);
+      ws.onmessage = null;
+      resolve(ws);
+    };
+    ws.onerror = () => { clearTimeout(timer); resolve(null); };
+  });
+}
+
+function closeGameAudio() {
+  if (!gameWs) return;
+  const ws = gameWs;
+  gameWs = null;
+  ws.onclose = null;
+  ws.close();
+}
+
+// Кадри екрана від сервера (JPEG). Повертає WebSocket або null.
+function connectScreen() {
+  return new Promise(resolve => {
+    let ws;
+    try { ws = new WebSocket(`ws://${location.host}/screen`); } catch { resolve(null); return; }
+    ws.binaryType = 'arraybuffer';
+    const timer = setTimeout(() => { ws.close(); resolve(null); }, 1500);
+    ws.onopen = () => { clearTimeout(timer); resolve(ws); };
+    ws.onerror = () => { clearTimeout(timer); resolve(null); };
+  });
+}
+
+function startNativeScreen() {
+  let busy = false; // поки попередній кадр розбирається, нові пропускаємо: так не накопичується затримка
+  screenWs.onmessage = e => {
+    if (typeof e.data === 'string') {
+      const m = JSON.parse(e.data);
+      if (m.type !== 'screen') return;
+      if (m.black) log(tr('log.black'));
+      if (m.state === 'nogame') log(tr('log.nogame'));
+      else if (m.state === 'minimized') log(tr('log.minimized'));
+      else if (m.state === 'game') log(tr('log.gameWin'));
+      return;
+    }
+    if (busy) return;
+    busy = true;
+    createImageBitmap(new Blob([e.data], { type: 'image/jpeg' }))
+      .then(bmp => { try { onVideoFrame(bmp, bmp.width, bmp.height); } finally { bmp.close(); } })
+      .catch(() => {})
+      .finally(() => { busy = false; });
+  };
+  screenWs.onclose = () => { if (stream) { screenWs = null; log(tr('log.screenClosed')); } };
+}
+
+function closeScreen() {
+  if (!screenWs) return;
+  const ws = screenWs;
+  screenWs = null;
+  ws.onclose = null;
+  ws.close();
+}
+
+function showGameStatus(st) {
+  gameStatus = st;
+  if (!stream || !st) return;
+  if (st.state === 'game') setStatus(tr('status.game'));
+  else if (st.state === 'wait') setStatus(tr('status.wait'));
+  else if (st.state === 'error') setStatus(tr('status.error', { msg: st.message }));
+}
+
+function stop() {
+  if (!stream) return;
+  stream.getTracks().forEach(t => t.stop());
+  stream = null;
+  closeGameAudio();
+  closeScreen();
+  if (audioCtx) audioCtx.close();
+  audioCtx = null; workletNode = null; srcNode = null; detector = null;
+  if (videoReader) videoReader.cancel().catch(() => {});
+  videoReader = null;
+  clearInterval(videoTimer);
+  ui.video.srcObject = null;
+  ui.start.disabled = false; ui.stop.disabled = true;
+  setRecording(null);
+  setStatus(tr('status.stopped'));
+  updateStage();
+}
+
+// ---------- Розпізнавання ----------
+// Еталони живуть лише в памʼяті: бібліотечні будуються з wav при старті, свої — із записаних хвиль
+function templatesOf(s) {
+  let t = tplCache.get(s.id);
+  if (!t) {
+    t = { up: (s.waves || []).map(b64 => Ear.makeTemplate(Ear.decodeWave(b64))).filter(Boolean), down: [] };
+    tplCache.set(s.id, t);
+  }
+  return t;
+}
+
+function allTemplates() {
+  const out = [];
+  for (const s of sounds) {
+    const t = templatesOf(s);
+    for (const tpl of t.up) out.push({ id: s.id, kind: 'up', tpl });
+    for (const tpl of t.down) out.push({ id: s.id, kind: 'down', tpl });
+  }
+  return out;
+}
+
+function onWindow(win, msAgo) {
+  if (recordingId) return; // запис іде через onRaw
+  classify(win, performance.now() - msAgo);
+}
+
+function onRaw(wave, msAgo) {
+  if (!recordingId) return;
+  const s = soundById(recordingId);
+  const tpl = s && Ear.makeTemplate(wave);
+  if (tpl) {
+    (s.waves ||= []).push(Ear.encodeWave(wave));
+    templatesOf(s).up.push(tpl);
+    saveSounds();
+    log(tr('log.saved', { name: soundName(s), n: templatesOf(s).up.length }));
+  }
+  setRecording(null);
+}
+
+function classify(win, onset) {
+  const tpls = allTemplates();
+  if (!tpls.some(t => t.kind === 'up')) { log(tr('log.noSounds')); return; }
+  const res = Ear.match(win, tpls);
+  // найкращий «взяв» кожного звуку, за спаданням
+  const ranked = [], seenIds = new Set();
+  for (const r of res) {
+    if (r.kind !== 'up' || seenIds.has(r.id)) continue;
+    seenIds.add(r.id);
+    ranked.push({ s: soundById(r.id), score: r.score });
+  }
+  const { s: best, score } = ranked[0];
+  const thr = +ui.thr.value / 100;
+
+  // звук «поклав» (вантаж відпустили) — не новий вантаж
+  const down = res.find(r => r.kind === 'down');
+  if (down && down.score >= thr && down.score > score + UP_BIAS) {
+    log(tr('log.down', { name: soundName(soundById(down.id)), p: pct(down.score) }));
+    return;
+  }
+  if (score < thr) {
+    log(tr('log.unknown', { name: soundName(best), p: pct(score) }));
+    return;
+  }
+  if (!best.items.length) {
+    log(tr('log.noise', { name: soundName(best), p: pct(score) }));
+    return;
+  }
+  // довгий звук має кілька ударів: не розпізнаємо його хвіст як новий вантаж
+  if (best.dur) muteUntil = Math.max(muteUntil, onset + best.dur * 1000 + 150);
+
+  lastHitId = best.id;
+  renderSounds();
+  lastResult = { soundId: best.id, score };
+  // вантаж шукаємо лише коли торговець зараз на екрані: інакше (сховище, рейд) схема стара,
+  // і розмір чужого вантажу зіпсував би шанси
+  const merchantOpen = cargo.size && performance.now() - gridSeenAt < MERCHANT_FRESH_MS;
+  // вантаж: той, на який щойно навели (як у платному сайті); інакше — за червоним слідом
+  const hovered = hover && performance.now() - hover.t < HOVER_KEEP_MS && cargo.has(hover.key) ? hover.key : null;
+  const key = merchantOpen ? hovered || pickCargo(onset) : null;
+  hover = null;
+  const rec = key && cargo.get(key);
+  const size = rec ? `${rec.w}x${rec.h}` : '';
+  const label = cargoInfo(rec);
+  showResult(best, score, ranked[1], size, label);
+  const red = qualityOdds(best, size, label).red || 0;
+  if (ui.beep.checked) beep(red);
+
+  if (key) {
+    results.set(key, lastResult);
+    lastKey = key;
+    log(tr('log.hitCargo', { name: soundName(best), p: pct(score), size: normSize(size), cell: cargoName(key), red: pct(red) }));
+  } else {
+    lastKey = null;
+    log(tr('log.hit', { name: soundName(best), p: pct(score), red: pct(red) }) + (merchantOpen ? tr('log.noCargo') : ''));
+  }
+  drawMap();
+}
+
+// ---------- Шанси ----------
+// Вага предмета для вибраної карти; свої предмети (без даних торговця) мають одну вагу на всі карти.
+// Синіх у торговця на ділі не трапляється (хоч у таблицях abibuilder вони є) — без галочки не рахуємо.
+// label — що відомо про вантаж (cargoInfo): напис і, якщо прочитали, ціна. За ціною — лише пули цієї
+// ціни; у Mystery Cargo — лише змішані пули.
+function weightOf(it, label) {
+  if (it.q === 'blue' && !includeBlue) return 0;
+  if (label && label.priceW) return label.priceW.get(it.id) || 0;
+  if (label && label.mystery && it.wpm) return profile ? it.wpm[profile] || 0 : it.wm;
+  if (profile && it.wp) return it.wp[profile] || 0;
+  return it.w;
+}
+
+// Розмір без повороту: торговець може покласти вантаж повернутим (TI Module 2×1 лежить як 1×2),
+// тож порівнюємо «менша сторона × більша»
+function normSize(size) {
+  if (!size) return '';
+  const [a, b] = size.split('x').map(Number);
+  return `${Math.min(a, b)}x${Math.max(a, b)}`;
+}
+
+// Предмети звуку, які підходять за розміром і написом вантажу (розмір у торговця = розмір предмета).
+// Вантаж із назвою категорії («Tools», «Military Items»…) містить лише предмети цієї категорії
+// і ніколи не буває краснухою — краснухи лише в Mystery Cargo.
+function itemsFor(sound, size, label) {
+  let items = sound.items.filter(it => it.q !== 'blue' || includeBlue);
+  if (label && label.category) {
+    items = items.filter(it => it.q !== 'red');
+    const same = items.filter(it => it.category === label.category);
+    if (same.length) items = same;
+  }
+  if (!size) return items;
+  const fit = items.filter(it => normSize(it.size) === normSize(size));
+  return fit.length ? fit : items; // розмір не збігся ні з ким: показуємо всіх
+}
+
+// Імовірність кожного предмета; якщо на карті жоден не трапляється, всі рівні.
+// Порядок: спершу краснухи, далі золоті й так донизу; усередині якості — за шансом.
+function itemOdds(sound, size, label) {
+  const list = itemsFor(sound, size, label);
+  let total = list.reduce((a, it) => a + weightOf(it, label), 0);
+  // за ціною не підійшов жоден предмет звуку — значить, ціну чи звук прочитано не так; без ціни
+  if (!total && label && label.priceW) return itemOdds(sound, size, { ...label, priceW: null });
+  const uniform = !total;
+  if (uniform) total = list.length || 1;
+  return list.map(it => ({ it, p: (uniform ? 1 : weightOf(it, label)) / total }))
+    .sort((a, b) => order(a.it.q) - order(b.it.q) || b.p - a.p);
+}
+
+function qualityOdds(sound, size, label) {
+  const odds = {};
+  for (const { it, p } of itemOdds(sound, size, label)) odds[it.q] = (odds[it.q] || 0) + p;
+  return odds;
+}
+
+// Предмет для картинки: найімовірніша краснуха, якщо є, інакше найімовірніший предмет
+function showcaseItem(sound, size, label) {
+  const list = itemOdds(sound, size, label).filter(x => x.p > 0);
+  const red = list.find(x => x.it.q === 'red');
+  return (red || list.slice().sort((a, b) => b.p - a.p)[0] || {}).it;
+}
+
+function sizesOf(sound) {
+  const have = new Set(itemsFor(sound, '').map(it => normSize(it.size)));
+  return SIZE_KEYS.filter(sz => have.has(sz));
+}
+
+function showResult(sound, score, second, size, label) {
+  const odds = qualityOdds(sound, size, label);
+  const red = odds.red || 0;
+  const color = redColor(red);
+  ui.result.style.borderColor = color;
+  ui.result.style.background = color + '1a';
+
+  // шанс краснухи для кожного розміру: видно, навіть якщо вантаж не визначився
+  const sizes = sizesOf(sound).map(sz => {
+    const r = qualityOdds(sound, sz, label).red || 0;
+    return `<span class="size${sz === normSize(size) ? ' on' : ''}" style="border-color:${redColor(r)}">${sz} <b style="color:${redColor(r)}">${pct(r)}</b></span>`;
+  }).join('');
+
+  const alt = second && second.score > score - 0.05 && second.s.items.length
+    ? `<div class="muted" style="margin-top:10px">${esc(tr('card.alt', { name: soundName(second.s), p: pct(second.score), red: pct(qualityOdds(second.s, size, label).red || 0) }))}</div>`
+    : '';
+
+  const parts = [tr('card.sub', { name: soundName(sound), p: pct(score) })];
+  ui.result.innerHTML = `
+    <div class="big" style="color:${color}">${red >= 0.995 ? tr('card.red') : red > 0 ? tr('card.redP', { p: pct(red) }) : tr('card.notRed')}</div>
+    <div class="sub">${esc(parts[0] + (size ? tr('card.cargo', { size: normSize(size) }) : ''))}${label && (label.mystery || label.category) ? `, ${esc(labelName(label))}` : ''}${label && label.price ? `, ${fmtPrice(label.price)}` : ''}</div>
+    ${sizes ? `<div class="sizes">${sizes}</div>` : ''}
+    ${chanceRow(red)}
+    ${itemTiles(itemOdds(sound, size, label))}
+    ${alt}`;
+  document.title = tr('doc.title', { p: pct(red), app: tr('app') });
+}
+
+// Рядок «Шанс краснухи NN%»
+function chanceRow(red) {
+  const c = redColor(red);
+  return `<div class="chance" style="border-color:${c}66;background:${c}14"><span><span class="dot" style="background:${c}"></span> ${tr('pop.red')}</span><b style="color:${c}">${pct(red)}</b></div>`;
+}
+
+// Плитки можливих предметів: картинка, смужка якості, шанс. Краснухи першими, нульові не показуємо.
+function itemTiles(list, max = 12) {
+  const shown = (list.some(x => x.p > 0) ? list.filter(x => x.p >= 0.005) : list).slice(0, max);
+  return `<div class="tiles">${shown.map(({ it, p }) => `
+    <div class="tile" title="${esc(itemName(it))} · ${normSize(it.size)}${it.price ? ' · ~' + money(it.price) : ''}">
+      ${it.img ? `<img src="${it.img}" alt="">` : `<div class="noimg">${esc(itemName(it))}</div>`}
+      <i style="background:${qById[it.q].color}"></i>
+      <b>${pctFine(p)}</b>
+    </div>`).join('')}</div>`;
+}
+
+// ---------- Екран: пошук сітки, прокрутка, вантажі ----------
+function resetScan() {
+  P = 0; offset = 0; viewport = null; prevSig = null; ring = []; listTopR = null;
+  cargo = new Map(); results = new Map(); lastKey = null; lastSeen = null; gridSeenAt = 0;
+  phase = 'scan'; sawTop = false; sawEnd = false; stableCount = 0; changeCount = 0;
+  sbKnown = null; noBarCount = 0; frozenPlaced = null;
+  updateStage();
+  drawMap();
+}
+
+function startVideo(track) {
+  if ('MediaStreamTrackProcessor' in window) {
+    // працює навіть коли вкладка у фоні, на відміну від <video> + таймерів
+    videoReader = new MediaStreamTrackProcessor({ track }).readable.getReader();
+    const reader = videoReader;
+    (async () => {
+      while (videoReader === reader) {
+        const { value: frame, done } = await reader.read();
+        if (done) break;
+        try { onVideoFrame(frame, frame.displayWidth, frame.displayHeight); } finally { frame.close(); }
+      }
+    })().catch(e => log(tr('log.video', { msg: e.message })));
+  } else {
+    ui.video.srcObject = new MediaStream([track]);
+    videoTimer = setInterval(() => {
+      if (ui.video.videoWidth) onVideoFrame(ui.video, ui.video.videoWidth, ui.video.videoHeight);
+    }, 66);
+  }
+}
+
+// Сітку торговця шукаємо в правій половині вікна гри: торговець завжди справа, а зліва — власні
+// кишені й рюкзак гравця з такими самими клітинками
+function regionPx(w, h) {
+  return { x: Math.round(w * MERCHANT_SIDE), y: 0, w: w - Math.round(w * MERCHANT_SIDE), h };
+}
+
+function onVideoFrame(src, fw, fh) {
+  const now = performance.now();
+  const rp = regionPx(fw, fh);
+  if (viewport) track(src, rp, now);
+  if (now - lastScan >= (phase === 'scan' ? SCAN_FAST_MS : SCAN_MS)) { lastScan = now; analyze(src, rp); }
+}
+
+// Маленький кадр видимої частини сітки: для стеження за прокруткою і для пошуку потягнутого вантажу
+function track(src, rp, now) {
+  const sw = Math.max(8, Math.round(viewport.w / TRACK_SX)), sh = Math.max(8, Math.round(viewport.h / TRACK_SY));
+  if (smallCanvas.width !== sw || smallCanvas.height !== sh) { smallCanvas.width = sw; smallCanvas.height = sh; prevSig = null; ring = []; }
+  smallCtx.drawImage(src, rp.x + viewport.x, rp.y + viewport.y, viewport.w, viewport.h, 0, 0, sw, sh);
+  const data = smallCtx.getImageData(0, 0, sw, sh).data;
+  const small = Vision.toGray(data, sw, sh).g;
+  const red = Vision.redness(data, sw, sh);
+  const sig = rowSignature(small, sw, sh);
+  if (prevSig) {
+    const { d } = Vision.estimateShift(prevSig, sig, ROW_BINS, sh, Math.round(sh / 3));
+    offset += d * TRACK_SY;
+  }
+  prevSig = sig;
+  ring.push({ t: now, small, red, offset });
+  while (ring.length && ring[0].t < now - RING_MS) ring.shift();
+}
+
+// Кожен рядок маленького кадру стискаємо до ROW_BINS середніх: так шукати зсув у рази швидше
+const ROW_BINS = 16;
+function rowSignature(g, w, h) {
+  const out = new Uint8Array(ROW_BINS * h);
+  for (let y = 0; y < h; y++) {
+    for (let b = 0; b < ROW_BINS; b++) {
+      const x0 = Math.floor(b * w / ROW_BINS), x1 = Math.max(x0 + 1, Math.floor((b + 1) * w / ROW_BINS));
+      let s = 0;
+      for (let x = x0; x < x1; x++) s += g[y * w + x];
+      out[y * ROW_BINS + b] = s / (x1 - x0);
+    }
+  }
+  return out;
+}
+
+function analyze(src, rp) {
+  if (fullCanvas.width !== rp.w || fullCanvas.height !== rp.h) { fullCanvas.width = rp.w; fullCanvas.height = rp.h; }
+  fullCtx.drawImage(src, rp.x, rp.y, rp.w, rp.h, 0, 0, rp.w, rp.h);
+  const rgba = fullCtx.getImageData(0, 0, rp.w, rp.h).data;
+  const G = Vision.toGray(rgba, rp.w, rp.h);
+  const maps = Vision.lineMaps(G);
+  if (!P) {
+    P = Vision.detectPeriod(rp.w, rp.h, maps) || 0;
+    if (!P) { lastSeen = null; updateStage(); return; }
+  }
+  const now = performance.now();
+  const found = Vision.analyze(G, maps, P);
+  if (!found) { lostGrid(now); return; }
+  // уточнення на частки пікселя приймаємо тихо; інший масштаб (×2) — це вже інша сітка
+  if (Math.abs(found.P - P) > P * 0.1) {
+    viewport = null; prevSig = null; ring = []; cargo = new Map(); results = new Map(); listTopR = null;
+    sbKnown = null; noBarCount = 0; phase = 'scan'; frozenPlaced = null; sawTop = sawEnd = false; stableCount = 0;
+  }
+  P = found.P;
+  const grid = found.grid;
+  // вантаж у грі завжди сірий, порожній слот — чорний (інколи з крапкою)
+  let items = found.items.filter(it => it.occ >= OCC_GREY);
+  if (!items.length) { lostGrid(now); return; }
+  // торговця закрили й відкрили знову: це вже інший список
+  if (gridSeenAt && now - gridSeenAt > REOPEN_MS && cargo.size) { log(tr('log.reopen')); resetScan(); }
+  gridSeenAt = now;
+
+  // Видима частина списку. Найточніше її дає смуга прокрутки праворуч: доріжка — від верху до низу
+  // списку, повзунок — де ми в ньому. Без смуги (короткий список) — верх при першому виявленні:
+  // торговець відкривається зі списком нагорі. Вище висить заголовок «Mysterious Supplies», крізь
+  // який видно вантажі, що прокрутились; їх відкидаємо, і за прокруткою стежимо лише нижче нього.
+  // Смугу шукаємо цілком один раз, далі — лише повзунок на знайденій доріжці. Якщо смугу хоч раз
+  // бачили, кадр без повзунка пропускаємо: інший спосіб рахувати рядки зсунув би схему.
+  let sb = Vision.scrollbar(G, grid, sbKnown);
+  if (sb && !sbKnown) { sbKnown = { x: sb.x, trackTop: sb.trackTop, trackLen: sb.trackLen, thumbLen: sb.thumbLen }; log(tr('log.bar')); }
+  // Довжина повзунка змінюється лише разом зі списком (після купівлі). Раптом інша — курсор чи
+  // підказка зіпсували смугу: кадр пропускаємо. Нову довжину приймаємо, коли вона тримається.
+  if (sb && sbKnown && Math.abs(sb.thumbLen - sbKnown.thumbLen) > sbKnown.thumbLen * THUMB_TOLERANCE) {
+    thumbOddCount = Math.abs(sb.thumbLen - thumbOddLen) <= 3 ? thumbOddCount + 1 : 1;
+    thumbOddLen = sb.thumbLen;
+    if (thumbOddCount >= THUMB_NEW_STREAK) sbKnown.thumbLen = sb.thumbLen;
+    else sb = null;
+  } else thumbOddCount = 0;
+  if (!sb && sbKnown) {
+    // Смугу закрила рамка з ціною (вантаж біля правого краю). Схему не чіпаємо, а рамку все одно
+    // читаємо: поки курсор на вантажі, список не гортається, тож позиція — остання відома.
+    const last = ring[ring.length - 1];
+    if (phase === 'frozen' && now - captureOnset > QUIET_MS && last) { last.offset = offset; detectHover(last); }
+    lastSeen = { grid, items }; updateStage(); return;
+  }
+  if (!sb && ++noBarCount < NO_BAR_LIMIT) { lastSeen = { grid, items }; updateStage(); return; } // ще чекаємо смугу
+  const vpNew = sb
+    ? { x: Math.round(grid.x0), y: sb.trackTop, w: Math.round(grid.cols * P), h: sb.trackLen }
+    : { x: Math.round(grid.x0), y: Math.round(grid.y0), w: Math.round(grid.cols * P), h: Math.round(grid.rows * P) };
+  if (!viewport || (sb && (Math.abs(viewport.y - vpNew.y) > 3 || Math.abs(viewport.h - vpNew.h) > 3))) {
+    viewport = vpNew;
+    phaseX = grid.x0 % P;
+  } else if (!sb && grid.y0 + grid.rows * P > viewport.y + viewport.h + P / 2) {
+    viewport.h = Math.round(grid.y0 + grid.rows * P - viewport.y);
+  }
+  // лише вантажі в межах списку: вище — під заголовком, нижче — панель торговця
+  items = items.filter(it => grid.y0 + it.r * P >= viewport.y - P * 0.2 && grid.y0 + (it.r + it.h) * P <= viewport.y + viewport.h + P * 0.2);
+
+  // номер рядка: зі смуги прокрутки (без накопичення похибки) або зі стеження за кадрами
+  const colOf = c => Math.round((grid.x0 + c * P - phaseX) / P);
+  let n;
+  if (sb) {
+    const scrollPx = (sb.thumbTop - sb.trackTop) * sb.trackLen / sb.thumbLen;
+    n = Math.round((grid.y0 - sb.trackTop + scrollPx) / P);
+    // рядків у списку стільки, скільки вміщує довжина вмісту; інше — помилка розпізнавання
+    const listRows = Math.ceil(sb.trackLen * sb.trackLen / sb.thumbLen / P) + 2;
+    if (n < -grid.rows || n > listRows) { lastSeen = { grid, items }; updateStage(); return; }
+    listTopR = 0;
+    if (scrollPx < P / 2) sawTop = true;
+    if (sb.thumbTop + sb.thumbLen >= sb.trackTop + sb.trackLen - 2) sawEnd = true;
+  } else {
+    n = relocate(items, colOf, Math.round((offset + grid.y0) / P));
+    if (listTopR === null) listTopR = n;
+    sawTop = sawEnd = true; // увесь список видно одразу
+  }
+  offset = n * P - grid.y0;
+  if (ring.length) ring[ring.length - 1].offset = offset;
+  // Вантаж, що впирається у верх видимої частини, може бути обрізаний заголовком: нижня рамка
+  // заголовка тоді грає роль його верхньої межі. Віримо такому лише в першому рядку списку.
+  items = items.filter(it => Math.abs(grid.y0 + it.r * P - viewport.y) > P * 0.3 || n + it.r === listTopR);
+  lastSeen = { grid, items };
+
+  // поки вантаж тягнуть, картинка «брудна»: схему й еталони не чіпаємо
+  const quiet = now - captureOnset > QUIET_MS;
+  const seen = new Set(), fresh = [];
+  for (const it of items) {
+    const C = colOf(it.c), R = n + it.r;
+    const key = `${C},${R},${it.w},${it.h}`;
+    const rec = cargo.get(key);
+    if (rec) seen.add(key);
+    else fresh.push({ key, C, R, it });
+  }
+
+  if (phase === 'scan' && quiet) {
+    // Під час скану нічого не видаляємо: межу деяких вантажів то видно, то ні, і схема мигала б.
+    // Суперечки між варіантами вирішує голосування (placedCargo), а перестановку — новий скан.
+    for (const f of fresh) {
+      cargo.set(f.key, { C: f.C, R: f.R, w: f.it.w, h: f.it.h, votes: 0, base: null, thumb: null });
+      seen.add(f.key);
+    }
+    // схему зібрано: бачили і верх, і низ списку, а серед видимих нема нових чи ще не підтверджених
+    const unsure = [...seen].some(k => cargo.get(k).votes + 1 < MIN_VOTES);
+    stableCount = unsure ? 0 : stableCount + 1;
+    if (sawTop && sawEnd && cargo.size && stableCount >= FREEZE_STABLE) freeze(tr('log.frozen', { n: placedCargo().length }));
+  } else if (phase === 'frozen' && quiet) {
+    // Заморожена схема не реагує на мишку й перетягування. Але якщо більша частина видимих вантажів
+    // зникла, а на їхньому місці стабільно інші, торговець переставив список (купівля): скануємо заново.
+    const frozenKeys = new Set(frozenPlaced.map(([k]) => k));
+    const visible = frozenPlaced.map(([, rec]) => rec).filter(rec => fullyVisible(rec, grid, colOf));
+    const lost = visible.filter(rec => !seen.has(`${rec.C},${rec.R},${rec.w},${rec.h}`)).length;
+    const unknown = items.filter(i => !frozenKeys.has(`${colOf(i.c)},${n + i.r},${i.w},${i.h}`)).length;
+    const changed = visible.length >= 4 && lost / visible.length >= CHANGED_SHARE && unknown >= 2;
+    changeCount = changed ? changeCount + 1 : 0;
+    if (changeCount >= CHANGED_STREAK) {
+      log(tr('log.reflow'));
+      rescan(scrollIsTop(sb));
+      return;
+    }
+    // Дозаповнення: вантаж, якого бракувало (скажімо, верхній ряд не встиг підтвердитись до заморозки),
+    // додаємо, коли його впевнено бачили кілька разів і він не перекриває жодного відомого.
+    // Наявні вантажі готової схеми не змінюються ніколи.
+    for (const f of fresh) {
+      cargo.set(f.key, { C: f.C, R: f.R, w: f.it.w, h: f.it.h, votes: 0, base: null, thumb: null });
+      seen.add(f.key);
+    }
+    for (const key of seen) {
+      const rec = cargo.get(key);
+      if (frozenKeys.has(key) || rec.votes + 1 < MIN_VOTES + 2 || overlapsFrozen(rec)) continue;
+      frozenPlaced.push([key, rec]);
+      frozenKeys.add(key);
+    }
+  }
+
+  for (const key of seen) {
+    const rec = cargo.get(key);
+    const it = items.find(i => `${colOf(i.c)},${n + i.r},${i.w},${i.h}` === key);
+    rec.votes++;
+    rec.seen = now;
+    if (!quiet && rec.thumb) continue;
+    const x = grid.x0 + it.c * P, y = grid.y0 + it.r * P;
+    rec.thumb = makeThumb(x, y, it.w * P, it.h * P);
+    updateReveal(rec, Vision.meanColor(rgba, rp.w, x + P * 0.1, y + P * 0.3, it.w * P - P * 0.2, it.h * P - P * 0.4));
+    if (quiet) readLabel(rec, x, y, it.w * P, it.h * P);
+  }
+  // еталон вигляду видимих вантажів для пошуку потягнутого
+  const last = ring[ring.length - 1];
+  if (quiet && last) for (const key of seen) {
+    const rec = cargo.get(key);
+    const patch = cargoPatch(rec, last);
+    if (!patch) continue;
+    const red = Vision.meanOf(cargoPatch(rec, last, 'red'));
+    if (red >= RED_MIN) continue; // ще червоний після перетягування
+    // рамка з ціною всередині великого вантажу не ламає його межі — такий кадр в еталон не беремо
+    if (phase === 'frozen' && rec.base && rec.base.length === patch.length && Vision.patchDiff(patch, rec.base) > BASE_UPDATE_MAX) continue;
+    rec.base = patch;
+    rec.baseRed = red;
+  }
+  if (phase === 'frozen' && quiet && last) detectHover(last);
+  updateStage();
+  if (document.visibilityState === 'visible') drawMap();
+}
+
+function overlapsFrozen(rec) {
+  return frozenPlaced.some(([, r]) => rec.C < r.C + r.w && r.C < rec.C + rec.w && rec.R < r.R + r.h && r.R < rec.R + rec.h);
+}
+
+function scrollIsTop(sb) {
+  return !sb || sb.thumbTop - sb.trackTop < 2;
+}
+
+function freeze(message) {
+  if (phase === 'frozen') return;
+  frozenPlaced = placedCargo();
+  phase = 'frozen';
+  changeCount = 0;
+  log(message);
+  updateStage();
+}
+
+// Новий скан тієї самої сітки (після купівлі): розмір клітинки й межі списку лишаються
+function rescan(atTop) {
+  phase = 'scan';
+  frozenPlaced = null;
+  cargo = new Map(); results = new Map(); lastKey = null;
+  sawTop = atTop; sawEnd = false; stableCount = 0; changeCount = 0;
+  updateStage();
+  drawMap();
+}
+
+// Розвіддані: гра фарбує розкритий вантаж у колір якості предмета. Колір має триматися кілька
+// розборів поспіль — червоний слід від перетягування тримається недовго.
+function updateReveal(rec, [r, g, b]) {
+  const mx = Math.max(r, g, b), mn = Math.min(r, g, b), sat = mx ? (mx - mn) / mx : 0;
+  let q = null;
+  if (sat > 0.35 && mx > 70) {
+    let hue;
+    if (mx === r) hue = (60 * (g - b) / (mx - mn) + 360) % 360;
+    else if (mx === g) hue = 60 * (b - r) / (mx - mn) + 120;
+    else hue = 60 * (r - g) / (mx - mn) + 240;
+    q = hue < 12 || hue >= 340 ? 'red' : hue < 70 ? 'gold' : hue < 170 ? 'green' : hue < 255 ? 'blue' : 'purple';
+  }
+  if (q === rec.revealCand) rec.revealStreak = (rec.revealStreak || 0) + 1;
+  else { rec.revealCand = q; rec.revealStreak = 1; }
+  if (rec.revealStreak >= REVEAL_STREAK) rec.revealed = q;
+}
+
+function lostGrid(now) {
+  lastSeen = null;
+  updateStage();
+}
+
+// Чи вантаж зі схеми зараз повністю у видимій частині списку
+function fullyVisible(rec, grid, colOf) {
+  const top = rec.R * P - offset, bottom = (rec.R + rec.h) * P - offset;
+  const c0 = colOf(0), c1 = colOf(grid.cols);
+  // у самому верху вантаж не підтверджується (див. analyze), тож і зниклим його там не вважаємо
+  const clearOfHeader = top > viewport.y + P * 0.3 || rec.R === listTopR;
+  return clearOfHeader && top >= viewport.y - 2 && bottom <= Math.min(viewport.y + viewport.h, grid.y0 + grid.rows * P) + 2
+    && rec.C >= c0 && rec.C + rec.w <= c1;
+}
+
+// Якщо прокрутку не встигли відстежити (різкий скрол), шукаємо, де видимі вантажі збігаються
+// з уже знайденою схемою. Розклад розмірів вантажів майже завжди унікальний.
+// Поріг високий: після купівлі вантажі переставлені, і слабкий збіг деінде був би випадковим.
+function relocate(items, colOf, n) {
+  if (items.length < 3 || cargo.size < 3) return n;
+  const score = m => items.reduce((s, it) => s + (cargo.has(`${colOf(it.c)},${m + it.r},${it.w},${it.h}`) ? 1 : 0), 0);
+  const here = score(n);
+  if (here >= items.length * 0.6) return n;
+  const rows = [...cargo.values()].map(r => r.R);
+  let best = n, bestS = here;
+  for (let m = Math.min(...rows) - items.length; m <= Math.max(...rows); m++) {
+    const s = score(m);
+    if (s > bestS || (s === bestS && Math.abs(m - n) < Math.abs(best - n))) { bestS = s; best = m; }
+  }
+  return bestS >= Math.max(4, items.length * 0.75) ? best : n;
+}
+
+function makeThumb(x, y, w, h) {
+  const c = document.createElement('canvas');
+  c.width = Math.round(w / P * MAP_U); c.height = Math.round(h / P * MAP_U);
+  c.getContext('2d').drawImage(fullCanvas, x, y, w, h, 0, 0, c.width, c.height);
+  return c;
+}
+
+// Прямокутник вантажу в маленькому кадрі (без рамок), або null, якщо не видно повністю
+function cargoRect(rec, frameOffset) {
+  const x = (phaseX + rec.C * P - viewport.x) / TRACK_SX, y = (rec.R * P - frameOffset - viewport.y) / TRACK_SY;
+  const inX = 3 / TRACK_SX, inY = 3 / TRACK_SY;
+  const r = {
+    x: Math.round(x + inX), y: Math.round(y + inY),
+    w: Math.max(1, Math.round(rec.w * P / TRACK_SX - 2 * inX)), h: Math.max(1, Math.round(rec.h * P / TRACK_SY - 2 * inY)),
+  };
+  if (r.x < 0 || r.y < 0 || r.x + r.w > smallCanvas.width || r.y + r.h > smallCanvas.height) return null;
+  return r;
+}
+
+function cargoPatch(rec, frame, channel = 'small') {
+  const r = cargoRect(rec, frame.offset);
+  return r ? Vision.crop({ w: smallCanvas.width, g: frame[channel] }, r.x, r.y, r.w, r.h) : null;
+}
+
+// Вантаж, який потягнули. Коли вантаж смикаєш, на його місці лишається слабкий червоний слід,
+// а сам він їде за курсором трохи вниз (на сусіда, але сірим, тож червоного там нема).
+function pickCargo(onset) {
+  const frames = ring.filter(f => f.t >= onset - 150 && f.t <= onset + 700);
+  if (!frames.length) return null;
+  const red = [], gray = [];
+  for (const [key, rec] of placedCargo()) {
+    if (!rec.base) continue;
+    let r = 0, g = 0;
+    for (const f of frames) {
+      const rp = cargoPatch(rec, f, 'red');
+      if (rp) r = Math.max(r, Vision.meanOf(rp) - rec.baseRed);
+      const gp = cargoPatch(rec, f);
+      if (gp && gp.length === rec.base.length) g = Math.max(g, Vision.patchDiff(gp, rec.base));
+    }
+    red.push({ key, s: r });
+    gray.push({ key, s: g });
+  }
+  // головна ознака — червоний слід; якщо його не видно, береться найбільша зміна взагалі
+  return best(red, RED_MIN, 1.5) || best(gray, PICK_MIN_DIFF, 1.25);
+}
+
+function best(scored, min, ratio) {
+  scored.sort((a, b) => b.s - a.s);
+  if (!scored.length || scored[0].s < min) return null;
+  if (scored[1] && scored[0].s < scored[1].s * ratio) return null; // два вантажі змінились однаково: не вгадуємо
+  return scored[0].key;
+}
+
+// Вантажі без перекриттів. Вантаж зʼявляється на схемі, коли його підтвердили кілька кадрів, а при
+// суперечці (межу то видно, то ні) перемагає той варіант, який бачили частіше, — так схема не мигає.
+function placedCargo() {
+  if (phase === 'frozen' && frozenPlaced) return frozenPlaced; // готова схема не змінюється до перескану
+  const taken = new Set(), out = [];
+  const list = [...cargo.entries()].filter(([, r]) => r.votes >= MIN_VOTES)
+    .sort((a, b) => b[1].votes - a[1].votes || (b[1].seen || 0) - (a[1].seen || 0));
+  for (const [key, rec] of list) {
+    if (splitBetter(rec, list)) continue;
+    const cells = [];
+    for (let dx = 0; dx < rec.w; dx++) for (let dy = 0; dy < rec.h; dy++) cells.push(`${rec.C + dx},${rec.R + dy}`);
+    if (cells.some(c => taken.has(c))) continue;
+    cells.forEach(c => taken.add(c));
+    out.push([key, rec]);
+  }
+  return out;
+}
+
+// Межа між вантажами — надійний доказ: сама по собі на сітці вона не зʼявляється, а от зникнути під
+// довгим написом може. Тож якщо великий вантаж повністю складається з менших, які теж часто бачили,
+// вірим меншим.
+function splitBetter(rec, list) {
+  if (rec.w * rec.h < 2) return false;
+  const inside = list.map(([, r]) => r).filter(r => r !== rec && r.w * r.h < rec.w * rec.h
+    && r.C >= rec.C && r.R >= rec.R && r.C + r.w <= rec.C + rec.w && r.R + r.h <= rec.R + rec.h
+    && r.votes >= rec.votes * SPLIT_SHARE);
+  // чи покривають вони всі клітинки великого рівно по одному разу (жадібно, від найчастіших)
+  const cells = new Map();
+  for (const r of inside.sort((a, b) => b.votes - a.votes)) {
+    const own = [];
+    for (let dx = 0; dx < r.w; dx++) for (let dy = 0; dy < r.h; dy++) own.push(`${r.C + dx},${r.R + dy}`);
+    if (own.some(c => cells.has(c))) continue;
+    own.forEach(c => cells.set(c, r));
+  }
+  return cells.size === rec.w * rec.h;
+}
+
+function labelName(label) {
+  return label.mystery ? MYSTERY_TIERS[label.mystery].name : label.name;
+}
+
+// ---------- Ціна з рамки ----------
+// Пули торговця, що відповідають ціні (і напису) вантажу. Торговець накидає ~10%, тож ціна з рамки
+// може збігатися з ціною пулу як є, так і з націнкою; беремо найближчу.
+function poolsForPrice(price, label) {
+  let pools = libPools.filter(pl => !profile || String(pl.profile) === String(profile));
+  if (label && label.mystery) pools = pools.filter(pl => pl.mixed);
+  else if (label && label.category) pools = pools.filter(pl => !pl.mixed && pl.categories.includes(label.category));
+  if (!pools.length) return [];
+  const dist = p => Math.min(Math.abs(Math.log(price / p)), Math.abs(Math.log(price / (p * PRICE_MARKUP))));
+  const best = Math.min(...pools.map(pl => dist(pl.price)));
+  if (best > PRICE_MATCH_LOG) return [];
+  return pools.filter(pl => dist(pl.price) <= best + 1e-9);
+}
+
+// Імовірність кожного предмета серед цих пулів: id → вага
+function priceWeights(pools) {
+  const out = new Map();
+  const tw = pools.reduce((a, pl) => a + pl.weight, 0) || 1;
+  for (const pl of pools) {
+    const its = pl.items.filter(([id]) => includeBlue || itemQ[id] !== 'blue');
+    const tiw = its.reduce((a, [, w]) => a + w, 0) || 1;
+    for (const [id, w] of its) out.set(id, (out.get(id) || 0) + pl.weight / tw * w / tiw);
+  }
+  return out;
+}
+
+// Усе відоме про вантаж для розрахунку шансів: напис, ціна і ваги предметів за ціною
+function cargoInfo(rec) {
+  if (!rec) return null;
+  const info = { ...(rec.label || {}) };
+  if (rec.price) {
+    info.price = rec.price;
+    const pools = poolsForPrice(rec.price, rec.label);
+    if (pools.length) info.priceW = priceWeights(pools);
+  }
+  return Object.keys(info).length ? info : null;
+}
+
+// Шанс краснухи для вантажу ще до звуку: за написом, ціною й розміром
+function cargoRedOdds(rec) {
+  const info = cargoInfo(rec);
+  if (info && info.category) return { red: 0, items: [] };
+  if (!info || !info.priceW) return null;
+  const size = normSize(`${rec.w}x${rec.h}`);
+  let total = 0, red = 0;
+  const items = [];
+  for (const [id, w] of info.priceW) {
+    const it = itemById.get(id);
+    if (it && normSize(it.size) !== size) continue;
+    total += w;
+    if (itemQ[id] === 'red') red += w;
+    if (it) items.push({ it, p: w });
+  }
+  if (!total) return null;
+  items.forEach(x => { x.p /= total; });
+  items.sort((a, b) => order(a.it.q) - order(b.it.q) || b.p - a.p);
+  return { red: red / total, items };
+}
+
+// Наведення: рамку з ціною видно як вантажі, що раптом стали не схожі на свій еталон. Читаємо її,
+// і вантаж під лівим верхнім кутом рамки (там курсор) стає «наведеним»: наступний звук — його.
+function detectHover(frame) {
+  if (hoverBusy || typeof Ocr === 'undefined' || !libPools.length) return;
+  const changed = [];
+  for (const [, rec] of placedCargo()) {
+    if (!rec.base) continue;
+    const p = cargoPatch(rec, frame);
+    if (p && p.length === rec.base.length && Vision.patchDiff(p, rec.base) > HOVER_DIFF) changed.push(rec);
+  }
+  detectHover.changed = changed.length; // для діагностики
+  if (!changed.length || changed.length > HOVER_MAX_CARGO) { hoverSig = ''; return; }
+  const sig = changed.map(r => `${r.C},${r.R}`).sort().join(';');
+  if (sig === hoverSig) return; // цю рамку вже прочитали
+  hoverSig = sig;
+  // прямокутник змінених вантажів у кадрі (з запасом)
+  const off = offset, px0 = phaseX;
+  let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+  for (const r of changed) {
+    x0 = Math.min(x0, px0 + r.C * P); y0 = Math.min(y0, r.R * P - off);
+    x1 = Math.max(x1, px0 + (r.C + r.w) * P); y1 = Math.max(y1, (r.R + r.h) * P - off);
+  }
+  // Рамка — праворуч знизу від курсора, ~3 клітинки завширшки й ~1.5 заввишки. Вона може виходити за
+  // змінені вантажі (за край сітки, на порожні слоти), тож вирізаємо щонайменше такий прямокутник;
+  // угору й уліво — із запасом, бо курсор може бути над вантажем, якого нема на схемі.
+  x1 = Math.max(x1, x0 + P * TIP_W); y1 = Math.max(y1, y0 + P * TIP_H);
+  x0 = Math.max(0, Math.round(x0 - P * 0.4)); y0 = Math.max(0, Math.round(y0 - P * 0.7));
+  x1 = Math.min(fullCanvas.width, Math.round(x1 + P * 0.3)); y1 = Math.min(fullCanvas.height, Math.round(y1 + P * 0.3));
+  if (x1 - x0 < P / 2 || y1 - y0 < P / 2) return;
+  hoverBusy = true;
+  // спершу — точно саму рамку (без сусідніх написів), а якщо її не видно — весь шматок
+  const box = Ocr.findTipBox(fullCanvas, x0, y0, x1 - x0, y1 - y0, P);
+  const whole = { x: x0, y: y0, w: x1 - x0, h: y1 - y0 };
+  const read = r => Ocr.readData(Ocr.tipCanvas(fullCanvas, r.x, r.y, r.w, r.h)).then(data => ({ r, data, tip: Ocr.parseTip(data) }));
+  (box ? read(box).then(res => res.tip ? res : read(whole)) : read(whole)).then(({ r, data, tip }) => {
+    detectHover.text = data.text; // для діагностики
+    if (!tip) { hoverSig = ''; return; }
+    // курсор — біля лівого верхнього кута рамки: трохи лівіше й вище назви (або рядка з ціною)
+    const cx = r.x + (tip.labelBox ? tip.labelBox.x0 - P * 0.25 : tip.priceBox.x0 - P * 0.55);
+    const cy = r.y + (tip.labelBox ? tip.labelBox.y0 - P * 0.35 : tip.priceBox.y0 - P * 0.75);
+    const C = Math.floor((cx - px0) / P), R = Math.floor((cy + off) / P);
+    const hit = placedCargo().find(([, r]) => C >= r.C && C < r.C + r.w && R >= r.R && R < r.R + r.h);
+    detectHover.last = { sig, text: data.text, C, R, hit: !!hit }; // для діагностики
+    if (!hit) return;
+    const [key, rec] = hit;
+    rec.price = tip.price;
+    if (tip.label && !rec.label) rec.label = tip.label;
+    hover = { key, t: performance.now() };
+    showHover(rec);
+    if (document.visibilityState === 'visible') drawMap();
+  }).catch(() => { hoverSig = ''; }).finally(() => { hoverBusy = false; });
+}
+
+// Картка наведеного вантажу: чи може бути краснуха за написом і ціною, ще до звуку
+function showHover(rec) {
+  const odds = cargoRedOdds(rec);
+  const label = rec.label;
+  const red = odds ? odds.red : null;
+  const color = red === null ? '#8b93a1' : redColor(red);
+  ui.result.style.borderColor = color;
+  ui.result.style.background = color + '1a';
+  const title = red === null ? tr('hover.title') : red >= 0.995 ? tr('card.red') : red > 0 ? tr('hover.maybe', { p: pct(red) }) : tr('hover.none');
+  ui.result.innerHTML = `
+    <div class="big" style="color:${color}">${title}</div>
+    <div class="sub">${esc(cargoHead(rec))}. ${esc(tr('hover.drag'))}</div>
+    ${red !== null ? chanceRow(red) : ''}
+    ${odds ? itemTiles(odds.items) : ''}`;
+}
+
+// «Rare Mystery Cargo · 2×2 · 470 000» — що відомо про вантаж
+function cargoHead(rec) {
+  return [rec.label && labelName(rec.label), normSize(`${rec.w}x${rec.h}`).replace('x', '×'), rec.price && fmtPrice(rec.price)]
+    .filter(Boolean).join(' · ');
+}
+
+// Читаємо напис вантажу (асинхронно, через Tesseract). Вирізаємо зараз, бо кадр зміниться.
+function readLabel(rec, x, y, w, h) {
+  if (rec.label || rec.labelBusy || (rec.labelTries || 0) >= LABEL_TRIES || typeof Ocr === 'undefined') return;
+  rec.labelBusy = true;
+  const crop = Ocr.labelCanvas(fullCanvas, x, y, w, h, P);
+  Ocr.read(crop)
+    .then(text => {
+      rec.labelTries = (rec.labelTries || 0) + 1;
+      const label = Ocr.parseLabel(text);
+      if (label) { rec.label = label; if (document.visibilityState === 'visible') drawMap(); }
+    })
+    .catch(e => { rec.labelTries = LABEL_TRIES; if (!readLabel.failed) log(tr('log.ocrFail', { msg: e.message || e })); readLabel.failed = true; })
+    .finally(() => { rec.labelBusy = false; });
+}
+
+function cargoName(key) {
+  const rec = cargo.get(key);
+  return rec ? `${rec.R + 1 - mapBounds().minR}×${rec.C + 1 - mapBounds().minC}` : key;
+}
+
+function mapBounds() {
+  const placed = placedCargo().map(([, r]) => r);
+  if (!placed.length) return { minC: 0, minR: 0, maxC: 4, maxR: 3, placed };
+  return {
+    minC: Math.min(...placed.map(r => r.C)), minR: Math.min(...placed.map(r => r.R)),
+    maxC: Math.max(...placed.map(r => r.C + r.w)), maxR: Math.max(...placed.map(r => r.R + r.h)), placed,
+  };
+}
+
+// ---------- Етапи ----------
+function updateStage() {
+  const count = placedCargo().length;
+  ui.rescan.hidden = !(stream && count);
+  ui.done.hidden = !(stream && count && phase === 'scan');
+  let title, hint;
+  if (!stream) { title = tr('stage.start'); hint = ''; }
+  else if (!count) { title = tr('stage.open'); hint = tr('stage.openHint'); }
+  else if (phase === 'scan') {
+    title = tr('stage.scan', { n: count });
+    hint = tr(sawEnd ? 'stage.scanHintEnd' : 'stage.scanHint');
+  } else { title = tr('stage.ready', { n: count }); hint = tr('stage.readyHint'); }
+  ui.stageTitle.textContent = title;
+  ui.stageHint.textContent = hint;
+}
+
+// ---------- Малювання схеми ----------
+function drawMap() {
+  try { drawMapInner(); }
+  catch (e) {
+    if (!drawMap.failed) log(tr('log.mapFail', { msg: e.message }));
+    drawMap.failed = true;
+  }
+}
+
+function drawMapInner() {
+  const { minC, minR, maxC, maxR, placed } = mapBounds();
+  const W = placed.length ? Math.min(20, Math.max(1, maxC - minC)) * MAP_U : 360;
+  const H = placed.length ? Math.min(MAP_MAX_ROWS, Math.max(1, maxR - minR)) * MAP_U : 120;
+  if (ui.map.width !== W || ui.map.height !== H) { ui.map.width = W; ui.map.height = H; }
+  const c = mapCtx;
+  c.fillStyle = '#0b0c0f';
+  c.fillRect(0, 0, W, H);
+  if (!placed.length) {
+    c.fillStyle = '#8b93a1'; c.font = '13px system-ui, sans-serif'; c.textAlign = 'center'; c.textBaseline = 'middle';
+    c.fillText(tr('map.empty'), W / 2, H / 2);
+    return;
+  }
+  const keyOf = new Map(placed.map(r => [r, null]));
+  for (const [key, rec] of placedCargo()) keyOf.set(rec, key);
+
+  for (const rec of placed) {
+    const key = keyOf.get(rec);
+    const x = (rec.C - minC) * MAP_U, y = (rec.R - minR) * MAP_U, w = rec.w * MAP_U, h = rec.h * MAP_U;
+    c.fillStyle = '#15181d';
+    c.fillRect(x + 2, y + 2, w - 4, h - 4);
+    if (rec.thumb) { c.globalAlpha = 0.35; c.drawImage(rec.thumb, x + 2, y + 2, w - 4, h - 4); c.globalAlpha = 1; }
+
+    const r = results.get(key);
+    const sound = r && soundById(r.soundId);
+    const revealed = rec.revealed && qById[rec.revealed];
+    const label = rec.label;
+    if (!sound) {
+      if (label && label.category && !revealed) {
+        // не Mystery Cargo: краснухи тут не буває — притушуємо
+        c.fillStyle = 'rgba(11,12,15,.6)';
+        c.fillRect(x + 2, y + 2, w - 4, h - 4);
+        c.strokeStyle = '#2a2f38'; c.lineWidth = 1;
+        c.strokeRect(x + 2.5, y + 2.5, w - 5, h - 5);
+        continue;
+      }
+      if (label && label.mystery && !revealed) {
+        // Mystery Cargo: тут може бути краснуха; рамка й підпис за рівнем
+        const tier = MYSTERY_TIERS[label.mystery];
+        c.strokeStyle = tier.color; c.lineWidth = 2;
+        c.strokeRect(x + 3, y + 3, w - 6, h - 6);
+        c.font = 'bold 11px system-ui, sans-serif'; c.textAlign = 'center'; c.textBaseline = 'bottom';
+        const text = rec.w > 1 ? tier.short : tier.tiny;
+        c.lineWidth = 3; c.strokeStyle = '#000';
+        c.strokeText(text, x + w / 2, y + h - 4);
+        c.fillStyle = tier.color;
+        c.fillText(text, x + w / 2, y + h - 4);
+      } else if (revealed) {
+        // розвіддані: гра сама показала якість
+        c.fillStyle = revealed.color + '55';
+        c.fillRect(x + 2, y + 2, w - 4, h - 4);
+        c.strokeStyle = revealed.color; c.lineWidth = 3;
+        c.strokeRect(x + 3, y + 3, w - 6, h - 6);
+        c.font = 'bold 11px system-ui, sans-serif'; c.textAlign = 'center'; c.textBaseline = 'bottom';
+        c.fillStyle = revealed.color;
+        c.fillText(qName(revealed), x + w / 2, y + h - 4);
+      } else {
+        c.strokeStyle = '#3a414d'; c.lineWidth = 1;
+        c.strokeRect(x + 2.5, y + 2.5, w - 5, h - 5);
+      }
+      c.fillStyle = '#8b93a1'; c.font = '12px system-ui, sans-serif'; c.textAlign = 'left'; c.textBaseline = 'top';
+      c.fillText('?', x + 6, y + 5);
+      if (rec.price) {
+        // ціна з рамки й шанс краснухи за нею (ще до звуку)
+        const odds = cargoRedOdds(rec);
+        c.font = 'bold 11px system-ui, sans-serif'; c.textAlign = 'right';
+        c.lineWidth = 3; c.strokeStyle = '#000';
+        const text = money(rec.price) + (odds && odds.red > 0 ? ` · ${pct(odds.red)}` : '');
+        c.strokeText(text, x + w - 5, y + 5);
+        c.fillStyle = odds && odds.red > 0 ? redColor(odds.red) : '#e6e8eb';
+        c.fillText(text, x + w - 5, y + 5);
+      }
+      continue;
+    }
+    const size = `${rec.w}x${rec.h}`;
+    const info = cargoInfo(rec);
+    const red = qualityOdds(sound, size, info).red || 0;
+    // Як у грі: у комірці — можливі предмети з картинкою, смужкою якості й шансом; краснухи першими.
+    // Якщо предмет один (чи майже напевно) — одна велика картинка.
+    const cands = itemOdds(sound, size, info).filter(x => x.p >= 0.02);
+    const top = cands.slice().sort((a, b) => b.p - a.p)[0];
+    c.fillStyle = red > 0 ? 'rgba(127,29,29,.55)' : '#15181d';
+    c.fillRect(x + 2, y + 2, w - 4, h - 4);
+    if (top && (cands.length === 1 || top.p >= 0.995)) {
+      drawItemIcon(c, top.it, x + 6, y + 4, w - 12, h - 16);
+      c.fillStyle = qById[top.it.q].color;
+      c.fillRect(x + w * 0.2, y + h - 10, w * 0.6, 3);
+    } else {
+      const s = Math.max(18, Math.min(MAP_U * 0.5, (w - 8) / 2));
+      const cols = Math.max(1, Math.floor((w - 6) / (s + 4))), rows = Math.max(1, Math.floor((h - 6) / (s + 14)));
+      const cw = (w - 6) / cols, ch = (h - 6) / rows;
+      cands.slice(0, cols * rows).forEach(({ it, p }, i) => {
+        const cx = x + 3 + (i % cols) * cw, cy = y + 3 + Math.floor(i / cols) * ch;
+        drawItemIcon(c, it, cx + (cw - s) / 2, cy + 1, s, s);
+        c.fillStyle = qById[it.q].color;
+        c.fillRect(cx + cw * 0.2, cy + s + 2, cw * 0.6, 2);
+        c.font = 'bold 9px system-ui, sans-serif'; c.textAlign = 'center'; c.textBaseline = 'top';
+        c.fillStyle = '#e6e8eb';
+        c.fillText(pctFine(p), cx + cw / 2, cy + s + 4);
+      });
+    }
+    const color = red > 0 ? '#ef4444' : '#3a414d';
+    c.strokeStyle = key === lastKey ? '#f0b429' : color; c.lineWidth = key === lastKey || red > 0 ? 3 : 1;
+    c.strokeRect(x + 3, y + 3, w - 6, h - 6);
+  }
+}
+
+// Картинка предмета, вписана в прямокутник зі збереженням пропорцій
+function drawItemIcon(c, it, x, y, w, h) {
+  const img = it.img && cachedImage(it.img);
+  if (!img || !img.complete || !img.naturalWidth) return;
+  const k = Math.min(w / img.naturalWidth, h / img.naturalHeight);
+  const iw = img.naturalWidth * k, ih = img.naturalHeight * k;
+  c.drawImage(img, x + (w - iw) / 2, y + (h - ih) / 2, iw, ih);
+}
+
+// Підказка над схемою: що відомо про вантаж під мишкою
+function showMapPop(e) {
+  const key = mapCargoAt(e);
+  const rec = key && cargo.get(key);
+  const pop = $('mapPop');
+  if (!rec) { pop.hidden = true; return; }
+  const r = results.get(key);
+  const sound = r && soundById(r.soundId);
+  let body;
+  if (sound) {
+    const info = cargoInfo(rec), size = `${rec.w}x${rec.h}`;
+    const red = qualityOdds(sound, size, info).red || 0;
+    body = chanceRow(red) + itemTiles(itemOdds(sound, size, info), 9);
+  } else {
+    const odds = cargoRedOdds(rec);
+    body = odds ? chanceRow(odds.red) + itemTiles(odds.items, 9) : `<div class="muted" style="margin-top:8px">${esc(tr('pop.unknown'))}</div>`;
+  }
+  pop.innerHTML = `<div class="head">${esc(cargoHead(rec))}</div>${body}`;
+  pop.hidden = false;
+  const pw = pop.offsetWidth, ph = pop.offsetHeight;
+  pop.style.left = Math.max(8, Math.min(window.innerWidth - pw - 8, e.clientX - pw - 16)) + 'px';
+  pop.style.top = Math.max(8, Math.min(window.innerHeight - ph - 8, e.clientY - ph / 3)) + 'px';
+}
+
+const imgCache = new Map();
+function cachedImage(src) {
+  let img = imgCache.get(src);
+  if (!img) { img = new Image(); img.onload = drawMap; img.src = src; imgCache.set(src, img); }
+  return img;
+}
+
+function canvasPos(canvas, e) {
+  const r = canvas.getBoundingClientRect();
+  return { x: (e.clientX - r.left) / r.width, y: (e.clientY - r.top) / r.height };
+}
+
+// ---------- Сигнал ----------
+function beep(redChance) {
+  beepCtx = beepCtx || new AudioContext();
+  const pattern = redChance >= 0.5 ? [1320, 1320, 1320] : redChance > 0 ? [990, 1320] : [520];
+  let t = beepCtx.currentTime;
+  for (const f of pattern) {
+    const o = beepCtx.createOscillator(), g = beepCtx.createGain();
+    o.frequency.value = f; o.type = 'sine';
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(0.3, t + 0.01);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + 0.12);
+    o.connect(g).connect(beepCtx.destination);
+    o.start(t); o.stop(t + 0.13);
+    t += 0.16;
+  }
+  // системне аудіо захоплює і наш писк, тож ігноруємо його
+  muteUntil = performance.now() + pattern.length * 160 + 300;
+}
+
+// ---------- База звуків ----------
+function uid() { return Math.random().toString(36).slice(2, 10); }
+function soundById(id) { return sounds.find(s => s.id === id); }
+function order(q) { return QUALITIES.findIndex(x => x.id === q); }
+
+function normalizeSounds(list) {
+  return (Array.isArray(list) ? list : [])
+    .filter(s => s && typeof s.name === 'string')
+    .map(s => ({
+      id: s.id || uid(),
+      name: s.name,
+      nameEn: typeof s.nameEn === 'string' ? s.nameEn : '',
+      lib: !!s.lib,
+      dur: +s.dur || 0,
+      waves: (Array.isArray(s.waves) ? s.waves : []).filter(w => typeof w === 'string'), // свої записи
+      items: (s.items || []).filter(it => it && qById[it.q]).map(it => ({
+        id: +it.id || 0,
+        name: String(it.name || '?'), nameEn: typeof it.nameEn === 'string' ? it.nameEn : '', q: it.q, w: Math.max(0, +it.w || 0) || (it.wp ? 0 : 1),
+        size: SIZES.includes(it.size) ? it.size : '',
+        price: +it.price || 0,
+        category: typeof it.category === 'string' ? it.category : '',
+        wp: it.wp && typeof it.wp === 'object' ? it.wp : null,
+        wm: +it.wm || 0,
+        wpm: it.wpm && typeof it.wpm === 'object' ? it.wpm : null,
+        img: typeof it.img === 'string' && (it.img.startsWith('data:image/') || /^library\/images\/\d+\.png$/.test(it.img)) ? it.img : '',
+      })),
+    }));
+}
+
+function loadSounds() {
+  try {
+    const cur = localStorage.getItem(STORE_KEY);
+    if (cur) return normalizeSounds(JSON.parse(cur));
+    // стара версія: предмети лишаємо, а записані зразки мали інший формат
+    for (const key of OLD_STORE_KEYS) {
+      const old = localStorage.getItem(key);
+      if (old) return normalizeSounds(JSON.parse(old).filter(s => !s.lib));
+    }
+  } catch {}
+  return [];
+}
+
+function loadJson(key, def) {
+  try { const v = localStorage.getItem(key); return v === null ? def : JSON.parse(v); } catch { return def; }
+}
+function saveSounds() {
+  try { localStorage.setItem(STORE_KEY, JSON.stringify(sounds)); } catch (e) { log(tr('log.saveFail', { msg: e.message })); }
+  renderSounds();
+  drawMap();
+}
+
+function renderSounds() {
+  ui.sounds.innerHTML = '';
+  if (!sounds.length) { ui.sounds.innerHTML = `<div class="muted">${esc(tr('sounds.empty'))}</div>`; return; }
+  const qOptions = QUALITIES.map(q => `<option value="${q.id}">${esc(qName(q))}</option>`).join('');
+  const sizeOptions = [`<option value="">${esc(tr('opt.size'))}</option>`, ...SIZES.map(sz => `<option>${sz}</option>`)].join('');
+
+  for (const s of sounds) {
+    const odds = qualityOdds(s, '');
+    const redSizes = sizesOf(s).filter(sz => qualityOdds(s, sz).red);
+    const el = document.createElement('div');
+    el.className = 'sound' + (s.id === recordingId ? ' recording' : '') + (s.id === lastHitId ? ' hit' : '');
+    el.innerHTML = `
+      <div class="sound-head">
+        <span class="grow" title="${esc(soundName(s))}">${esc(soundName(s))}</span>
+        <button class="small" data-act="rec">${esc(tr(s.id === recordingId ? 'btn.cancel' : 'btn.record'))}</button>
+        <button class="small" data-act="rename">✎</button>
+        <button class="small danger" data-act="del">✕</button>
+      </div>
+      <div class="meta">${s.lib ? esc(tr('snd.lib')) : ''}${esc(tr('snd.samples', { n: templatesOf(s).up.length }))}${s.waves.length ? ` <a href="#" data-act="clearSamples" class="muted">${esc(tr('snd.reset'))}</a>` : ''}
+        · ${s.items.length ? esc(tr('snd.red', { p: pct(odds.red || 0) })) + (redSizes.length ? ` (${redSizes.join(', ')})` : '') : esc(tr('snd.noise'))}
+        ${s.id === recordingId ? `<br><b style="color:var(--bad)">${esc(tr('snd.recording'))}</b>` : ''}</div>
+      <details${s.lib ? '' : ' open'}>
+        <summary class="muted">${esc(tr('snd.items', { n: s.items.length }))}</summary>
+        <div class="items-list">${s.items.map((it, i) => `
+          <div class="item-row">
+            <span class="dot" style="background:${qById[it.q].color}"></span>
+            ${it.img ? `<img src="${it.img}" alt="">` : ''}
+            <span class="grow" title="${esc(itemName(it))}">${esc(itemName(it))}</span>
+            <span class="muted">${normSize(it.size)}${it.wp ? '' : ` ×${it.w}`}</span>
+            <button class="small" data-act="img" data-i="${i}" title="${esc(tr('tip.img'))}">🖼</button>
+            <button class="small" data-act="delItem" data-i="${i}">✕</button>
+          </div>`).join('')}</div>
+        <div class="add-item">
+          <input type="text" placeholder="${esc(tr('ph.item'))}" data-f="name">
+          <select data-f="q">${qOptions}</select>
+          <select data-f="size">${sizeOptions}</select>
+          <input type="number" value="1" min="0.1" step="0.1" title="${esc(tr('tip.weight'))}" data-f="w">
+          <button class="small" data-act="addItem">+</button>
+        </div>
+      </details>`;
+
+    el.addEventListener('click', e => {
+      const act = e.target.dataset.act;
+      if (!act) return;
+      e.preventDefault();
+      if (act === 'rec') {
+        if (recordingId === s.id) return setRecording(null);
+        if (!stream) return setStatus(tr('status.startFirst'));
+        setRecording(s.id);
+      } else if (act === 'rename') {
+        const n = prompt(tr('prompt.rename'), soundName(s));
+        if (n && n.trim()) { s.name = n.trim(); s.nameEn = ''; saveSounds(); }
+      } else if (act === 'del') {
+        if (confirm(tr('confirm.delSound', { name: soundName(s) }))) { sounds = sounds.filter(x => x !== s); saveSounds(); }
+      } else if (act === 'clearSamples') {
+        if (confirm(tr('confirm.delSamples'))) { s.waves = []; tplCache.delete(s.id); saveSounds(); }
+      } else if (act === 'delItem') {
+        s.items.splice(+e.target.dataset.i, 1); saveSounds();
+      } else if (act === 'img') {
+        imgTarget = { sound: s, index: +e.target.dataset.i };
+        ui.imgFile.click();
+      } else if (act === 'addItem') {
+        addItem(el, s);
+      }
+    });
+    el.querySelector('[data-f=name]').addEventListener('keydown', e => { if (e.key === 'Enter') addItem(el, s); });
+    ui.sounds.appendChild(el);
+  }
+}
+
+function addItem(el, s) {
+  const name = el.querySelector('[data-f=name]').value.trim();
+  if (!name) return;
+  const q = el.querySelector('[data-f=q]').value;
+  const w = Math.max(0.1, +el.querySelector('[data-f=w]').value || 1);
+  const size = el.querySelector('[data-f=size]').value;
+  s.items.push({ name, q, w, size, price: 0, wp: null, img: '' });
+  saveSounds();
+}
+
+// Зменшує картинку до 96×96, щоб база не роздувалась
+async function resizeImage(file) {
+  const bmp = await createImageBitmap(file);
+  const size = 96, k = Math.min(size / bmp.width, size / bmp.height, 1);
+  const c = document.createElement('canvas');
+  c.width = Math.round(bmp.width * k); c.height = Math.round(bmp.height * k);
+  c.getContext('2d').drawImage(bmp, 0, 0, c.width, c.height);
+  return c.toDataURL('image/webp', 0.85);
+}
+
+function setRecording(id) {
+  recordingId = id;
+  renderSounds();
+}
+
+// ---------- Рівень звуку ----------
+// Кожні 10 мс — стовпчик гучності; позначка зверху — тут почався звук
+function drawLevel(db, trig) {
+  const { width: w, height: h } = ui.spec;
+  specCtx.drawImage(ui.spec, -1, 0);
+  specCtx.fillStyle = '#0b0c0f';
+  specCtx.fillRect(w - 1, 0, 1, h);
+  const v = Math.min(1, Math.max(0, (db + 90) / 80));
+  specCtx.fillStyle = `hsl(${200 - v * 160}, 80%, 55%)`;
+  specCtx.fillRect(w - 1, h - v * h, 1, v * h);
+  if (trig) { specCtx.fillStyle = recordingId ? '#ef4444' : '#f0b429'; specCtx.fillRect(w - 1, 0, 1, 8); }
+}
+
+// ---------- Бібліотека ----------
+async function importLibrary(files) {
+  const ctx = new OfflineAudioContext(1, 1, Ear.SAMPLE_RATE);
+  setStatus(tr('status.importing'));
+  try {
+    const lib = await Library.load(files, ctx, (i, n) => setStatus(tr('status.importingN', { i, n })));
+    // еталони — у памʼять, у список звуків (і сховище) — лише опис
+    for (const s of lib.sounds) { tplCache.set(s.id, { up: s.up, down: s.down }); delete s.up; delete s.down; }
+    sounds = sounds.filter(s => !s.lib).concat(normalizeSounds(lib.sounds));
+    libPools = lib.pools;
+    itemQ = lib.itemQ;
+    itemById = new Map();
+    for (const s of sounds) for (const it of s.items) if (it.id) itemById.set(it.id, it);
+    profiles = lib.profiles;
+    try { localStorage.setItem(PROFILES_KEY, JSON.stringify(profiles)); } catch {}
+    renderProfiles();
+    saveSounds();
+    log(tr('log.libDone', { s: lib.sounds.length, i: lib.sounds.reduce((a, s) => a + s.items.length, 0) }));
+    setStatus(tr(stream ? 'status.listening' : 'status.libDone'));
+    return true;
+  } catch (e) {
+    log(tr('log.libFail', { msg: e.message }));
+    setStatus(tr('status.importFail'));
+    return false;
+  }
+}
+
+// Бібліотека лежить поруч у папці library: підтягуємо її при кожному запуску (еталони живуть лише
+// в памʼяті). Працює через start.bat (localhost); з file:// браузер не дає читати файли — тоді кнопка.
+async function autoLoadLibrary() {
+  try {
+    const res = await fetch('library/groups.json', { cache: 'no-cache' });
+    if (!res.ok) return;
+    const groupsBlob = await res.blob();
+    const groups = JSON.parse(await groupsBlob.text());
+    const paths = ['library/merchant.json', 'library/names_ru.json',
+      ...groups.groups.flatMap(g => g.sounds.map(s => 'library/' + s.file))];
+    const files = [{ path: 'library/groups.json', blob: groupsBlob }];
+    await Promise.all(paths.map(async p => {
+      const r = await fetch(p);
+      if (r.ok) files.push({ path: p, blob: await r.blob() });
+    }));
+    await importLibrary(files);
+  } catch {}
+}
+
+function renderProfiles() {
+  ui.profile.innerHTML = `<option value="">${esc(tr('opt.allMaps'))}</option>` +
+    profiles.map(p => `<option value="${p.id}">${esc(p.name)}</option>`).join('');
+  ui.profile.value = profiles.some(p => String(p.id) === String(profile)) ? String(profile) : '';
+  ui.profile.hidden = !profiles.length;
+}
+
+// ---------- Утиліти ----------
+function pct(x) { return Math.round(x * 100) + '%'; }
+// дрібні шанси з десятими, як у грі: 7.4%, 66%
+function pctFine(x) { const v = x * 100; return (v < 10 && v > 0 ? v.toFixed(1) : Math.round(v)) + '%'; }
+function fmtPrice(x) { return x.toLocaleString(I18n.locale); }
+// Назви поточною мовою: англійська — з даних гри, українська й російська — російські назви
+// (українських перекладів предметів у даних нема)
+function itemName(it) { return I18n.lang === 'en' && it.nameEn ? it.nameEn : it.name; }
+function soundName(s) { return I18n.lang === 'en' && s.nameEn ? s.nameEn : s.name; }
+function qName(q) { return tr('q.' + q.id); }
+function money(x) { return x >= 1e6 ? (x / 1e6).toFixed(1) + 'M' : Math.round(x / 1000) + 'k'; }
+function redColor(red) { return red >= 0.5 ? '#ef4444' : red > 0 ? '#f0b429' : '#8b93a1'; }
+function esc(s) { return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
+function setStatus(s) { ui.status.textContent = s; }
+function log(s) {
+  const d = document.createElement('div');
+  d.textContent = new Date().toLocaleTimeString('uk-UA') + '  ' + s;
+  ui.log.prepend(d);
+  while (ui.log.children.length > 100) ui.log.lastChild.remove();
+}
+
+// ---------- Події ----------
+ui.start.onclick = start;
+ui.stop.onclick = stop;
+ui.rescan.onclick = resetScan;
+ui.done.onclick = () => freeze(tr('log.manualFreeze', { n: placedCargo().length }));
+
+$('btnLib').onclick = () => ui.libDir.click();
+ui.libDir.onchange = e => {
+  const files = [...e.target.files].map(f => ({ path: f.webkitRelativePath || f.name, blob: f }));
+  e.target.value = '';
+  if (files.length) importLibrary(files);
+};
+$('blue').checked = includeBlue;
+$('blue').onchange = e => {
+  includeBlue = e.target.checked;
+  try { localStorage.setItem(BLUE_KEY, JSON.stringify(includeBlue)); } catch {}
+  renderSounds();
+  drawMap();
+};
+ui.profile.onchange = () => {
+  profile = ui.profile.value;
+  try { localStorage.setItem(PROFILE_KEY, JSON.stringify(profile)); } catch {}
+  renderSounds();
+  drawMap();
+};
+
+function addSound() {
+  const name = ui.newName.value.trim();
+  if (!name) { ui.newName.focus(); return; }
+  sounds.unshift({ id: uid(), name, waves: [], items: [] });
+  ui.newName.value = '';
+  saveSounds();
+}
+$('btnAdd').onclick = addSound;
+ui.newName.addEventListener('keydown', e => { if (e.key === 'Enter') addSound(); });
+
+ui.imgFile.onchange = async e => {
+  const f = e.target.files[0];
+  e.target.value = '';
+  if (!f || !imgTarget) return;
+  try {
+    imgTarget.sound.items[imgTarget.index].img = await resizeImage(f);
+    saveSounds();
+  } catch (err) { log(tr('log.imgFail', { msg: err.message })); }
+  imgTarget = null;
+};
+
+
+// Ручне призначення: клік ставить останній звук на вантаж, правий клік очищає
+function mapCargoAt(e) {
+  const { minC, minR } = mapBounds();
+  const p = canvasPos(ui.map, e);
+  const C = minC + Math.floor(p.x * ui.map.width / MAP_U), R = minR + Math.floor(p.y * ui.map.height / MAP_U);
+  const hit = placedCargo().find(([, r]) => C >= r.C && C < r.C + r.w && R >= r.R && R < r.R + r.h);
+  return hit ? hit[0] : null;
+}
+ui.map.addEventListener('click', e => {
+  const key = mapCargoAt(e);
+  if (!key || !lastResult) return;
+  if (lastKey && results.get(lastKey) === lastResult) results.delete(lastKey);
+  results.set(key, lastResult);
+  lastKey = key;
+  drawMap();
+});
+ui.map.addEventListener('mousemove', showMapPop);
+ui.map.addEventListener('mouseleave', () => { $('mapPop').hidden = true; });
+ui.map.addEventListener('contextmenu', e => {
+  e.preventDefault();
+  const key = mapCargoAt(e);
+  if (!key) return;
+  results.delete(key);
+  if (key === lastKey) lastKey = null;
+  drawMap();
+});
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') drawMap(); });
+
+$('btnExport').onclick = () => {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([JSON.stringify({ version: 2, sounds })], { type: 'application/json' }));
+  a.download = 'abi-ear-sounds.json';
+  a.click();
+};
+$('btnImport').onclick = () => $('file').click();
+$('file').onchange = async e => {
+  const f = e.target.files[0];
+  if (!f) return;
+  try {
+    const data = JSON.parse(await f.text());
+    const incoming = normalizeSounds(data.sounds || data);
+    const ids = new Set(sounds.map(s => s.id));
+    for (const s of incoming) { if (ids.has(s.id)) s.id = uid(); sounds.push(s); }
+    saveSounds();
+    log(tr('log.imported', { n: incoming.length }));
+  } catch (err) { log(tr('log.importFail', { msg: err.message })); }
+  e.target.value = '';
+};
+$('btnClear').onclick = () => {
+  if (confirm(tr('confirm.clear'))) { sounds = []; results = new Map(); saveSounds(); }
+};
+const syncLabels = () => { ui.sensVal.textContent = ui.sens.value + ' ' + tr('unit.db'); ui.thrVal.textContent = ui.thr.value + '%'; };
+ui.sens.oninput = ui.thr.oninput = syncLabels;
+// Мова інтерфейсу: при зміні перемальовуємо все, де є тексти
+const langSelect = $('lang');
+langSelect.value = I18n.lang;
+langSelect.onchange = () => {
+  I18n.setLang(langSelect.value);
+  if (stream) showGameStatus(gameStatus);
+  syncLabels(); renderProfiles(); renderSounds(); updateStage(); drawMap();
+};
+I18n.apply();
+syncLabels();
+renderProfiles();
+renderSounds();
+autoLoadLibrary();
+updateStage();
+drawMap();
+try { localStorage.removeItem(OLD_REGION_KEY); } catch {}
+</script>
+</body>
+</html>

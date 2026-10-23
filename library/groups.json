@@ -1,0 +1,2431 @@
+{
+ "version": 1,
+ "source": "звуки и предметы полевого торговца из Item Sonar (yodaylay22.github.io) + записи пользователя",
+ "calibration": "2026-10-01: 47 эталонов (38 групп звуков торговца), пороги по 102 мин чужих звуков, проверка на 105 мин других — 0 ложных; «настольные часы» выключены: срабатывали на речь",
+ "groups": [
+  {
+   "id": "med_comp",
+   "title": "плёнка, лампа, масло",
+   "red": false,
+   "events": [
+    "Item_Misc_Med_Comp_Up",
+    "Item_Misc_Med_Comp_Down"
+   ],
+   "warning": "",
+   "items": [
+    {
+     "ru": "Киноплёнка ~",
+     "en": "Film Stock",
+     "size": "2x2",
+     "rarity": 5,
+     "id": 408060043
+    },
+    {
+     "ru": "Керосиновая лампа ~",
+     "en": "Kerosene Lamp",
+     "size": "1x2",
+     "rarity": 4,
+     "id": 408010012
+    },
+    {
+     "ru": "Масло ~",
+     "en": "Oil",
+     "size": "1x2",
+     "rarity": 4,
+     "id": 408010005
+    }
+   ],
+   "sounds": [
+    {
+     "file": "sounds/med_comp_up.wav",
+     "kind": "up",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 992299122
+    },
+    {
+     "file": "sounds/med_comp_down.wav",
+     "kind": "down",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 284785638,
+     "disabled": true
+    }
+   ]
+  },
+  {
+   "id": "container_big_metal",
+   "title": "бочки и канистры",
+   "red": false,
+   "events": [
+    "Item_Container_Big_Metal_Up",
+    "Item_Container_Big_Metal_Down"
+   ],
+   "warning": "",
+   "items": [
+    {
+     "ru": "Топливная бочка ~",
+     "en": "Fuel Tank",
+     "size": "2x3",
+     "rarity": 5,
+     "id": 408010009
+    },
+    {
+     "ru": "Высокоэнергетическое топливо ~",
+     "en": "High Energy Fuel",
+     "size": "2x2",
+     "rarity": 5,
+     "id": 408010014
+    },
+    {
+     "ru": "Бочка для масла ~",
+     "en": "Oil Drum",
+     "size": "2x2",
+     "rarity": 4,
+     "id": 408010006
+    },
+    {
+     "ru": "Переносная канистра ~",
+     "en": "Portable Fuel Canister",
+     "size": "1x2",
+     "rarity": 4,
+     "id": 498010001
+    },
+    {
+     "ru": "Баллон с пропаном ~",
+     "en": "Propane Tank",
+     "size": "2x2",
+     "rarity": 4,
+     "id": 408010008
+    }
+   ],
+   "sounds": [
+    {
+     "file": "sounds/container_big_metal_up.wav",
+     "kind": "up",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 531711706
+    },
+    {
+     "file": "sounds/container_big_metal_down.wav",
+     "kind": "down",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 266052131,
+     "disabled": true
+    }
+   ]
+  },
+  {
+   "id": "med_fabric",
+   "title": "ткань: порох, паракорд",
+   "red": false,
+   "events": [
+    "Item_Misc_Med_Fabric_Up",
+    "Item_Misc_Med_Fabric_Down"
+   ],
+   "warning": "",
+   "items": [
+    {
+     "ru": "Пакет артиллерийского пороха ~",
+     "en": "Large-Caliber Artillery Gunpowder Pack",
+     "size": "3x2",
+     "rarity": 5,
+     "id": 408010016
+    },
+    {
+     "ru": "Нитроцеллюлоза ~",
+     "en": "Nitrocellulose",
+     "size": "2x2",
+     "rarity": 4,
+     "id": 408010015
+    },
+    {
+     "ru": "Паракорд ~",
+     "en": "Paracord",
+     "size": "2x2",
+     "rarity": 4,
+     "id": 408120003
+    },
+    {
+     "ru": "Туристический тент ~",
+     "en": "Camping Tarp",
+     "size": "2x1",
+     "rarity": 3,
+     "id": 408060042
+    }
+   ],
+   "sounds": [
+    {
+     "file": "sounds/med_fabric_up.wav",
+     "kind": "up",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 998453731
+    },
+    {
+     "file": "sounds/med_fabric_down.wav",
+     "kind": "down",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 751310121,
+     "disabled": true
+    }
+   ]
+  },
+  {
+   "id": "acc_fuel",
+   "title": "твёрдая резина",
+   "red": false,
+   "events": [
+    "Prop_Acc_Fuel_UP",
+    "Prop_Acc_Fuel_Down"
+   ],
+   "warning": "",
+   "items": [
+    {
+     "ru": "Ударопрочная резина ~",
+     "en": "Impact-resistant Hard Rubber",
+     "size": "2x2",
+     "rarity": 4,
+     "id": 408020015
+    }
+   ],
+   "sounds": [
+    {
+     "file": "sounds/acc_fuel_up.wav",
+     "kind": "up",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 605641098
+    },
+    {
+     "file": "sounds/acc_fuel_down.wav",
+     "kind": "down",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 767137248,
+     "disabled": true
+    }
+   ]
+  },
+  {
+   "id": "acc_concrete",
+   "title": "мешок цемента",
+   "red": false,
+   "events": [
+    "Prop_Acc_Concrete_UP",
+    "Prop_Acc_Concrete_Down"
+   ],
+   "warning": "",
+   "items": [
+    {
+     "ru": "Мешок цемента ~",
+     "en": "Bag of Cement",
+     "size": "2x2",
+     "rarity": 4,
+     "id": 408020017
+    }
+   ],
+   "sounds": [
+    {
+     "file": "sounds/acc_concrete_up.wav",
+     "kind": "up",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 1070276792
+    },
+    {
+     "file": "sounds/acc_concrete_down.wav",
+     "kind": "down",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 525281813,
+     "disabled": true
+    }
+   ]
+  },
+  {
+   "id": "med_metal_crisp",
+   "title": "металл, средний звонкий",
+   "red": true,
+   "events": [
+    "Item_Misc_Med_Metal_Crisp_Up",
+    "Item_Misc_Med_Metal_Crisp_Down"
+   ],
+   "warning": "",
+   "items": [
+    {
+     "ru": "Золотая глиняная табличка «Судьба»",
+     "en": "\"Destiny\" Gold Clay Tablet",
+     "size": "3x2",
+     "rarity": 6,
+     "id": 498080018
+    },
+    {
+     "ru": "Автомобильный аккумулятор ~",
+     "en": "Car Battery",
+     "size": "3x2",
+     "rarity": 5,
+     "id": 408040004
+    },
+    {
+     "ru": "Пластина титанового сплава ~",
+     "en": "Titanium Alloy Plate",
+     "size": "2x3",
+     "rarity": 5,
+     "id": 408020019
+    }
+   ],
+   "sounds": [
+    {
+     "file": "sounds/med_metal_crisp_up.wav",
+     "kind": "up",
+     "threshold": 0.55,
+     "source": "game",
+     "sonar_media": 553778733
+    },
+    {
+     "file": "sounds/med_metal_crisp_down.wav",
+     "kind": "down",
+     "threshold": 0.55,
+     "source": "game",
+     "sonar_media": 180719148
+    }
+   ]
+  },
+  {
+   "id": "acc_plastic_large",
+   "title": "резиновая подушка",
+   "red": false,
+   "events": [
+    "Prop_Acc_Plastic_Large_UP_01",
+    "Prop_Acc_Plastic_Large_Down_02"
+   ],
+   "warning": "",
+   "items": [
+    {
+     "ru": "Резиновая подушка ~",
+     "en": "Rubber Pad",
+     "size": "2x2",
+     "rarity": 3,
+     "id": 408020021
+    }
+   ],
+   "sounds": [
+    {
+     "file": "sounds/acc_plastic_large_up.wav",
+     "kind": "up",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 703964868
+    },
+    {
+     "file": "sounds/acc_plastic_large_down.wav",
+     "kind": "down",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 867333205,
+     "disabled": true
+    }
+   ]
+  },
+  {
+   "id": "med_wood",
+   "title": "дерево: проигрыватель, машинка",
+   "red": false,
+   "events": [
+    "Item_Misc_Med_Wood_Up",
+    "Item_Misc_Med_Wood_Down"
+   ],
+   "warning": "",
+   "items": [
+    {
+     "ru": "Проигрыватель пластинок ~",
+     "en": "Record Player",
+     "size": "2x2",
+     "rarity": 5,
+     "id": 408080019
+    },
+    {
+     "ru": "Старинная пишущая машинка ~",
+     "en": "Vintage Typewriter",
+     "size": "2x2",
+     "rarity": 5,
+     "id": 408080033
+    },
+    {
+     "ru": "Акустическая панель ~",
+     "en": "Acoustic Panel",
+     "size": "2x2",
+     "rarity": 3,
+     "id": 408020022
+    },
+    {
+     "ru": "Доска ~",
+     "en": "Wood Board",
+     "size": "2x1",
+     "rarity": 3,
+     "id": 408020024
+    }
+   ],
+   "sounds": [
+    {
+     "file": "sounds/med_wood_up.wav",
+     "kind": "up",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 1053871989
+    },
+    {
+     "file": "sounds/med_wood_down.wav",
+     "kind": "down",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 232050208,
+     "disabled": true
+    }
+   ]
+  },
+  {
+   "id": "small_comp",
+   "title": "мелкий пластик",
+   "red": false,
+   "events": [
+    "Item_Misc_Small_Comp_Up",
+    "Item_Misc_Small_Comp_Down"
+   ],
+   "warning": "",
+   "items": [
+    {
+     "ru": "Звукоизоляционная вата ~",
+     "en": "Sound-Muffling Cotton",
+     "size": "3x2",
+     "rarity": 5,
+     "id": 408020025
+    },
+    {
+     "ru": "Биоматериал ~",
+     "en": "Bios.",
+     "size": "1x1",
+     "rarity": 4,
+     "id": 408070010
+    },
+    {
+     "ru": "Слуховой аппарат ~",
+     "en": "Hearing Aid",
+     "size": "1x1",
+     "rarity": 4,
+     "id": 408060037
+    },
+    {
+     "ru": "Объектив ~",
+     "en": "Lens",
+     "size": "1x1",
+     "rarity": 4,
+     "id": 408140015
+    },
+    {
+     "ru": "Портативная рация ~",
+     "en": "Portable Transceiver",
+     "size": "1x2",
+     "rarity": 4,
+     "id": 408120009
+    },
+    {
+     "ru": "Бинокль с дальномером ~",
+     "en": "Rangefinder Binoculars",
+     "size": "2x1",
+     "rarity": 4,
+     "id": 408120008
+    },
+    {
+     "ru": "Капельница с глюкозой ~",
+     "en": "Glucose Injection",
+     "size": "1x1",
+     "rarity": 3,
+     "id": 408070001
+    },
+    {
+     "ru": "Мощный фонарь ~",
+     "en": "High Power Flashlight",
+     "size": "2x1",
+     "rarity": 3,
+     "id": 408050023
+    },
+    {
+     "ru": "Аварийный молоток ~",
+     "en": "Safety Hammer",
+     "size": "1x1",
+     "rarity": 3,
+     "id": 408050028
+    },
+    {
+     "ru": "Оружейные детали ~",
+     "en": "Weapon Parts",
+     "size": "2x1",
+     "rarity": 3,
+     "id": 408120001
+    },
+    {
+     "ru": "Дезинфицирующее средство ~",
+     "en": "Disinfectant",
+     "size": "1x1",
+     "rarity": 1,
+     "id": 408070011
+    }
+   ],
+   "sounds": [
+    {
+     "file": "sounds/small_comp_up.wav",
+     "kind": "up",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 578572427
+    },
+    {
+     "file": "sounds/small_comp_down.wav",
+     "kind": "down",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 850098596,
+     "disabled": true
+    }
+   ]
+  },
+  {
+   "id": "electronicdevice",
+   "title": "электроника",
+   "red": true,
+   "events": [
+    "Item_Misc_ElectronicDevice_Up",
+    "Item_Misc_ElectronicDevice_Down"
+   ],
+   "warning": "",
+   "items": [
+    {
+     "ru": "Модуль TI",
+     "en": "TI Module",
+     "size": "2x1",
+     "rarity": 6,
+     "id": 408120013
+    },
+    {
+     "ru": "Модуль определения цели ~",
+     "en": "Target Positioning Module",
+     "size": "2x2",
+     "rarity": 6,
+     "id": 408120019
+    },
+    {
+     "ru": "Антенна ~",
+     "en": "Antenna",
+     "size": "2x2",
+     "rarity": 5,
+     "id": 408100011
+    },
+    {
+     "ru": "Автоматический дефибриллятор ~",
+     "en": "Automated External Defibrillator",
+     "size": "2x2",
+     "rarity": 5,
+     "id": 408070012
+    },
+    {
+     "ru": "Игровая приставка ~",
+     "en": "Game Console",
+     "size": "1x2",
+     "rarity": 5,
+     "id": 408140001
+    },
+    {
+     "ru": "Золотой телефон ~",
+     "en": "Gold Phone",
+     "size": "1x1",
+     "rarity": 5,
+     "id": 408140019
+    },
+    {
+     "ru": "Инсулиновая помпа ~",
+     "en": "Insulin Pump",
+     "size": "1x1",
+     "rarity": 5,
+     "id": 408070013
+    },
+    {
+     "ru": "Ноутбук ~",
+     "en": "Laptop Computer",
+     "size": "2x2",
+     "rarity": 5,
+     "id": 408140024
+    },
+    {
+     "ru": "Модуль лазерного целеуказателя ~",
+     "en": "Laser Pointer Module",
+     "size": "2x2",
+     "rarity": 5,
+     "id": 408120020
+    },
+    {
+     "ru": "Нивелир ~",
+     "en": "Leveler",
+     "size": "2x1",
+     "rarity": 5,
+     "id": 408120017
+    },
+    {
+     "ru": "Палладиевая проволока ~",
+     "en": "Palladium Wire",
+     "size": "2x2",
+     "rarity": 5,
+     "id": 408020026
+    },
+    {
+     "ru": "ИБП (бесперебойник) ~",
+     "en": "UPS Unit",
+     "size": "3x2",
+     "rarity": 5,
+     "id": 408030025
+    },
+    {
+     "ru": "Векторный процессор ~",
+     "en": "Vector Processor",
+     "size": "3x2",
+     "rarity": 5,
+     "id": 408030028
+    },
+    {
+     "ru": "Видеокамера ~",
+     "en": "Video Camera",
+     "size": "2x2",
+     "rarity": 5,
+     "id": 408140022
+    },
+    {
+     "ru": "Тестер герметичности ~",
+     "en": "Air Tightness Tester",
+     "size": "2x1",
+     "rarity": 4,
+     "id": 408100002
+    },
+    {
+     "ru": "Фотоаппарат ~",
+     "en": "Camera",
+     "size": "1x1",
+     "rarity": 4,
+     "id": 408140016
+    },
+    {
+     "ru": "Процессор ~",
+     "en": "Chip Processor",
+     "size": "1x1",
+     "rarity": 4,
+     "id": 408030014
+    },
+    {
+     "ru": "Кабель передачи данных ~",
+     "en": "Data Cable",
+     "size": "2x1",
+     "rarity": 4,
+     "id": 408140021
+    },
+    {
+     "ru": "Игровой картридж ~",
+     "en": "Game Cartridge",
+     "size": "1x1",
+     "rarity": 4,
+     "id": 408060030
+    },
+    {
+     "ru": "Газоанализатор ~",
+     "en": "Gas Analyzer",
+     "size": "1x2",
+     "rarity": 4,
+     "id": 408100001
+    },
+    {
+     "ru": "Стабилизатор для камеры ~",
+     "en": "Gimbal",
+     "size": "1x1",
+     "rarity": 4,
+     "id": 408100012
+    },
+    {
+     "ru": "Экспонометр ~",
+     "en": "Light Meter",
+     "size": "1x1",
+     "rarity": 4,
+     "id": 408100013
+    },
+    {
+     "ru": "Осциллограф ~",
+     "en": "Oscilloscope",
+     "size": "2x1",
+     "rarity": 4,
+     "id": 408100007
+    },
+    {
+     "ru": "Оперативная память ~",
+     "en": "RAM",
+     "size": "1x1",
+     "rarity": 4,
+     "id": 408030016
+    },
+    {
+     "ru": "Радиостанция ~",
+     "en": "Radio",
+     "size": "2x1",
+     "rarity": 4,
+     "id": 408120014
+    },
+    {
+     "ru": "Термометр ~",
+     "en": "Thermometer",
+     "size": "1x1",
+     "rarity": 4,
+     "id": 408070003
+    },
+    {
+     "ru": "DVD-плеер ~",
+     "en": "DVD",
+     "size": "2x1",
+     "rarity": 3,
+     "id": 408140005
+    },
+    {
+     "ru": "Дисковод ~",
+     "en": "Floppy Drive",
+     "size": "2x1",
+     "rarity": 3,
+     "id": 408030023
+    },
+    {
+     "ru": "Приёмник ~",
+     "en": "Receiver",
+     "size": "1x2",
+     "rarity": 3,
+     "id": 408120011
+    },
+    {
+     "ru": "Глушилка сигнала ~",
+     "en": "Signal Jammer",
+     "size": "1x2",
+     "rarity": 3,
+     "id": 408120012
+    },
+    {
+     "ru": "VGA-кабель ~",
+     "en": "VGA Display Cable",
+     "size": "2x1",
+     "rarity": 3,
+     "id": 408030024
+    },
+    {
+     "ru": "Фильтр помех ~",
+     "en": "Wave Filter",
+     "size": "1x1",
+     "rarity": 3,
+     "id": 408100005
+    },
+    {
+     "ru": "Фонарик ~",
+     "en": "Flashlight",
+     "size": "2x1",
+     "rarity": 1,
+     "id": 408050022
+    }
+   ],
+   "sounds": [
+    {
+     "file": "sounds/electronicdevice_up.wav",
+     "kind": "up",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 60732725
+    },
+    {
+     "file": "sounds/electronicdevice_down.wav",
+     "kind": "down",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 966836521
+    }
+   ]
+  },
+  {
+   "id": "acc_plastic_small",
+   "title": "кабель питания",
+   "red": false,
+   "events": [
+    "Prop_Acc_Plastic_Small_UP",
+    "Prop_Acc_Plastic_Small_Down"
+   ],
+   "warning": "",
+   "items": [
+    {
+     "ru": "Кабель питания ~",
+     "en": "Power Cable",
+     "size": "2x1",
+     "rarity": 3,
+     "id": 408030003
+    }
+   ],
+   "sounds": [
+    {
+     "file": "sounds/acc_plastic_small_up.wav",
+     "kind": "up",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 713777504
+    },
+    {
+     "file": "sounds/acc_plastic_small_down.wav",
+     "kind": "down",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 747643508,
+     "disabled": true
+    }
+   ]
+  },
+  {
+   "id": "acc_tech_small",
+   "title": "комплектующие ПК",
+   "red": false,
+   "events": [
+    "Prop_Acc_Tech_Small_UP",
+    "Prop_Acc_Tech_Small_Down"
+   ],
+   "warning": "",
+   "items": [
+    {
+     "ru": "Видеокарта ~",
+     "en": "Graphics Card",
+     "size": "2x1",
+     "rarity": 5,
+     "id": 408030004
+    },
+    {
+     "ru": "Блок питания ~",
+     "en": "PSU",
+     "size": "2x2",
+     "rarity": 4,
+     "id": 408030009
+    },
+    {
+     "ru": "SSD-накопитель ~",
+     "en": "SSD",
+     "size": "1x1",
+     "rarity": 4,
+     "id": 408030013
+    }
+   ],
+   "sounds": [
+    {
+     "file": "sounds/acc_tech_small_up.wav",
+     "kind": "up",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 50172621
+    },
+    {
+     "file": "sounds/acc_tech_small_down.wav",
+     "kind": "down",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 622856689,
+     "disabled": true
+    }
+   ]
+  },
+  {
+   "id": "acc_pc",
+   "title": "ЖК-экран",
+   "red": false,
+   "events": [
+    "Prop_Acc_PC_UP",
+    "Prop_Acc_PC_Down"
+   ],
+   "warning": "",
+   "items": [
+    {
+     "ru": "Рабочий ЖК-экран ~",
+     "en": "Working LCD",
+     "size": "2x1",
+     "rarity": 4,
+     "id": 408030008
+    },
+    {
+     "ru": "Разбитый ЖК-экран ~",
+     "en": "Broken LCD",
+     "size": "2x1",
+     "rarity": 3,
+     "id": 408030007
+    }
+   ],
+   "sounds": [
+    {
+     "file": "sounds/acc_pc_up.wav",
+     "kind": "up",
+     "threshold": 0.57,
+     "source": "game",
+     "sonar_media": 741282764
+    },
+    {
+     "file": "sounds/acc_pc_down.wav",
+     "kind": "down",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 889653233,
+     "disabled": true
+    }
+   ]
+  },
+  {
+   "id": "big_wood",
+   "title": "большое дерево",
+   "red": true,
+   "events": [
+    "Item_Misc_Big_Wood_Up",
+    "Item_Misc_Big_Wood_Down"
+   ],
+   "warning": "",
+   "items": [
+    {
+     "ru": "Двухгрифовая лютня ~",
+     "en": "Double-Neck Lute",
+     "size": "2x3",
+     "rarity": 6,
+     "id": 498080025
+    },
+    {
+     "ru": "Студийный монитор ~",
+     "en": "Studio Monitor",
+     "size": "2x2",
+     "rarity": 5,
+     "id": 408030026
+    }
+   ],
+   "sounds": [
+    {
+     "file": "sounds/big_wood_up.wav",
+     "kind": "up",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 732610428
+    },
+    {
+     "file": "sounds/big_wood_down.wav",
+     "kind": "down",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 414023338
+    }
+   ]
+  },
+  {
+   "id": "acc_battery_small",
+   "title": "батарейки",
+   "red": false,
+   "events": [
+    "Prop_Acc_Battery_Small_UP_01",
+    "Prop_Acc_Battery_Small_Down_01"
+   ],
+   "warning": "",
+   "items": [
+    {
+     "ru": "Батарейка ~",
+     "en": "Battery",
+     "size": "1x1",
+     "rarity": 1,
+     "id": 408040001
+    },
+    {
+     "ru": "Батарейка типа D ~",
+     "en": "D-size Battery",
+     "size": "1x1",
+     "rarity": 1,
+     "id": 408040002
+    }
+   ],
+   "sounds": [
+    {
+     "file": "sounds/acc_battery_small_up.wav",
+     "kind": "up",
+     "threshold": 0.51,
+     "source": "game",
+     "sonar_media": 1017083920
+    },
+    {
+     "file": "sounds/acc_battery_small_down.wav",
+     "kind": "down",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 296659356,
+     "disabled": true
+    }
+   ]
+  },
+  {
+   "id": "acc_med_comp",
+   "title": "солнечная панель",
+   "red": false,
+   "events": [
+    "Item_Acc_Med_Comp_Up",
+    "Item_Acc_Med_Comp_Down"
+   ],
+   "warning": "",
+   "items": [
+    {
+     "ru": "Солнечная панель ~",
+     "en": "Solar Panel",
+     "size": "1x1",
+     "rarity": 4,
+     "id": 408040006
+    }
+   ],
+   "sounds": [
+    {
+     "file": "sounds/acc_med_comp_up.wav",
+     "kind": "up",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 325425847
+    },
+    {
+     "file": "sounds/acc_med_comp_down.wav",
+     "kind": "down",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 1027501921,
+     "disabled": true
+    }
+   ]
+  },
+  {
+   "id": "med_metal_blunt",
+   "title": "металл, средний глухой",
+   "red": false,
+   "events": [
+    "Item_Misc_Med_Metal_Blunt_Up",
+    "Item_Misc_Med_Metal_Blunt_Down"
+   ],
+   "warning": "",
+   "items": [
+    {
+     "ru": "Арочный профнастил ~",
+     "en": "Arched Corrugated Steel Plate",
+     "size": "2x2",
+     "rarity": 5,
+     "id": 498020001
+    },
+    {
+     "ru": "Модуль положительного электрода ~",
+     "en": "Battery-Powered Positive Electrode Module",
+     "size": "3x2",
+     "rarity": 5,
+     "id": 408040008
+    },
+    {
+     "ru": "Гидравлический расширитель ~",
+     "en": "Hydraulic Expander",
+     "size": "2x3",
+     "rarity": 5,
+     "id": 408050033
+    },
+    {
+     "ru": "Туристическая плитка ~",
+     "en": "Camping Stove",
+     "size": "2x2",
+     "rarity": 4,
+     "id": 408060046
+    },
+    {
+     "ru": "Ручной осветитель ~",
+     "en": "Handheld Fill Light",
+     "size": "1x2",
+     "rarity": 4,
+     "id": 408060044
+    },
+    {
+     "ru": "Маслёнка ~",
+     "en": "Oil Bottle",
+     "size": "2x1",
+     "rarity": 4,
+     "id": 408050031
+    },
+    {
+     "ru": "Набор для чистки труб ~",
+     "en": "Pipe Cleaning Kit",
+     "size": "1x2",
+     "rarity": 4,
+     "id": 408050030
+    },
+    {
+     "ru": "Портативный домкрат ~",
+     "en": "Portable Jack",
+     "size": "2x1",
+     "rarity": 4,
+     "id": 408050029
+    },
+    {
+     "ru": "Клеевой пистолет ~",
+     "en": "Glue Gun",
+     "size": "2x1",
+     "rarity": 3,
+     "id": 408050032
+    }
+   ],
+   "sounds": [
+    {
+     "file": "sounds/med_metal_blunt_up.wav",
+     "kind": "up",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 1039760777
+    },
+    {
+     "file": "sounds/med_metal_blunt_down.wav",
+     "kind": "down",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 717522741,
+     "disabled": true
+    }
+   ]
+  },
+  {
+   "id": "small_metal_blunt",
+   "title": "мелкий металл, глухой",
+   "red": true,
+   "events": [
+    "Item_Misc_Small_Metal_Blunt_Up",
+    "Item_Misc_Small_Metal_Blunt_Down"
+   ],
+   "warning": "",
+   "items": [
+    {
+     "ru": "Янтарное райское сердце",
+     "en": "Amber Heart of Heaven",
+     "size": "2x3",
+     "rarity": 6,
+     "id": 498080016
+    },
+    {
+     "ru": "Капсульный телевизор",
+     "en": "Capsule TV",
+     "size": "2x3",
+     "rarity": 6,
+     "id": 498140003
+    },
+    {
+     "ru": "Небесная сфера",
+     "en": "Heavenly Sphere",
+     "size": "2x2",
+     "rarity": 6,
+     "id": 498080010
+    },
+    {
+     "ru": "Яйцо Гефры",
+     "en": "Hefra Egg",
+     "size": "2x2",
+     "rarity": 6,
+     "id": 498080008
+    },
+    {
+     "ru": "Лира",
+     "en": "Lyre",
+     "size": "2x2",
+     "rarity": 6,
+     "id": 498080009
+    },
+    {
+     "ru": "Раскладной ноутбук MRID ~",
+     "en": "MRID Clamshell Laptop",
+     "size": "2x2",
+     "rarity": 6,
+     "id": 498140005
+    },
+    {
+     "ru": "Прототип вычислительного модуля ~",
+     "en": "Prototype Calculation Module",
+     "size": "2x2",
+     "rarity": 6,
+     "id": 498140001
+    },
+    {
+     "ru": "Игрушечный робот Quantum 2000",
+     "en": "Quantum 2000 Toy Robot",
+     "size": "2x3",
+     "rarity": 6,
+     "id": 498060003
+    },
+    {
+     "ru": "Синхронизированное зеркало «Скайхук» ~",
+     "en": "Skyhook Synchronized Array Mirror",
+     "size": "1x2",
+     "rarity": 6,
+     "id": 408080047
+    },
+    {
+     "ru": "Прототип трехосевого гироскопического контроллера",
+     "en": "Three-Axis Gyro Controller Prototype",
+     "size": "3x2",
+     "rarity": 6,
+     "id": 498100003
+    },
+    {
+     "ru": "Золотой слиток ~",
+     "en": "Gold Block",
+     "size": "2x1",
+     "rarity": 5,
+     "id": 408080024
+    },
+    {
+     "ru": "Ручной солемер ~",
+     "en": "Handheld Salinity Meter",
+     "size": "1x1",
+     "rarity": 5,
+     "id": 498100005
+    },
+    {
+     "ru": "Гидравлический ключ ~",
+     "en": "Hydraulic Wrench",
+     "size": "2x1",
+     "rarity": 5,
+     "id": 408050026
+    },
+    {
+     "ru": "Инфракрасная лампа ~",
+     "en": "Infrared Therapy Lamp",
+     "size": "2x2",
+     "rarity": 5,
+     "id": 498070009
+    },
+    {
+     "ru": "Никель-кадмиевый аккумулятор ~",
+     "en": "Ni-Cd Battery Pack",
+     "size": "1x1",
+     "rarity": 5,
+     "id": 498040002
+    },
+    {
+     "ru": "Фарфор ~",
+     "en": "Porcelain",
+     "size": "2x2",
+     "rarity": 5,
+     "id": 408080014
+    },
+    {
+     "ru": "Необработанный алмаз ~",
+     "en": "Raw Diamond Ore",
+     "size": "1x2",
+     "rarity": 5,
+     "id": 408080049
+    },
+    {
+     "ru": "Модель спутника «Сергей-1» ~",
+     "en": "Sergey 1 Satellite Model",
+     "size": "2x1",
+     "rarity": 5,
+     "id": 408080048
+    },
+    {
+     "ru": "Солнечная зарядка ~",
+     "en": "Solar Charger",
+     "size": "1x1",
+     "rarity": 5,
+     "id": 498040001
+    },
+    {
+     "ru": "Воздуходувка ~",
+     "en": "Blower",
+     "size": "2x2",
+     "rarity": 4,
+     "id": 408050019
+    },
+    {
+     "ru": "Артиллерийский снаряд ~",
+     "en": "Cannon Shell",
+     "size": "1x2",
+     "rarity": 4,
+     "id": 408120002
+    },
+    {
+     "ru": "Электродрель ~",
+     "en": "Electric Drill",
+     "size": "2x2",
+     "rarity": 4,
+     "id": 408050001
+    },
+    {
+     "ru": "Калькулятор ~",
+     "en": "Handheld Calculator",
+     "size": "1x2",
+     "rarity": 4,
+     "id": 498100006
+    },
+    {
+     "ru": "Ручной приёмник ~",
+     "en": "Handheld Receiver",
+     "size": "1x2",
+     "rarity": 4,
+     "id": 498100004
+    },
+    {
+     "ru": "Гидравлический арматурорез ~",
+     "en": "Hydraulic Rebar Cutter",
+     "size": "3x2",
+     "rarity": 4,
+     "id": 408050009
+    },
+    {
+     "ru": "Набор инструментов ~",
+     "en": "Toolkit",
+     "size": "2x2",
+     "rarity": 4,
+     "id": 408050006
+    },
+    {
+     "ru": "Трубный ключ ~",
+     "en": "Pipe Wrench",
+     "size": "2x1",
+     "rarity": 3,
+     "id": 408050011
+    },
+    {
+     "ru": "Серебряный значок ~",
+     "en": "Silver Badge",
+     "size": "1x1",
+     "rarity": 3,
+     "id": 408080011
+    },
+    {
+     "ru": "Шпора ~",
+     "en": "Spur",
+     "size": "2x1",
+     "rarity": 3,
+     "id": 408080022
+    },
+    {
+     "ru": "Хаотическая материя ~",
+     "en": "Chaotic Matter (?)",
+     "note": "на видео звучит как эта группа, в списке Item Sonar её нет",
+     "rarity": 6
+    }
+   ],
+   "sounds": [
+    {
+     "file": "sounds/small_metal_blunt_up.wav",
+     "kind": "up",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 816866179
+    },
+    {
+     "file": "sounds/small_metal_blunt_down.wav",
+     "kind": "down",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 64790754
+    }
+   ]
+  },
+  {
+   "id": "container_small_metal",
+   "title": "ящик для инструментов",
+   "red": false,
+   "events": [
+    "Item_Container_Small_Metal_Up",
+    "Item_Container_Small_Metal_Down"
+   ],
+   "warning": "",
+   "items": [
+    {
+     "ru": "Ящик для инструментов ~",
+     "en": "Toolbox",
+     "size": "2x1",
+     "rarity": 3,
+     "id": 408050013
+    }
+   ],
+   "sounds": [
+    {
+     "file": "sounds/container_small_metal_up.wav",
+     "kind": "up",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 988513175
+    },
+    {
+     "file": "sounds/container_small_metal_down.wav",
+     "kind": "down",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 406507250,
+     "disabled": true
+    }
+   ]
+  },
+  {
+   "id": "big_blunt",
+   "title": "паяльная лампа",
+   "red": false,
+   "events": [
+    "Item_Misc_Big_Blunt_Up",
+    "Item_Misc_Big_Blunt_Down"
+   ],
+   "warning": "",
+   "items": [
+    {
+     "ru": "Паяльная лампа ~",
+     "en": "Blowtorch",
+     "size": "1x2",
+     "rarity": 5,
+     "id": 408050039
+    }
+   ],
+   "sounds": [
+    {
+     "file": "sounds/big_blunt_up.wav",
+     "kind": "up",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 416687564
+    },
+    {
+     "file": "sounds/big_blunt_down.wav",
+     "kind": "down",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 283723927,
+     "disabled": true
+    }
+   ]
+  },
+  {
+   "id": "small_wood",
+   "title": "фоторамка",
+   "red": false,
+   "events": [
+    "Item_Misc_Small_Wood_Up",
+    "Item_Misc_Small_Wood_Down"
+   ],
+   "warning": "",
+   "items": [
+    {
+     "ru": "Фоторамка ~",
+     "en": "Photo Frame",
+     "size": "2x1",
+     "rarity": 3,
+     "id": 408060021
+    }
+   ],
+   "sounds": [
+    {
+     "file": "sounds/small_wood_up.wav",
+     "kind": "up",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 263529834
+    },
+    {
+     "file": "sounds/small_wood_down.wav",
+     "kind": "down",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 834192060,
+     "disabled": true
+    }
+   ]
+  },
+  {
+   "id": "small_metal_crisp",
+   "title": "мелкий металл, звонкий",
+   "red": true,
+   "events": [
+    "Item_Misc_Small_Metal_Crisp_Up",
+    "Item_Misc_Small_Metal_Crisp_Down"
+   ],
+   "warning": "",
+   "items": [
+    {
+     "ru": "«Рассвет»",
+     "en": "\"Dawn\"",
+     "size": "3x2",
+     "rarity": 6,
+     "id": 498080003
+    },
+    {
+     "ru": "Аэрокосмический навигатор",
+     "en": "Aerospace Navigator",
+     "size": "3x2",
+     "rarity": 6,
+     "id": 498100001
+    },
+    {
+     "ru": "Реплика древней золотой маски",
+     "en": "Ancient Golden Mask Replica",
+     "size": "2x3",
+     "rarity": 6,
+     "id": 498080006
+    },
+    {
+     "ru": "ЭЭГ",
+     "en": "EEG",
+     "size": "2x2",
+     "rarity": 6,
+     "id": 498070002
+    },
+    {
+     "ru": "Позолоченная клетка ~ (шкатулка)",
+     "en": "Gilded Cage Music Box",
+     "size": "2x3",
+     "rarity": 6,
+     "id": 498080001
+    },
+    {
+     "ru": "Павлиний веер",
+     "en": "Peacock Fan",
+     "size": "2x2",
+     "rarity": 6,
+     "id": 498080011
+    },
+    {
+     "ru": "Часы «Фаэтон» ~",
+     "en": "Phaethon's Clock",
+     "size": "2x2",
+     "rarity": 6,
+     "id": 498080002
+    },
+    {
+     "ru": "Настоящая матрица ~",
+     "en": "Real Matrix",
+     "size": "2x2",
+     "rarity": 6,
+     "id": 498080005
+    },
+    {
+     "ru": "Золотая пластинка «Голос цивилизации»",
+     "en": "Voice of Civilization Gold Record",
+     "size": "2x2",
+     "rarity": 6,
+     "id": 498060004
+    },
+    {
+     "ru": "Глюкометр ~",
+     "en": "Blood Glucose Meter Set",
+     "size": "2x1",
+     "rarity": 5,
+     "id": 498070003
+    },
+    {
+     "ru": "Золотая ручка ~",
+     "en": "Gold Pen",
+     "size": "1x1",
+     "rarity": 5,
+     "id": 408080054
+    },
+    {
+     "ru": "Золотые часы ~",
+     "en": "Gold Watch",
+     "size": "1x1",
+     "rarity": 5,
+     "id": 408080004
+    },
+    {
+     "ru": "Обрывки чертежей «Гунгнира» ~",
+     "en": "Gungnir Blueprint Fragments",
+     "size": "2x2",
+     "rarity": 5,
+     "id": 408090019
+    },
+    {
+     "ru": "Нефритовый браслет ~",
+     "en": "Jade Bracelet",
+     "size": "1x1",
+     "rarity": 5,
+     "id": 408080050
+    },
+    {
+     "ru": "Магниевое огниво ~",
+     "en": "Magnesium Flint",
+     "size": "1x1",
+     "rarity": 5,
+     "id": 498010003
+    },
+    {
+     "ru": "Металлическое сердце ~",
+     "en": "Metal Heart",
+     "size": "2x2",
+     "rarity": 5,
+     "id": 408070016
+    },
+    {
+     "ru": "Набор «Космическая лаборатория» ~",
+     "en": "Space Lab Toybox",
+     "size": "3x2",
+     "rarity": 5,
+     "id": 498060001
+    },
+    {
+     "ru": "Рация T-147 ~",
+     "en": "T-147 Individual Communication Device",
+     "size": "1x2",
+     "rarity": 5,
+     "id": 498120003
+    },
+    {
+     "ru": "Пропуск «Толанд» ~",
+     "en": "Toland Access Card",
+     "size": "1x1",
+     "rarity": 5,
+     "id": 498060006
+    },
+    {
+     "ru": "Дневник Восса ~",
+     "en": "Voss' Journal",
+     "size": "1x2",
+     "rarity": 5,
+     "id": 498090001
+    },
+    {
+     "ru": "Измеритель ёмкости ~",
+     "en": "Capacitance Analyzer",
+     "size": "1x2",
+     "rarity": 4,
+     "id": 498040003
+    },
+    {
+     "ru": "Электронный стетоскоп ~",
+     "en": "Electronic Stethoscope",
+     "size": "1x2",
+     "rarity": 4,
+     "id": 498070004
+    },
+    {
+     "ru": "Магнитофон GU-470 ~",
+     "en": "GU-470 Portable Recorder",
+     "size": "1x2",
+     "rarity": 4,
+     "id": 498140006
+    },
+    {
+     "ru": "Ручной анализатор ~",
+     "en": "Handheld Tester",
+     "size": "1x2",
+     "rarity": 4,
+     "id": 498070001
+    },
+    {
+     "ru": "Армейский набор инструментов ~",
+     "en": "Military Tool Kit",
+     "size": "2x1",
+     "rarity": 4,
+     "id": 498120001
+    },
+    {
+     "ru": "Карманный компьютер ~",
+     "en": "Personal Digital Assistant",
+     "size": "1x2",
+     "rarity": 4,
+     "id": 498140004
+    },
+    {
+     "ru": "Комикс «Космический мальчик» ~",
+     "en": "Space Boy Comic",
+     "size": "1x2",
+     "rarity": 4,
+     "id": 498090002
+    },
+    {
+     "ru": "Часы ~",
+     "en": "Watch",
+     "size": "1x1",
+     "rarity": 4,
+     "id": 408060039
+    },
+    {
+     "ru": "Медицинские ножницы ~",
+     "en": "Medical Scissors",
+     "size": "1x1",
+     "rarity": 1,
+     "id": 408070009
+    }
+   ],
+   "sounds": [
+    {
+     "file": "sounds/small_metal_crisp_up.wav",
+     "kind": "up",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 617167031
+    },
+    {
+     "file": "sounds/small_metal_crisp_down.wav",
+     "kind": "down",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 896333389
+    }
+   ]
+  },
+  {
+   "id": "small_fabric",
+   "title": "мешок удобрений",
+   "red": false,
+   "events": [
+    "Item_Misc_Small_Fabric_Up",
+    "Item_Misc_Small_Fabric_Down"
+   ],
+   "warning": "",
+   "items": [
+    {
+     "ru": "Мешок удобрений ~",
+     "en": "Bag of Fertilizer",
+     "size": "2x2",
+     "rarity": 4,
+     "id": 408060041
+    }
+   ],
+   "sounds": [
+    {
+     "file": "sounds/small_fabric_up.wav",
+     "kind": "up",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 301757322
+    },
+    {
+     "file": "sounds/small_fabric_down.wav",
+     "kind": "down",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 639683184,
+     "disabled": true
+    }
+   ]
+  },
+  {
+   "id": "small_glass",
+   "title": "мелкое стекло",
+   "red": false,
+   "events": [
+    "Item_Misc_Small_Glass_Up",
+    "Item_Misc_Small_Glass_Down"
+   ],
+   "warning": "",
+   "items": [
+    {
+     "ru": "Инъектор блокатора ~",
+     "en": "Blocker Injector",
+     "size": "1x1",
+     "rarity": 5,
+     "id": 498070012
+    },
+    {
+     "ru": "Элитный чайный сервиз ~",
+     "en": "Deluxe Tea Set",
+     "size": "2x2",
+     "rarity": 5,
+     "id": 408060052
+    },
+    {
+     "ru": "Набор для теста феромонов ~",
+     "en": "Pheromone Test Kit",
+     "size": "3x2",
+     "rarity": 5,
+     "id": 498070011
+    }
+   ],
+   "sounds": [
+    {
+     "file": "sounds/small_glass_up.wav",
+     "kind": "up",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 386392013
+    },
+    {
+     "file": "sounds/small_glass_down.wav",
+     "kind": "down",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 502954397,
+     "disabled": true
+    }
+   ]
+  },
+  {
+   "id": "med_wood_clock",
+   "title": "лютня",
+   "red": false,
+   "events": [
+    "Item_Misc_Med_Wood_Clock_Up",
+    "Item_Misc_Med_Wood_Clock_Down"
+   ],
+   "warning": "",
+   "items": [
+    {
+     "ru": "Лютня ~",
+     "en": "Lute",
+     "size": "2x2",
+     "rarity": 4,
+     "id": 408060054
+    }
+   ],
+   "sounds": [
+    {
+     "file": "sounds/med_wood_clock_up.wav",
+     "kind": "up",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 995251327
+    },
+    {
+     "file": "sounds/med_wood_clock_down.wav",
+     "kind": "down",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 805776816,
+     "disabled": true
+    }
+   ]
+  },
+  {
+   "id": "glass",
+   "title": "очки, шприц",
+   "red": false,
+   "events": [
+    "Item_Glass_Up",
+    "Item_Glass_Down"
+   ],
+   "warning": "",
+   "items": [
+    {
+     "ru": "Очки в золотой оправе ~",
+     "en": "Gold-rimmed Glasses",
+     "size": "2x1",
+     "rarity": 4,
+     "id": 408080015
+    },
+    {
+     "ru": "Шприц ~",
+     "en": "Syringe",
+     "size": "1x1",
+     "rarity": 3,
+     "id": 408070002
+    }
+   ],
+   "sounds": [
+    {
+     "file": "sounds/glass_up.wav",
+     "kind": "up",
+     "threshold": 0.57,
+     "source": "game",
+     "sonar_media": 868644866
+    },
+    {
+     "file": "sounds/glass_down.wav",
+     "kind": "down",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 311048698,
+     "disabled": true
+    }
+   ]
+  },
+  {
+   "id": "food_bag",
+   "title": "медицинская губка",
+   "red": false,
+   "events": [
+    "Item_Food_Bag_Up",
+    "Item_Food_Bag_Down"
+   ],
+   "warning": "",
+   "items": [
+    {
+     "ru": "Медицинская губка ~",
+     "en": "Medical Sponge",
+     "size": "1x1",
+     "rarity": 1,
+     "id": 408070008
+    }
+   ],
+   "sounds": [
+    {
+     "file": "sounds/food_bag_up.wav",
+     "kind": "up",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 939115653
+    },
+    {
+     "file": "sounds/food_bag_down.wav",
+     "kind": "down",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 646753413,
+     "disabled": true
+    }
+   ]
+  },
+  {
+   "id": "acc_statue",
+   "title": "тяжёлая статуя",
+   "red": true,
+   "events": [
+    "Prop_Acc_Statue_UP",
+    "Prop_Acc_Statue_Down"
+   ],
+   "warning": "",
+   "items": [
+    {
+     "ru": "Золотая статуя льва",
+     "en": "Gold Lion Statue",
+     "size": "3x2",
+     "rarity": 6,
+     "id": 408080008
+    },
+    {
+     "ru": "Золотая статуэтка гепарда ~",
+     "en": "Gold Cheetah Statue",
+     "size": "2x1",
+     "rarity": 5,
+     "id": 408080001
+    }
+   ],
+   "sounds": [
+    {
+     "file": "sounds/acc_statue_up.wav",
+     "kind": "up",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 248854507
+    },
+    {
+     "file": "sounds/acc_statue_down.wav",
+     "kind": "down",
+     "threshold": 0.55,
+     "source": "game",
+     "sonar_media": 923337984
+    }
+   ]
+  },
+  {
+   "id": "coin",
+   "title": "браслет, монеты",
+   "red": false,
+   "events": [
+    "Item_Coin_Up",
+    "Item_Coin_Down"
+   ],
+   "warning": "",
+   "items": [
+    {
+     "ru": "Золотой браслет ~",
+     "en": "Gold Bracelet",
+     "size": "1x1",
+     "rarity": 5,
+     "id": 408080013
+    },
+    {
+     "ru": "Памятная монета ~",
+     "en": "Commemorative Coin",
+     "size": "1x1",
+     "rarity": 4,
+     "id": 408080002
+    }
+   ],
+   "sounds": [
+    {
+     "file": "sounds/coin_up.wav",
+     "kind": "up",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 697994806
+    },
+    {
+     "file": "sounds/coin_down.wav",
+     "kind": "down",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 975277658,
+     "disabled": true
+    }
+   ]
+  },
+  {
+   "id": "med_glass",
+   "title": "стекло",
+   "red": true,
+   "events": [
+    "Item_Misc_Med_Glass_Up",
+    "Item_Misc_Med_Glass_Down"
+   ],
+   "warning": "",
+   "items": [
+    {
+     "ru": "Янтарный напиток «Северные звёзды» ~",
+     "en": "Northern Stars Amber Drink",
+     "size": "2x2",
+     "rarity": 6,
+     "id": 498060005
+    },
+    {
+     "ru": "Ваза",
+     "en": "Vase",
+     "size": "2x2",
+     "rarity": 6,
+     "id": 408080003
+    },
+    {
+     "ru": "Образец сердца мутанта ~",
+     "en": "Mutant Heart Sample",
+     "size": "2x3",
+     "rarity": 5,
+     "id": 498070010
+    }
+   ],
+   "sounds": [
+    {
+     "file": "sounds/med_glass_up.wav",
+     "kind": "up",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 1060924062
+    },
+    {
+     "file": "sounds/med_glass_down.wav",
+     "kind": "down",
+     "threshold": 0.68,
+     "source": "game",
+     "sonar_media": 696103417
+    }
+   ]
+  },
+  {
+   "id": "acc_clock",
+   "title": "настольные часы",
+   "red": false,
+   "events": [
+    "Prop_Acc_Clock_UP",
+    "Prop_Acc_Clock_Down"
+   ],
+   "warning": "",
+   "items": [
+    {
+     "ru": "Настольные часы ~",
+     "en": "Desk Clock",
+     "size": "1x2",
+     "rarity": 4,
+     "id": 408080009
+    }
+   ],
+   "sounds": [
+    {
+     "file": "sounds/acc_clock_up.wav",
+     "kind": "up",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 1014709136,
+     "disabled": true
+    },
+    {
+     "file": "sounds/acc_clock_down.wav",
+     "kind": "down",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 988896409,
+     "disabled": true
+    }
+   ]
+  },
+  {
+   "id": "acc_teapot",
+   "title": "чайник",
+   "red": true,
+   "events": [
+    "Prop_Acc_Teapot_UP",
+    "Prop_Acc_Teapot_Down"
+   ],
+   "warning": "",
+   "items": [
+    {
+     "ru": "Антикварный чайник",
+     "en": "Antique Teapot",
+     "size": "2x2",
+     "rarity": 6,
+     "id": 408080010
+    }
+   ],
+   "sounds": [
+    {
+     "file": "sounds/acc_teapot_up.wav",
+     "kind": "up",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 296241922
+    },
+    {
+     "file": "sounds/acc_teapot_down.wav",
+     "kind": "down",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 164286077
+    }
+   ]
+  },
+  {
+   "id": "necklace",
+   "title": "ожерелье / украшения",
+   "red": true,
+   "events": [
+    "Item_GoldChain_Up",
+    "Item_GoldChain_Down",
+    "Item_Necklace_Up",
+    "Item_Necklace_Down"
+   ],
+   "warning": "",
+   "items": [
+    {
+     "ru": "Ожерелье с камнями",
+     "en": "Gem Necklace",
+     "size": "2x2",
+     "rarity": 6,
+     "id": 408080029
+    },
+    {
+     "ru": "Кулон «Звезда Камоны»",
+     "en": "Star of Kamona Pendant",
+     "size": "2x2",
+     "rarity": 6,
+     "id": 498080019
+    },
+    {
+     "ru": "Брошь ~",
+     "en": "Brooch",
+     "size": "1x1",
+     "rarity": 5,
+     "id": 408080026
+    },
+    {
+     "ru": "Кольцо с бриллиантом ~",
+     "en": "Diamond Ring",
+     "size": "1x1",
+     "rarity": 5,
+     "id": 408080025
+    },
+    {
+     "ru": "Карманные часы ~",
+     "en": "Pocket Watch",
+     "size": "1x1",
+     "rarity": 4,
+     "id": 408080020
+    },
+    {
+     "ru": "Серебряная цепочка ~",
+     "en": "Silver Chain",
+     "size": "1x1",
+     "rarity": 4,
+     "id": 408080012
+    }
+   ],
+   "sounds": [
+    {
+     "file": "sounds/necklace_up.wav",
+     "kind": "up",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 948946180
+    },
+    {
+     "file": "sounds/necklace_down.wav",
+     "kind": "down",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 159923898
+    }
+   ]
+  },
+  {
+   "id": "med_paper",
+   "title": "альбом с марками",
+   "red": false,
+   "events": [
+    "Item_Misc_Med_Paper_Up",
+    "Item_Misc_Med_Paper_Down"
+   ],
+   "warning": "",
+   "items": [
+    {
+     "ru": "Альбом с марками ~",
+     "en": "Stamp Album",
+     "size": "2x2",
+     "rarity": 5,
+     "id": 408080016
+    }
+   ],
+   "sounds": [
+    {
+     "file": "sounds/med_paper_up.wav",
+     "kind": "up",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 983789101
+    },
+    {
+     "file": "sounds/med_paper_down.wav",
+     "kind": "down",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 809408391,
+     "disabled": true
+    }
+   ]
+  },
+  {
+   "id": "small_paper",
+   "title": "мелкая бумага",
+   "red": false,
+   "events": [
+    "Item_Misc_Small_Paper_Up",
+    "Item_Misc_Small_Paper_Down"
+   ],
+   "warning": "",
+   "items": [
+    {
+     "ru": "Закладка с засушенными цветами ~",
+     "en": "Dried Flower Bookmark",
+     "size": "1x1",
+     "rarity": 5,
+     "id": 498090008
+    },
+    {
+     "ru": "Эскиз эволюции мутанта ~",
+     "en": "Mutant Evolution Sketch",
+     "size": "2x2",
+     "rarity": 5,
+     "id": 498090010
+    },
+    {
+     "ru": "Документ ~",
+     "en": "Document",
+     "size": "2x1",
+     "rarity": 3,
+     "id": 408090001
+    },
+    {
+     "ru": "Марка ~",
+     "en": "Stamp",
+     "size": "1x1",
+     "rarity": 3,
+     "id": 408080021
+    }
+   ],
+   "sounds": [
+    {
+     "file": "sounds/small_paper_up.wav",
+     "kind": "up",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 256981297
+    },
+    {
+     "file": "sounds/small_paper_down.wav",
+     "kind": "down",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 745209120,
+     "disabled": true
+    }
+   ]
+  },
+  {
+   "id": "med_statue",
+   "title": "статуэтка",
+   "red": true,
+   "events": [
+    "Item_Misc_Med_Statue_Up",
+    "Item_Misc_Med_Statue_Down"
+   ],
+   "warning": "",
+   "items": [
+    {
+     "ru": "Золотая змея",
+     "en": "Gold Snake",
+     "size": "2x2",
+     "rarity": 6,
+     "id": 408080041
+    },
+    {
+     "ru": "Великолепная скульптура",
+     "en": "Majestic Sculpture",
+     "size": "2x3",
+     "rarity": 6,
+     "id": 408080039
+    },
+    {
+     "ru": "Оптико-электронная модель гиперпространства",
+     "en": "Optoelectronic Hyperspace Model",
+     "size": "2x2",
+     "rarity": 6,
+     "id": 498080017
+    },
+    {
+     "ru": "Золотой куб ~",
+     "en": "Gold Cube",
+     "size": "1x1",
+     "rarity": 5,
+     "id": 408080028
+    },
+    {
+     "ru": "Золотой кубок ~",
+     "en": "Gold Cup",
+     "size": "1x2",
+     "rarity": 5,
+     "id": 408080030
+    },
+    {
+     "ru": "Шифровальная машина K7-L ~",
+     "en": "K7-L Cipher Machine",
+     "size": "2x2",
+     "rarity": 5,
+     "id": 498100002
+    },
+    {
+     "ru": "Мутировавшая ткань ~",
+     "en": "Mutated Tissue Mass",
+     "size": "1x1",
+     "rarity": 5,
+     "id": 498070013
+    },
+    {
+     "ru": "Гипсовая скульптура ~",
+     "en": "Plaster Sculpture",
+     "size": "2x3",
+     "rarity": 4,
+     "id": 408080038
+    },
+    {
+     "ru": "Армейская фляга ~",
+     "en": "Military Canteen",
+     "size": "2x1",
+     "rarity": 3,
+     "id": 408120005
+    }
+   ],
+   "sounds": [
+    {
+     "file": "sounds/med_statue_up.wav",
+     "kind": "up",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 868091829
+    },
+    {
+     "file": "sounds/med_statue_down.wav",
+     "kind": "down",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 607103379
+    }
+   ]
+  },
+  {
+   "id": "big_paper",
+   "title": "крупная бумага",
+   "red": false,
+   "events": [
+    "Item_Misc_Big_Paper_Up",
+    "Item_Misc_Big_Paper_Down"
+   ],
+   "warning": "",
+   "items": [
+    {
+     "ru": "Папка с документами ~",
+     "en": "Folder",
+     "size": "2x1",
+     "rarity": 5,
+     "id": 408090004
+    },
+    {
+     "ru": "Пачка рисовой бумаги ~",
+     "en": "Bundle of Rice Paper",
+     "size": "1x2",
+     "rarity": 4,
+     "id": 498090009
+    },
+    {
+     "ru": "Блокнот в твёрдой обложке ~",
+     "en": "Hardcover",
+     "size": "1x2",
+     "rarity": 3,
+     "id": 408090002
+    }
+   ],
+   "sounds": [
+    {
+     "file": "sounds/big_paper_up.wav",
+     "kind": "up",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 717297612
+    },
+    {
+     "file": "sounds/big_paper_down.wav",
+     "kind": "down",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 83117770,
+     "disabled": true
+    }
+   ]
+  },
+  {
+   "id": "acc_radio",
+   "title": "радио",
+   "red": false,
+   "events": [
+    "Prop_Acc_Radio_UP",
+    "Prop_Acc_Radio_Down"
+   ],
+   "warning": "",
+   "items": [
+    {
+     "ru": "Военная радиостанция ~",
+     "en": "Military Radio",
+     "size": "2x2",
+     "rarity": 5,
+     "id": 408120010
+    },
+    {
+     "ru": "Старый радиоприёмник ~",
+     "en": "Classic Radio",
+     "size": "2x1",
+     "rarity": 3,
+     "id": 408140014
+    }
+   ],
+   "sounds": [
+    {
+     "file": "sounds/acc_radio_up.wav",
+     "kind": "up",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 955712259
+    },
+    {
+     "file": "sounds/acc_radio_down.wav",
+     "kind": "down",
+     "threshold": 0.5,
+     "source": "game",
+     "sonar_media": 478913051,
+     "disabled": true
+    }
+   ]
+  }
+ ]
+}
