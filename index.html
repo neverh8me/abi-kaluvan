@@ -236,10 +236,10 @@ const PICK_MIN_DIFF = 4;     // мінімальна зміна вантажу (
 const RED_MIN = 3;           // мінімальна «червоність» сліду на місці потягнутого вантажу
 const MAP_U = 56;            // розмір одиниці на схемі
 const SCAN_MS = 250;         // як часто розбирати сітку, коли схема готова
-const SCAN_FAST_MS = 100;    // і під час скану: кожен вантаж має встигнути набрати голоси, поки його видно
+const SCAN_FAST_MS = 60;     // і під час скану: кожен вантаж має встигнути набрати голоси, поки його видно
 const QUIET_MS = 1500;       // стільки після звуку картинка вважається «брудною» (вантаж тягнуть)
 const REOPEN_MS = 5000;      // під час скану сітки не видно довше — торговця закрили, скан наново
-const FREEZE_STABLE = 4;     // стільки розборів без нових вантажів — і схема готова
+const FREEZE_STABLE = 3;     // стільки розборів без нових вантажів — і схема готова
 const REVEAL_STREAK = 4;     // колір розвідданих має триматися стільки розборів
 const MERCHANT_FRESH_MS = 1500; // сітку торговця бачили так недавно — значить, він відкритий
 const NO_BAR_LIMIT = 8;      // стільки розборів без смуги прокрутки — список короткий, рахуємо без неї
@@ -281,6 +281,7 @@ const OLD_STORE_KEYS = ['abi-ear-sounds-v3', 'abi-ear-sounds-v2'];
 const OLD_REGION_KEY = 'abi-ear-region-v1'; // ручна рамка зі старих версій — більше не потрібна
 const MERCHANT_SIDE = 0.5;   // сітку торговця шукаємо правіше від цієї частки ширини вікна гри
 const REDETECT_AFTER = 8;    // раз на стільки кадрів (поки схема не готова) перевіряємо розмір клітинки
+const REDETECT_MAX_CARGO = 6; // стільки вантажів уже знайдено — розмір клітинки точно правильний
 const PROFILES_KEY = 'abi-ear-profiles-v1';
 const PROFILE_KEY = 'abi-ear-profile-v1';
 const BLUE_KEY = 'abi-ear-blue-v1';
@@ -850,17 +851,22 @@ function analyze(src, rp) {
   fullCtx.drawImage(src, rp.x, rp.y, rp.w, rp.h, 0, 0, rp.w, rp.h);
   const rgba = fullCtx.getImageData(0, 0, rp.w, rp.h).data;
   const G = Vision.toGray(rgba, rp.w, rp.h);
-  const maps = Vision.lineMaps(G);
+  // Лінії шукаємо лише довкола вже знайденого списку (з запасом на смугу прокрутки й написи) —
+  // це найдовша частина розбору. Не знайшли там сітки — шукаємо по всій правій половині.
+  const roi = viewport && P ? { x0: viewport.x - P, y0: viewport.y - P * 1.5, x1: viewport.x + viewport.w + P * 1.5, y1: viewport.y + viewport.h + P } : null;
+  let maps = Vision.lineMaps(G, roi);
   if (!P) {
     P = Vision.detectPeriod(rp.w, rp.h, maps) || 0;
     if (!P) { lastSeen = null; updateStage(); return; }
   }
   const now = performance.now();
   let found = Vision.analyze(G, maps, P);
+  if (!found && roi) { maps = Vision.lineMaps(G); found = Vision.analyze(G, maps, P); }
   // Розмір клітинки могли взяти з кадру без торговця (інвентар, рейд), якщо ловлю почали раніше:
   // з ним справжню сітку не знайти, а випадкові «вантажі» трапляються. Поки схема не готова (чи сітки
   // нема), час від часу перевіряємо розмір наново і беремо той, з яким вантажі займають більшу площу.
-  if (phase !== 'frozen' && ++checkFrames >= REDETECT_AFTER) {
+  // Коли вантажів уже чимало, сітка справжня — не перевіряємо.
+  if (phase !== 'frozen' && cargo.size < REDETECT_MAX_CARGO && ++checkFrames >= REDETECT_AFTER) {
     checkFrames = 0;
     const P2 = Vision.detectPeriod(rp.w, rp.h, maps);
     if (P2 && Math.abs(P2 - P) > P * 0.1) {
@@ -878,8 +884,9 @@ function analyze(src, rp) {
   }
   P = found.P;
   const grid = found.grid;
-  // вантаж у грі завжди сірий, порожній слот — чорний (інколи з крапкою)
-  let items = found.items.filter(it => it.occ >= OCC_GREY);
+  // вантаж у грі завжди сірий, порожній слот — чорний (інколи з крапкою).
+  // 1×1 не скануємо: краснух і нічого цінного в них не буває, а підтверджувати й читати їх — довго.
+  let items = found.items.filter(it => it.occ >= OCC_GREY && it.w * it.h > 1);
   if (!items.length) { lostGrid(now); return; }
   // торговця закрили й відкрили знову посеред скану: це вже інший список
   if (phase !== 'frozen' && gridSeenAt && now - gridSeenAt > REOPEN_MS && cargo.size) { log(tr('log.reopen')); resetScan(); }

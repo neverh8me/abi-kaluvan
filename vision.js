@@ -28,12 +28,15 @@ const Vision = (() => {
   // Лінія світліша за обидва боки; просто перепад (сірий вантаж → темний фон під списком) — не лінія.
   // У карті — контраст лінії (0 — не лінія): відкритий через Intel вантаж має кольоровий фон, і на ньому
   // видно лінії між клітинками всередині вантажу, але вдвічі слабші за справжні межі.
-  function lineMaps({ w, h, g }) {
+  // roi { x0, y0, x1, y1 } — шукати лише в цьому прямокутнику (довкола вже знайденої сітки): утричі швидше
+  function lineMaps({ w, h, g }, roi) {
     const hr = new Uint8Array(w * h), vr = new Uint8Array(w * h);
     const D = 4;
     const contrast = (v, a, b) => Math.min(v - ((a + b) >> 1), 3 * (v - Math.max(a, b)));
-    for (let y = D; y < h - D; y++) {
-      for (let x = D; x < w - D; x++) {
+    const xa = Math.max(D, roi ? Math.round(roi.x0) : 0), xb = Math.min(w - D, roi ? Math.round(roi.x1) : w);
+    const ya = Math.max(D, roi ? Math.round(roi.y0) : 0), yb = Math.min(h - D, roi ? Math.round(roi.y1) : h);
+    for (let y = ya; y < yb; y++) {
+      for (let x = xa; x < xb; x++) {
         const i = y * w + x, v = g[i];
         let ch = 0, cv = 0;
         for (let d = 2; d <= D; d++) {
