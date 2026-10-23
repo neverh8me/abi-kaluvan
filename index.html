@@ -292,6 +292,8 @@ const FEED_MS = 1000;        // як часто дивитись на рядок
 const FEED_TOP = 1.15, FEED_BOTTOM = 0.6; // де він: смуга над верхом списку, у клітинках
 const BUY_MATCH = 0.01;      // сума з рядка й ціна з рамки збігаються з такою точністю
 const BUY_SHOWN = 30;        // стільки останніх покупок показувати в списку
+const BASE_URL = 'library/purchases.json'; // спільна база в папці програми
+const BASE_REMOTE = 'https://raw.githubusercontent.com/neverh8me/abi-kaluvan/main/library/purchases.json'; // і найсвіжіша на GitHub
 
 // ---------- DOM ----------
 const $ = id => document.getElementById(id);
@@ -321,6 +323,7 @@ let profiles = loadJson(PROFILES_KEY, []);   // карти з бібліотек
 let profile = loadJson(PROFILE_KEY, '');     // вибрана карта ('' — середнє по всіх)
 let includeBlue = loadJson(BLUE_KEY, false); // чи рахувати сині предмети
 let purchases = loadJson(PURCHASES_KEY, []); // свої покупки: [{ t, soundId, size, label, price, itemId, item, q }]
+let basePurchases = [];      // спільна база, що йде з програмою (library/purchases.json) і оновлюється з GitHub
 let myNick = loadJson(NICK_KEY, '');         // нік у грі: рядки стрічки інших гравців пропускаємо
 let feedBusy = false, feedAt = 0, feedSig = null, feedKey = ''; // читання рядка стрічки
 let cardCtx = null;          // що показує картка результату: { soundId, size, label, key } — для запису покупки
@@ -695,11 +698,23 @@ function itemOdds(sound, size, label) {
   }).sort((a, b) => order(a.it.q) - order(b.it.q) || b.p - a.p);
 }
 
-// Скільки разів кожен предмет випадав зі звуком: id → кількість
+// Скільки разів кожен предмет випадав зі звуком (спільна база + свої): id → кількість
 function boughtCounts(soundId) {
   const out = new Map();
-  for (const b of purchases) if (b.soundId === soundId && b.itemId != null) out.set(b.itemId, (out.get(b.itemId) || 0) + 1);
+  for (const b of allPurchases()) if (b.soundId === soundId && b.itemId != null) out.set(b.itemId, (out.get(b.itemId) || 0) + 1);
   return out;
+}
+
+// Спільна база й свої покупки разом, без повторів (своя покупка, уже додана в базу, — одна)
+const purchaseKey = b => `${b.t}|${b.itemId}|${b.price}`;
+function mergePurchases(...lists) {
+  const out = new Map();
+  for (const list of lists) for (const b of list) if (b && b.t) out.set(purchaseKey(b), b);
+  return [...out.values()].sort((a, b) => a.t - b.t);
+}
+let allCache = null;
+function allPurchases() {
+  return allCache || (allCache = mergePurchases(basePurchases, purchases));
 }
 
 function qualityOdds(sound, size, label) {
@@ -738,7 +753,7 @@ function showResult(sound, score, second, size, label) {
     : '';
 
   const parts = [tr('card.sub', { name: soundName(sound), p: pct(score) })];
-  const mine = purchases.filter(b => b.soundId === sound.id && b.itemId != null).length;
+  const mine = allPurchases().filter(b => b.soundId === sound.id && b.itemId != null).length;
   // плитки цієї картки клікабельні: «випало оце» — записати покупку вручну
   cardCtx = { soundId: sound.id, size: normSize(size), label, key: lastResult && lastResult.soundId === sound.id ? lastResult.key : null };
   ui.result.dataset.kind = 'sound';
@@ -1403,6 +1418,7 @@ function recordPurchase({ soundId, size, label, price, itemText, itemId, key }) 
     itemId: it ? it.id : null, item: it ? it.nameEn || it.name : itemText || '', q: it ? it.q : '',
   });
   savePurchases();
+  syncBase();
   if (rec) rec.bought = it || true;
   log(tr('log.bought', { sound: sound ? soundName(sound) : tr('buys.noSound'), price: price ? fmtPrice(price) : '—', item: it ? itemName(it) : itemText }));
   renderPurchases();
@@ -1410,13 +1426,55 @@ function recordPurchase({ soundId, size, label, price, itemText, itemId, key }) 
 }
 
 function savePurchases() {
+  allCache = null;
   try { localStorage.setItem(PURCHASES_KEY, JSON.stringify(purchases)); } catch {}
+}
+
+// Спільна база: з папки програми і найсвіжіша з GitHub (якщо є інтернет) — обʼєднуємо обидві
+async function loadBase() {
+  const get = async url => {
+    try {
+      const r = await fetch(url, { cache: 'no-cache' });
+      if (!r.ok) return [];
+      const data = await r.json();
+      return Array.isArray(data.purchases) ? data.purchases : [];
+    } catch { return []; }
+  };
+  const [local, remote] = await Promise.all([get(BASE_URL), get(BASE_REMOTE)]);
+  basePurchases = mergePurchases(local, remote);
+  allCache = null;
+  renderPurchases();
+  syncBase(); // свої покупки, яких ще нема в базі (скажімо, записані до цієї версії)
+  if (lastResult) { const s = soundById(lastResult.soundId); if (s && ui.result.dataset.kind === 'sound' && cardCtx) showResult(s, lastResult.score, null, cardCtx.size, cardCtx.label); }
+  drawMap();
+}
+
+// Свої покупки самі йдуть у спільну базу (library/purchases.json через локальний сервер), а сервер
+// автора сам заливає її на GitHub. Нічого натискати не треба; без сервера (сайт не через start.bat) — тихо пропускаємо.
+let syncBusy = false;
+async function syncBase(force = false) {
+  const baseKeys = new Set(basePurchases.map(purchaseKey));
+  if (syncBusy || !location.protocol.startsWith('http') || (!force && !purchases.some(b => !baseKeys.has(purchaseKey(b))))) return;
+  syncBusy = true;
+  const merged = mergePurchases(basePurchases, purchases);
+  try {
+    const r = await fetch('api/purchases', {
+      method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Abi-Kaluvan': '1' },
+      body: JSON.stringify({ updated: new Date().toISOString(), purchases: merged }, null, 1),
+    });
+    if (r.ok) {
+      basePurchases = merged;
+      allCache = null;
+      renderPurchases();
+      log(tr('log.shared', { n: merged.length }));
+    }
+  } catch {} finally { syncBusy = false; }
 }
 
 function renderPurchases() {
   const el = $('buys');
-  const red = purchases.filter(b => b.q === 'red').length;
-  $('buysSummary').textContent = purchases.length ? tr('buys.summary', { n: purchases.length, red }) : '';
+  const red = allPurchases().filter(b => b.q === 'red').length;
+  $('buysSummary').textContent = tr('buys.summary', { base: basePurchases.length, mine: purchases.length, red });
   if (!purchases.length) { el.innerHTML = `<p class="muted">${esc(tr('buys.empty'))}</p>`; return; }
   el.innerHTML = purchases.slice(-BUY_SHOWN).reverse().map(b => {
     const it = b.itemId != null ? itemById.get(b.itemId) : null;
@@ -1911,9 +1969,12 @@ ui.nick.onchange = () => {
 $('buys').addEventListener('click', e => {
   const btn = e.target.closest('[data-del]');
   if (!btn) return;
+  // помилковий запис прибираємо і зі спільної бази
   purchases = purchases.filter(b => String(b.t) !== btn.dataset.del);
+  basePurchases = basePurchases.filter(b => String(b.t) !== btn.dataset.del);
   savePurchases();
   renderPurchases();
+  syncBase(true);
 });
 $('btnBuysClear').onclick = () => {
   if (!purchases.length || !confirm(tr('buys.clearAsk'))) return;
@@ -2060,6 +2121,7 @@ syncLabels();
 renderProfiles();
 renderSounds();
 renderPurchases();
+loadBase();
 autoLoadLibrary();
 updateStage();
 drawMap();
