@@ -261,6 +261,7 @@ const STORE_KEY = 'abi-ear-sounds-v4';       // v4: свої записи — с
 const OLD_STORE_KEYS = ['abi-ear-sounds-v3', 'abi-ear-sounds-v2'];
 const OLD_REGION_KEY = 'abi-ear-region-v1'; // ручна рамка зі старих версій — більше не потрібна
 const MERCHANT_SIDE = 0.5;   // сітку торговця шукаємо правіше від цієї частки ширини вікна гри
+const REDETECT_AFTER = 8;    // раз на стільки кадрів (поки схема не готова) перевіряємо розмір клітинки
 const PROFILES_KEY = 'abi-ear-profiles-v1';
 const PROFILE_KEY = 'abi-ear-profile-v1';
 const BLUE_KEY = 'abi-ear-blue-v1';
@@ -298,6 +299,7 @@ let hoverBusy = false, hoverSig = ''; // читання рамки з ціною
 // Сітка торговця. Координати «регіону» — пікселі кадру відносно лівого верхнього кута регіону.
 // Абсолютний рядок R має верхню лінію на y = R*P - offset (offset росте, коли гортаєш вниз).
 let P = 0;                   // розмір одиниці сітки, px кадру
+let checkFrames = 0;         // кадрів від останньої перевірки розміру клітинки
 let phaseX = 0;              // зсув ліній по x (0..P)
 let offset = 0;              // прокрутка
 let viewport = null;         // видима частина сітки { x, y, w, h } у px регіону
@@ -720,7 +722,7 @@ function itemTiles(list, max = 12) {
 
 // ---------- Екран: пошук сітки, прокрутка, вантажі ----------
 function resetScan() {
-  P = 0; offset = 0; viewport = null; prevSig = null; ring = []; listTopR = null;
+  P = 0; checkFrames = 0; offset = 0; viewport = null; prevSig = null; ring = []; listTopR = null;
   cargo = new Map(); results = new Map(); lastKey = null; lastSeen = null; gridSeenAt = 0;
   phase = 'scan'; sawTop = false; sawEnd = false; stableCount = 0; changeCount = 0;
   sbKnown = null; noBarCount = 0; frozenPlaced = null;
@@ -805,7 +807,18 @@ function analyze(src, rp) {
     if (!P) { lastSeen = null; updateStage(); return; }
   }
   const now = performance.now();
-  const found = Vision.analyze(G, maps, P);
+  let found = Vision.analyze(G, maps, P);
+  // Розмір клітинки могли взяти з кадру без торговця (інвентар, рейд), якщо ловлю почали раніше:
+  // з ним справжню сітку не знайти, а випадкові «вантажі» трапляються. Поки схема не готова (чи сітки
+  // нема), час від часу перевіряємо розмір наново і беремо той, з яким вантажі займають більшу площу.
+  if (++checkFrames >= REDETECT_AFTER && (!found || phase === 'scan')) {
+    checkFrames = 0;
+    const P2 = Vision.detectPeriod(rp.w, rp.h, maps);
+    if (P2 && Math.abs(P2 - P) > P * 0.1) {
+      const alt = Vision.analyze(G, maps, P2);
+      if (alt && gridCoverage(alt) > gridCoverage(found) * 1.5) found = alt;
+    }
+  }
   if (!found) { lostGrid(now); return; }
   // уточнення на частки пікселя приймаємо тихо; інший масштаб (×2) — це вже інша сітка
   if (Math.abs(found.P - P) > P * 0.1) {
@@ -1003,6 +1016,12 @@ function updateReveal(rec, [r, g, b]) {
   if (q === rec.revealCand) rec.revealStreak = (rec.revealStreak || 0) + 1;
   else { rec.revealCand = q; rec.revealStreak = 1; }
   if (rec.revealStreak >= REVEAL_STREAK) rec.revealed = q;
+}
+
+// Площа, яку займають знайдені вантажі (px²): у справжньої сітки торговця вона велика
+function gridCoverage(found) {
+  if (!found) return 0;
+  return found.items.filter(it => it.occ >= OCC_GREY).reduce((a, it) => a + it.w * it.h, 0) * found.P * found.P;
 }
 
 function lostGrid(now) {
