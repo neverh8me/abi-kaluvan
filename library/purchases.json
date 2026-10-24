@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-24T13:30:54.871Z",
+ "updated": "2026-10-24T13:32:27.492Z",
  "purchases": [
   {
    "t": 1792842574402,
@@ -280,6 +280,226 @@
    "itemId": null,
    "item": "Gungnir Frag.",
    "q": ""
+  },
+  {
+   "t": 1792848657979,
+   "soundId": null,
+   "size": "",
+   "label": "",
+   "price": 250000,
+   "itemId": 498070009,
+   "item": "Infrared Therapy Lamp",
+   "q": "gold"
+  },
+  {
+   "t": 1792848661108,
+   "soundId": null,
+   "size": "",
+   "label": "",
+   "price": 250000,
+   "itemId": null,
+   "item": "Gungnir Frag.",
+   "q": ""
+  },
+  {
+   "t": 1792848664211,
+   "soundId": null,
+   "size": "",
+   "label": "",
+   "price": 250000,
+   "itemId": 498070009,
+   "item": "Infrared Therapy Lamp",
+   "q": "gold"
+  },
+  {
+   "t": 1792848667276,
+   "soundId": null,
+   "size": "",
+   "label": "",
+   "price": 250000,
+   "itemId": null,
+   "item": "Gungnir Frag.",
+   "q": ""
+  },
+  {
+   "t": 1792848670343,
+   "soundId": null,
+   "size": "",
+   "label": "",
+   "price": 250000,
+   "itemId": 498070009,
+   "item": "Infrared Therapy Lamp",
+   "q": "gold"
+  },
+  {
+   "t": 1792848673418,
+   "soundId": null,
+   "size": "",
+   "label": "",
+   "price": 250000,
+   "itemId": null,
+   "item": "Gungnir Frag.",
+   "q": ""
+  },
+  {
+   "t": 1792848675505,
+   "soundId": null,
+   "size": "",
+   "label": "",
+   "price": 250000,
+   "itemId": 498070009,
+   "item": "Infrared Therapy Lamp",
+   "q": "gold"
+  },
+  {
+   "t": 1792848685059,
+   "soundId": null,
+   "size": "",
+   "label": "",
+   "price": 250000,
+   "itemId": null,
+   "item": "Gungnir Frag.",
+   "q": ""
+  },
+  {
+   "t": 1792848689055,
+   "soundId": null,
+   "size": "",
+   "label": "",
+   "price": 250000,
+   "itemId": 498070009,
+   "item": "Infrared Therapy Lamp",
+   "q": "gold"
+  },
+  {
+   "t": 1792848691200,
+   "soundId": null,
+   "size": "",
+   "label": "",
+   "price": 250000,
+   "itemId": null,
+   "item": "Gungnir Frag.",
+   "q": ""
+  },
+  {
+   "t": 1792848694387,
+   "soundId": null,
+   "size": "",
+   "label": "",
+   "price": 250000,
+   "itemId": 498070009,
+   "item": "Infrared Therapy Lamp",
+   "q": "gold"
+  },
+  {
+   "t": 1792848697589,
+   "soundId": null,
+   "size": "",
+   "label": "",
+   "price": 250000,
+   "itemId": null,
+   "item": "Gungnir Frag.",
+   "q": ""
+  },
+  {
+   "t": 1792848706673,
+   "soundId": "lib:med_metal_crisp",
+   "size": "2x3",
+   "label": "Mystery Cargo",
+   "price": 250000,
+   "itemId": 498070009,
+   "item": "Infrared Therapy Lamp",
+   "q": "gold"
+  },
+  {
+   "t": 1792848711523,
+   "soundId": "lib:med_metal_crisp",
+   "size": "2x3",
+   "label": "Mystery Cargo",
+   "price": 250000,
+   "itemId": null,
+   "item": "Gungnir Frag.",
+   "q": ""
+  },
+  {
+   "t": 1792848713804,
+   "soundId": "lib:med_metal_crisp",
+   "size": "2x3",
+   "label": "Mystery Cargo",
+   "price": 250000,
+   "itemId": 498070009,
+   "item": "Infrared Therapy Lamp",
+   "q": "gold"
+  },
+  {
+   "t": 1792848715988,
+   "soundId": "lib:med_metal_crisp",
+   "size": "2x3",
+   "label": "Mystery Cargo",
+   "price": 250000,
+   "itemId": null,
+   "item": "Gungnir Frag.",
+   "q": ""
+  },
+  {
+   "t": 1792848718058,
+   "soundId": "lib:med_metal_crisp",
+   "size": "2x3",
+   "label": "Mystery Cargo",
+   "price": 250000,
+   "itemId": 498070009,
+   "item": "Infrared Therapy Lamp",
+   "q": "gold"
+  },
+  {
+   "t": 1792848721530,
+   "soundId": "lib:med_statue",
+   "size": "2x3",
+   "label": "Uncommon Mystery Cargo",
+   "price": 250000,
+   "itemId": null,
+   "item": "Gungnir Frag.",
+   "q": ""
+  },
+  {
+   "t": 1792848724932,
+   "soundId": "lib:med_statue",
+   "size": "2x3",
+   "label": "Uncommon Mystery Cargo",
+   "price": 250000,
+   "itemId": 498070009,
+   "item": "Infrared Therapy Lamp",
+   "q": "gold"
+  },
+  {
+   "t": 1792848734866,
+   "soundId": "lib:small_metal_crisp",
+   "size": "",
+   "label": "",
+   "price": 250000,
+   "itemId": null,
+   "item": "Gungnir Frag.",
+   "q": ""
+  },
+  {
+   "t": 1792848737017,
+   "soundId": "lib:electronicdevice",
+   "size": "2x2",
+   "label": "Uncommon Mystery Cargo",
+   "price": 250000,
+   "itemId": 498070009,
+   "item": "Infrared Therapy Lamp",
+   "q": "gold"
+  },
+  {
+   "t": 1792848747492,
+   "soundId": "lib:electronicdevice",
+   "size": "",
+   "label": "",
+   "price": 250000,
+   "itemId": 498070009,
+   "item": "Infrared Therapy Lamp",
+   "q": "gold"
   }
  ]
 }
