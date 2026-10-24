@@ -199,6 +199,12 @@ const Ocr = (() => {
     return { nick: m[1], price, item };
   }
 
+  // Баланс під сіткою: «Owned: 624,605» (перед числом — значок Koen, Tesseract читає його як сміття)
+  function parseBalance(text) {
+    const m = text.replace(/[oO](?=[\d,.]*\d)/g, '0').match(/wned\D{0,12}(\d{1,3}(?:[ ,.]\d{3})+|\d{1,9})/i);
+    return m ? +m[1].replace(/\D/g, '') : 0;
+  }
+
   // Найближча назва зі списку { name } (назва з рядка може бути обрізаною — тоді порівнюємо з початком).
   // Повертає елемент списку або null.
   function matchName(text, list) {
@@ -228,5 +234,5 @@ const Ocr = (() => {
     return dp[a.length][b.length];
   }
 
-  return { start, read, readData, labelCanvas, parseLabel, tipCanvas, findTipBox, parseTip, parseFeed, matchName };
+  return { start, read, readData, labelCanvas, parseLabel, tipCanvas, findTipBox, parseTip, parseFeed, parseBalance, matchName };
 })();

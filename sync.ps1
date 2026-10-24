@@ -37,7 +37,10 @@ function ValidPairs {
   $g = Get-Content (Join-Path $Root 'library\groups.json') -Raw -Encoding UTF8 | ConvertFrom-Json
   $m = Get-Content (Join-Path $Root 'library\merchant.json') -Raw -Encoding UTF8 | ConvertFrom-Json
   $pairs = @{}
+  $script:names = @{}
+  foreach ($it in $m.items) { $script:names["$($it.id)"] = [string]$it.en }
   foreach ($grp in $g.groups) {
+    foreach ($it in $grp.items) { if ($it.id -and -not $script:names.ContainsKey("$($it.id)")) { $script:names["$($it.id)"] = [string]$it.en } }
     $up = @($grp.events | Where-Object { $_ -match '_Up$' })[0]
     if (-not $up) { $up = $grp.events[0] }
     $sid = 'lib:' + $grp.id
@@ -49,6 +52,10 @@ function ValidPairs {
 
 # Лише відомі поля з правдоподібними значеннями; інше (сміття, спам) відкидаємо
 $QS = 'red', 'gold', 'purple', 'blue', 'green', 'white', ''
+# написи вантажів, як їх записує сайт (MYSTERY_TIERS у index.html і LABELS у ocr.js)
+$LABELS = '', 'Mystery Cargo', 'Uncommon Mystery Cargo', 'Rare Mystery Cargo', 'Military Items', 'Medical Supplies',
+  'Computer Parts', 'Collectibles', 'Instruments', 'Energy Items', 'Household Items', 'Building Materials',
+  'Electronics', 'Flammables', 'Tools', 'Paper'
 function Clean($e, $pairs) {
   if (-not $e) { return $null }
   try { $t = [double]$e.t; $price = [double]$e.price } catch { return $null }
@@ -60,9 +67,11 @@ function Clean($e, $pairs) {
   if ($size -and $size -notmatch '^[1-9]x[1-9]$') { return $null }
   $q = [string]$e.q
   if ($QS -notcontains $q) { return $null }
-  $label = ([string]$e.label); if ($label.Length -gt 40) { $label = $label.Substring(0, 40) }
-  $item = ([string]$e.item); if ($item.Length -gt 60) { $item = $item.Substring(0, 60) }
-  return [ordered]@{ t = [long]$t; soundId = [string]$e.soundId; size = $size; label = $label; price = [long]$price; itemId = [long]$e.itemId; item = $item; q = $q }
+  # Жодного вільного тексту в спільній базі (щоб туди ніяк не потрапив нік чи інше з екрана):
+  # назва предмета — з довідника за id, напис вантажу — лише з відомого списку
+  $label = [string]$e.label
+  if ($LABELS -notcontains $label) { $label = '' }
+  return [ordered]@{ t = [long]$t; soundId = [string]$e.soundId; size = $size; label = $label; price = [long]$price; itemId = [long]$e.itemId; item = $script:names["$($e.itemId)"]; q = $q }
 }
 
 function Merge([object[]]$lists) {
@@ -95,7 +104,9 @@ try {
     } catch { Write-Host "Таблицю покупок гравців не вдалося прочитати: $($_.Exception.Message)" -ForegroundColor DarkYellow }
   }
 
-  $merged = Merge @($remote, $local, $incoming)
+  # у спільну базу — лише очищені записи (і свої теж: там може бути розпізнаний з екрана текст)
+  $cleanAll = { param($list) @($list | ForEach-Object { Clean $_ $pairs } | Where-Object { $_ } | ForEach-Object { [pscustomobject]$_ }) }
+  $merged = @(Merge @(@(& $cleanAll $remote), @(& $cleanAll $local), $incoming))
   $remoteKeys = @{}; foreach ($e in $remote) { $remoteKeys[(Key $e)] = $true }
   $localKeys = @{}; foreach ($e in $local) { $localKeys[(Key $e)] = $true }
   $added = @($merged | Where-Object { -not $localKeys.ContainsKey((Key $_)) }).Count
@@ -121,7 +132,7 @@ try {
   }
 
   if ($added -gt 0 -or $merged.Count -ne $local.Count) {
-    $out = [ordered]@{ updated = [DateTime]::UtcNow.ToString('o'); purchases = $merged }
+    $out = [ordered]@{ updated = [DateTime]::UtcNow.ToString('o'); purchases = @($merged) }
     [IO.File]::WriteAllText($baseFile, (ConvertTo-Json -InputObject $out -Depth 4), (New-Object Text.UTF8Encoding($false)))
   }
   $fresh = @($incoming | Where-Object { -not $localKeys.ContainsKey((Key $_)) -and -not $remoteKeys.ContainsKey((Key $_)) }).Count

@@ -168,7 +168,7 @@
     <section>
       <h2><span data-i18n="h.buys">Покупки</span> <span id="buysSummary" class="muted" style="text-transform:none;letter-spacing:0"></span></h2>
       <div class="row">
-        <input type="text" id="nick" data-i18n-ph="buys.nick" data-i18n-title="buys.nickTip" style="flex:1">
+        <span style="flex:1"></span>
         <button id="btnBuysExport" data-i18n="btn.export">Експорт</button>
         <button id="btnBuysClear" class="danger" data-i18n="buys.clear">Очистити</button>
       </div>
@@ -285,13 +285,17 @@ const REDETECT_MAX_CARGO = 6; // стільки вантажів уже знай
 const PROFILES_KEY = 'abi-ear-profiles-v1';
 const PROFILE_KEY = 'abi-ear-profile-v1';
 const BLUE_KEY = 'abi-ear-blue-v1';
-const PURCHASES_KEY = 'abi-kaluvan-purchases-v1';
-const NICK_KEY = 'abi-kaluvan-nick-v1';
+const PURCHASES_KEY = 'abi-kaluvan-purchases-v2'; // v1 — записи з ніком-помилкою, не беремо
+const OLD_PURCHASE_KEYS = ['abi-kaluvan-purchases-v1', 'abi-kaluvan-nick-v1'];
 const PRIOR_N = 20;          // дані торговця важать як стільки своїх покупок (більше — повільніше вчиться)
 const FEED_MS = 1000;        // як часто дивитись на рядок «… obtained [предмет]» над сіткою
 const FEED_TOP = 1.15, FEED_BOTTOM = 0.6; // де він: смуга над верхом списку, у клітинках
 const BUY_MATCH = 0.01;      // сума з рядка й ціна з рамки збігаються з такою точністю
 const BUY_SHOWN = 30;        // стільки останніх покупок показувати в списку
+const BALANCE_LEFT = 0.4;    // баланс «Owned» — правіше від такої частки ширини списку
+const BALANCE_BELOW = 2.6;   // і не нижче стількох клітинок під списком
+const FEED_WAIT_MS = 30000;  // рядок стрічки чекає підтвердження балансом стільки
+const FEED_SAME_MS = 60000;  // той самий рядок (ціна й схожа назва) у цих межах — та сама покупка
 const BASE_URL = 'library/purchases.json'; // спільна база в папці програми
 const BASE_REMOTE = 'https://raw.githubusercontent.com/neverh8me/abi-kaluvan/main/library/purchases.json'; // і найсвіжіша на GitHub
 
@@ -303,7 +307,6 @@ const ui = {
   sens: $('sens'), sensVal: $('sensVal'), thr: $('thr'), thrVal: $('thrVal'), beep: $('beep'),
   map: $('map'), imgFile: $('imgFile'), profile: $('profile'), libDir: $('libDir'),
   stageTitle: $('stageTitle'), stageHint: $('stageHint'), rescan: $('btnRescan'), done: $('btnDone'),
-  nick: $('nick'),
 };
 const specCtx = ui.spec.getContext('2d');
 const mapCtx = ui.map.getContext('2d');
@@ -324,8 +327,9 @@ let profile = loadJson(PROFILE_KEY, '');     // вибрана карта ('' �
 let includeBlue = loadJson(BLUE_KEY, false); // чи рахувати сині предмети
 let purchases = loadJson(PURCHASES_KEY, []); // свої покупки: [{ t, soundId, size, label, price, itemId, item, q }]
 let basePurchases = [];      // спільна база, що йде з програмою (library/purchases.json) і оновлюється з GitHub
-let myNick = loadJson(NICK_KEY, '');         // нік у грі: рядки стрічки інших гравців пропускаємо
-let feedBusy = false, feedAt = 0, feedSig = null, feedKey = ''; // читання рядка стрічки
+let balance = null, spent = 0;               // баланс Koen під сіткою і на скільки він зменшився (ще не пояснено покупками)
+let balanceSig = null, feedQueue = [], feedDone = []; // рядки стрічки: чекають підтвердження балансом / уже враховані
+let feedBusy = false, feedAt = 0, feedSig = null; // читання рядка стрічки й балансу
 let cardCtx = null;          // що показує картка результату: { soundId, size, label, key } — для запису покупки
 let libPools = [], itemQ = {}, itemById = new Map(); // пули торговця й предмети з бібліотеки
 let hover = null;            // вантаж, на який щойно навели: { key, t }
@@ -1351,52 +1355,71 @@ function readLabel(rec, x, y, w, h) {
 
 // ---------- Покупки ----------
 // Після купівлі гра пише над сіткою: «нік spent 200,000 Koen on a mystery cargo and obtained [предмет]».
-// Читаємо цей рядок, коли він змінюється, і шукаємо вантаж, звук якого чули і чия ціна з рамки
-// збігається з сумою, — тоді знаємо і звук, і що з нього випало.
+// Такі рядки бувають і про чужі покупки, а ніки ми не зберігаємо взагалі. Свою покупку впізнаємо
+// за балансом під сіткою («Owned: 624,605»): він зменшився рівно на суму з рядка — купив ти.
+// Тоді шукаємо вантаж, звук якого чули і чия ціна з рамки збігається з сумою.
 function readFeed(G, grid, now) {
   if (feedBusy || now - feedAt < FEED_MS || typeof Ocr === 'undefined' || !viewport) return;
   feedAt = now;
   const x = Math.max(0, Math.round(grid.x0)), w = Math.round(Math.min(grid.cols * P, G.w - x));
   const y = Math.max(0, Math.round(viewport.y - P * FEED_TOP)), h = Math.round(viewport.y - P * FEED_BOTTOM) - y;
-  if (w < P * 3 || h < P * 0.25) return;
-  const sig = Vision.crop(G, x, y, w, h);
-  if (feedSig && feedSig.length === sig.length && Vision.patchDiff(sig, feedSig) < 2) return; // рядок той самий
-  feedSig = sig;
+  // баланс — у правій половині під списком
+  const bx = Math.round(grid.x0 + grid.cols * P * BALANCE_LEFT), bw = Math.round(Math.min(grid.x0 + grid.cols * P + P * 0.3, G.w) - bx);
+  const by = Math.round(viewport.y + viewport.h), bh = Math.round(Math.min(G.h, by + P * BALANCE_BELOW) - by);
+  const changed = (r, prev) => {
+    if (r.w < P * 2 || r.h < P * 0.25) return null;
+    const sig = Vision.crop(G, r.x, r.y, r.w, r.h);
+    return prev && prev.length === sig.length && Vision.patchDiff(sig, prev) < 2 ? null : sig; // той самий — не читаємо
+  };
+  const feedR = { x, y, w, h }, balR = { x: bx, y: by, w: bw, h: bh };
+  const fs = changed(feedR, feedSig), bs = changed(balR, balanceSig);
+  if (!fs && !bs) { processFeed(); return; }
+  if (fs) feedSig = fs;
+  if (bs) balanceSig = bs;
   feedBusy = true;
-  Ocr.readData(Ocr.tipCanvas(fullCanvas, x, y, w, h), 'label')
-    .then(data => {
-      const feed = Ocr.parseFeed(data.text);
-      const key = feed ? `${feed.nick}|${feed.price}|${feed.item}` : '';
-      if (key && key !== feedKey) onFeed(feed);
-      feedKey = key;
-    })
-    .catch(() => { feedSig = null; })
-    .finally(() => { feedBusy = false; });
+  const read = r => Ocr.readData(Ocr.tipCanvas(fullCanvas, r.x, r.y, r.w, r.h), 'label').then(d => d.text);
+  // спершу баланс: рядок про покупку й зменшення балансу зазвичай зʼявляються разом
+  (bs ? read(balR).then(t => { const v = Ocr.parseBalance(t); if (v) onBalance(v); }) : Promise.resolve())
+    .then(() => fs ? read(feedR).then(t => { const f = Ocr.parseFeed(t); if (f) onFeed(f); }) : null)
+    .catch(() => { feedSig = balanceSig = null; })
+    .finally(() => { feedBusy = false; processFeed(); });
 }
 
-function sameNick(a, b) {
-  return !!(a && b && Ocr.matchName(a, [{ name: b }]));
+function onBalance(v) {
+  if (balance !== null && v < balance) spent += balance - v;
+  balance = v;
 }
 
-function onFeed({ nick, price, item }) {
-  if (myNick && !sameNick(nick, myNick)) return; // купив хтось інший
-  // вантаж зі звуком, чия ціна з рамки збігається з сумою; з кількох — той, що чули останнім
+// Рядок стрічки чекає в черзі, доки баланс не підтвердить (чи не спростує) покупку.
+// Той самий рядок, прочитаний трохи інакше («Rebrut»/«Rebcut»), — та сама покупка: вдруге не додаємо.
+function onFeed(feed) {
+  const now = performance.now();
+  const dup = feedQueue.concat(feedDone).some(f => f.price === feed.price && now - f.at < FEED_SAME_MS && Ocr.matchName(f.item, [{ name: feed.item }]));
+  if (!dup) feedQueue.push({ ...feed, at: now });
+}
+
+function processFeed() {
+  const now = performance.now();
+  feedQueue = feedQueue.filter(f => now - f.at < FEED_WAIT_MS);
+  feedDone = feedDone.filter(f => now - f.at < FEED_SAME_MS);
+  for (const f of [...feedQueue]) {
+    if (spent < f.price * (1 - BUY_MATCH)) continue; // баланс на цю суму не зменшувався — купив хтось інший
+    spent = Math.max(0, spent - f.price);
+    feedQueue.splice(feedQueue.indexOf(f), 1);
+    feedDone.push(f);
+    ownPurchase(f);
+  }
+}
+
+function ownPurchase({ price, item }) {
+  // вантаж зі звуком, чия ціна з рамки збігається з сумою; з кількох — той, що чули останнім;
+  // ціни не знали (не наводили) — останній почутий звук за 3 хв; інакше лише в історію
   const byPrice = [...results].filter(([key]) => {
     const rec = cargo.get(key);
     return rec && rec.price && !rec.bought && Math.abs(rec.price - price) <= price * BUY_MATCH;
   }).sort((a, b) => (b[1].t || 0) - (a[1].t || 0))[0];
   let key = byPrice ? byPrice[0] : null, res = byPrice ? byPrice[1] : null;
-  if (!byPrice) {
-    // Ціни не знали (не наводили). Якщо нік точно наш — беремо останній почутий звук (за 3 хв),
-    // а без звуку лише записуємо в історію.
-    if (!myNick) return;
-    if (lastResult && Date.now() - lastResult.t < 180e3) { key = lastResult.key; res = lastResult; }
-  } else if (!myNick) {
-    myNick = nick;
-    try { localStorage.setItem(NICK_KEY, JSON.stringify(myNick)); } catch {}
-    ui.nick.value = myNick;
-    log(tr('log.nick', { nick }));
-  }
+  if (!byPrice && lastResult && Date.now() - lastResult.t < 180e3) { key = lastResult.key; res = lastResult; }
   const rec = key && cargo.get(key);
   recordPurchase({ soundId: res && res.soundId, size: rec ? normSize(`${rec.w}x${rec.h}`) : '', label: cargoInfo(rec), price, itemText: item, key });
 }
@@ -1452,11 +1475,20 @@ async function loadBase() {
 // Свої покупки самі йдуть у спільну базу (library/purchases.json через локальний сервер), а сервер
 // автора сам заливає її на GitHub. Нічого натискати не треба; без сервера (сайт не через start.bat) — тихо пропускаємо.
 let syncBusy = false;
+const SHARE_LABELS = new Set(['', ...Object.values(MYSTERY_TIERS).map(t => t.name), 'Military Items', 'Medical Supplies', 'Computer Parts',
+  'Collectibles', 'Instruments', 'Energy Items', 'Household Items', 'Building Materials', 'Electronics', 'Flammables', 'Tools', 'Paper']);
+function shareable(b) {
+  const it = b.itemId != null && itemById.get(b.itemId);
+  if (!b.soundId || !it) return null;
+  return { t: b.t, soundId: b.soundId, size: b.size || '', label: SHARE_LABELS.has(b.label) ? b.label : '', price: b.price || 0, itemId: b.itemId, item: it.nameEn || '', q: it.q || '' };
+}
 async function syncBase(force = false) {
   const baseKeys = new Set(basePurchases.map(purchaseKey));
   if (syncBusy || !location.protocol.startsWith('http') || (!force && !purchases.some(b => !baseKeys.has(purchaseKey(b))))) return;
   syncBusy = true;
-  const merged = mergePurchases(basePurchases, purchases);
+  // У спільну базу — без вільного тексту: назва предмета з довідника, напис — лише відомий.
+  // Так туди ніяк не потрапить нік чи інший шматок рядка з екрана.
+  const merged = mergePurchases(basePurchases, purchases.map(shareable).filter(Boolean));
   try {
     const r = await fetch('api/purchases', {
       method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Abi-Kaluvan': '1' },
@@ -1961,11 +1993,6 @@ ui.result.addEventListener('click', e => {
   recordPurchase({ soundId: cardCtx.soundId, size: cardCtx.size, label: cardCtx.label, price: cardCtx.label && cardCtx.label.price, itemId: it.id, key: cardCtx.key });
   showResult(s, lastResult && lastResult.soundId === s.id ? lastResult.score : 1, null, cardCtx.size, cardCtx.label);
 });
-ui.nick.value = myNick;
-ui.nick.onchange = () => {
-  myNick = ui.nick.value.trim();
-  try { localStorage.setItem(NICK_KEY, JSON.stringify(myNick)); } catch {}
-};
 $('buys').addEventListener('click', e => {
   const btn = e.target.closest('[data-del]');
   if (!btn) return;
@@ -2120,6 +2147,7 @@ I18n.apply();
 syncLabels();
 renderProfiles();
 renderSounds();
+try { OLD_PURCHASE_KEYS.forEach(k => localStorage.removeItem(k)); } catch {}
 renderPurchases();
 loadBase();
 autoLoadLibrary();
