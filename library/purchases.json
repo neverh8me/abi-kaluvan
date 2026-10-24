@@ -1,4 +1,45 @@
 {
- "updated": null,
- "purchases": []
+ "updated": "2026-10-24T11:49:47.160Z",
+ "purchases": [
+  {
+   "t": 1792842574402,
+   "soundId": "lib:med_metal_blunt",
+   "size": "2x3",
+   "label": "Uncommon Mystery Cargo",
+   "price": 270000,
+   "itemId": null,
+   "item": "Rebrut",
+   "q": ""
+  },
+  {
+   "t": 1792842580140,
+   "soundId": "lib:med_metal_blunt",
+   "size": "2x3",
+   "label": "Uncommon Mystery Cargo",
+   "price": 270000,
+   "itemId": null,
+   "item": "Rebcut",
+   "q": ""
+  },
+  {
+   "t": 1792842583597,
+   "soundId": "lib:small_metal_blunt",
+   "size": "2x3",
+   "label": "Uncommon Mystery Cargo",
+   "price": 270000,
+   "itemId": 498060001,
+   "item": "Space Lab Toybox",
+   "q": "gold"
+  },
+  {
+   "t": 1792842587160,
+   "soundId": "lib:small_metal_blunt",
+   "size": "2x3",
+   "label": "Uncommon Mystery Cargo",
+   "price": 270000,
+   "itemId": null,
+   "item": "Rebrut",
+   "q": ""
+  }
+ ]
 }
