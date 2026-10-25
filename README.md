@@ -97,3 +97,9 @@ For each cargo, the price is mapped to the closest merchant pool, and the cargo 
 ## Disclaimer
 
 This is a fan-made tool and is not affiliated with MoreFun Studios or Tencent. It does not read or modify game memory or files. It only listens to the game's audio output and captures the game window, the same as a screen recorder. Use it at your own risk.
+
+## License
+
+ABI Kaluvan is free software under the [GNU General Public License v3.0](LICENSE). You may use, study, modify and share it. If you distribute a modified version, it must stay under the same license and come with its source code.
+
+Bundled third-party parts keep their own licenses: [Tesseract.js](https://github.com/naptha/tesseract.js) in `lib/tesseract` is Apache-2.0. Game sounds, item data and item icons in `library/` belong to their respective owners and are not covered by this license.
