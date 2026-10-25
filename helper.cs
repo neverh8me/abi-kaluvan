@@ -283,6 +283,7 @@ namespace AbiEar
         const int BLACK_CHECK_EVERY = 15; // check for a black frame once per this many frames
         static string status = "{\"type\":\"status\",\"state\":\"start\"}";
         static string root;
+        static int sitePort;
 
         static readonly Dictionary<string, string> types = new Dictionary<string, string> {
             { ".html", "text/html; charset=utf-8" }, { ".js", "application/javascript; charset=utf-8" },
@@ -294,6 +295,7 @@ namespace AbiEar
         public static void Run(string siteRoot, int port, string exe)
         {
             root = Path.GetFullPath(siteRoot);
+            sitePort = port;
             Screen.SetProcessDPIAware(); // otherwise only part of the screen is captured at 125% Windows scaling
             var listener = new HttpListener();
             listener.Prefixes.Add("http://localhost:" + port + "/");
@@ -317,12 +319,24 @@ namespace AbiEar
             try
             {
                 string path = Uri.UnescapeDataString(ctx.Request.Url.AbsolutePath);
+                // Game audio, frames and the purchase file are only for our own page. Any site open in the browser
+                // runs on this PC too and could connect to localhost (WebSockets are not covered by CORS), so the
+                // Origin header must be our own address. Requests without Origin come from non-browser tools.
+                bool sensitive = ctx.Request.IsWebSocketRequest || ctx.Request.HttpMethod != "GET";
+                if (sensitive && !OwnOrigin(ctx.Request.Headers["Origin"])) { ctx.Response.StatusCode = 403; ctx.Response.Close(); return; }
                 if (path == "/audio" && ctx.Request.IsWebSocketRequest) { Audio(ctx); return; }
                 if (path == "/screen" && ctx.Request.IsWebSocketRequest) { ScreenSocket(ctx); return; }
                 if (path == "/api/purchases" && ctx.Request.HttpMethod == "POST") { SavePurchases(ctx); return; }
                 ServeFile(ctx, path.TrimStart('/'));
             }
             catch { try { ctx.Response.Abort(); } catch { } }
+        }
+
+        // Our own page: http://localhost:PORT or http://127.0.0.1:PORT. No header at all: not a browser.
+        static bool OwnOrigin(string origin)
+        {
+            if (origin == null) return true;
+            return origin == "http://localhost:" + sitePort || origin == "http://127.0.0.1:" + sitePort;
         }
 
         static void ServeFile(HttpListenerContext ctx, string rel)
