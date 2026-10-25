@@ -7,7 +7,10 @@ const Vision = (() => {
   const MIN_RUN = 12;       // minimal line segment length for the period search
   const EDGE_FILL = 0.55;   // share of an edge the line has to cover (may be in pieces)
   const EDGE_RUN = 0.25;    // plus at least one solid piece of this length
-  const OCC_T = 40;         // brightness from which a pixel counts as "content"
+  // Brightness from which a pixel counts as "content", per frame: the darkest level of the grid (empty slots)
+  // plus a margin. Empty slots are ~30 and cargo ~60 on a normal picture, but ~0–7 and ~18 with a dark
+  // in-game picture (gamma/brightness), so a fixed threshold misses all cargo there.
+  const OCC_MARGIN = 8, OCC_MIN = 10, OCC_MAX = 40;
   const EDGE_REL = 0.6;     // a cargo border is at least this share of the frame's typical border (lines inside revealed cargo ~0.5)
 
   function toGray(data, w, h) {
@@ -249,6 +252,8 @@ const Vision = (() => {
     for (let c = 0; c < cols; c++) for (let k = 0; k <= rows; k++) strengths.push(edgeStrength(maps.hr, w, X(c) + pad, Y(k), len, true));
     const strong = strengths.filter(Boolean).sort((a, b) => a - b);
     const minC = strong.length ? Math.max(1, strong[strong.length >> 1] * EDGE_REL) : 1;
+    // the brightness of empty slots on this frame (see darkLevel): content is anything brighter
+    const occT = darkLevel(G, X, Y, cols, rows);
     const vLine = (k, r) => edgeFill(maps.vr, w, X(k), Y(r) + pad, len, false, minC) >= EDGE_FILL;
     const hLine = (c, k) => edgeFill(maps.hr, w, X(c) + pad, Y(k), len, true, minC) >= EDGE_FILL;
 
@@ -282,7 +287,7 @@ const Vision = (() => {
       for (let k = 0; k < iw && closed; k++) closed = hLine(c + k, r) && hLine(c + k, r + ih);
       for (let k = 0; k < ih && closed; k++) closed = vLine(c, r + k) && vLine(c + iw, r + k);
       if (!closed) continue;
-      items.push({ c, r, w: iw, h: ih, occ: occupancy(G, X(c), Y(r), X(c + iw) - X(c), Y(r + ih) - Y(r)) });
+      items.push({ c, r, w: iw, h: ih, occ: occupancy(G, X(c), Y(r), X(c + iw) - X(c), Y(r + ih) - Y(r), occT) });
     }
     return items;
   }
@@ -386,11 +391,38 @@ const Vision = (() => {
   }
 
   // Share of "non-empty" pixels inside a rectangle (text, icon)
-  function occupancy({ w, g }, x, y, rw, rh) {
+  // Content threshold for a frame: the brightness of empty slots plus OCC_MARGIN. Empty slots are the
+  // clearly darker cells (by their mean, not by pixels: dark icon pixels inside cargo are darker still).
+  // A list with no empty slot in view has no such cells; then the darkest pixels (5th percentile) are used.
+  function darkLevel({ w, h, g }, X, Y, cols, rows) {
+    const means = [], hist = new Uint32Array(256);
+    let total = 0;
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        const x0 = X(c), x1 = X(c + 1), y0 = Y(r), y1 = Y(r + 1), m = Math.round((x1 - x0) * 0.15);
+        let s = 0, n = 0;
+        for (let yy = Math.max(0, y0 + m); yy < Math.min(h, y1 - m); yy += 2) {
+          for (let xx = Math.max(0, x0 + m); xx < Math.min(w, x1 - m); xx += 2) { const v = g[yy * w + xx]; s += v; n++; hist[v]++; }
+        }
+        if (n) { means.push(s / n); total += n; }
+      }
+    }
+    if (!means.length) return OCC_MAX;
+    means.sort((a, b) => a - b);
+    let dark = means[Math.floor(means.length * 0.03)];
+    if (!(dark < means[means.length >> 1] * 0.6)) {
+      let acc = 0, p5 = 0;
+      for (; p5 < 255; p5++) { acc += hist[p5]; if (acc >= total * 0.05) break; }
+      dark = p5;
+    }
+    return Math.min(OCC_MAX, Math.max(OCC_MIN, dark + OCC_MARGIN));
+  }
+
+  function occupancy({ w, g }, x, y, rw, rh, t = OCC_MAX) {
     const inset = 4; // border only; the item name sits at the top edge
     let n = 0, hit = 0;
     for (let yy = y + inset; yy < y + rh - inset; yy++) {
-      for (let xx = x + inset; xx < x + rw - inset; xx++) { n++; if (g[yy * w + xx] > OCC_T) hit++; }
+      for (let xx = x + inset; xx < x + rw - inset; xx++) { n++; if (g[yy * w + xx] > t) hit++; }
     }
     return n ? hit / n : 0;
   }
