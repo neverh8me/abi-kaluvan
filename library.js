@@ -20,10 +20,14 @@ const Library = (() => {
     const profiles = merchant.profiles.filter(p => p.maps && p.maps.length);
     const weights = itemWeights(merchant, profiles);
     // Mystery Cargo pools are mixed (items of different categories); cargo named after a category
-    // ("Tools", "Paper"…) holds a single category, and reds never drop from it
+    // ("Tools", "Paper"…) holds mostly that category (the rare category cargo can still hold a red)
     const catOf = new Map(merchant.items.map(it => [it.id, it.category]));
     const mixed = pl => new Set(pl.items.map(([id]) => catOf.get(id))).size > 1;
     const weightsMix = itemWeights(merchant, profiles, mixed);
+    // Every pool carries the merchant label of its cargo ("Rare Mystery Cargo", "Rare Collectibles"…), so the
+    // weights are also counted per label: the label read from a cargo then picks exactly its pools
+    const labels = [...new Set(merchant.pools.map(pl => pl.label).filter(Boolean))];
+    const weightsByLabel = new Map(labels.map(l => [l, itemWeights(merchant, profiles, pl => pl.label === l)]));
     const byId = new Map(merchant.items.map(it => [it.id, it]));
 
     const sounds = [];
@@ -40,18 +44,24 @@ const Library = (() => {
         const en = m.en || gi.en || String(id);
         const wp = weights.get(id) || {}, wpm = weightsMix.get(id) || {};
         const avg = o => profiles.reduce((a, p) => a + (o[p.id] || 0), 0) / (profiles.length || 1);
+        // per cargo label: { label: { profile: weight } } and the average over maps
+        const wlp = {}, wl = {};
+        for (const [l, map] of weightsByLabel) { const o = map.get(id); if (o) { wlp[l] = o; wl[l] = avg(o); } }
         return {
           id,
           name: names[en] || gi.ru || en,
           nameEn: en,
           q: RARITY[m.rarity || gi.rarity] || 'white',
           size: m.size || gi.size || '',
-          price: m.ref || 0,
+          price: m.ref || 0,        // approximate market price
+          contact: m.contact || 0,  // price when handed in to a trader
           category: m.category || '',
           w: avg(wp),
           wp,
           wm: avg(wpm), // weight among Mystery Cargo only
           wpm,
+          wl, wlp,      // weight among the pools of each cargo label
+
           img: `library/images/${id}.png`, // icons from abibuilder.com, stored in library/images
         };
       });
@@ -76,7 +86,7 @@ const Library = (() => {
     // Merchant pools (for the tooltip price): price, weight, whether it is Mystery Cargo, items with weights
     const liveIds = new Set(profiles.map(p => p.id));
     const pools = merchant.pools.filter(pl => liveIds.has(pl.profile)).map(pl => ({
-      profile: pl.profile, price: pl.price, weight: pl.weight, mixed: mixed(pl),
+      profile: pl.profile, price: pl.price, weight: pl.weight, mixed: mixed(pl), label: pl.label || '',
       categories: [...new Set(pl.items.map(([id]) => catOf.get(id)))],
       items: pl.items.map(([id, w]) => [id, w]),
     }));

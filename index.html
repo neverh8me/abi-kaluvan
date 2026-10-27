@@ -65,6 +65,13 @@
   .tile b { font-size: 15px; font-variant-numeric: tabular-nums; }
 
   .lang { margin-left: auto; }
+  /* payback and the best buys */
+  .payback { display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: center; padding: 8px 12px; border: 1px solid var(--line); border-radius: 8px; margin: 0 0 12px; font-size: 13px; }
+  .payback .verdict { font-weight: 700; padding: 1px 8px; border-radius: 10px; color: #111; }
+  .buy-opts { margin: 10px 0 0; font-size: 13px; }
+  #bestBuys .best { display: flex; gap: 8px; align-items: baseline; padding: 4px 0; border-bottom: 1px solid #ffffff0a; font-size: 13px; }
+  #bestBuys .rank { flex: none; width: 26px; text-align: center; border-radius: 10px; background: var(--accent); color: #111; font-weight: 700; }
+  #bestBuys h3 { margin: 10px 0 4px; font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
   /* overlay window (one monitor): the result card and the map float above the game */
   .overlay { padding: 8px; }
   .overlay #result { padding: 10px; min-height: 0; }
@@ -145,6 +152,11 @@
     </div>
     <div class="map-wrap" id="mapWrap"><canvas id="map" width="360" height="200"></canvas></div>
     <p class="muted" style="margin:8px 0 0" data-i18n="map.hint"></p>
+    <div class="row buy-opts">
+      <label><span data-i18n="opt.buys">Purchases per raid</span> <select id="buysPerRaid"><option>2</option><option>3</option><option>4</option></select></label>
+      <label><span data-i18n="opt.value">Value by</span> <select id="valueBasis"><option value="market" data-i18n="value.market">market price</option><option value="trader" data-i18n="value.trader">trader hand-in</option></select></label>
+    </div>
+    <div id="bestBuys"></div>
   </section>
 </div>
 <div id="mapPop" class="map-pop" hidden></div>
@@ -281,6 +293,9 @@ const PROFILES_KEY = 'abi-ear-profiles-v1';
 const PROFILE_KEY = 'abi-ear-profile-v1';
 const BLUE_KEY = 'abi-ear-blue-v1';
 const MODE_KEY = 'abi-kaluvan-mode-v1'; // display mode: 'second' (second screen) or 'overlay' (one monitor)
+const BUYS_KEY = 'abi-kaluvan-buys-v1';  // purchases allowed per raid (2, or up to 4 with a levelled character)
+const VALUE_KEY = 'abi-kaluvan-value-v1'; // item value basis for payback: 'market' or 'trader'
+const PAY_GOOD = 1.15, PAY_GAMBLE = 0.9; // expected value vs price: worth it from 115%, a gamble from 90%
 const PURCHASES_KEY = 'abi-kaluvan-purchases-v2'; // v1 had records from the nickname bug, not used
 const OLD_PURCHASE_KEYS = ['abi-kaluvan-purchases-v1', 'abi-kaluvan-nick-v1'];
 const PRIOR_N = 20;          // the merchant data weighs as much as this many own purchases (more: learns slower)
@@ -321,6 +336,8 @@ let profiles = loadJson(PROFILES_KEY, []);   // maps from the library: [{ id, na
 let profile = loadJson(PROFILE_KEY, '');     // selected map ('' — average over all)
 let includeBlue = loadJson(BLUE_KEY, false); // whether to count blue items
 let mode = loadJson(MODE_KEY, 'second');     // display mode, see MODE_KEY
+let buysPerRaid = loadJson(BUYS_KEY, 2);     // see BUYS_KEY
+let valueBasis = loadJson(VALUE_KEY, 'market'); // see VALUE_KEY
 let overlayWin = null, overlayParts = [];    // the overlay window and the elements moved into it
 let purchases = loadJson(PURCHASES_KEY, []); // own purchases: [{ t, soundId, size, label, price, itemId, item, q }]
 let basePurchases = [];      // shared base shipped with the app (library/purchases.json) and refreshed from GitHub
@@ -651,13 +668,27 @@ function classify(win, onset) {
 // Item weight for the selected map; own items (without merchant data) have one weight for all maps.
 // Blue items do not actually drop from the merchant (although the abibuilder tables have them): not counted without the checkbox.
 // label — what is known about the cargo (cargoInfo): the label and, if read, the price. By price — only pools of that
-// price; for Mystery Cargo — only mixed pools.
+// price and label; by label alone — the pools of that label (every pool carries the merchant label of its cargo).
 function weightOf(it, label) {
   if (it.q === 'blue' && !includeBlue) return 0;
   if (label && label.priceW) return label.priceW.get(it.id) || 0;
+  const pl = label && poolLabel(label);
+  if (pl && it.wl) return it.wl[pl] ? (profile ? (it.wlp[pl] || {})[profile] || 0 : it.wl[pl]) : 0;
   if (label && label.mystery && it.wpm) return profile ? it.wpm[profile] || 0 : it.wm;
   if (profile && it.wp) return it.wp[profile] || 0;
   return it.w;
+}
+
+// The merchant label of a cargo as the pools name it ("Rare Mystery Cargo", "Rare Collectibles"…), or ''
+function poolLabel(label) {
+  return label ? labelName(label) || '' : '';
+}
+
+// Whether any pool with this label holds a red item (Mystery Cargo, rare category cargo…)
+function labelCanRed(label) {
+  const pl = poolLabel(label);
+  if (!pl || !libPools.some(p => p.label)) return !label.category; // no label data: the old rule
+  return libPools.some(p => p.label === pl && p.items.some(([id]) => itemQ[id] === 'red'));
 }
 
 // Size without rotation: the merchant may place a cargo rotated (TI Module 2×1 lies as 1×2),
@@ -669,11 +700,16 @@ function normSize(size) {
 }
 
 // Sound items that fit the cargo size and label (cargo size at the merchant = item size).
-// Cargo named after a category ("Tools", "Military Items"…) holds only items of that category
-// and is never red: reds only drop from Mystery Cargo.
+// A known label keeps only items its pools can hold: a category cargo ("Tools"…) holds that category,
+// and reds only where the pools have them (Mystery Cargo, Rare Collectibles…).
 function itemsFor(sound, size, label) {
   let items = sound.items.filter(it => it.q !== 'blue' || includeBlue);
-  if (label && label.category) {
+  const pl = label && poolLabel(label);
+  if (pl && items.some(it => it.wl)) {
+    const inLabel = items.filter(it => it.wl && it.wl[pl] > 0);
+    if (inLabel.length) items = inLabel;
+  } else if (label && label.category) {
+    // no label data (an old library): the former rule
     items = items.filter(it => it.q !== 'red');
     const same = items.filter(it => it.category === label.category);
     if (same.length) items = same;
@@ -762,9 +798,74 @@ function showResult(sound, score, second, size, label) {
     <div class="sub">${esc(parts[0] + (size ? tr('card.cargo', { size: normSize(size) }) : ''))}${label && (label.mystery || label.category) ? `, ${esc(labelName(label))}` : ''}${label && label.price ? `, ${fmtPrice(label.price)}` : ''}</div>
     ${sizes ? `<div class="sizes">${sizes}</div>` : ''}
     ${chanceRow(red)}
+    ${label && label.price ? paybackRow(payback(itemOdds(sound, size, label), label.price)) : ''}
     ${itemTiles(itemOdds(sound, size, label))}
     ${alt}`;
   document.title = tr('doc.title', { p: pct(red), app: tr('app') });
+}
+
+// ---------- Payback ----------
+// Value of an item: the market price or the trader hand-in price (selectable)
+function itemValue(it) {
+  return valueBasis === 'trader' ? it.contact || it.price || 0 : it.price || it.contact || 0;
+}
+
+// Whether a cargo pays off: the expected value of what drops against the price, the chance to get more than
+// the price, the cheapest and the dearest likely item. list — [{ it, p }] as from itemOdds / cargoRedOdds.
+function payback(list, price) {
+  const known = list.filter(x => x.p > 0 && itemValue(x.it) > 0);
+  const total = known.reduce((a, x) => a + x.p, 0);
+  if (!price || !total) return null;
+  let ev = 0, more = 0, min = Infinity, max = 0;
+  for (const { it, p } of known) {
+    const v = itemValue(it), q = p / total;
+    ev += q * v;
+    if (v > price) more += q;
+    if (q >= 0.005) { min = Math.min(min, v); max = Math.max(max, v); }
+  }
+  const verdict = ev >= price * PAY_GOOD ? 'good' : ev >= price * PAY_GAMBLE ? 'gamble' : 'bad';
+  return { ev, price, more, min: min === Infinity ? 0 : min, max, verdict };
+}
+
+const VERDICT_COLOR = { good: '#22c55e', gamble: '#f0b429', bad: '#ef4444' };
+function paybackRow(pb) {
+  if (!pb) return '';
+  const c = VERDICT_COLOR[pb.verdict];
+  const diff = Math.round((pb.ev / pb.price - 1) * 100);
+  return `<div class="payback" style="border-color:${c}66;background:${c}10">
+    <span class="verdict" style="background:${c}">${esc(tr('pb.' + pb.verdict))}</span>
+    <span>${esc(tr('pb.ev', { ev: money(pb.ev), price: money(pb.price), diff: (diff > 0 ? '+' : '') + diff + '%' }))}</span>
+    <span class="muted">${esc(tr('pb.more', { p: pct(pb.more) }))} · ${money(pb.min)}–${money(pb.max)}</span>
+  </div>`;
+}
+
+// What may drop from a cargo now: by its sound if one was heard, otherwise by label and price
+function cargoOdds(key, rec) {
+  const r = results.get(key);
+  const sound = r && soundById(r.soundId);
+  if (sound) return itemOdds(sound, `${rec.w}x${rec.h}`, cargoInfo(rec));
+  const o = cargoRedOdds(rec);
+  return o ? o.items : [];
+}
+
+// The best buys on the map: cargo with a known price ranked by the expected profit, as many as may be bought
+function bestBuys() {
+  const out = [];
+  for (const [key, rec] of placedCargo()) {
+    if (!rec.price || rec.bought) continue;
+    const pb = payback(cargoOdds(key, rec), rec.price);
+    if (pb && pb.ev > pb.price) out.push({ key, rec, pb, profit: pb.ev - pb.price });
+  }
+  return out.sort((a, b) => b.profit - a.profit).slice(0, buysPerRaid);
+}
+
+function renderBestBuys(list) {
+  const el = $('bestBuys');
+  if (!list.length) { el.innerHTML = ''; return; }
+  el.innerHTML = `<h3>${esc(tr('best.title', { n: buysPerRaid }))}</h3>` + list.map((b, i) => `
+    <div class="best"><span class="rank">#${i + 1}</span>
+      <span>${esc(cargoHead(b.rec))} → ~${money(b.pb.ev)} <b style="color:${VERDICT_COLOR[b.pb.verdict]}">(+${money(b.profit)})</b></span>
+    </div>`).join('');
 }
 
 // The "Red chance NN%" row
@@ -1224,7 +1325,9 @@ function labelName(label) {
 // may match a pool price as is or with the markup; the closest is taken.
 function poolsForPrice(price, label) {
   let pools = libPools.filter(pl => !profile || String(pl.profile) === String(profile));
-  if (label && label.mystery) pools = pools.filter(pl => pl.mixed);
+  const pl0 = poolLabel(label);
+  if (pl0 && pools.some(pl => pl.label)) pools = pools.filter(pl => pl.label === pl0); // the pools of exactly this label
+  else if (label && label.mystery) pools = pools.filter(pl => pl.mixed);
   else if (label && label.category) pools = pools.filter(pl => !pl.mixed && pl.categories.includes(label.category));
   if (!pools.length) return [];
   const dist = p => Math.min(Math.abs(Math.log(price / p)), Math.abs(Math.log(price / (p * PRICE_MARKUP))));
@@ -1257,15 +1360,22 @@ function cargoInfo(rec) {
   return Object.keys(info).length ? info : null;
 }
 
-// Red chance of a cargo before any sound: by label, price and size
+// Red chance of a cargo before any sound: by label, price and size. Without a price the label alone
+// gives the pools (all prices of that label).
 function cargoRedOdds(rec) {
   const info = cargoInfo(rec);
-  if (info && info.category) return { red: 0, items: [] };
-  if (!info || !info.priceW) return null;
+  if (!info) return null;
+  let weights = info.priceW;
+  if (!weights) {
+    const pl = poolLabel(info);
+    if (!pl || ![...itemById.values()].some(it => it.wl)) return info.category ? { red: 0, items: [] } : null;
+    weights = new Map();
+    for (const it of itemById.values()) { const w = weightOf(it, info); if (w > 0) weights.set(it.id, w); }
+  }
   const size = normSize(`${rec.w}x${rec.h}`);
   let total = 0, red = 0;
   const items = [];
-  for (const [id, w] of info.priceW) {
+  for (const [id, w] of weights) {
     const it = itemById.get(id);
     if (it && normSize(it.size) !== size) continue;
     total += w;
@@ -1345,6 +1455,7 @@ function showHover(rec) {
     <div class="big" style="color:${color}">${title}</div>
     <div class="sub">${esc(cargoHead(rec))}. ${esc(tr('hover.drag'))}</div>
     ${red !== null ? chanceRow(red) : ''}
+    ${odds && rec.price ? paybackRow(payback(odds.items, rec.price)) : ''}
     ${odds ? itemTiles(odds.items) : ''}`;
 }
 
@@ -1489,7 +1600,8 @@ async function loadBase() {
 // sync.ps1 sends them to the shared server on the next launch. Without the server (site not via start.bat) this is skipped quietly.
 let syncBusy = false;
 const SHARE_LABELS = new Set(['', ...Object.values(MYSTERY_TIERS).map(t => t.name), 'Military Items', 'Medical Supplies', 'Computer Parts',
-  'Collectibles', 'Instruments', 'Energy Items', 'Household Items', 'Building Materials', 'Electronics', 'Flammables', 'Tools', 'Paper']);
+  'Collectibles', 'Instruments', 'Energy Items', 'Household Items', 'Building Materials', 'Electronics', 'Flammables', 'Tools', 'Paper',
+  'Rare Collectibles', 'Uncommon Collectibles', 'Rare Medical Supplies', 'Uncommon Military Items']);
 function shareable(b) {
   const it = b.itemId != null && itemById.get(b.itemId);
   if (!b.soundId || !it) return null;
@@ -1559,6 +1671,7 @@ function drawMapInner() {
   if (!placed.length) {
     c.fillStyle = '#8b93a1'; c.font = '13px system-ui, sans-serif'; c.textAlign = 'center'; c.textBaseline = 'middle';
     c.fillText(tr('map.empty'), W / 2, H / 2);
+    renderBestBuys([]);
     return;
   }
   const keyOf = new Map(placed.map(r => [r, null]));
@@ -1588,8 +1701,8 @@ function drawMapInner() {
     const revealed = rec.revealed && qById[rec.revealed];
     const label = rec.label;
     if (!sound) {
-      if (label && label.category && !revealed) {
-        // not Mystery Cargo: reds never drop here, dimmed
+      if (label && label.category && !revealed && !labelCanRed(label)) {
+        // a category cargo whose pools hold no reds (Tools, Paper…): dimmed
         c.fillStyle = 'rgba(11,12,15,.6)';
         c.fillRect(x + 2, y + 2, w - 4, h - 4);
         c.strokeStyle = '#2a2f38'; c.lineWidth = 1;
@@ -1665,6 +1778,17 @@ function drawMapInner() {
     c.strokeStyle = key === lastKey ? '#f0b429' : color; c.lineWidth = key === lastKey || red > 0 ? 3 : 1;
     c.strokeRect(x + 3, y + 3, w - 6, h - 6);
   }
+
+  // the best buys: a #1…#N badge in the bottom-left corner of the cargo and the ranked list under the map
+  const best = bestBuys();
+  best.forEach(({ rec }, i) => {
+    const x = (rec.C - minC) * MAP_U, y = (rec.R - minR) * MAP_U + rec.h * MAP_U;
+    c.fillStyle = '#f0b429';
+    c.beginPath(); c.arc(x + 14, y - 14, 10, 0, Math.PI * 2); c.fill();
+    c.fillStyle = '#111'; c.font = 'bold 11px system-ui, sans-serif'; c.textAlign = 'center'; c.textBaseline = 'middle';
+    c.fillText('#' + (i + 1), x + 14, y - 13);
+  });
+  renderBestBuys(best);
 }
 
 // Item picture fitted into a rectangle keeping the proportions
@@ -1688,10 +1812,12 @@ function showMapPop(e) {
   if (sound) {
     const info = cargoInfo(rec), size = `${rec.w}x${rec.h}`;
     const red = qualityOdds(sound, size, info).red || 0;
-    body = chanceRow(red) + itemTiles(itemOdds(sound, size, info), 9);
+    const list = itemOdds(sound, size, info);
+    body = chanceRow(red) + (rec.price ? paybackRow(payback(list, rec.price)) : '') + itemTiles(list, 9);
   } else {
     const odds = cargoRedOdds(rec);
-    body = odds ? chanceRow(odds.red) + itemTiles(odds.items, 9) : `<div class="muted" style="margin-top:8px">${esc(tr('pop.unknown'))}</div>`;
+    body = odds ? chanceRow(odds.red) + (rec.price ? paybackRow(payback(odds.items, rec.price)) : '') + itemTiles(odds.items, 9)
+      : `<div class="muted" style="margin-top:8px">${esc(tr('pop.unknown'))}</div>`;
   }
   pop.innerHTML = `<div class="head">${esc(cargoHead(rec))}</div>${body}`;
   pop.hidden = false;
@@ -1751,10 +1877,13 @@ function normalizeSounds(list) {
         name: String(it.name || '?'), nameEn: typeof it.nameEn === 'string' ? it.nameEn : '', q: it.q, w: Math.max(0, +it.w || 0) || (it.wp ? 0 : 1),
         size: SIZES.includes(it.size) ? it.size : '',
         price: +it.price || 0,
+        contact: +it.contact || 0,
         category: typeof it.category === 'string' ? it.category : '',
         wp: it.wp && typeof it.wp === 'object' ? it.wp : null,
         wm: +it.wm || 0,
         wpm: it.wpm && typeof it.wpm === 'object' ? it.wpm : null,
+        wl: it.wl && typeof it.wl === 'object' ? it.wl : null,
+        wlp: it.wlp && typeof it.wlp === 'object' ? it.wlp : null,
         img: typeof it.img === 'string' && (it.img.startsWith('data:image/') || /^library\/images\/\d+\.png$/.test(it.img)) ? it.img : '',
       })),
     }));
@@ -2119,6 +2248,13 @@ modeSelect.onchange = () => {
   updateModeUi();
 };
 $('btnOverlay').onclick = openOverlay;
+
+// Payback settings: purchases per raid (the best-buys count) and the item value basis
+const buysSelect = $('buysPerRaid'), valueSelect = $('valueBasis');
+buysSelect.value = String(buysPerRaid);
+valueSelect.value = valueBasis;
+buysSelect.onchange = () => { buysPerRaid = +buysSelect.value || 2; try { localStorage.setItem(BUYS_KEY, JSON.stringify(buysPerRaid)); } catch {} drawMap(); };
+valueSelect.onchange = () => { valueBasis = valueSelect.value; try { localStorage.setItem(VALUE_KEY, JSON.stringify(valueBasis)); } catch {} drawMap(); };
 updateModeUi();
 
 // UI language: on change, everything with text is redrawn

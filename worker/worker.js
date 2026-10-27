@@ -13,7 +13,7 @@ const BODY_MAX = 32 * 1024;    // bytes per request
 const PER_HOUR = 12;           // requests per IP per hour
 const LABELS = new Set(['', 'Mystery Cargo', 'Uncommon Mystery Cargo', 'Rare Mystery Cargo', 'Military Items', 'Medical Supplies',
   'Computer Parts', 'Collectibles', 'Instruments', 'Energy Items', 'Household Items', 'Building Materials',
-  'Electronics', 'Flammables', 'Tools', 'Paper']);
+  'Electronics', 'Flammables', 'Tools', 'Paper', 'Rare Collectibles', 'Uncommon Collectibles', 'Rare Medical Supplies', 'Uncommon Military Items']);
 const RARITY = { 6: 'red', 5: 'gold', 4: 'purple', 3: 'blue', 2: 'green', 1: 'white' };
 
 export default {

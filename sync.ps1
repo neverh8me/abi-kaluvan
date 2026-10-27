@@ -55,7 +55,7 @@ function ValidPairs {
 # cargo labels as the site writes them (MYSTERY_TIERS in index.html and LABELS in ocr.js)
 $LABELS = '', 'Mystery Cargo', 'Uncommon Mystery Cargo', 'Rare Mystery Cargo', 'Military Items', 'Medical Supplies',
   'Computer Parts', 'Collectibles', 'Instruments', 'Energy Items', 'Household Items', 'Building Materials',
-  'Electronics', 'Flammables', 'Tools', 'Paper'
+  'Electronics', 'Flammables', 'Tools', 'Paper', 'Rare Collectibles', 'Uncommon Collectibles', 'Rare Medical Supplies', 'Uncommon Military Items'
 function Clean($e, $pairs) {
   if (-not $e) { return $null }
   try { $t = [double]$e.t; $price = [double]$e.price } catch { return $null }
