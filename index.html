@@ -1540,16 +1540,38 @@ function processFeed() {
 }
 
 function ownPurchase({ price, item }) {
-  // the cargo with a sound whose tooltip price matches the amount; of several, the one heard last;
-  // if the price was unknown (no hover), the last sound heard within 3 min; otherwise history only
-  const byPrice = [...results].filter(([key]) => {
+  // What dropped is known from the line, so the bought cargo must fit it: its sound holds this item and its
+  // size is the item's size. Many cargo share a price (200k, 250k…) and 1×1 cargo are not on the map at all,
+  // so "the last sound heard" would often be another cargo's sound. Of several fitting cargo with this price
+  // the one heard last is taken; if none fits, the purchase is kept without a sound (and not shared).
+  const named = [...itemById.values()].map(x => ({ name: x.nameEn || x.name, it: x }));
+  const m = Ocr.matchName(item, named), it = m && m.it;
+  const fits = (key, res) => {
+    const rec = cargo.get(key), s = res && soundById(res.soundId);
+    if (!rec || !s || !it) return false;
+    return s.items.some(x => x.id === it.id) && normSize(`${rec.w}x${rec.h}`) === normSize(it.size);
+  };
+  const byPrice = [...results].filter(([key, res]) => {
     const rec = cargo.get(key);
-    return rec && rec.price && !rec.bought && Math.abs(rec.price - price) <= price * BUY_MATCH;
+    return rec && rec.price && !rec.bought && Math.abs(rec.price - price) <= price * BUY_MATCH && fits(key, res);
   }).sort((a, b) => (b[1].t || 0) - (a[1].t || 0))[0];
   let key = byPrice ? byPrice[0] : null, res = byPrice ? byPrice[1] : null;
-  if (!byPrice && lastResult && Date.now() - lastResult.t < 180e3) { key = lastResult.key; res = lastResult; }
+  // the price was not read (no hover): the last sound heard within 3 min, but only if it fits the item
+  if (!byPrice && lastResult && Date.now() - lastResult.t < 180e3 && lastResult.key && fits(lastResult.key, lastResult)) { key = lastResult.key; res = lastResult; }
   const rec = key && cargo.get(key);
-  recordPurchase({ soundId: res && res.soundId, size: rec ? normSize(`${rec.w}x${rec.h}`) : '', label: cargoInfo(rec), price, itemText: item, key });
+  recordPurchase({ soundId: res && res.soundId, size: rec ? normSize(`${rec.w}x${rec.h}`) : '', label: cargoInfo(rec), price, itemText: item, itemId: it ? it.id : null, key });
+}
+
+// Records from before this check may pair an item with another cargo's sound: such a sound is dropped
+function dropMismatchedSounds() {
+  let changed = false;
+  purchases = purchases.map(b => {
+    const s = b.soundId && soundById(b.soundId);
+    if (!s || b.itemId == null || s.items.some(x => x.id === b.itemId)) return b;
+    changed = true;
+    return { ...b, soundId: null };
+  });
+  if (changed) { savePurchases(); syncBase(); }
 }
 
 // Records a purchase. itemId if the item is already known, otherwise it is looked up by name.
@@ -2032,6 +2054,7 @@ async function importLibrary(files) {
     itemQ = lib.itemQ;
     itemById = new Map();
     for (const s of sounds) for (const it of s.items) if (it.id) itemById.set(it.id, it);
+    dropMismatchedSounds();
     profiles = lib.profiles;
     try { localStorage.setItem(PROFILES_KEY, JSON.stringify(profiles)); } catch {}
     renderProfiles();
