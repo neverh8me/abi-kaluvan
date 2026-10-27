@@ -1384,8 +1384,26 @@ function cargoRedOdds(rec) {
   }
   if (!total) return null;
   items.forEach(x => { x.p /= total; });
+  // purchases of cargo with this label (and about this price) refine the odds, like purchases refine a sound
+  const seen = labelCounts(poolLabel(info), rec.price);
+  const n = items.reduce((a, x) => a + (seen.get(x.it.id) || 0), 0);
+  if (n) items.forEach(x => { x.p = (PRIOR_N * x.p + (seen.get(x.it.id) || 0)) / (PRIOR_N + n); });
+  red = items.reduce((a, x) => a + (x.it.q === 'red' ? x.p : 0), 0);
   items.sort((a, b) => order(a.it.q) - order(b.it.q) || b.p - a.p);
-  return { red: red / total, items };
+  return { red, items };
+}
+
+// How many times each item dropped from cargo with this label (and, if given, about this price: within the
+// tooltip price tolerance), from the shared base and own purchases: id → count
+function labelCounts(label, price) {
+  const out = new Map();
+  if (!label) return out;
+  for (const b of allPurchases()) {
+    if (b.label !== label || b.itemId == null) continue;
+    if (price && !(b.price && Math.abs(Math.log(b.price / price)) <= PRICE_MATCH_LOG)) continue;
+    out.set(b.itemId, (out.get(b.itemId) || 0) + 1);
+  }
+  return out;
 }
 
 // Hover: a price tooltip shows up as cargo that suddenly stopped looking like their reference. It is read,
@@ -1437,6 +1455,7 @@ function detectHover(frame) {
     rec.listPrice = tip.listPrice; // a discount: the pool is picked by the old price, the current one is what you pay
     if (tip.label && !rec.label) rec.label = tip.label;
     hover = { key, t: performance.now() };
+    rec.hoverAt = Date.now(); // for a purchase made without dragging (ownPurchase)
     showHover(rec);
     if (document.visibilityState === 'visible') drawMap();
   }).catch(() => { hoverSig = ''; }).finally(() => { hoverBusy = false; });
@@ -1543,7 +1562,7 @@ function ownPurchase({ price, item }) {
   // What dropped is known from the line, so the bought cargo must fit it: its sound holds this item and its
   // size is the item's size. Many cargo share a price (200k, 250k…) and 1×1 cargo are not on the map at all,
   // so "the last sound heard" would often be another cargo's sound. Of several fitting cargo with this price
-  // the one heard last is taken; if none fits, the purchase is kept without a sound (and not shared).
+  // the one heard last is taken; if none fits, the hovered cargo of that label is taken without a sound (below).
   const named = [...itemById.values()].map(x => ({ name: x.nameEn || x.name, it: x }));
   const m = Ocr.matchName(item, named), it = m && m.it;
   const fits = (key, res) => {
@@ -1558,6 +1577,14 @@ function ownPurchase({ price, item }) {
   let key = byPrice ? byPrice[0] : null, res = byPrice ? byPrice[1] : null;
   // the price was not read (no hover): the last sound heard within 3 min, but only if it fits the item
   if (!byPrice && lastResult && Date.now() - lastResult.t < 180e3 && lastResult.key && fits(lastResult.key, lastResult)) { key = lastResult.key; res = lastResult; }
+  // bought without dragging: the hovered cargo with this price whose label pools hold the item and whose size
+  // is the item's size (the one hovered last); it is recorded without a sound, with its label and price
+  if (!key && it) {
+    const byLabel = placedCargo().filter(([, r]) => r.price && !r.bought && r.label && Math.abs(r.price - price) <= price * BUY_MATCH
+      && normSize(`${r.w}x${r.h}`) === normSize(it.size) && it.wl && it.wl[poolLabel(r.label)] > 0)
+      .sort((a, b) => (b[1].hoverAt || 0) - (a[1].hoverAt || 0))[0];
+    if (byLabel) key = byLabel[0];
+  }
   const rec = key && cargo.get(key);
   recordPurchase({ soundId: res && res.soundId, size: rec ? normSize(`${rec.w}x${rec.h}`) : '', label: cargoInfo(rec), price, itemText: item, itemId: it ? it.id : null, key });
 }
@@ -1624,10 +1651,13 @@ let syncBusy = false;
 const SHARE_LABELS = new Set(['', ...Object.values(MYSTERY_TIERS).map(t => t.name), 'Military Items', 'Medical Supplies', 'Computer Parts',
   'Collectibles', 'Instruments', 'Energy Items', 'Household Items', 'Building Materials', 'Electronics', 'Flammables', 'Tools', 'Paper',
   'Rare Collectibles', 'Uncommon Collectibles', 'Rare Medical Supplies', 'Uncommon Military Items']);
+// A purchase is worth sharing with its sound (sound → item) or, bought without dragging, with the cargo
+// label and price (label + price → item)
 function shareable(b) {
   const it = b.itemId != null && itemById.get(b.itemId);
-  if (!b.soundId || !it) return null;
-  return { t: b.t, soundId: b.soundId, size: b.size || '', label: SHARE_LABELS.has(b.label) ? b.label : '', price: b.price || 0, itemId: b.itemId, item: it.nameEn || '', q: it.q || '' };
+  const label = SHARE_LABELS.has(b.label) ? b.label : '';
+  if (!it || !(b.soundId || (label && b.price))) return null;
+  return { t: b.t, soundId: b.soundId || null, size: b.size || '', label, price: b.price || 0, itemId: b.itemId, item: it.nameEn || '', q: it.q || '' };
 }
 async function syncBase() {
   // before the library is loaded no purchase can be checked (shareable needs the item catalog): writing now

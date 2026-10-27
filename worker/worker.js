@@ -33,7 +33,9 @@ export default {
 
     const cat = await catalog();
     const clean = list.map(e => cleanEntry(e, cat)).filter(Boolean);
-    if (!clean.length) return json({ added: 0 });
+    // accepted: keys of the valid entries (new or already in the base); the app marks only these as sent
+    const accepted = clean.map(key);
+    if (!clean.length) return json({ added: 0, accepted });
 
     // append to the base on GitHub; if someone wrote at the same time (conflict), try again
     for (let attempt = 0; attempt < 3; attempt++) {
@@ -44,7 +46,7 @@ export default {
       try { base = JSON.parse(decode(file.content)).purchases || []; } catch {}
       const keys = new Set(base.map(key));
       const fresh = clean.filter(e => !keys.has(key(e)));
-      if (!fresh.length) return json({ added: 0 });
+      if (!fresh.length) return json({ added: 0, accepted });
       const merged = base.concat(fresh).sort((a, b) => a.t - b.t);
       const body = JSON.stringify({ updated: new Date().toISOString(), purchases: merged }, null, 1) + '\n';
       const put = await gh(env, `contents/${BASE_PATH}`, {
@@ -55,7 +57,7 @@ export default {
           committer: { name: 'abi-kaluvan-bot', email: 'abi-kaluvan-bot@users.noreply.github.com' },
         }),
       });
-      if (put.ok) return json({ added: fresh.length });
+      if (put.ok) return json({ added: fresh.length, accepted });
       if (put.status !== 409 && put.status !== 422) return json({ error: 'github write ' + put.status }, 502);
     }
     return json({ error: 'busy, retry later' }, 503);
@@ -80,11 +82,11 @@ async function catalog() {
   if (cached && Date.now() - cachedAt < 3600e3) return cached;
   const [m, g] = await Promise.all(['library/merchant.json', 'library/groups.json']
     .map(p => fetch(RAW + p, { cf: { cacheTtl: 3600 } }).then(r => r.json())));
-  const pairs = new Set(), names = new Map(), quals = new Map(), poolPrices = new Map();
+  const pairs = new Set(), names = new Map(), quals = new Map(), itemPools = new Map(); // itemPools: id → [{ label, price }]
   for (const it of m.items) { names.set(it.id, it.en); quals.set(it.id, RARITY[it.rarity] || ''); }
   for (const pl of m.pools) for (const [id] of pl.items) {
-    if (!poolPrices.has(id)) poolPrices.set(id, []);
-    poolPrices.get(id).push(pl.price);
+    if (!itemPools.has(id)) itemPools.set(id, []);
+    itemPools.get(id).push({ label: pl.label || '', price: pl.price });
   }
   for (const grp of g.groups) {
     const up = grp.events.find(e => /_Up$/i.test(e)) || grp.events[0];
@@ -92,23 +94,25 @@ async function catalog() {
     for (const it of m.items) if (it.sound === up) pairs.add(`${sid}|${it.id}`);
     for (const it of grp.items) if (it.id) { pairs.add(`${sid}|${it.id}`); if (!names.has(it.id)) names.set(it.id, it.en); }
   }
-  cached = { pairs, names, quals, poolPrices };
+  cached = { pairs, names, quals, itemPools };
   cachedAt = Date.now();
   return cached;
 }
 
-// Only known fields with plausible values, no free text (same as sync.ps1)
+// Only known fields with plausible values, no free text (same as sync.ps1). A purchase without a sound
+// (bought without dragging) still tells label + price → item: then the item must be in the pools of that label.
 function cleanEntry(e, cat) {
   if (!e || typeof e !== 'object') return null;
   const t = Number(e.t), price = Number(e.price), itemId = Number(e.itemId);
   if (!(t >= 1735689600000 && t <= Date.now() + 86400e3)) return null;
-  if (typeof e.soundId !== 'string' || !cat.pairs.has(`${e.soundId}|${itemId}`)) return null;
-  const plausible = (cat.poolPrices.get(itemId) || []).some(pp =>
-    price > 0 && Math.min(Math.abs(Math.log(price / pp)), Math.abs(Math.log(price / (pp * 1.1)))) <= 0.25);
+  const label = LABELS.has(e.label) ? e.label : '';
+  const soundId = typeof e.soundId === 'string' && e.soundId ? e.soundId : null;
+  if (soundId ? !cat.pairs.has(`${soundId}|${itemId}`) : !label) return null;
+  const priceOk = pp => price > 0 && Math.min(Math.abs(Math.log(price / pp)), Math.abs(Math.log(price / (pp * 1.1)))) <= 0.25;
+  const plausible = (cat.itemPools.get(itemId) || []).some(p => (soundId || p.label === label) && priceOk(p.price));
   if (!plausible) return null;
   const size = typeof e.size === 'string' && /^[1-9]x[1-9]$/.test(e.size) ? e.size : '';
-  const label = LABELS.has(e.label) ? e.label : '';
-  return { t: Math.round(t), soundId: e.soundId, size, label, price: Math.round(price), itemId, item: cat.names.get(itemId) || '', q: cat.quals.get(itemId) || '' };
+  return { t: Math.round(t), soundId, size, label, price: Math.round(price), itemId, item: cat.names.get(itemId) || '', q: cat.quals.get(itemId) || '' };
 }
 
 const key = e => `${e.t}|${e.itemId}|${e.price}`;

@@ -35,11 +35,11 @@ function ValidPairs {
   $g = Get-Content (Join-Path $Root 'library\groups.json') -Raw -Encoding UTF8 | ConvertFrom-Json
   $m = Get-Content (Join-Path $Root 'library\merchant.json') -Raw -Encoding UTF8 | ConvertFrom-Json
   $pairs = @{}
-  $script:names = @{}; $script:quals = @{}; $script:poolPrices = @{}
+  $script:names = @{}; $script:quals = @{}; $script:itemPools = @{}
   $rarity = @{ 6 = 'red'; 5 = 'gold'; 4 = 'purple'; 3 = 'blue'; 2 = 'green'; 1 = 'white' }
   foreach ($it in $m.items) { $script:names["$($it.id)"] = [string]$it.en; $script:quals["$($it.id)"] = $rarity[[int]$it.rarity] }
   # merchant pool prices where the item occurs: a real purchase costs exactly that (± discount/markup)
-  foreach ($pl in $m.pools) { foreach ($pi in $pl.items) { $k = "$($pi[0])"; if (-not $script:poolPrices[$k]) { $script:poolPrices[$k] = @() }; $script:poolPrices[$k] += [double]$pl.price } }
+  foreach ($pl in $m.pools) { foreach ($pi in $pl.items) { $k = "$($pi[0])"; if (-not $script:itemPools[$k]) { $script:itemPools[$k] = @() }; $script:itemPools[$k] += [pscustomobject]@{ label = [string]$pl.label; price = [double]$pl.price } } }
   foreach ($grp in $g.groups) {
     foreach ($it in $grp.items) { if ($it.id -and -not $script:names.ContainsKey("$($it.id)")) { $script:names["$($it.id)"] = [string]$it.en } }
     $up = @($grp.events | Where-Object { $_ -match '_Up$' })[0]
@@ -61,21 +61,27 @@ function Clean($e, $pairs) {
   try { $t = [double]$e.t; $price = [double]$e.price } catch { return $null }
   $now = [DateTimeOffset]::UtcNow.ToUnixTimeMilliseconds()
   if ($t -lt 1735689600000 -or $t -gt $now + 86400000) { return $null }   # from 2025 on and not from the future
-  if (-not $e.soundId -or $null -eq $e.itemId -or -not $pairs.ContainsKey("$($e.soundId)|$($e.itemId)")) { return $null }
-  # the price must match a pool that holds this item (as on the site: ±28%, with a 10% markup)
+  if ($null -eq $e.itemId) { return $null }
+  # No free text in the shared base (so that a nickname or anything else from the screen can never get in):
+  # item name from the catalog by id, cargo label only from a known list
+  $label = [string]$e.label
+  if ($LABELS -notcontains $label) { $label = '' }
+  # with a sound: the item must be one of that sound; without (bought without dragging): the cargo label must be known
+  $sid = if ($e.soundId) { [string]$e.soundId } else { $null }
+  if ($sid) { if (-not $pairs.ContainsKey("$sid|$($e.itemId)")) { return $null } }
+  elseif (-not $label) { return $null }
+  # the price must match a pool that holds this item (of that label without a sound): ±28%, with a 10% markup
   $plausible = $false
-  foreach ($pp in @($script:poolPrices["$($e.itemId)"])) {
-    if ($pp -gt 0 -and $price -gt 0 -and [Math]::Min([Math]::Abs([Math]::Log($price / $pp)), [Math]::Abs([Math]::Log($price / ($pp * 1.1)))) -le 0.25) { $plausible = $true; break }
+  foreach ($pp in @($script:itemPools["$($e.itemId)"])) {
+    if (-not $pp -or (-not $sid -and $pp.label -ne $label)) { continue }
+    $p0 = [double]$pp.price
+    if ($p0 -gt 0 -and $price -gt 0 -and [Math]::Min([Math]::Abs([Math]::Log($price / $p0)), [Math]::Abs([Math]::Log($price / ($p0 * 1.1)))) -le 0.25) { $plausible = $true; break }
   }
   if (-not $plausible) { return $null }
   $size = [string]$e.size
   if ($size -and $size -notmatch '^[1-9]x[1-9]$') { return $null }
   $q = [string]$script:quals["$($e.itemId)"]   # quality from the catalog, not from the entry
-  # No free text in the shared base (so that a nickname or anything else from the screen can never get in):
-  # item name from the catalog by id, cargo label only from a known list
-  $label = [string]$e.label
-  if ($LABELS -notcontains $label) { $label = '' }
-  return [ordered]@{ t = [long]$t; soundId = [string]$e.soundId; size = $size; label = $label; price = [long]$price; itemId = [long]$e.itemId; item = $script:names["$($e.itemId)"]; q = $q }
+  return [ordered]@{ t = [long]$t; soundId = $sid; size = $size; label = $label; price = [long]$price; itemId = [long]$e.itemId; item = $script:names["$($e.itemId)"]; q = $q }
 }
 
 function Merge([object[]]$lists) {
@@ -116,9 +122,16 @@ try {
       $json = ConvertTo-Json -InputObject ([ordered]@{ purchases = $chunk }) -Depth 4 -Compress
       try {
         $body = [Text.Encoding]::UTF8.GetBytes($json)
-        Invoke-WebRequest $WORKER -Method Post -Body $body -ContentType 'application/json' -UseBasicParsing -TimeoutSec 15 -UserAgent $UA | Out-Null
-        foreach ($e in $chunk) { $sent[(Key $e)] = $true }
-        $done += $chunk.Count
+        $r = Invoke-WebRequest $WORKER -Method Post -Body $body -ContentType 'application/json' -UseBasicParsing -TimeoutSec 15 -UserAgent $UA
+        $reply = try { [Text.Encoding]::UTF8.GetString($r.RawContentStream.ToArray()) | ConvertFrom-Json } catch { $null }
+        # A current Worker lists what it accepted. An older one only takes purchases with a sound: the ones
+        # without stay unsent until the Worker is updated, instead of being lost.
+        $ok = if ($reply -and $null -ne $reply.accepted) { $null } else { 'sound-only' }
+        foreach ($e in $chunk) {
+          if ($ok -eq 'sound-only' -and -not $e.soundId) { continue }
+          $sent[(Key $e)] = $true
+          $done++
+        }
       } catch { break } # rate limit or the server is unavailable: the rest goes next time
     }
     [IO.File]::WriteAllText($sentFile, (ConvertTo-Json -InputObject @($sent.Keys) -Compress), (New-Object Text.UTF8Encoding($false)))
