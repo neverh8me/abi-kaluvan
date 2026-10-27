@@ -139,28 +139,37 @@ const Ocr = (() => {
   // A discounted tooltip shows two prices: "216,000 270,000" (the old one crossed out). Digit groups are split by
   // the same spaces or commas, so the regex glues them into one number. Take groups one by one while
   // each has exactly 3 digits with the same separator and the price is at most 7 digits (no cargo costs more
-  // than 9,999,999): that is the current price.
-  function firstPrice(text) {
+  // than 9,999,999). The first number is the current price, the second (if any) the old one.
+  function splitPrices(text) {
     const parts = [...text.matchAll(/(\d+)([ ,.]?)/g)];
-    let digits = parts[0][1];
-    const sep = parts[0][2];
-    for (let i = 1; i < parts.length; i++) {
-      const [, g] = parts[i];
-      if (g.length !== 3 || parts[i - 1][2] !== sep || (digits + g).length > 7) break;
-      digits += g;
+    const out = [];
+    for (let i = 0; i < parts.length;) {
+      let digits = parts[i][1];
+      const sep = parts[i][2];
+      for (i++; i < parts.length; i++) {
+        const g = parts[i][1];
+        if (g.length !== 3 || parts[i - 1][2] !== sep || (digits + g).length > 7) break;
+        digits += g;
+      }
+      out.push(+digits);
     }
-    return +digits;
+    return out;
   }
 
   // From the tooltip text: the cargo label (with the box of its line) and the price.
   // The price is a number with digit groups: "110,000", "470 000".
   function parseTip(data, k = TIP_SCALE) {
     const lines = (data.lines || []).map(l => ({ text: l.text.trim(), bbox: l.bbox, words: l.words }));
-    let price = 0, priceAt = -1;
+    let price = 0, listPrice = 0, priceAt = -1;
     lines.forEach((l, i) => {
       if (price) return;
-      const m = l.text.replace(/[oO]/g, '0').match(/(\d{1,3}(?:[ ,.]\d{3})+|\d{4,7})/);
-      if (m) { price = firstPrice(m[1]); priceAt = i; }
+      const t = l.text.replace(/[oO]/g, '0');
+      const m = t.match(/(\d{1,3}(?:[ ,.]\d{3})+|\d{4,7})/);
+      if (m) {
+        // both prices from the rest of the line (the regex alone catches only the first one)
+        const nums = splitPrices(t.slice(m.index)).filter(n => n >= 1000);
+        price = nums[0]; listPrice = nums[1] > price ? nums[1] : 0; priceAt = i;
+      }
     });
     if (!price || price < 1000) return null;
     // The label in the tooltip is the line right above the price. Labels of neighbouring cargo in the grid
@@ -180,7 +189,7 @@ const Ocr = (() => {
         : above.bbox;
     }
     const scale = b => ({ x0: b.x0 / k, y0: b.y0 / k, x1: b.x1 / k, y1: b.y1 / k });
-    return { price, label, labelBox: labelBox && scale(labelBox), priceBox: scale(priceBox) };
+    return { price, listPrice, label, labelBox: labelBox && scale(labelBox), priceBox: scale(priceBox) };
   }
 
   // Cargo label at the top of a cell: crop, scale up and invert (Tesseract reads dark text on a

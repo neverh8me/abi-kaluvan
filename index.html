@@ -353,6 +353,7 @@ let sawTop = false, sawEnd = false; // whether the top and the bottom of the lis
 let stableCount = 0;         // how many parses in a row had no new cargo
 let sbKnown = null;          // the scrollbar track found { x, trackTop, trackLen }
 let noBarCount = 0;          // how many parses the grid is visible but the scrollbar is not
+let lastSbTop = true;        // the scrollbar thumb was at the very top on the latest frame
 let thumbOddLen = 0, thumbOddCount = 0; // a thumb of a different length: which and for how many frames in a row
 let videoReader = null, videoTimer = null;
 let lastScan = 0;
@@ -793,6 +794,17 @@ function resetScan() {
   drawMap();
 }
 
+// "Scan again" (after a purchase): the merchant list keeps its place, cell size and scrollbar, only the cargo
+// moved. So the grid geometry stays and only the cargo are collected anew: drawing starts on the next frame.
+// The top of the list counts as seen if the list is scrolled to the top right now.
+function rescan() {
+  if (!P || !viewport) { resetScan(); return; }
+  cargo = new Map(); results = new Map(); lastKey = null; frozenPlaced = null; hover = null; hoverSig = '';
+  phase = 'scan'; sawTop = !sbKnown || lastSbTop; sawEnd = false; stableCount = 0; checkFrames = 0;
+  updateStage();
+  drawMap();
+}
+
 function startVideo(track) {
   if ('MediaStreamTrackProcessor' in window) {
     // works even when the tab is in the background, unlike <video> + timers
@@ -914,6 +926,7 @@ function analyze(src, rp) {
   // The whole scrollbar is searched once, later only the thumb on the track found. Once the scrollbar has been
   // seen, a frame without a thumb is skipped: another way of counting rows would shift the map.
   let sb = Vision.scrollbar(G, grid, sbKnown);
+  if (sb) lastSbTop = sb.thumbTop - sb.trackTop < 2; // for rescan: is the list at its top now
   if (sb && !sbKnown) { sbKnown = { x: sb.x, trackTop: sb.trackTop, trackLen: sb.trackLen, thumbLen: sb.thumbLen }; log(tr('log.bar')); }
   // The thumb length changes only together with the list (after a purchase). Suddenly different: the cursor or
   // a tooltip spoiled the scrollbar, the frame is skipped. A new length is accepted once it holds.
@@ -1131,16 +1144,23 @@ function cargoPatch(rec, frame, channel = 'small') {
 
 // The dragged cargo. When a cargo is dragged, a faint red trace stays in its place,
 // and the cargo itself follows the cursor a bit down (onto a neighbour, but grey, so there is no red there).
+// A cargo put in the cart keeps a red band all the time: only red that appeared at the sound counts, so the
+// red already seen well before the sound is subtracted.
 function pickCargo(onset) {
   const frames = ring.filter(f => f.t >= onset - 150 && f.t <= onset + 700);
   if (!frames.length) return null;
+  const before = ring.filter(f => f.t >= onset - 2500 && f.t <= onset - 600);
   const red = [], gray = [];
   for (const [key, rec] of placedCargo()) {
     if (!rec.base) continue;
-    let r = 0, g = 0;
+    let r = 0, g = 0, was = rec.baseRed || 0;
+    for (const f of before) {
+      const rp = cargoPatch(rec, f, 'red');
+      if (rp) was = Math.max(was, Vision.meanOf(rp));
+    }
     for (const f of frames) {
       const rp = cargoPatch(rec, f, 'red');
-      if (rp) r = Math.max(r, Vision.meanOf(rp) - rec.baseRed);
+      if (rp) r = Math.max(r, Vision.meanOf(rp) - was);
       const gp = cargoPatch(rec, f);
       if (gp && gp.length === rec.base.length) g = Math.max(g, Vision.patchDiff(gp, rec.base));
     }
@@ -1231,7 +1251,7 @@ function cargoInfo(rec) {
   const info = { ...(rec.label || {}) };
   if (rec.price) {
     info.price = rec.price;
-    const pools = poolsForPrice(rec.price, rec.label);
+    const pools = poolsForPrice(rec.listPrice || rec.price, rec.label); // pools have base prices: the old one on a discount
     if (pools.length) info.priceW = priceWeights(pools);
   }
   return Object.keys(info).length ? info : null;
@@ -1304,6 +1324,7 @@ function detectHover(frame) {
     if (!hit) return;
     const [key, rec] = hit;
     rec.price = tip.price;
+    rec.listPrice = tip.listPrice; // a discount: the pool is picked by the old price, the current one is what you pay
     if (tip.label && !rec.label) rec.label = tip.label;
     hover = { key, t: performance.now() };
     showHover(rec);
@@ -1946,7 +1967,7 @@ function log(s) {
 // ---------- Events ----------
 ui.start.onclick = start;
 ui.stop.onclick = stop;
-ui.rescan.onclick = resetScan;
+ui.rescan.onclick = rescan;
 ui.done.onclick = () => freeze(tr('log.manualFreeze', { n: placedCargo().length }));
 
 $('btnLib').onclick = () => ui.libDir.click();

@@ -12,11 +12,15 @@ const Vision = (() => {
   // in-game picture (gamma/brightness), so a fixed threshold misses all cargo there.
   const OCC_MARGIN = 8, OCC_MIN = 10, OCC_MAX = 40;
   const EDGE_REL = 0.6;     // a cargo border is at least this share of the frame's typical border (lines inside revealed cargo ~0.5)
+  const EDGE_SAME = 0.9;    // between two cells of the same revealed color, a border must be this strong (inner lines ~0.5–0.6)
+  const SAT_MIN = 22;       // a revealed background is this saturated (max−min of RGB): gold ~86, purple ~36, grey cargo ~3
+  const COLOR_NEAR = 40;    // two strips of this RGB distance are the same background
+  const OUTER_FILL = 0.35;  // the left/right edges of the whole list may be covered more (cursor, tooltip, scrollbar thumb)
 
   function toGray(data, w, h) {
     const g = new Uint8Array(w * h);
     for (let i = 0; i < g.length; i++) g[i] = (data[i * 4] * 77 + data[i * 4 + 1] * 150 + data[i * 4 + 2] * 29) >> 8;
-    return { w, h, g };
+    return { w, h, g, rgba: data }; // the color data stays at hand for the revealed cargo check in segment
   }
 
   // How much redder a pixel is than the other channels (the trace of a dragged cargo)
@@ -254,8 +258,28 @@ const Vision = (() => {
     const minC = strong.length ? Math.max(1, strong[strong.length >> 1] * EDGE_REL) : 1;
     // the brightness of empty slots on this frame (see darkLevel): content is anything brighter
     const occT = darkLevel(G, X, Y, cols, rows);
-    const vLine = (k, r) => edgeFill(maps.vr, w, X(k), Y(r) + pad, len, false, minC) >= EDGE_FILL;
-    const hLine = (c, k) => edgeFill(maps.hr, w, X(c) + pad, Y(k), len, true, minC) >= EDGE_FILL;
+    // Inside a revealed cargo both sides of a line have the same saturated background (gold, purple…), while a
+    // real border separates different cargo. Between two such same-colored cells only a very strong line counts:
+    // that still splits two different cargo of the same quality, whose shared border is bright.
+    const strongC = strong.length ? strong[strong.length >> 1] * EDGE_SAME : Infinity;
+    const off = Math.max(3, Math.round(P * 0.08)), band = Math.max(3, Math.round(P * 0.12));
+    const sameColor = (ax, ay, bx, by, horizontal) => {
+      const a = stripColor(G, ax, ay, horizontal ? len : band, horizontal ? band : len);
+      const b = stripColor(G, bx, by, horizontal ? len : band, horizontal ? band : len);
+      return !!(a && b && a.s >= SAT_MIN && b.s >= SAT_MIN && colorDist(a, b) < COLOR_NEAR);
+    };
+    // the left and right edges of the whole list are always borders, but the cursor, a price tooltip or the
+    // scrollbar thumb next to them cover them more often: a smaller coverage is enough there
+    const vLine = (k, r) => {
+      const x = X(k), y = Y(r) + pad;
+      if (k > 0 && k < cols && sameColor(x - off - band, y, x + off, y, false)) return edgeStrength(maps.vr, w, x, y, len, false) >= strongC;
+      return edgeFill(maps.vr, w, x, y, len, false, minC) >= (k === 0 || k === cols ? OUTER_FILL : EDGE_FILL);
+    };
+    const hLine = (c, k) => {
+      const x = X(c) + pad, y = Y(k);
+      if (k > 0 && k < rows && sameColor(x, y - off - band, x, y + off, true)) return edgeStrength(maps.hr, w, x, y, len, true) >= strongC;
+      return edgeFill(maps.hr, w, x, y, len, true, minC) >= EDGE_FILL;
+    };
 
     // merge neighbouring cells with no line between them
     const parent = Array.from({ length: cols * rows }, (_, i) => i);
@@ -388,6 +412,25 @@ const Vision = (() => {
       }
     }
     return n ? [r / n, gg / n, b / n] : [0, 0, 0];
+  }
+
+  // Mean color and saturation of a strip next to a grid line, or null without color data / outside the frame.
+  // The median per channel: an item picture in a revealed cargo covers part of the strip.
+  function stripColor({ w, h, rgba }, x, y, sw, sh) {
+    if (!rgba || x < 0 || y < 0 || x + sw > w || y + sh > h) return null;
+    const R = [], Gc = [], B = [];
+    for (let yy = y; yy < y + sh; yy += 2) {
+      for (let xx = x; xx < x + sw; xx += 2) { const i = (yy * w + xx) * 4; R.push(rgba[i]); Gc.push(rgba[i + 1]); B.push(rgba[i + 2]); }
+    }
+    if (!R.length) return null;
+    const med = a => a.sort((p, q) => p - q)[a.length >> 1];
+    const c = { r: med(R), g: med(Gc), b: med(B) };
+    c.s = Math.max(c.r, c.g, c.b) - Math.min(c.r, c.g, c.b);
+    return c;
+  }
+
+  function colorDist(a, b) {
+    return Math.abs(a.r - b.r) + Math.abs(a.g - b.g) + Math.abs(a.b - b.b);
   }
 
   // Share of "non-empty" pixels inside a rectangle (text, icon)
