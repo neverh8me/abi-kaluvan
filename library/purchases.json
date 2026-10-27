@@ -1,4 +1,15 @@
 {
- "updated": null,
- "purchases": []
+ "updated": "2026-10-27T05:05:08.511Z",
+ "purchases": [
+  {
+   "t": 1793053488470,
+   "soundId": "lib:electronicdevice",
+   "size": "1x2",
+   "label": "Uncommon Mystery Cargo",
+   "price": 200000,
+   "itemId": 408120017,
+   "item": "Leveler",
+   "q": "gold"
+  }
+ ]
 }
