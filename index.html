@@ -1630,7 +1630,9 @@ function shareable(b) {
   return { t: b.t, soundId: b.soundId, size: b.size || '', label: SHARE_LABELS.has(b.label) ? b.label : '', price: b.price || 0, itemId: b.itemId, item: it.nameEn || '', q: it.q || '' };
 }
 async function syncBase() {
-  if (syncBusy || !location.protocol.startsWith('http')) return;
+  // before the library is loaded no purchase can be checked (shareable needs the item catalog): writing now
+  // would empty the file, so wait — importLibrary calls this again
+  if (syncBusy || !location.protocol.startsWith('http') || !itemById.size) return;
   syncBusy = true;
   // No free text into the shared base: item name from the catalog, label only a known one.
   // This way a nickname or any other piece of a screen line can never get in.
@@ -2055,6 +2057,7 @@ async function importLibrary(files) {
     itemById = new Map();
     for (const s of sounds) for (const it of s.items) if (it.id) itemById.set(it.id, it);
     dropMismatchedSounds();
+    syncBase(); // now the catalog is known: write the own purchases file for the next launch
     profiles = lib.profiles;
     try { localStorage.setItem(PROFILES_KEY, JSON.stringify(profiles)); } catch {}
     renderProfiles();
