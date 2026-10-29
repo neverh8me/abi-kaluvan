@@ -327,6 +327,8 @@ namespace AbiEar
                 if (path == "/audio" && ctx.Request.IsWebSocketRequest) { Audio(ctx); return; }
                 if (path == "/screen" && ctx.Request.IsWebSocketRequest) { ScreenSocket(ctx); return; }
                 if (path == "/api/purchases" && ctx.Request.HttpMethod == "POST") { SavePurchases(ctx); return; }
+                if (path == "/api/diag" && ctx.Request.HttpMethod == "POST") { SaveDiag(ctx, false); return; }
+                if (path == "/api/diagframe" && ctx.Request.HttpMethod == "POST") { SaveDiag(ctx, true); return; }
                 ServeFile(ctx, path.TrimStart('/'));
             }
             catch { try { ctx.Response.Abort(); } catch { } }
@@ -351,6 +353,39 @@ namespace AbiEar
             byte[] bytes = File.ReadAllBytes(file);
             res.ContentLength64 = bytes.Length;
             res.OutputStream.Write(bytes, 0, bytes.Length);
+            res.Close();
+        }
+
+        // Diagnostics, local only (not in git): text lines go to diag/diag.log, frames to diag/frame-*.jpg.
+        // The log is capped and only the newest DIAG_FRAMES frames are kept.
+        const int DIAG_LOG_MAX = 2 * 1024 * 1024, DIAG_FRAMES = 40, DIAG_BODY_MAX = 4 * 1024 * 1024;
+        static readonly object diagLock = new object();
+        static void SaveDiag(HttpListenerContext ctx, bool frame)
+        {
+            var req = ctx.Request;
+            var res = ctx.Response;
+            if (req.ContentLength64 <= 0 || req.ContentLength64 > DIAG_BODY_MAX) { res.StatusCode = 400; res.Close(); return; }
+            byte[] body;
+            using (var ms = new MemoryStream()) { req.InputStream.CopyTo(ms); body = ms.ToArray(); }
+            string dir = Path.Combine(root, "diag");
+            lock (diagLock)
+            {
+                Directory.CreateDirectory(dir);
+                if (frame)
+                {
+                    File.WriteAllBytes(Path.Combine(dir, "frame-" + DateTime.Now.ToString("MMdd-HHmmss-fff") + ".jpg"), body);
+                    var old = new DirectoryInfo(dir).GetFiles("frame-*.jpg");
+                    Array.Sort(old, (a, b) => a.Name.CompareTo(b.Name));
+                    for (int i = 0; i < old.Length - DIAG_FRAMES; i++) old[i].Delete();
+                }
+                else
+                {
+                    string log = Path.Combine(dir, "diag.log");
+                    if (File.Exists(log) && new FileInfo(log).Length > DIAG_LOG_MAX) File.Delete(log);
+                    File.AppendAllText(log, DateTime.Now.ToString("dd.MM HH:mm:ss.fff") + "  " + Encoding.UTF8.GetString(body) + "\n", new UTF8Encoding(false));
+                }
+            }
+            res.StatusCode = 204;
             res.Close();
         }
 

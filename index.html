@@ -1526,13 +1526,27 @@ function readFeed(G, grid, now) {
   feedBusy = true;
   const read = r => Ocr.readData(Ocr.tipCanvas(fullCanvas, r.x, r.y, r.w, r.h, P), 'label').then(d => d.text);
   // the balance first: the purchase line and the balance drop usually appear together
-  (bs ? read(balR).then(t => { const v = Ocr.parseBalance(t); if (v) onBalance(v); }) : Promise.resolve())
-    .then(() => fs ? read(feedR).then(t => { const f = Ocr.parseFeed(t); if (f) onFeed(f); }) : null)
-    .catch(() => { feedSig = balanceSig = null; })
+  if (fs) diagFrame('feed');
+  (bs ? read(balR).then(t => { const v = Ocr.parseBalance(t); diag(`balance area ${bx},${by} ${bw}x${bh}: "${t.trim()}" -> ${v}`); if (v) onBalance(v); }) : Promise.resolve())
+    .then(() => fs ? read(feedR).then(t => { const f = Ocr.parseFeed(t); diag(`feed area ${x},${y} ${w}x${h}: "${t.trim()}" -> ${JSON.stringify(f)}`); if (f) onFeed(f); }) : null)
+    .catch(e => { feedSig = balanceSig = null; diag('feed/balance read failed: ' + (e && e.message || e)); })
     .finally(() => { feedBusy = false; processFeed(); });
 }
 
+// Local diagnostics (diag/ in the app folder, never sent anywhere): what the purchase reading saw and decided
+const DIAG = location.protocol.startsWith('http');
+function diag(msg) {
+  if (DIAG) fetch('api/diag', { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: String(msg) }).catch(() => {});
+}
+function diagFrame() {
+  if (DIAG && fullCanvas.width) fullCanvas.toBlob(b => { if (b) fetch('api/diagframe', { method: 'POST', body: b }).catch(() => {}); }, 'image/jpeg', 0.85);
+}
+setInterval(() => {
+  if (stream) diag(`state: phase=${phase} P=${P && P.toFixed(1)} viewport=${JSON.stringify(viewport)} scrollbar=${!!sbKnown} cargo=${cargo.size} balance=${balance} spent=${spent} queue=${feedQueue.map(f => f.price + ' ' + f.item).join('; ')} lastParse=${Math.round((performance.now() - lastScan) / 1000)}s ago`);
+}, 15000);
+
 function onBalance(v) {
+  if (balance !== null && v !== balance) diag(`balance ${balance} -> ${v}`);
   if (balance !== null && v < balance) spent += balance - v;
   balance = v;
 }
@@ -1547,6 +1561,7 @@ function onFeed(feed) {
 
 function processFeed() {
   const now = performance.now();
+  for (const f of feedQueue) if (now - f.at >= FEED_WAIT_MS) diag(`feed line dropped, the balance never fell by ${f.price}: ${f.item} (spent=${spent})`);
   feedQueue = feedQueue.filter(f => now - f.at < FEED_WAIT_MS);
   feedDone = feedDone.filter(f => now - f.at < FEED_SAME_MS);
   for (const f of [...feedQueue]) {
@@ -1586,6 +1601,7 @@ function ownPurchase({ price, item }) {
     if (byLabel) key = byLabel[0];
   }
   const rec = key && cargo.get(key);
+  diag(`purchase confirmed: ${price} "${item}" -> item ${it ? it.nameEn : "?"} (${it ? it.size : "-"}); cargo ${key || "none"} ${rec ? rec.w + "x" + rec.h + " " + (rec.label ? poolLabel(rec.label) : "no label") + " " + rec.price : ""}; sound ${res ? res.soundId : "none"}; priced cargo on map: ${placedCargo().filter(([, r]) => r.price).map(([k, r]) => k + "=" + r.price).join(" ")}`);
   recordPurchase({ soundId: res && res.soundId, size: rec ? normSize(`${rec.w}x${rec.h}`) : '', label: cargoInfo(rec), price, itemText: item, itemId: it ? it.id : null, key });
 }
 
@@ -1593,10 +1609,12 @@ function ownPurchase({ price, item }) {
 function dropMismatchedSounds() {
   let changed = false;
   purchases = purchases.map(b => {
-    const s = b.soundId && soundById(b.soundId);
-    if (!s || b.itemId == null || s.items.some(x => x.id === b.itemId)) return b;
+    const s = b.soundId && soundById(b.soundId), it = b.itemId != null && itemById.get(b.itemId);
+    const badSound = s && it && !s.items.some(x => x.id === b.itemId);
+    const badSize = it && b.size && normSize(b.size) !== normSize(it.size); // a cargo of another size than the item
+    if (!badSound && !badSize) return b;
     changed = true;
-    return { ...b, soundId: null };
+    return { ...b, soundId: null, label: '', size: '' }; // the whole cargo pairing was wrong, not only the sound
   });
   if (changed) { savePurchases(); syncBase(); }
 }
