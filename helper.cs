@@ -1,4 +1,4 @@
-// ABI Kaluvan local server: serves the site and streams to it the sound of the game process only.
+// ABI: Merchant Helper local server: serves the site and streams to it the sound of the game process only.
 // The sound is captured with the standard Windows mechanism (process loopback, as in OBS and Discord): the game
 // is not opened and nobody touches it, only the process number from the regular process list is needed.
 // Compiled from server.ps1 via Add-Type, so this is C# 5 (no newer language features).

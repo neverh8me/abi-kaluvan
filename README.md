@@ -1,8 +1,8 @@
-<p align="center"><img src="docs/logo.png" width="200" alt="ABI Kaluvan"></p>
+<p align="center"><img src="docs/logo.png" width="200" alt="ABI: Merchant Helper"></p>
 
-# ABI Kaluvan
+# ABI: Merchant Helper
 
-**ABI Kaluvan** is a local web app for *Arena Breakout: Infinite*. It helps you work out what is inside the Field Merchant's mystery cargo before you buy it.
+**ABI: Merchant Helper** is a local web app for *Arena Breakout: Infinite*. It helps you work out what is inside the Field Merchant's mystery cargo before you buy it.
 
 The app listens to the game's sound when you drag a cargo, and it watches the merchant window. From these it shows:
 
@@ -13,7 +13,7 @@ The app listens to the game's sound when you drag a cargo, and it watches the me
 
 ## Features
 
-- **Sound recognition.** When you drag a cargo, the game plays a pickup sound that depends on the item inside. ABI Kaluvan matches that sound against a library of reference game sounds and narrows down the possible items.
+- **Sound recognition.** When you drag a cargo, the game plays a pickup sound that depends on the item inside. ABI: Merchant Helper matches that sound against a library of reference game sounds and narrows down the possible items.
 - **Red chance.** The probability combines four inputs: the sound, the cargo size, the cargo label (Common / Uncommon / Rare Mystery Cargo or a category like *Tools*) and the price. Every merchant pool carries the label of its cargo, so the odds come from exactly the pools of that label and price. Reds mostly drop from Mystery Cargo, but also from some rarer category cargo (Rare Collectibles, Rare Medical Supplies, Uncommon Military Items…).
 - **Automatic merchant map.**
   - Open the merchant and scroll through the list. The app finds the grid by itself, reads the cargo labels and draws its own map.
@@ -47,7 +47,7 @@ Nothing needs to be installed. The helper is compiled on the fly by the built-in
 ## Quick start
 
 1. Download or clone this repository.
-2. Run **`start.bat`**. A local server starts at `http://localhost:8777/` and the page opens in your browser (in English by default; your language choice is remembered). The first run also creates an **ABI Kaluvan** shortcut with the app icon on your desktop and in the app folder. Use it to start the app from then on.
+2. Run **`start.bat`**. A local server starts at `http://localhost:8777/` and the page opens in your browser (in English by default; your language choice is remembered). The first run also creates an **ABI: Merchant Helper** shortcut with the app icon on your desktop and in the app folder. Use it to start the app from then on.
 3. Start the game. Then click **Start catching** on the page.
 4. Open the Field Merchant, with the cursor outside the grid. Slowly scroll the list to the end and wait for the map to freeze.
 5. Use one of two ways to check a cargo:
@@ -101,6 +101,6 @@ This is a fan-made tool and is not affiliated with MoreFun Studios or Tencent. I
 
 ## License
 
-ABI Kaluvan is free software under the [GNU General Public License v3.0](LICENSE). You may use, study, modify and share it. If you distribute a modified version, it must stay under the same license and come with its source code.
+ABI: Merchant Helper is free software under the [GNU General Public License v3.0](LICENSE). You may use, study, modify and share it. If you distribute a modified version, it must stay under the same license and come with its source code.
 
 Bundled third-party parts keep their own licenses: [Tesseract.js](https://github.com/naptha/tesseract.js) in `lib/tesseract` is Apache-2.0. Game sounds, item data and item icons in `library/` belong to their respective owners and are not covered by this license.

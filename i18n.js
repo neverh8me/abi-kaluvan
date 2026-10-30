@@ -4,7 +4,7 @@
 const I18n = (() => {
   const DICT = {
     uk: {
-      'app': 'ABI Kaluvan',
+      'app': 'ABI: Merchant Helper',
       'btn.start': 'Почати ловлю', 'btn.stop': 'Зупинити', 'status.idle': 'Не запущено',
       'update.available': 'Вийшла v{v} — перезапусти start.bat, щоб оновитись',
       'h.result': 'Результат', 'result.wait': 'Чекаю на звук…',
@@ -34,7 +34,7 @@ const I18n = (() => {
       'help.note': 'Усе зберігається в браузері. Через «Експорт» базу можна передати друзям.',
       'status.cancelled': 'Скасовано: {msg}',
       'status.noAudio': 'Немає звуку! Вибери «Весь екран» і постав галочку «Поділитися системним аудіо». Або запусти сайт через start.bat — тоді звук береться лише з гри.',
-      'status.audioClosed': 'Звʼязок зі звуком гри обірвався, перепідключаюсь… (якщо довго — перезапусти ABI Kaluvan)',
+      'status.audioClosed': 'Звʼязок зі звуком гри обірвався, перепідключаюсь… (якщо довго — перезапусти ABI: Merchant Helper)',
       'status.listenAll': 'Слухаю весь звук ПК ({rate} Гц)', 'status.listening': 'Слухаю',
       'status.game': 'Слухаю лише гру (UAGame.exe)', 'status.wait': 'Гра не запущена — чекаю UAGame.exe',
       'status.error': 'Звук гри не захоплюється: {msg}', 'status.stopped': 'Зупинено',
@@ -80,7 +80,7 @@ const I18n = (() => {
       'q.red': 'Червоний', 'q.gold': 'Золотий', 'q.purple': 'Фіолетовий', 'q.blue': 'Синій', 'q.green': 'Зелений', 'q.white': 'Білий',
     },
     en: {
-      'app': 'ABI Kaluvan',
+      'app': 'ABI: Merchant Helper',
       'btn.start': 'Start catching', 'btn.stop': 'Stop', 'status.idle': 'Not running',
       'update.available': 'v{v} is out — restart start.bat to update',
       'h.result': 'Result', 'result.wait': 'Waiting for a sound…',
@@ -110,7 +110,7 @@ const I18n = (() => {
       'help.note': 'Everything is stored in the browser. Use "Export" to share the base with friends.',
       'status.cancelled': 'Cancelled: {msg}',
       'status.noAudio': 'No audio! Pick "Entire screen" and tick "Share system audio". Or open the site via start.bat — then only the game sound is used.',
-      'status.audioClosed': 'Lost the game sound, reconnecting… (if it takes long, restart ABI Kaluvan)',
+      'status.audioClosed': 'Lost the game sound, reconnecting… (if it takes long, restart ABI: Merchant Helper)',
       'status.listenAll': 'Listening to all PC audio ({rate} Hz)', 'status.listening': 'Listening',
       'status.game': 'Listening to the game only (UAGame.exe)', 'status.wait': 'Game not running — waiting for UAGame.exe',
       'status.error': 'Game audio capture failed: {msg}', 'status.stopped': 'Stopped',
@@ -156,7 +156,7 @@ const I18n = (() => {
       'q.red': 'Red', 'q.gold': 'Gold', 'q.purple': 'Purple', 'q.blue': 'Blue', 'q.green': 'Green', 'q.white': 'White',
     },
     ru: {
-      'app': 'ABI Kaluvan',
+      'app': 'ABI: Merchant Helper',
       'btn.start': 'Начать ловлю', 'btn.stop': 'Остановить', 'status.idle': 'Не запущено',
       'update.available': 'Вышла v{v} — перезапусти start.bat, чтобы обновиться',
       'h.result': 'Результат', 'result.wait': 'Жду звук…',
@@ -186,7 +186,7 @@ const I18n = (() => {
       'help.note': 'Всё хранится в браузере. Через «Экспорт» базу можно передать друзьям.',
       'status.cancelled': 'Отменено: {msg}',
       'status.noAudio': 'Нет звука! Выбери «Весь экран» и поставь галочку «Поделиться системным звуком». Или запусти сайт через start.bat — тогда звук берётся только из игры.',
-      'status.audioClosed': 'Связь со звуком игры оборвалась, переподключаюсь… (если долго — перезапусти ABI Kaluvan)',
+      'status.audioClosed': 'Связь со звуком игры оборвалась, переподключаюсь… (если долго — перезапусти ABI: Merchant Helper)',
       'status.listenAll': 'Слушаю весь звук ПК ({rate} Гц)', 'status.listening': 'Слушаю',
       'status.game': 'Слушаю только игру (UAGame.exe)', 'status.wait': 'Игра не запущена — жду UAGame.exe',
       'status.error': 'Звук игры не захватывается: {msg}', 'status.stopped': 'Остановлено',

@@ -1,4 +1,4 @@
-﻿# ABI Kaluvan updater: compares version.json with the latest GitHub release and, if confirmed, installs the new one on top.
+﻿# ABI: Merchant Helper updater: compares version.json with the latest GitHub release and, if confirmed, installs the new one on top.
 # Returns $true if the files were updated (then server.ps1 restarts itself with the new files).
 param([string]$Root = $PSScriptRoot)
 $repo = 'neverh8me/abi-kaluvan'
@@ -8,7 +8,7 @@ try {
   $local = (Get-Content (Join-Path $Root 'version.json') -Raw -Encoding UTF8 | ConvertFrom-Json).version
   $rel = Invoke-RestMethod "https://api.github.com/repos/$repo/releases/latest" -TimeoutSec 5 -UserAgent 'abi-kaluvan-updater'
   $remote = $rel.tag_name -replace '^v', ''
-  if ([version]$remote -le [version]$local) { Write-Host "ABI Kaluvan v$local is up to date." -ForegroundColor DarkGray; return $false }
+  if ([version]$remote -le [version]$local) { Write-Host "ABI: Merchant Helper v$local is up to date." -ForegroundColor DarkGray; return $false }
 } catch {
   # no internet or GitHub is unavailable: just keep running the current version
   Write-Host 'Could not check for updates (offline?), starting the current version.' -ForegroundColor DarkYellow
@@ -16,7 +16,7 @@ try {
 }
 
 Write-Host ''
-Write-Host "A new version of ABI Kaluvan is out: v$remote (you have v$local)." -ForegroundColor Cyan
+Write-Host "A new version of ABI: Merchant Helper is out: v$remote (you have v$local)." -ForegroundColor Cyan
 Write-Host "What's new: $($rel.html_url)"
 $answer = Read-Host 'Update now? [Y/n]'
 if ($answer -match '^(n|no|н|ні|нет)$') { return $false }
