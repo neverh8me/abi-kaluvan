@@ -199,6 +199,9 @@ namespace AbiEar
         [DllImport("user32.dll")] public static extern bool IsIconic(IntPtr hwnd);
         [DllImport("user32.dll")] static extern bool GetClientRect(IntPtr hwnd, out Rect rect);
         [DllImport("user32.dll")] static extern bool ClientToScreen(IntPtr hwnd, ref Point point);
+        [DllImport("user32.dll")] static extern bool GetCursorPos(out Point point);
+        // The mouse cursor on the screen (a plain system call, as any app can do); false if unknown
+        public static bool Cursor(out int x, out int y) { Point p; bool ok = GetCursorPos(out p); x = p.X; y = p.Y; return ok; }
         delegate bool EnumProc(IntPtr hwnd, IntPtr param);
         [StructLayout(LayoutKind.Sequential)] struct Rect { public int Left, Top, Right, Bottom; }
         [StructLayout(LayoutKind.Sequential)] struct Point { public int X, Y; }
@@ -425,6 +428,7 @@ namespace AbiEar
         {
             var ws = ctx.AcceptWebSocketAsync(null).Result.WebSocket;
             lock (screenClients) screenClients.Add(ws);
+            lastCursorX = int.MinValue; // a new page gets the cursor position even if the mouse stands still
             Send(ws, Encoding.UTF8.GetBytes(ScreenStateJson()), WebSocketMessageType.Text);
             WaitClosed(ws);
             lock (screenClients) screenClients.Remove(ws);
@@ -474,6 +478,7 @@ namespace AbiEar
         const double MERCHANT_SIDE = 0.5;
         static string ScreenStateJson() { return "{\"type\":\"screen\",\"state\":\"" + screenState + "\",\"crop\":" + MERCHANT_SIDE.ToString(System.Globalization.CultureInfo.InvariantCulture) + "}"; }
         static readonly AutoResetEvent hasPending = new AutoResetEvent(false);
+        static int lastCursorX = int.MinValue, lastCursorY = int.MinValue; // the last cursor position sent
 
         // Capture only the client area of the game window: other monitors and apps never get into the frame
         static void ScreenLoop(string exe)
@@ -508,6 +513,20 @@ namespace AbiEar
                     var old = Interlocked.Exchange(ref pending, bmp);
                     if (old != null) old.Dispose();
                     hasPending.Set();
+                    // the cursor in frame pixels, sent when it moves: the page then knows the cargo under the mouse
+                    int cx, cy;
+                    if (Screen.Cursor(out cx, out cy))
+                    {
+                        cx -= area.X + cut; cy -= area.Y;
+                        if (cx != lastCursorX || cy != lastCursorY)
+                        {
+                            lastCursorX = cx; lastCursorY = cy;
+                            var msg = Encoding.UTF8.GetBytes("{\"type\":\"cursor\",\"x\":" + cx + ",\"y\":" + cy + "}");
+                            WebSocket[] list;
+                            lock (screenClients) list = screenClients.ToArray();
+                            foreach (var ws in list) Send(ws, msg, WebSocketMessageType.Text);
+                        }
+                    }
                 }
                 catch (Exception e) { Console.WriteLine("screen capture failed: " + e.Message); Thread.Sleep(1000); }
                 int rest = SCREEN_FRAME_MS - (int)(watch.ElapsedMilliseconds - started);

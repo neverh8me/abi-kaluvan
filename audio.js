@@ -24,6 +24,7 @@ const Ear = (() => {
   const BLOCK = 240;           // 10 ms at 24 kHz: step of the sound start search
   const RETRIGGER_SEC = 0.12;  // a new sound not earlier than this
   const MIN_LEVEL_DB = -62;    // quieter sounds are ignored
+  const ATTACK_DB = 6;         // a sound start rises at least this much over the previous 20 ms (wind and music swell slower)
   const RING_SEC = 3;
   const DEFAULT_THRESHOLD = 0.5;
 
@@ -216,6 +217,9 @@ const Ear = (() => {
     // The sound start is searched in every band separately: a ringing metal sound is visible up high even when
     // the bottom is flooded with music or voice
     const blockE = BANDS.map(() => 0), floor = BANDS.map(() => null);
+    // the last two block levels of every band: a real pick-up sound starts sharply (attack), wind or music swell slowly
+    const prev1 = BANDS.map(() => -200), prev2 = BANDS.map(() => -200);
+    const attack = opts.attack === undefined ? ATTACK_DB : opts.attack;
     let blockN = 0, lastTrig = -Infinity;
     const pending = [];             // samples (24 kHz) where a sound started and we wait for its tail
 
@@ -242,7 +246,9 @@ const Ear = (() => {
             blockE[b] = 0;
             level = Math.max(level, db);
             if (floor[b] === null) floor[b] = db;
-            if (ready && db > floor[b] + sens && db > MIN_LEVEL_DB) trig = true;
+            const sharp = db - Math.max(prev1[b], prev2[b]) >= attack;
+            prev2[b] = prev1[b]; prev1[b] = db;
+            if (ready && db > floor[b] + sens && db > MIN_LEVEL_DB && sharp) trig = true;
             else floor[b] += (db - floor[b]) * (db < floor[b] ? 0.2 : 0.01); // background: falls fast, rises slowly
           }
           blockN = 0;

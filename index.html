@@ -256,6 +256,8 @@ const MAP_MAX_ROWS = 80;     // the merchant never has more rows; more on the ma
 const MIN_VOTES = 2;         // this many frames must confirm a cargo before it appears on the map
 const SPLIT_SHARE = 0.35;    // smaller cargo beat a big one if each was seen at least this often relative to it
 const UP_BIAS = 0.03;        // "put down" beats "pick up" only by this margin
+const RECONNECT_MS = 2000;    // a dropped connection to the local server is retried this often
+const SIZE_ALT_MARGIN = 0.05; // a sound this much below the best may replace it when only it has an item of the cargo size
 const TAP_BLOCK = 512;       // how many audio samples to pass from the audio stream at once
 
 const QUALITIES = [
@@ -280,6 +282,8 @@ const PRICE_MARKUP = 1.1;    // the merchant adds ~10% to the pool price (100,00
 const PRICE_MATCH_LOG = 0.25; // the tooltip price must be close to the pool price (in log scale, ≈ ±28%)
 const HOVER_DIFF = 12;       // a cargo changed more than this: the price tooltip covered it
 const HOVER_KEEP_MS = 6000;  // for this long after hovering, a "pick up" sound belongs to the hovered cargo
+const CURSOR_KEEP_MS = 5000; // cursor history kept, for the cargo under the mouse at a sound
+const CURSOR_CARD_QUIET_MS = 4000; // a sound result stays this long before hovering shows another card
 const HOVER_MAX_CARGO = 16;  // a tooltip covers at most this many cargo; more is not a tooltip
 const TIP_W = 3.2, TIP_H = 1.8; // price tooltip size in cells (with a margin)
 const BASE_UPDATE_MAX = 6;   // the appearance reference is updated only on small changes (not on a tooltip)
@@ -346,6 +350,8 @@ let balanceSig = null, feedQueue = [], feedDone = []; // feed lines: waiting for
 let feedBusy = false, feedAt = 0, feedSig = null; // reading of the feed line and the balance
 let libPools = [], itemQ = {}, itemById = new Map(); // merchant pools and items from the library
 let hover = null;            // the cargo just hovered: { key, t }
+let cursorHist = [];         // the mouse cursor from the local server, in frame px: [{ x, y, t }] for the last seconds
+let cursorKey = null;        // the cargo under the cursor now
 let hoverBusy = false, hoverSig = ''; // price tooltip reading: busy / which cargo it covers
 
 // Merchant grid. "Region" coordinates are frame pixels relative to the region's top-left corner.
@@ -445,11 +451,7 @@ async function start() {
   });
 
   if (gameWs) {
-    gameWs.onmessage = e => {
-      if (typeof e.data === 'string') showGameStatus(JSON.parse(e.data));
-      else if (detector) detector.push(new Float32Array(e.data));
-    };
-    gameWs.onclose = () => { if (stream) { gameWs = null; setStatus(tr('status.audioClosed')); } };
+    wireGameAudio();
     showGameStatus(gameStatus);
   } else {
     // the same rate as the library, so the samples match exactly
@@ -470,6 +472,39 @@ async function start() {
 }
 
 // Connects to the game sound from the local server. Returns a WebSocket or null if there is no server.
+// Game sound from the local server. If the connection drops (the server restarted, the PC slept), it is
+// re-opened every RECONNECT_MS while catching is on, instead of staying silent until a restart.
+function wireGameAudio() {
+  gameWs.onmessage = e => {
+    if (typeof e.data === 'string') showGameStatus(JSON.parse(e.data));
+    else if (detector) detector.push(new Float32Array(e.data));
+  };
+  gameWs.onclose = () => {
+    if (!stream) return;
+    gameWs = null;
+    setStatus(tr('status.audioClosed'));
+    setTimeout(reconnectAudio, RECONNECT_MS);
+  };
+}
+async function reconnectAudio() {
+  if (!stream || gameWs) return;
+  const ws = await connectGameAudio();
+  if (!stream) { if (ws) ws.close(); return; }
+  if (!ws) { setTimeout(reconnectAudio, RECONNECT_MS); return; }
+  gameWs = ws;
+  wireGameAudio();
+  showGameStatus(gameStatus);
+  log(tr('log.reconnected'));
+}
+async function reconnectScreen() {
+  if (!stream || screenWs) return;
+  const ws = await connectScreen();
+  if (!stream) { if (ws) ws.close(); return; }
+  if (!ws) { setTimeout(reconnectScreen, RECONNECT_MS); return; }
+  screenWs = ws;
+  startNativeScreen();
+}
+
 function connectGameAudio() {
   if (!/^https?:$/.test(location.protocol)) return Promise.resolve(null);
   return new Promise(resolve => {
@@ -513,6 +548,7 @@ function startNativeScreen() {
   screenWs.onmessage = e => {
     if (typeof e.data === 'string') {
       const m = JSON.parse(e.data);
+      if (m.type === 'cursor') { onCursor(m.x, m.y); return; }
       if (m.type !== 'screen') return;
       frameCropped = !!m.crop;
       if (m.black) log(tr('log.black'));
@@ -528,7 +564,7 @@ function startNativeScreen() {
       .catch(() => {})
       .finally(() => { busy = false; });
   };
-  screenWs.onclose = () => { if (stream) { screenWs = null; log(tr('log.screenClosed')); } };
+  screenWs.onclose = () => { if (stream) { screenWs = null; log(tr('log.screenClosed')); setTimeout(reconnectScreen, RECONNECT_MS); } };
 }
 
 function closeScreen() {
@@ -641,25 +677,37 @@ function classify(win, onset) {
   // a cargo is searched only while the merchant is on screen: otherwise (stash, raid) the map is stale,
   // and the size of an unrelated cargo would spoil the odds
   const merchantOpen = cargo.size && performance.now() - gridSeenAt < MERCHANT_FRESH_MS;
-  // the cargo: the one just hovered (like the paid site does); otherwise by the red trace
   const hovered = hover && performance.now() - hover.t < HOVER_KEEP_MS && cargo.has(hover.key) ? hover.key : null;
-  const key = merchantOpen ? hovered || pickCargo(onset) : null;
+  // the cargo: under the cursor when the sound started (exact, with the local server); else the one just hovered
+  // (as the paid site does); else by the red trace
+  const atCursor = merchantOpen ? cursorKeyAt(onset) : null;
+  const key = merchantOpen ? atCursor || hovered || pickCargo(onset) : null;
   hover = null;
   const rec = key && cargo.get(key);
   const size = rec ? `${rec.w}x${rec.h}` : '';
   const label = cargoInfo(rec);
+  // The cargo size rules items out: if the best sound has no item of this size, a nearly as good sound
+  // that has one is taken instead (several groups sound alike)
+  let sound = best, sScore = score, second = ranked[1];
+  if (size) {
+    const fits = s => s && s.items.some(it => normSize(it.size) === normSize(size));
+    if (!fits(best)) {
+      const alt = ranked.slice(1).find(r => r.score >= score - SIZE_ALT_MARGIN && r.score >= thr && fits(r.s));
+      if (alt) { second = ranked[0]; sound = alt.s; sScore = alt.score; lastResult = { soundId: sound.id, score: sScore, t: lastResult.t }; }
+    }
+  }
   lastResult.key = key;
-  showResult(best, score, ranked[1], size, label);
-  const red = qualityOdds(best, size, label).red || 0;
+  showResult(sound, sScore, second, size, label);
+  const red = qualityOdds(sound, size, label).red || 0;
   if (ui.beep.checked) beep(red);
 
   if (key) {
     results.set(key, lastResult);
     lastKey = key;
-    log(tr('log.hitCargo', { name: soundName(best), p: pct(score), size: normSize(size), cell: cargoName(key), red: pct(red) }));
+    log(tr('log.hitCargo', { name: soundName(sound), p: pct(sScore), size: normSize(size), cell: cargoName(key), red: pct(red) }));
   } else {
     lastKey = null;
-    log(tr('log.hit', { name: soundName(best), p: pct(score), red: pct(red) }) + (merchantOpen ? tr('log.noCargo') : ''));
+    log(tr('log.hit', { name: soundName(sound), p: pct(sScore), red: pct(red) }) + (merchantOpen ? tr('log.noCargo') : ''));
   }
   drawMap();
 }
@@ -1447,7 +1495,10 @@ function detectHover(frame) {
     const cx = r.x + (tip.labelBox ? tip.labelBox.x0 - P * 0.25 : tip.priceBox.x0 - P * 0.55);
     const cy = r.y + (tip.labelBox ? tip.labelBox.y0 - P * 0.35 : tip.priceBox.y0 - P * 0.75);
     const C = Math.floor((cx - px0) / P), R = Math.floor((cy + off) / P);
-    const hit = placedCargo().find(([, r]) => C >= r.C && C < r.C + r.w && R >= r.R && R < r.R + r.h);
+    // with the cursor from the local server the cargo under the mouse is exact; else guessed from the tooltip
+    const atCursor = cursorKeyAt(performance.now());
+    const hit = atCursor ? [atCursor, cargo.get(atCursor)]
+      : placedCargo().find(([, r]) => C >= r.C && C < r.C + r.w && R >= r.R && R < r.R + r.h);
     detectHover.last = { sig, text: data.text, C, R, hit: !!hit }; // for diagnostics
     if (!hit) return;
     const [key, rec] = hit;
@@ -1459,6 +1510,42 @@ function detectHover(frame) {
     showHover(rec);
     if (document.visibilityState === 'visible') drawMap();
   }).catch(() => { hoverSig = ''; }).finally(() => { hoverBusy = false; });
+}
+
+// ---------- Cursor ----------
+// The local server sends the mouse position (frame px of the captured right part of the game window).
+// The cargo under it is the hovered one at once, and at a sound the one under it was picked up.
+function onCursor(x, y) {
+  const t = performance.now();
+  cursorHist.push({ x, y, t });
+  while (cursorHist.length > 1 && t - cursorHist[0].t > CURSOR_KEEP_MS) cursorHist.shift();
+  const key = cargoAtPoint(x, y);
+  if (key === cursorKey) return;
+  cursorKey = key;
+  if (key) {
+    const rec = cargo.get(key);
+    hover = { key, t };
+    rec.hoverAt = Date.now();
+    // the card of the hovered cargo, unless a sound result was shown just now
+    if (!lastResult || Date.now() - lastResult.t > CURSOR_CARD_QUIET_MS) showHover(rec);
+  }
+  if (document.visibilityState === 'visible') drawMap();
+}
+
+// The map cargo at a point of the frame (only while the merchant grid is on screen), or null
+function cargoAtPoint(x, y) {
+  if (!P || !viewport || performance.now() - gridSeenAt > MERCHANT_FRESH_MS) return null;
+  if (x < viewport.x || x >= viewport.x + viewport.w || y < viewport.y || y >= viewport.y + viewport.h) return null;
+  const C = Math.floor((x - phaseX) / P), R = Math.floor((y + offset) / P);
+  const hit = placedCargo().find(([, r]) => C >= r.C && C < r.C + r.w && R >= r.R && R < r.R + r.h);
+  return hit ? hit[0] : null;
+}
+
+// The cargo that was under the cursor at a moment (performance.now), from the cursor history, or null
+function cursorKeyAt(t) {
+  let best = null;
+  for (const c of cursorHist) if (c.t <= t + 30) best = c; else break;
+  return best && t - best.t < CURSOR_KEEP_MS ? cargoAtPoint(best.x, best.y) : null;
 }
 
 // Card of the hovered cargo: whether it can be red by label and price, before any sound
@@ -1861,6 +1948,30 @@ function drawMapInner() {
     c.fillText('#' + (i + 1), x + 14, y - 13);
   });
   renderBestBuys(best);
+
+  // the part of the list on screen now: a dashed frame over those rows
+  if (viewport && P && performance.now() - gridSeenAt < MERCHANT_FRESH_MS) {
+    const r0 = (viewport.y + offset) / P - minR, r1 = (viewport.y + viewport.h + offset) / P - minR;
+    const c0 = (viewport.x - phaseX) / P - minC, c1 = (viewport.x + viewport.w - phaseX) / P - minC;
+    c.save();
+    c.setLineDash([6, 4]); c.strokeStyle = 'rgba(230,232,235,.55)'; c.lineWidth = 1.5;
+    c.strokeRect(c0 * MAP_U + 1, r0 * MAP_U + 1, (c1 - c0) * MAP_U - 2, (r1 - r0) * MAP_U - 2);
+    c.restore();
+  }
+  // the cargo under the mouse and the cursor itself (with the local server)
+  const cur = cursorHist[cursorHist.length - 1];
+  if (cursorKey && cargo.has(cursorKey)) {
+    const r = cargo.get(cursorKey);
+    c.strokeStyle = '#22d3ee'; c.lineWidth = 3;
+    c.strokeRect((r.C - minC) * MAP_U + 1.5, (r.R - minR) * MAP_U + 1.5, r.w * MAP_U - 3, r.h * MAP_U - 3);
+  }
+  if (cur && P && viewport && performance.now() - cur.t < CURSOR_KEEP_MS) {
+    const mx = ((cur.x - phaseX) / P - minC) * MAP_U, my = ((cur.y + offset) / P - minR) * MAP_U;
+    if (mx >= 0 && my >= 0 && mx <= W && my <= H) {
+      c.fillStyle = '#22d3ee';
+      c.beginPath(); c.arc(mx, my, 4, 0, Math.PI * 2); c.fill();
+    }
+  }
 }
 
 // Item picture fitted into a rectangle keeping the proportions
