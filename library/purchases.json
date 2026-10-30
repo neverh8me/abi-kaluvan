@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-27T05:05:08.511Z",
+ "updated": "2026-10-30T20:22:43.285Z",
  "purchases": [
   {
    "t": 1793053488470,
@@ -9,6 +9,16 @@
    "price": 200000,
    "itemId": 408120017,
    "item": "Leveler",
+   "q": "gold"
+  },
+  {
+   "t": 1793386046839,
+   "soundId": "lib:med_statue",
+   "size": "1x2",
+   "label": "Mystery Cargo",
+   "price": 250000,
+   "itemId": 408080030,
+   "item": "Gold Cup",
    "q": "gold"
   }
  ]
