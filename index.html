@@ -7,7 +7,7 @@
 <title>ABI: Merchant Helper</title>
 <style>
   :root {
-    --bg: #111317; --panel: #1a1d23; --line: #2a2f38; --text: #e6e8eb; --muted: #8b93a1;
+    --bg: #0e141b; --panel: #16202a; --line: #253241; --text: #e3e9f0; --muted: #8796a8;
     --accent: #f0b429; --ok: #3ecf8e; --bad: #ef4444;
   }
   * { box-sizing: border-box; }
@@ -24,16 +24,16 @@
   @media (max-width: 960px) { .top { grid-template-columns: 1fr; } .top .result-col { position: static; } }
   section { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px; margin-bottom: 16px; }
   section h2 { margin: 0 0 10px; font-size: 14px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
-  button { background: #2a2f38; color: var(--text); border: 1px solid #3a414d; border-radius: 6px; padding: 8px 12px; font: inherit; cursor: pointer; }
-  button:hover { background: #343a45; }
+  button { background: #253241; color: var(--text); border: 1px solid #364657; border-radius: 6px; padding: 8px 12px; font: inherit; cursor: pointer; }
+  button:hover { background: #2e3d4e; }
   button.primary { background: var(--accent); color: #111; border-color: var(--accent); font-weight: 600; }
   button.danger { color: var(--bad); }
   button.small { padding: 3px 8px; font-size: 12px; }
   button:disabled { opacity: .45; cursor: default; }
-  select, input[type=text], input[type=number] { background: #111317; color: var(--text); border: 1px solid #3a414d; border-radius: 6px; padding: 6px 8px; font: inherit; min-width: 0; }
+  select, input[type=text], input[type=number] { background: #0e141b; color: var(--text); border: 1px solid #364657; border-radius: 6px; padding: 6px 8px; font: inherit; min-width: 0; }
   label { color: var(--muted); }
   .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 10px; }
-  canvas { width: 100%; display: block; background: #0b0c0f; border-radius: 6px; }
+  canvas { width: 100%; display: block; background: #0a0f15; border-radius: 6px; }
   #screen { cursor: crosshair; }
   #map { cursor: pointer; width: auto; max-width: 100%; margin: 0 auto; }
   .muted { color: var(--muted); }
@@ -44,7 +44,7 @@
   /* Steps */
   .steps { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
   .step { border: 1px solid var(--line); border-radius: 6px; padding: 6px 10px; color: var(--muted); font-size: 13px; }
-  .step b { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; border-radius: 50%; background: #2a2f38; margin-right: 6px; }
+  .step b { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; border-radius: 50%; background: #253241; margin-right: 6px; }
   .step.active { border-color: var(--accent); color: var(--text); }
   .step.active b { background: var(--accent); color: #111; }
   .step.done b { background: var(--ok); color: #111; }
@@ -53,12 +53,12 @@
   .stage .grow { flex: 1; }
 
   /* Result */
-  #result { border-radius: 8px; padding: 16px; background: #0b0c0f; border: 1px solid var(--line); min-height: 150px; transition: border-color .15s, background .15s; }
+  #result { border-radius: 8px; padding: 16px; background: #0a0f15; border: 1px solid var(--line); min-height: 150px; transition: border-color .15s, background .15s; }
   #result .big { font-size: 40px; font-weight: 800; line-height: 1.1; }
   .chance { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; border: 1px solid; border-radius: 8px; margin: 12px 0; }
   .chance b { font-size: 18px; }
   .tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 8px; }
-  .tile { background: #1a1d23; border: 1px solid var(--line); border-radius: 8px; padding: 8px 6px 6px; text-align: center; }
+  .tile { background: #16202a; border: 1px solid var(--line); border-radius: 8px; padding: 8px 6px 6px; text-align: center; }
   .tile img { width: 72px; height: 72px; object-fit: contain; display: block; margin: 0 auto; }
   .tile .noimg { height: 72px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--muted); }
   .tile i { display: block; height: 3px; border-radius: 2px; margin: 6px 10px; }
@@ -85,18 +85,18 @@
   .update:hover { background: rgba(59, 130, 246, .15); }
   .update:not([hidden]) + .lang { margin-left: 0; }
   .credits { text-align: center; color: var(--muted); font-size: 12px; padding: 8px 20px 20px; }
-  .map-pop { position: fixed; z-index: 10; width: 340px; background: #15181d; border: 1px solid #3a414d; border-radius: 10px; padding: 12px; box-shadow: 0 8px 30px #000a; pointer-events: none; }
+  .map-pop { position: fixed; z-index: 10; width: 340px; background: #121a23; border: 1px solid #364657; border-radius: 10px; padding: 12px; box-shadow: 0 8px 30px #000a; pointer-events: none; }
   .map-pop .head { color: var(--muted); font-size: 13px; }
   .map-pop .tiles { grid-template-columns: repeat(3, 1fr); }
   .map-pop .tile img { width: 56px; height: 56px; }
   #result .sub { color: var(--muted); margin: 4px 0 12px; }
   .bars div { display: flex; align-items: center; gap: 8px; margin: 4px 0; }
-  .bars .bar { flex: 1; height: 10px; background: #1a1d23; border-radius: 5px; overflow: hidden; }
+  .bars .bar { flex: 1; height: 10px; background: #16202a; border-radius: 5px; overflow: hidden; }
   .bars .bar i { display: block; height: 100%; }
   .bars .name { width: 100px; }
   .bars .val { width: 48px; text-align: right; font-variant-numeric: tabular-nums; }
   .items { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; }
-  .chip { display: inline-flex; align-items: center; gap: 6px; padding: 3px 8px; border-radius: 12px; background: #1a1d23; border: 1px solid var(--line); font-size: 13px; }
+  .chip { display: inline-flex; align-items: center; gap: 6px; padding: 3px 8px; border-radius: 12px; background: #16202a; border: 1px solid var(--line); font-size: 13px; }
   .chip img { width: 28px; height: 28px; object-fit: contain; }
   .dot { width: 10px; height: 10px; border-radius: 50%; flex: none; }
 
@@ -109,7 +109,7 @@
   .sound .meta { color: var(--muted); font-size: 12px; margin: 4px 0 8px; }
   .item-row { display: flex; align-items: center; gap: 6px; margin: 4px 0; font-size: 13px; }
   .item-row .grow { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .item-row img { width: 24px; height: 24px; object-fit: contain; background: #0b0c0f; border-radius: 4px; }
+  .item-row img { width: 24px; height: 24px; object-fit: contain; background: #0a0f15; border-radius: 4px; }
   .add-item { display: grid; grid-template-columns: 1fr 96px 74px 50px auto; gap: 6px; margin-top: 8px; }
   details summary { cursor: pointer; font-size: 12px; }
   .sizes { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
@@ -1612,7 +1612,7 @@ function showHover(rec) {
   const odds = cargoRedOdds(rec);
   const label = rec.label;
   const red = odds ? odds.red : null;
-  const color = red === null ? '#8b93a1' : redColor(red);
+  const color = red === null ? '#8796a8' : redColor(red);
   ui.result.style.borderColor = color;
   ui.result.style.background = color + '1a';
   const title = red === null ? tr('hover.title') : red >= 0.995 ? tr('card.red') : red > 0 ? tr('hover.maybe', { p: pct(red) }) : tr('hover.none');
@@ -1888,10 +1888,10 @@ function drawMapInner() {
   const H = placed.length ? Math.min(MAP_MAX_ROWS, Math.max(1, maxR - minR)) * MAP_U : 120;
   if (ui.map.width !== W || ui.map.height !== H) { ui.map.width = W; ui.map.height = H; }
   const c = mapCtx;
-  c.fillStyle = '#0b0c0f';
+  c.fillStyle = '#0a0f15';
   c.fillRect(0, 0, W, H);
   if (!placed.length) {
-    c.fillStyle = '#8b93a1'; c.font = '13px system-ui, sans-serif'; c.textAlign = 'center'; c.textBaseline = 'middle';
+    c.fillStyle = '#8796a8'; c.font = '13px system-ui, sans-serif'; c.textAlign = 'center'; c.textBaseline = 'middle';
     c.fillText(tr('map.empty'), W / 2, H / 2);
     renderBestBuys([]);
     return;
@@ -1902,7 +1902,7 @@ function drawMapInner() {
   for (const rec of placed) {
     const key = keyOf.get(rec);
     const x = (rec.C - minC) * MAP_U, y = (rec.R - minR) * MAP_U, w = rec.w * MAP_U, h = rec.h * MAP_U;
-    c.fillStyle = '#15181d';
+    c.fillStyle = '#121a23';
     c.fillRect(x + 2, y + 2, w - 4, h - 4);
     if (rec.thumb) { c.globalAlpha = 0.35; c.drawImage(rec.thumb, x + 2, y + 2, w - 4, h - 4); c.globalAlpha = 1; }
 
@@ -1911,7 +1911,7 @@ function drawMapInner() {
       c.fillStyle = 'rgba(11,12,15,.7)';
       c.fillRect(x + 2, y + 2, w - 4, h - 4);
       if (rec.bought.img) { c.globalAlpha = 0.6; drawItemIcon(c, rec.bought, x + 8, y + 8, w - 16, h - 16); c.globalAlpha = 1; }
-      c.strokeStyle = '#3a414d'; c.lineWidth = 1;
+      c.strokeStyle = '#364657'; c.lineWidth = 1;
       c.strokeRect(x + 2.5, y + 2.5, w - 5, h - 5);
       c.fillStyle = '#22c55e'; c.font = 'bold 14px system-ui, sans-serif'; c.textAlign = 'left'; c.textBaseline = 'top';
       c.fillText('✓', x + 6, y + 4);
@@ -1927,7 +1927,7 @@ function drawMapInner() {
         // a category cargo whose pools hold no reds (Tools, Paper…): dimmed
         c.fillStyle = 'rgba(11,12,15,.6)';
         c.fillRect(x + 2, y + 2, w - 4, h - 4);
-        c.strokeStyle = '#2a2f38'; c.lineWidth = 1;
+        c.strokeStyle = '#253241'; c.lineWidth = 1;
         c.strokeRect(x + 2.5, y + 2.5, w - 5, h - 5);
         continue;
       }
@@ -1952,10 +1952,10 @@ function drawMapInner() {
         c.fillStyle = revealed.color;
         c.fillText(qName(revealed), x + w / 2, y + h - 4);
       } else {
-        c.strokeStyle = '#3a414d'; c.lineWidth = 1;
+        c.strokeStyle = '#364657'; c.lineWidth = 1;
         c.strokeRect(x + 2.5, y + 2.5, w - 5, h - 5);
       }
-      c.fillStyle = '#8b93a1'; c.font = '12px system-ui, sans-serif'; c.textAlign = 'left'; c.textBaseline = 'top';
+      c.fillStyle = '#8796a8'; c.font = '12px system-ui, sans-serif'; c.textAlign = 'left'; c.textBaseline = 'top';
       c.fillText('?', x + 6, y + 5);
       if (rec.price) {
         // tooltip price and the red chance by it (before any sound)
@@ -1964,7 +1964,7 @@ function drawMapInner() {
         c.lineWidth = 3; c.strokeStyle = '#000';
         const text = money(rec.price) + (odds && odds.red > 0 ? ` · ${pct(odds.red)}` : '');
         c.strokeText(text, x + w - 5, y + 5);
-        c.fillStyle = odds && odds.red > 0 ? redColor(odds.red) : '#e6e8eb';
+        c.fillStyle = odds && odds.red > 0 ? redColor(odds.red) : '#e3e9f0';
         c.fillText(text, x + w - 5, y + 5);
       }
       continue;
@@ -1976,7 +1976,7 @@ function drawMapInner() {
     // If there is one item (or nearly certain), one big picture.
     const cands = itemOdds(sound, size, info).filter(x => x.p >= 0.02);
     const top = cands.slice().sort((a, b) => b.p - a.p)[0];
-    c.fillStyle = red > 0 ? 'rgba(127,29,29,.55)' : '#15181d';
+    c.fillStyle = red > 0 ? 'rgba(127,29,29,.55)' : '#121a23';
     c.fillRect(x + 2, y + 2, w - 4, h - 4);
     if (top && (cands.length === 1 || top.p >= 0.995)) {
       drawItemIcon(c, top.it, x + 6, y + 4, w - 12, h - 16);
@@ -1992,11 +1992,11 @@ function drawMapInner() {
         c.fillStyle = qById[it.q].color;
         c.fillRect(cx + cw * 0.2, cy + s + 2, cw * 0.6, 2);
         c.font = 'bold 9px system-ui, sans-serif'; c.textAlign = 'center'; c.textBaseline = 'top';
-        c.fillStyle = '#e6e8eb';
+        c.fillStyle = '#e3e9f0';
         c.fillText(pctFine(p), cx + cw / 2, cy + s + 4);
       });
     }
-    const color = red > 0 ? '#ef4444' : '#3a414d';
+    const color = red > 0 ? '#ef4444' : '#364657';
     c.strokeStyle = key === lastKey ? '#f0b429' : color; c.lineWidth = key === lastKey || red > 0 ? 3 : 1;
     c.strokeRect(x + 3, y + 3, w - 6, h - 6);
   }
@@ -2261,7 +2261,7 @@ function setRecording(id) {
 function drawLevel(db, trig) {
   const { width: w, height: h } = ui.spec;
   specCtx.drawImage(ui.spec, -1, 0);
-  specCtx.fillStyle = '#0b0c0f';
+  specCtx.fillStyle = '#0a0f15';
   specCtx.fillRect(w - 1, 0, 1, h);
   const v = Math.min(1, Math.max(0, (db + 90) / 80));
   specCtx.fillStyle = `hsl(${200 - v * 160}, 80%, 55%)`;
@@ -2335,7 +2335,7 @@ function itemName(it) { return I18n.lang === 'en' && it.nameEn ? it.nameEn : it.
 function soundName(s) { return I18n.lang === 'en' && s.nameEn ? s.nameEn : s.name; }
 function qName(q) { return tr('q.' + q.id); }
 function money(x) { return x >= 1e6 ? (x / 1e6).toFixed(1) + 'M' : Math.round(x / 1000) + 'k'; }
-function redColor(red) { return red >= 0.5 ? '#ef4444' : red > 0 ? '#f0b429' : '#8b93a1'; }
+function redColor(red) { return red >= 0.5 ? '#ef4444' : red > 0 ? '#f0b429' : '#8796a8'; }
 function esc(s) { return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
 function setStatus(s) { ui.status.textContent = s; }
 function log(s) {
