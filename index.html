@@ -311,7 +311,7 @@ const BALANCE_BELOW = 2.6;   // and no lower than this many cells below the list
 const FEED_WAIT_MS = 30000;  // a feed line waits this long for the balance to confirm it
 const FEED_SAME_MS = 60000;  // the same line (price and similar name) within this window is the same purchase
 const BASE_URL = 'library/purchases.json'; // shared base in the app folder
-const BASE_REMOTE = 'https://raw.githubusercontent.com/neverh8me/abi-kaluvan/main/library/purchases.json'; // and the freshest one on GitHub
+const BASE_REMOTE = 'https://raw.githubusercontent.com/neverh8me/abi-merchant-helper/main/library/purchases.json'; // and the freshest one on GitHub
 
 // ---------- DOM ----------
 const $ = id => document.getElementById(id);
@@ -2452,7 +2452,7 @@ langSelect.onchange = () => {
 };
 
 // A new release on GitHub: the files are replaced by update.ps1 when start.bat runs, here only a hint
-const REPO = 'neverh8me/abi-kaluvan';
+const REPO = 'neverh8me/abi-merchant-helper';
 let latestRelease = null;
 async function checkUpdate() {
   try {

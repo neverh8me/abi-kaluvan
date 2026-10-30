@@ -1,7 +1,7 @@
 ﻿# ABI: Merchant Helper updater: compares version.json with the latest GitHub release and, if confirmed, installs the new one on top.
 # Returns $true if the files were updated (then server.ps1 restarts itself with the new files).
 param([string]$Root = $PSScriptRoot)
-$repo = 'neverh8me/abi-kaluvan'
+$repo = 'neverh8me/abi-merchant-helper'
 
 try {
   [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12

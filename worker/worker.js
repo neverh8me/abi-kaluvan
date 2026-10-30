@@ -4,7 +4,7 @@
 //
 // POST /submit  { "purchases": [ { t, soundId, size, label, price, itemId }, ... ] }  → { added }
 
-const REPO = 'neverh8me/abi-kaluvan';
+const REPO = 'neverh8me/abi-merchant-helper';
 const BRANCH = 'main';
 const BASE_PATH = 'library/purchases.json';
 const RAW = `https://raw.githubusercontent.com/${REPO}/${BRANCH}/`;

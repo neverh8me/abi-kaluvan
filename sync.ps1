@@ -4,7 +4,7 @@
 #    It validates them and appends them to the base on GitHub; only it has the GitHub token, nothing secret here.
 param([string]$Root = $PSScriptRoot)
 
-$BASE_REMOTE = 'https://raw.githubusercontent.com/neverh8me/abi-kaluvan/main/library/purchases.json'
+$BASE_REMOTE = 'https://raw.githubusercontent.com/neverh8me/abi-merchant-helper/main/library/purchases.json'
 $WORKER      = 'https://abi-kaluvan.kaluvan-tools.workers.dev/submit'   # shared-base server (worker/worker.js)
 $BATCH       = 25   # purchases per request (the Worker accepts no more)
 $UA          = 'abi-kaluvan-sync'
