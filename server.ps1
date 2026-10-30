@@ -27,11 +27,14 @@ if (-not $NoUpdate -and (& (Join-Path $PSScriptRoot 'update.ps1') -Root $PSScrip
 try {
   $sh = New-Object -ComObject WScript.Shell
   $bat = Join-Path $PSScriptRoot 'start.bat'
+  # Windows caches a shortcut icon by the file path: a new icon gets a new file name, and shortcuts follow it
+  $icon = (Join-Path $PSScriptRoot 'merchant-helper.ico') + ',0'
+  $ours = { param($path) (Test-Path $path) -and $sh.CreateShortcut($path).TargetPath -eq $bat }
   $make = {
     param($path)
     $l = $sh.CreateShortcut($path)
     $l.TargetPath = $bat; $l.WorkingDirectory = $PSScriptRoot
-    $l.IconLocation = (Join-Path $PSScriptRoot 'icon.ico') + ',0'
+    $l.IconLocation = $icon
     $l.Description = 'ABI: Merchant Helper: Field Merchant cargo helper'
     $l.Save()
   }
@@ -39,12 +42,15 @@ try {
   $desktop = [Environment]::GetFolderPath('Desktop')
   Remove-Item (Join-Path $PSScriptRoot 'ABI Kaluvan.lnk') -ErrorAction SilentlyContinue
   $old = Join-Path $desktop 'ABI Kaluvan.lnk'
-  if ((Test-Path $old) -and $sh.CreateShortcut($old).TargetPath -eq $bat) {
+  if (& $ours $old) {
     & $make (Join-Path $desktop 'ABI Merchant Helper.lnk')
     Remove-Item $old -ErrorAction SilentlyContinue
   }
+  # the desktop shortcut, if it is ours, gets the current icon
+  $deskLink = Join-Path $desktop 'ABI Merchant Helper.lnk'
+  if ((& $ours $deskLink) -and $sh.CreateShortcut($deskLink).IconLocation -ne $icon) { & $make $deskLink }
   $local = Join-Path $PSScriptRoot 'ABI Merchant Helper.lnk'
-  if (-not (Test-Path $local) -or $sh.CreateShortcut($local).TargetPath -ne $bat) { & $make $local }
+  if (-not (Test-Path $local) -or $sh.CreateShortcut($local).TargetPath -ne $bat -or $sh.CreateShortcut($local).IconLocation -ne $icon) { & $make $local }
   $marker = Join-Path $PSScriptRoot '.shortcut-done'
   if (-not (Test-Path $marker)) {
     & $make (Join-Path ([Environment]::GetFolderPath('Desktop')) 'ABI Merchant Helper.lnk')
