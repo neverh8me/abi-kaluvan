@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-30T20:22:43.285Z",
+ "updated": "2026-10-30T21:05:12.090Z",
  "purchases": [
   {
    "t": 1793053488470,
@@ -19,6 +19,16 @@
    "price": 250000,
    "itemId": 408080030,
    "item": "Gold Cup",
+   "q": "gold"
+  },
+  {
+   "t": 1793391944244,
+   "soundId": "lib:electronicdevice",
+   "size": "2x3",
+   "label": "Uncommon Mystery Cargo",
+   "price": 270000,
+   "itemId": 408030028,
+   "item": "Vector Processor",
    "q": "gold"
   }
  ]
