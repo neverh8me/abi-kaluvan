@@ -19,7 +19,7 @@ const RARITY = { 6: 'red', 5: 'gold', 4: 'purple', 3: 'blue', 2: 'green', 1: 'wh
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
-    if (request.method !== 'POST' || url.pathname !== '/submit') return json({ ok: true, service: 'abi-kaluvan' });
+    if (request.method !== 'POST' || url.pathname !== '/submit') return json({ ok: true, service: 'abi-merchant-helper' });
     if (!env.GITHUB_TOKEN) return json({ error: 'not configured' }, 500);
 
     const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
@@ -54,7 +54,7 @@ export default {
         body: JSON.stringify({
           message: `Add ${fresh.length} purchase${fresh.length > 1 ? 's' : ''} to the shared base`,
           content: encode(body), sha: file.sha, branch: BRANCH,
-          committer: { name: 'abi-kaluvan-bot', email: 'abi-kaluvan-bot@users.noreply.github.com' },
+          committer: { name: 'abi-merchant-helper-bot', email: 'abi-merchant-helper-bot@users.noreply.github.com' },
         }),
       });
       if (put.ok) return json({ added: fresh.length, accepted });
@@ -68,7 +68,7 @@ export default {
 async function allow(ip, ctx) {
   const cache = caches.default;
   const hour = Math.floor(Date.now() / 3600e3);
-  const k = new Request(`https://rate.abi-kaluvan/${encodeURIComponent(ip)}/${hour}`);
+  const k = new Request(`https://rate.abi-merchant-helper/${encodeURIComponent(ip)}/${hour}`);
   const hit = await cache.match(k);
   const n = hit ? +(await hit.text()) : 0;
   if (n >= PER_HOUR) return false;
@@ -122,7 +122,7 @@ function gh(env, path, init = {}) {
     ...init,
     headers: {
       Authorization: `Bearer ${env.GITHUB_TOKEN}`, Accept: 'application/vnd.github+json',
-      'User-Agent': 'abi-kaluvan-worker', 'Content-Type': 'application/json',
+      'User-Agent': 'abi-merchant-helper-worker', 'Content-Type': 'application/json',
     },
   });
 }

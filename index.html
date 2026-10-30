@@ -71,7 +71,9 @@
   .buy-opts { margin: 10px 0 0; font-size: 13px; }
   #bestBuys .best { display: flex; gap: 8px; align-items: baseline; padding: 4px 0; border-bottom: 1px solid #ffffff0a; font-size: 13px; }
   #bestBuys .rank { flex: none; width: 26px; text-align: center; border-radius: 10px; background: var(--accent); color: #111; font-weight: 700; }
-  #bestBuys h3 { margin: 10px 0 4px; font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+  #bestBuys h3, #session h3 { margin: 10px 0 4px; font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+  #session { font-size: 13px; }
+  #session h3 button { margin-left: 8px; padding: 0 8px; font-size: 11px; text-transform: none; letter-spacing: 0; }
   /* overlay window (one monitor): the result card and the map float above the game */
   .overlay { padding: 8px; }
   .overlay #result { padding: 10px; min-height: 0; }
@@ -155,8 +157,10 @@
     <div class="row buy-opts">
       <label><span data-i18n="opt.buys">Purchases per raid</span> <select id="buysPerRaid"><option>2</option><option>3</option><option>4</option></select></label>
       <label><span data-i18n="opt.value">Value by</span> <select id="valueBasis"><option value="market" data-i18n="value.market">market price</option><option value="trader" data-i18n="value.trader">trader hand-in</option></select></label>
+      <label><input type="checkbox" id="alertOn"> <span data-i18n="opt.alert">Alert on a good cargo</span></label>
     </div>
     <div id="bestBuys"></div>
+    <div id="session"></div>
   </section>
 </div>
 <div id="mapPop" class="map-pop" hidden></div>
@@ -287,21 +291,24 @@ const CURSOR_CARD_QUIET_MS = 4000; // a sound result stays this long before hove
 const HOVER_MAX_CARGO = 16;  // a tooltip covers at most this many cargo; more is not a tooltip
 const TIP_W = 3.2, TIP_H = 1.8; // price tooltip size in cells (with a margin)
 const BASE_UPDATE_MAX = 6;   // the appearance reference is updated only on small changes (not on a tooltip)
-const STORE_KEY = 'abi-ear-sounds-v4';       // v4: own recordings are raw sound, not a fingerprint
-const OLD_STORE_KEYS = ['abi-ear-sounds-v3', 'abi-ear-sounds-v2'];
-const OLD_REGION_KEY = 'abi-ear-region-v1'; // manual frame from old versions, no longer needed
+const STORE_KEY = 'abi-mh-sounds-v4';       // v4: own recordings are raw sound, not a fingerprint
+const OLD_STORE_KEYS = ['abi-mh-sounds-v3', 'abi-mh-sounds-v2'];
+const OLD_REGION_KEY = 'abi-mh-region-v1'; // manual frame from old versions, no longer needed
 const MERCHANT_SIDE = 0.5;   // the merchant grid is searched to the right of this share of the game window width
 const REDETECT_AFTER = 8;    // once per this many frames (until the map is ready) the cell size is re-checked
 const REDETECT_MAX_CARGO = 6; // this many cargo found: the cell size is certainly right
-const PROFILES_KEY = 'abi-ear-profiles-v1';
-const PROFILE_KEY = 'abi-ear-profile-v1';
-const BLUE_KEY = 'abi-ear-blue-v1';
-const MODE_KEY = 'abi-kaluvan-mode-v1'; // display mode: 'second' (second screen) or 'overlay' (one monitor)
-const BUYS_KEY = 'abi-kaluvan-buys-v1';  // purchases allowed per raid (2, or up to 4 with a levelled character)
-const VALUE_KEY = 'abi-kaluvan-value-v1'; // item value basis for payback: 'market' or 'trader'
+const PROFILES_KEY = 'abi-mh-profiles-v1';
+const PROFILE_KEY = 'abi-mh-profile-v1';
+const BLUE_KEY = 'abi-mh-blue-v1';
+const MODE_KEY = 'abi-mh-mode-v1'; // display mode: 'second' (second screen) or 'overlay' (one monitor)
+const BUYS_KEY = 'abi-mh-buys-v1';  // purchases allowed per raid (2, or up to 4 with a levelled character)
+const VALUE_KEY = 'abi-mh-value-v1'; // item value basis for payback: 'market' or 'trader'
+const ALERT_KEY = 'abi-mh-alert-v1'; // whether a hovered good cargo plays a chime
+const SESSION_KEY = 'abi-mh-session-v1'; // start of the session summary (sessionStorage: survives a reload of the tab)
+const ALERT_RED = 0.25;                   // a cargo with this red chance is worth an alert even if it does not pay off
 const PAY_GOOD = 1.15, PAY_GAMBLE = 0.9; // expected value vs price: worth it from 115%, a gamble from 90%
-const PURCHASES_KEY = 'abi-kaluvan-purchases-v2'; // v1 had records from the nickname bug, not used
-const OLD_PURCHASE_KEYS = ['abi-kaluvan-purchases-v1', 'abi-kaluvan-nick-v1'];
+const PURCHASES_KEY = 'abi-mh-purchases-v2'; // v1 had records from the nickname bug, not used
+const OLD_PURCHASE_KEYS = ['abi-mh-purchases-v1', 'abi-mh-nick-v1'];
 const PRIOR_N = 20;          // the merchant data weighs as much as this many own purchases (more: learns slower)
 const FEED_MS = 1000;        // how often to look at the "… obtained [item]" line above the grid
 const FEED_TOP = 1.15, FEED_BOTTOM = 0.6; // where it is: a band above the top of the list, in cells
@@ -342,6 +349,10 @@ let includeBlue = loadJson(BLUE_KEY, false); // whether to count blue items
 let mode = loadJson(MODE_KEY, 'second');     // display mode, see MODE_KEY
 let buysPerRaid = loadJson(BUYS_KEY, 2);     // see BUYS_KEY
 let valueBasis = loadJson(VALUE_KEY, 'market'); // see VALUE_KEY
+let alertOn = loadJson(ALERT_KEY, true);      // see ALERT_KEY
+let alerted = new Set();                      // cargo already alerted about (key + price + label), cleared with a new list
+let sessionStart = (() => { try { return +sessionStorage.getItem(SESSION_KEY) || 0; } catch { return 0; } })();
+if (!sessionStart) { sessionStart = Date.now(); try { sessionStorage.setItem(SESSION_KEY, String(sessionStart)); } catch {} }
 let overlayWin = null, overlayParts = [];    // the overlay window and the elements moved into it
 let purchases = loadJson(PURCHASES_KEY, []); // own purchases: [{ t, soundId, size, label, price, itemId, item, q }]
 let basePurchases = [];      // shared base shipped with the app (library/purchases.json) and refreshed from GitHub
@@ -907,7 +918,55 @@ function bestBuys() {
   return out.sort((a, b) => b.profit - a.profit).slice(0, buysPerRaid);
 }
 
+// Summary of this session's purchases: count, Koen spent, reds and what the items are worth. It also shows
+// right away whether a purchase was recorded at all.
+function renderSession() {
+  const mine = purchases.filter(b => b.t >= sessionStart);
+  const head = `<h3>${esc(tr('session.title'))}<button id="btnSessionReset">${esc(tr('session.reset'))}</button></h3>`;
+  if (!mine.length) { $('session').innerHTML = head + `<div class="muted">${esc(tr('session.none'))}</div>`; return; }
+  let spentK = 0, value = 0, reds = 0;
+  for (const b of mine) {
+    const it = b.itemId != null && itemById.get(b.itemId);
+    spentK += b.price || 0;
+    if (it) value += itemValue(it);
+    if ((it ? it.q : b.q) === 'red') reds++;
+  }
+  const diff = spentK ? Math.round((value / spentK - 1) * 100) : 0;
+  const c = diff >= 0 ? VERDICT_COLOR.good : VERDICT_COLOR.bad;
+  const last = mine[mine.length - 1];
+  $('session').innerHTML = head + `<div>${esc(tr('session.line', { n: mine.length, spent: money(spentK), red: reds, value: money(value) }))}
+    <b style="color:${c}">(${diff > 0 ? '+' : ''}${diff}%)</b></div>
+    <div class="muted">${esc(tr('session.last', { item: last.item || '?' }))}</div>`;
+}
+$('session').addEventListener('click', e => {
+  if (e.target.id !== 'btnSessionReset') return;
+  sessionStart = Date.now();
+  try { sessionStorage.setItem(SESSION_KEY, String(sessionStart)); } catch {}
+  renderSession();
+});
+
+// A chime when a hovered cargo turns out good: it pays off or has a high red chance. Once per cargo; cargo
+// already dragged are skipped (their sound result beeps by itself).
+function checkAlerts(best) {
+  if (!alertOn || phase !== 'frozen') return;
+  const good = new Set(best.filter(b => b.pb.verdict === 'good').map(b => b.key));
+  for (const [key, rec] of placedCargo()) {
+    if (!rec.price || rec.bought || results.has(key)) continue;
+    const sig = `${key}|${rec.price}|${rec.label ? poolLabel(rec.label) : ''}`;
+    if (alerted.has(sig)) continue;
+    const list = cargoOdds(key, rec);
+    const red = list.reduce((a, x) => a + (x.it.q === 'red' ? x.p : 0), 0);
+    if (!good.has(key) && red < ALERT_RED) continue;
+    alerted.add(sig);
+    const pb = payback(list, rec.price);
+    const diff = pb ? Math.round((pb.ev / pb.price - 1) * 100) : 0;
+    log(tr('log.alert', { cargo: cargoHead(rec), red: pct(red), diff: (diff > 0 ? '+' : '') + diff + '%' }));
+    if (performance.now() >= muteUntil) chime([784, 1047, 1568]);
+  }
+}
+
 function renderBestBuys(list) {
+  renderSession();
   const el = $('bestBuys');
   if (!list.length) { el.innerHTML = ''; return; }
   el.innerHTML = `<h3>${esc(tr('best.title', { n: buysPerRaid }))}</h3>` + list.map((b, i) => `
@@ -935,7 +994,7 @@ function itemTiles(list, max = 12) {
 
 // ---------- Screen: grid search, scrolling, cargo ----------
 function resetScan() {
-  P = 0; checkFrames = 0; offset = 0; viewport = null; prevSig = null; ring = []; listTopR = null;
+  P = 0; checkFrames = 0; offset = 0; viewport = null; prevSig = null; ring = []; listTopR = null; alerted = new Set();
   cargo = new Map(); results = new Map(); lastKey = null; lastSeen = null; gridSeenAt = 0;
   phase = 'scan'; sawTop = false; sawEnd = false; stableCount = 0;
   sbKnown = null; noBarCount = 0; frozenPlaced = null;
@@ -1620,8 +1679,12 @@ function readFeed(G, grid, now) {
     .finally(() => { feedBusy = false; processFeed(); });
 }
 
-// Local diagnostics (diag/ in the app folder, never sent anywhere): what the purchase reading saw and decided
-const DIAG = location.protocol.startsWith('http');
+// Local diagnostics (diag/ in the app folder, never sent anywhere): what the purchase reading saw and decided.
+// Off by default; turned on once by opening the page with ?diag=1 (?diag=0 turns it off).
+const DIAG = location.protocol.startsWith('http') && (() => {
+  const q = new URLSearchParams(location.search).get('diag');
+  try { if (q !== null) localStorage.setItem('abi-mh-diag-v1', q === '1' ? '1' : ''); return localStorage.getItem('abi-mh-diag-v1') === '1'; } catch { return q === '1'; }
+})();
 function diag(msg) {
   if (DIAG) fetch('api/diag', { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: String(msg) }).catch(() => {});
 }
@@ -1774,7 +1837,7 @@ async function syncBase() {
   const mine = purchases.map(shareable).filter(Boolean);
   try {
     await fetch('api/purchases', {
-      method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Abi-Kaluvan': '1' },
+      method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Abi-Merchant-Helper': '1' },
       body: JSON.stringify({ updated: new Date().toISOString(), purchases: mine }, null, 1),
     });
   } catch {} finally { syncBusy = false; }
@@ -1948,6 +2011,7 @@ function drawMapInner() {
     c.fillText('#' + (i + 1), x + 14, y - 13);
   });
   renderBestBuys(best);
+  checkAlerts(best);
 
   // the part of the list on screen now: a dashed frame over those rows
   if (viewport && P && performance.now() - gridSeenAt < MERCHANT_FRESH_MS) {
@@ -2023,8 +2087,11 @@ function canvasPos(canvas, e) {
 
 // ---------- Beep ----------
 function beep(redChance) {
+  chime(redChance >= 0.5 ? [1320, 1320, 1320] : redChance > 0 ? [990, 1320] : [520]);
+}
+
+function chime(pattern) {
   beepCtx = beepCtx || new AudioContext();
-  const pattern = redChance >= 0.5 ? [1320, 1320, 1320] : redChance > 0 ? [990, 1320] : [520];
   let t = beepCtx.currentTime;
   for (const f of pattern) {
     const o = beepCtx.createOscillator(), g = beepCtx.createGain();
@@ -2357,7 +2424,7 @@ document.addEventListener('visibilitychange', () => { if (document.visibilitySta
 $('btnExport').onclick = () => {
   const a = document.createElement('a');
   a.href = URL.createObjectURL(new Blob([JSON.stringify({ version: 2, sounds })], { type: 'application/json' }));
-  a.download = 'abi-ear-sounds.json';
+  a.download = 'abi-mh-sounds.json';
   a.click();
 };
 $('btnImport').onclick = () => $('file').click();
@@ -2440,6 +2507,9 @@ buysSelect.value = String(buysPerRaid);
 valueSelect.value = valueBasis;
 buysSelect.onchange = () => { buysPerRaid = +buysSelect.value || 2; try { localStorage.setItem(BUYS_KEY, JSON.stringify(buysPerRaid)); } catch {} drawMap(); };
 valueSelect.onchange = () => { valueBasis = valueSelect.value; try { localStorage.setItem(VALUE_KEY, JSON.stringify(valueBasis)); } catch {} drawMap(); };
+const alertBox = $('alertOn');
+alertBox.checked = alertOn;
+alertBox.onchange = () => { alertOn = alertBox.checked; try { localStorage.setItem(ALERT_KEY, JSON.stringify(alertOn)); } catch {} };
 updateModeUi();
 
 // UI language: on change, everything with text is redrawn

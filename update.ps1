@@ -6,7 +6,7 @@ $repo = 'neverh8me/abi-merchant-helper'
 try {
   [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
   $local = (Get-Content (Join-Path $Root 'version.json') -Raw -Encoding UTF8 | ConvertFrom-Json).version
-  $rel = Invoke-RestMethod "https://api.github.com/repos/$repo/releases/latest" -TimeoutSec 5 -UserAgent 'abi-kaluvan-updater'
+  $rel = Invoke-RestMethod "https://api.github.com/repos/$repo/releases/latest" -TimeoutSec 5 -UserAgent 'abi-merchant-helper-updater'
   $remote = $rel.tag_name -replace '^v', ''
   if ([version]$remote -le [version]$local) { Write-Host "ABI: Merchant Helper v$local is up to date." -ForegroundColor DarkGray; return $false }
 } catch {
@@ -21,14 +21,14 @@ Write-Host "What's new: $($rel.html_url)"
 $answer = Read-Host 'Update now? [Y/n]'
 if ($answer -match '^(n|no|н|ні|нет)$') { return $false }
 
-$tmp = Join-Path ([IO.Path]::GetTempPath()) ('abi-kaluvan-update-' + [guid]::NewGuid().ToString('N'))
+$tmp = Join-Path ([IO.Path]::GetTempPath()) ('abi-merchant-helper-update-' + [guid]::NewGuid().ToString('N'))
 try {
   New-Item -ItemType Directory -Path $tmp | Out-Null
   $asset = $rel.assets | Where-Object { $_.name -like '*.zip' } | Select-Object -First 1
   $zipUrl = if ($asset) { $asset.browser_download_url } else { $rel.zipball_url }
   $zip = Join-Path $tmp 'update.zip'
   Write-Host 'Downloading...'
-  Invoke-WebRequest $zipUrl -OutFile $zip -UseBasicParsing -UserAgent 'abi-kaluvan-updater'
+  Invoke-WebRequest $zipUrl -OutFile $zip -UseBasicParsing -UserAgent 'abi-merchant-helper-updater'
   Expand-Archive $zip -DestinationPath (Join-Path $tmp 'x') -Force
   # in the archive the files are in a subfolder: look for the one with start.bat
   $src = Get-ChildItem (Join-Path $tmp 'x') -Recurse -Filter 'start.bat' | Select-Object -First 1

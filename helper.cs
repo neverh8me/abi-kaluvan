@@ -400,7 +400,7 @@ namespace AbiEar
         {
             var req = ctx.Request;
             var res = ctx.Response;
-            if (req.Headers["X-Abi-Kaluvan"] != "1" || req.ContentLength64 <= 0 || req.ContentLength64 > PURCHASES_MAX) { res.StatusCode = 400; res.Close(); return; }
+            if (req.Headers["X-Abi-Merchant-Helper"] != "1" || req.ContentLength64 <= 0 || req.ContentLength64 > PURCHASES_MAX) { res.StatusCode = 400; res.Close(); return; }
             string body;
             using (var reader = new StreamReader(req.InputStream, Encoding.UTF8)) body = reader.ReadToEnd();
             string trimmed = body.TrimStart();

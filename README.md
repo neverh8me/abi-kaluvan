@@ -27,6 +27,11 @@ The app listens to the game's sound when you drag a cargo, and it watches the me
   - new purchases are sent to the shared-base server, a Cloudflare Worker (`worker/worker.js`). No nickname is stored.
   - the Worker drops anything invalid: unknown items or sounds, prices that match no merchant pool, impossible dates, oversized batches. It also limits requests per IP and appends the rest to `library/purchases.json` on GitHub. The GitHub token lives only in the Worker's secrets.
 - **Payback and best buys.** For every cargo with a known price the app shows whether it pays off: the expected value of what drops against the price, the chance to get more than you paid, and the likely range. The value can be the market price or the trader hand-in price. The most profitable cargo are marked #1, #2… on the map, and as many are listed under it as you may buy per raid (2 to 4).
+- **Good-cargo alert.** When a hovered cargo pays off or has a 25% or higher red chance, a short chime plays and the log names it. It can be turned off under the map.
+- **Session summary.** Under the map: how many cargo you bought this session, for how much, how many reds and what the items are worth. The last recorded purchase is shown too, so you see at once that it was recorded.
+- **Cursor tracking.** The helper knows where the mouse is, so the cargo under it is outlined on the map and its odds are shown even before the game's tooltip appears.
+- **Fewer false sounds.** A sound counts only if it starts sharply, so wind and music no longer trigger it. If the best sound has no item of the cargo's size, a close second that fits is used.
+- **Auto reconnect.** If the sound or the screen feed drops, the page reconnects to the helper by itself.
 - **Item cards.** The result panel, the map cells and the hover popup all show item icons with per-item odds. Red items are listed first.
 - **Game-only capture.** No browser screen sharing is used. The local helper captures:
   - audio from the game process only (WASAPI process loopback);

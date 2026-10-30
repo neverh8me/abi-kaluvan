@@ -7,7 +7,7 @@ param([string]$Root = $PSScriptRoot)
 $BASE_REMOTE = 'https://raw.githubusercontent.com/neverh8me/abi-merchant-helper/main/library/purchases.json'
 $WORKER      = 'https://abi-kaluvan.kaluvan-tools.workers.dev/submit'   # shared-base server (worker/worker.js)
 $BATCH       = 25   # purchases per request (the Worker accepts no more)
-$UA          = 'abi-kaluvan-sync'
+$UA          = 'abi-merchant-helper-sync'
 
 $baseFile = Join-Path $Root 'library\purchases.json'
 $mineFile = Join-Path $Root 'purchases.mine.json'   # own purchases (written by the site, not in git)
